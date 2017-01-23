@@ -1,0 +1,38 @@
+{
+  "name": "backframejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "DEBUG=knex:query NODE_PATH=. babel-node server.js",
+    "test": "NODE_ENV=test NODE_PATH=. mocha --recursive --require babel-core/register ./app/**/*test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-eslint": "^7.1.1",
+    "body-parser": "^1.16.0",
+    "bookshelf": "^0.10.2",
+    "checkit": "^0.7.0",
+    "dotenv": "^4.0.0",
+    "eslint": "^3.14.0",
+    "exceljs": "^0.2.39",
+    "express": "^4.14.0",
+    "knex": "^0.12.6",
+    "lodash": "^4.17.4",
+    "mocha": "^3.2.0",
+    "pg": "^6.1.2",
+    "pluralize": "^3.1.0",
+    "tempfile": "^1.1.1",
+    "xml": "^1.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-core": "^6.22.1",
+    "babel-polyfill": "^6.22.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "chai": "^3.5.0",
+    "sqlite": "^2.2.4"
+  }
+}
