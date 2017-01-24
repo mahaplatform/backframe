@@ -4,7 +4,7 @@ import users from 'admin/middleware/users'
 
 const router = Router()
 
-router.use('/api/signin', signin)
+router.use('/api/admin/signin', signin)
 
 router.use('/api/admin/users', users)
 

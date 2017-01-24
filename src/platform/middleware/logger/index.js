@@ -1,4 +1,6 @@
 import _ from 'lodash'
+import chalk from 'chalk'
+import moment from 'moment'
 
 export class Logger {
 
@@ -6,22 +8,30 @@ export class Logger {
     this.log = []
   }
 
-  info(text) {
-    this.write('info', text)
+  start() {
+    this.started = moment()
   }
 
-  warning(text) {
-    this.write('warning', text)
+  info(title, text) {
+    this.write('info', title, text)
   }
 
-  error(text) {
-    this.write('error', text)
+  warning(title, text) {
+    this.write('warning', title, text)
   }
 
-  write(type, text) {
+  error(title, text) {
+    this.write('error', title, text)
+  }
+
+  finish() {
+    this.ended = moment()
+  }
+
+  write(type, title, text) {
     this.log = [
       ...this.log,
-      { [type]: text }
+      { type, title, text }
     ]
   }
 
@@ -29,27 +39,27 @@ export class Logger {
     return this.log
   }
 
+  duration() {
+    return this.ended.diff(this.started, 'milliseconds')+'ms'
+  }
+
 }
 
 
 export const loggerBegin = (req, res, next) => {
 
-  console.log('begin')
-
   req.logger = new Logger()
 
-  req.logger.info(`\nREQUEST: ${req.method} ${req.path}`)
+  req.logger.start()
 
-  if(!_.isEmpty(req.user)) {
-    req.logger.info(`USER: ${req.user.get('name')}`)
-  }
+  req.logger.info('REQUEST', `${req.method} ${req.path}`)
 
   if(!_.isEmpty(req.query)) {
-    req.logger.info(`QUERY: ${JSON.stringify(req.query)}`)
+    req.logger.info('QUERY', JSON.stringify(req.query))
   }
 
   if(!_.isEmpty(req.body)) {
-    req.logger.info(`BODY: ${JSON.stringify(req.body)}`)
+    req.logger.info('BODY', JSON.stringify(req.body))
   }
 
   next()
@@ -57,10 +67,14 @@ export const loggerBegin = (req, res, next) => {
 }
 
 export const loggerEnd = (req, res, next) => {
-  console.log('end')
 
+  req.logger.finish()
 
-  console.log(req.logger.read())
+  req.logger.read().map(entry => {
+    console.log(chalk.green(`${entry.title}: `) + entry.text)
+  })
+
+  console.log(`Rendered in ${req.logger.duration()}`)
 
   next()
 

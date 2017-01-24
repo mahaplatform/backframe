@@ -32,6 +32,8 @@ export default key => {
 
       done(null, user, payload)
 
+      return null
+
     }).catch(err => {
       done(null, false, { message: 'unable to load user' })
     })
@@ -51,6 +53,8 @@ export default key => {
       }
 
       done(null, user)
+
+      return null
 
     }).catch(err => {
       done(null, false, { message: 'unable to load user' })

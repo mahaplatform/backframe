@@ -1,21 +1,21 @@
 import Checkit from 'checkit'
 import jwt from 'platform/services/jwt'
 import User from 'platform/models/user'
-import { succeed, fail } from 'platform/utils/responses'
+import { succeed } from 'platform/utils/responses'
+import Error from 'platform/utils/error'
 
 export default (req, res, next) => {
 
-  const rules = {
+  Checkit({
     team_id: 'required',
     email: 'required'
-  }
-
-  Checkit(rules).run(req.query).then(fields => {
+  }).run(req.query).then(fields => {
 
     User.where({ email: req.body.email }).fetch().then(user => {
 
       if(!user) {
-        return fail(res, 404, 'Unable to find this user')
+        const error = new Error({ code: 404, message: 'Unable to find this user'})
+        return next(error)
       }
 
       const one_day = 60 * 60 * 24
@@ -34,6 +34,9 @@ export default (req, res, next) => {
 
     })
 
+  }).catch(err => {
+    const error = new Error({ code: 422, message: 'Unable to complete request', data: err.toJSON() })
+    return next(error)
   })
 
 }

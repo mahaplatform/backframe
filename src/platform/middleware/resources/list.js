@@ -1,6 +1,6 @@
 import Promise from 'bluebird'
 import { filter, extractFilters, extractSort, serializeRecord } from './utils'
-import { fail } from 'platform/utils/responses'
+import Error from 'platform/utils/error'
 import CSVRenderer from './renderers/csv'
 import JSONRenderer from './renderers/json'
 import XLSXRenderer from './renderers/xlsx'
@@ -106,9 +106,11 @@ export default (options) => {
       } else if(req.params.ext === 'json' || req.params.ext === undefined) {
         JSONRenderer(all, total, limit, skip, records, options, req, res, next)
       } else {
-        fail(res, 415, 'We dont currently support this media type')
+        const error = new Error({ code: 415, message: 'We dont currently support this media type'})
+        next(error)
       }
-      next()
+
+      return null
 
     }).catch(next)
 

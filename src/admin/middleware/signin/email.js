@@ -1,20 +1,20 @@
 import Checkit from 'checkit'
 import User from 'platform/models/user'
-import { succeed, fail } from 'platform/utils/responses'
+import { succeed } from 'platform/utils/responses'
+import Error from 'platform/utils/error'
 
 export default (req, res, next) => {
 
-  const rules = {
+  Checkit({
     team_id: 'required',
     email: 'required'
-  }
-
-  Checkit(rules).run(req.query).then(fields => {
+  }).run(req.query).then(fields => {
 
     User.where({ team_id: req.query.team_id, email: req.query.email }).fetch({ withRelated: ['photo'] }).then(user => {
 
       if(!user) {
-        return fail(res, 404, 'Unable to find this user')
+        const error = new Error({ code: 404, message: 'Unable to find this user'})
+        return next(error)
       }
 
       const data = {
@@ -28,8 +28,9 @@ export default (req, res, next) => {
 
     }).catch(next)
 
-  }).caught(Checkit.Error, errors => {
-    fail(res, 404, 'There were problems with your input', errors)
+  }).catch(err => {
+    const error = new Error({ code: 422, message: 'Unable to complete request', data: err.toJSON() })
+    return next(error)
   })
 
 }

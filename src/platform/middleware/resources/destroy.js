@@ -1,5 +1,6 @@
-import { succeed, fail } from 'platform/utils/responses'
+import { succeed } from 'platform/utils/responses'
 import allowedParams from 'platform/utils/allowed_params'
+import Error from 'platform/utils/error'
 
 export default (options) => {
 
@@ -18,7 +19,8 @@ export default (options) => {
     }).catch(err => {
 
       if(err.errors) {
-        return fail(res, 422, `Unable to deleted ${options.name}`, err.toJSON())
+        const error = new Error({ code: 422, message: `Unable to deleted ${options.name}`, data: err.toJSON() })
+        return next(error)
       }
 
       next(err)

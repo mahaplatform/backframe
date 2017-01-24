@@ -1,19 +1,19 @@
 import Checkit from 'checkit'
 import Team from 'platform/models/team'
-import { succeed, fail } from 'platform/utils/responses'
+import { succeed } from 'platform/utils/responses'
+import Error from 'platform/utils/error'
 
 export default (req, res, next) => {
 
-  const rules = {
+  Checkit({
     subdomain: 'required'
-  }
-
-  Checkit(rules).run(req.query).then(fields => {
+  }).run(req.query).then(fields => {
 
     Team.where({ subdomain: req.query.subdomain }).fetch({ withRelated: ['logo','strategies'] }).then(team => {
 
       if(!team) {
-        return fail(res, 404, 'Unable to find this domain')
+        const error = new Error({ code: 404, message: 'Unable to find this domain' })
+        return next(error)
       }
 
       const strategies = team.related('strategies').toJSON().map(strategy => {
@@ -32,8 +32,9 @@ export default (req, res, next) => {
 
     }).catch(next)
 
-  }).caught(Checkit.Error, errors => {
-    fail(res, 404, 'There were problems with your input', errors)
+  }).catch(err => {
+    const error = new Error({ code: 422, message: 'Unable to complete request', data: err.toJSON() })
+    return next(error)
   })
 
 }

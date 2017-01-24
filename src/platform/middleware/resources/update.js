@@ -1,4 +1,5 @@
-import { succeed, fail } from 'platform/utils/responses'
+import { succeed } from 'platform/utils/responses'
+import Error from 'platform/utils/error'
 
 export default (options) => {
 
@@ -13,7 +14,8 @@ export default (options) => {
     }).catch(err => {
 
       if(err.errors) {
-        return fail(res, 422, `Unable to update ${options.name}`, err.toJSON())
+        const error = new Error({ code: 422, message: `Unable to update ${options.name}`, data: err.toJSON() })
+        return next(error)
       }
 
       next(err)

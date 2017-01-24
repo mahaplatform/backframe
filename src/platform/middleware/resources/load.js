@@ -1,4 +1,4 @@
-import { fail } from 'platform/utils/responses'
+import Error from 'platform/utils/error'
 
 export default (options) => {
 
@@ -15,7 +15,8 @@ export default (options) => {
     }).fetch().then(record => {
 
       if(!record) {
-        return fail(res, 404, `Unable to find ${options.name}`)
+        const error = new Error({ code: 404, message: `Unable to find ${options.name}` })
+        return next(error)
       }
 
       req[options.name] = record
