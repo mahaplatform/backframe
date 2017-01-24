@@ -4,10 +4,10 @@ dotenv.load()
 const defaults = {
   migrations: {
     tableName: 'schema_migrations',
-    directory: './db/migrations'
+    directory: './platform/db/migrations'
   },
   seeds: {
-    directory: './db'
+    directory: './platform/db'
   },
   client: 'postgresql',
   connection: process.env.DATABASE_URL,

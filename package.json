@@ -4,13 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "DEBUG=knex:query NODE_PATH=. babel-node server.js",
-    "test": "NODE_ENV=test NODE_PATH=. mocha --recursive --require babel-core/register ./app/**/*test.js"
+    "start": "DEBUG=knex:query NODE_PATH=./src babel-node ./src/server.js",
+    "test": "NODE_ENV=test NODE_PATH=./src mocha --recursive --require babel-core/register ./src/**/*test.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "babel-eslint": "^7.1.1",
+    "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.16.0",
     "bookshelf": "^0.10.2",
     "checkit": "^0.7.0",
@@ -21,6 +22,9 @@
     "knex": "^0.12.6",
     "lodash": "^4.17.4",
     "mocha": "^3.2.0",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.2.1",
+    "passport-local": "^1.0.0",
     "pg": "^6.1.2",
     "pluralize": "^3.1.0",
     "tempfile": "^1.1.1",
