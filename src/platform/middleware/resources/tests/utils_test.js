@@ -24,25 +24,25 @@ describe('resource utils', () => {
 
     it('returns true with included action', () => {
 
-      expect(includeAction('list', { include: ['list'] })).to.be.true
+      expect(includeAction('list', { only: ['list'] })).to.be.true
 
     })
 
     it('returns false with non included action', () => {
 
-      expect(includeAction('list', { include: ['show'] })).to.be.false
+      expect(includeAction('list', { only: ['show'] })).to.be.false
 
     })
 
     it('returns false with excluded action', () => {
 
-      expect(includeAction('list', { exclude: ['list'] })).to.be.false
+      expect(includeAction('list', { except: ['list'] })).to.be.false
 
     })
 
     it('returns true with non excluded action', () => {
 
-      expect(includeAction('list', { exclude: ['show'] })).to.be.true
+      expect(includeAction('list', { except: ['show'] })).to.be.true
 
     })
 

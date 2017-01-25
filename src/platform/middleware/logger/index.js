@@ -74,7 +74,7 @@ export const loggerEnd = (req, res, next) => {
     console.log(chalk.green(`${entry.title}: `) + entry.text)
   })
 
-  console.log(`Rendered in ${req.logger.duration()}\n`)
+  console.log(`Rendered in ${req.logger.duration()}`)
 
   next()
 

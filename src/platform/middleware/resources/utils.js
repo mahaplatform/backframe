@@ -8,14 +8,14 @@ export const coerceArray = value => {
 export const includeAction = (action, options) => {
 
   if(options.include) {
-    const included = coerceArray(options.include)
+    const included = coerceArray(options.only)
     if(!_.includes(included, action)) {
       return false
     }
   }
 
   if(options.exclude) {
-    const excluded = coerceArray(options.exclude)
+    const excluded = coerceArray(options.except)
     if(_.includes(excluded, action)) {
       return false
     }

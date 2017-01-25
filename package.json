@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "./node_modules/foreman/nf.js start",
     "server": "DEBUG=knex:query NODE_PATH=./src babel-node ./src/server.js",
     "worker": "DEBUG=knex:query NODE_PATH=./src babel-node ./src/worker.js",
     "test": "NODE_ENV=test NODE_PATH=./src mocha --recursive --require babel-core/register ./src/**/*test.js"
