@@ -4,10 +4,10 @@ dotenv.load()
 const defaults = {
   migrations: {
     tableName: 'schema_migrations',
-    directory: './platform/db/migrations'
+    directory: './src/platform/db/migrations'
   },
   seeds: {
-    directory: './platform/db'
+    directory: './src/platform/db'
   },
   client: 'postgresql',
   connection: process.env.DATABASE_URL,
@@ -20,11 +20,13 @@ const defaults = {
 module.exports = {
   development: defaults,
   test: Object.assign({}, defaults, {
-    connection: process.env.TEST_DATABASE_URL,
+    client: 'sqlite3',
+    connection: { filename: ':memory:' },
     pool: {
       min: 1,
       max: 1
-    }
+    },
+    useNullAsDefault: true
   }),
   production: defaults
 }

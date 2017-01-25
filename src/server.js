@@ -1,3 +1,5 @@
+require('platform/services/environment')
+
 import express from 'express'
 import bodyParser from 'body-parser'
 import { loggerBegin, loggerEnd } from 'platform/middleware/logger'
@@ -20,6 +22,6 @@ app.use(exceptionHandler)
 
 app.use(loggerEnd)
 
-app.listen(3000, () => {
-  console.log('Listening on 3000')
+app.listen(process.env.SERVER_PORT, () => {
+  console.log('Server listening on port', process.env.SERVER_PORT)
 })
