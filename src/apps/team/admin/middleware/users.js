@@ -1,13 +1,12 @@
-import resources from 'server/middleware/resources'
+import resources from 'platform/middleware/resources'
 import User from 'platform/models/user'
 import UserQuery from 'platform/queries/user_query'
 import UserSerializer from 'platform/serializers/user_serializer'
 
 export default router => {
 
-  router.use(resources({
+  router.use('/users', resources({
     name: 'user',
-    path: 'users',
     model: User,
     query: UserQuery,
     serializer: UserSerializer,

@@ -1,12 +1,11 @@
-import resources from 'server/middleware/resources'
+import resources from 'platform/middleware/resources'
 import App from 'platform/models/app'
-import AppSerializer from 'platform/serializers/app_author'
+import AppSerializer from 'platform/serializers/app_author_serializer'
 
 export default router => {
 
-  router.use(resources({
+  router.use('/apps', resources({
     name: 'app',
-    path: 'apps',
     model: App,
     serializer: AppSerializer,
     team: false,

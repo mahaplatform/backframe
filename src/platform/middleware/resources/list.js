@@ -23,6 +23,10 @@ export default (options) => {
 
       const filters = extractFilters(req.query, req.params)
 
+      if(options.ownedByTeam) {
+        qb = qb.where('team_id', req.team.get('id'))
+      }
+
       if(options.ownedByUser) {
         qb = qb.where('user_id', req.user.get('id'))
       }
@@ -50,6 +54,10 @@ export default (options) => {
     }
 
     const all = options.model.query(qb => {
+
+      if(options.ownedByTeam) {
+        qb = qb.where('team_id', req.team.get('id'))
+      }
 
       if(options.ownedByUser) {
         qb = qb.where('user_id', req.user.get('id'))

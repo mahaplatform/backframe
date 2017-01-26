@@ -6,27 +6,27 @@ import load from './load'
 import show from './show'
 import update from './update'
 
-export default options => {
+export default userOptions => {
 
-  const before = options.before || {}
-  const after = options.after || {}
+  const options = {
+    before: {},
+    after: {},
+    ownedByTeam: true,
+    ...userOptions
+  }
 
   const resource = router => {
 
-    if(options.authenticatWith) {
-      router.use('*', options.authenticatWith)
-    }
-
     if(includeAction('list', options)) {
-      router.get('(\.:ext)?', wrapWithHooks(router => {
+      router.get('/', wrapWithHooks(router => {
         router.use(list(options))
-      }, before.list, after.list))
+      }, options.before.list, options.after.list))
     }
 
     if(includeAction('create', options)) {
-      router.post('', wrapWithHooks(router => {
+      router.post('/', wrapWithHooks(router => {
         router.use(create(options))
-      }, before.create, after.create))
+      }, options.before.create, options.after.create))
     }
 
     router.use('/:id', load(options))
@@ -34,23 +34,23 @@ export default options => {
     if(includeAction('show', options)) {
       router.get('/:id', wrapWithHooks(router => {
         router.use(show(options))
-      }, before.show, after.show))
+      }, options.before.show, options.after.show))
     }
 
     if(includeAction('update', options)) {
       router.patch('/:id', wrapWithHooks(router => {
         router.use(update(options))
-      }, before.update, after.update))
+      }, options.before.update, options.after.update))
     }
 
     if(includeAction('destroy', options)) {
-      router.delete('/:id', wrapWithHooks(router => {
+      router.delete(`/${options.path}/:id`, wrapWithHooks(router => {
         router.use(destroy(options))
-      }, before.destroy, after.destroy))
+      }, options.before.destroy, options.after.destroy))
     }
 
   }
 
-  return wrapWithHooks(resource, before.all, after.all)
+  return wrapWithHooks(resource, options.before.all, options.after.all)
 
 }

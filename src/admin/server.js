@@ -1,11 +1,20 @@
 import { Router } from 'express'
+import activation from 'admin/middleware/activation'
+import reset from 'admin/middleware/reset'
 import signin from 'admin/middleware/signin'
-import users from 'admin/middleware/users'
+import authentication from 'admin/middleware/authentication'
+import apps from 'admin/middleware/apps'
 
 const router = Router()
 
-router.use('/api/admin/signin', signin)
+router.use('/activation', activation)
 
-router.use('/api/admin/users', users)
+router.use('/reset', reset)
+
+router.use('/signin', signin)
+
+router.use(authentication)
+
+router.use(apps)
 
 export default router

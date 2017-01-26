@@ -1,12 +1,11 @@
-import resources from 'server/middleware/resources'
+import resources from 'platform/middleware/resources'
 import AppAuthor from 'platform/models/app_author'
 import AppAuthorSerializer from 'platform/serializers/app_author_serializer'
 
 export default router => {
 
-  router.use(resources({
+  router.use('/apps/authors', resources({
     name: 'app_author',
-    path: 'apps/authors',
     model: AppAuthor,
     serializer: AppAuthorSerializer,
     team: false
