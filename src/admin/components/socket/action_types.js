@@ -1,3 +1,3 @@
 // @flow
 
-export const SUBSCRIBE: string = 'socket/SUBSCRIBE'
+export const SUBSCRIBE: string = 'admin.socket/SUBSCRIBE'

@@ -19,7 +19,7 @@ module.exports = function compileApps() {
     './src/admin/client.js'
   ]
   files.map(file => {
-    const template = _.template(fs.readFileSync(`${file}.template`), { imports: { fs } })
+    const template = _.template(fs.readFileSync(`${file}.template`), { imports: { fs, glob, path } })
     fs.writeFileSync(file, template({ apps }))
   })
 }

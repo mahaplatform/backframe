@@ -23,7 +23,7 @@ class Index extends React.Component {
         { label: 'Email', key: 'email' }
       ],
       filters: [
-        { label: 'Role', name: 'role_id', type: 'select', multiple: true, endpoint: '/admin/roles', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' } }
+        { label: 'Role', name: 'role_id', type: 'select', multiple: true, endpoint: '/admin/team/roles', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' } }
       ],
       entity: 'user',
       recordActions: [

@@ -15,10 +15,10 @@ class Index extends React.Component {
 
   _getCollection() {
     return {
-      endpoint: '/admin/apps',
+      endpoint: '/admin/team/apps',
       filters: [
-        { label: 'Author', name: 'app_author_id', type: 'select', multiple: true, endpoint: '/admin/apps/authors', value: 'id', text: 'name' },
-        { label: 'Category', name: 'app_category_id', type: 'select', multiple: true, endpoint: '/admin/apps/categories', value: 'id', text: 'title' }
+        { label: 'Author', name: 'app_author_id', type: 'select', multiple: true, endpoint: '/admin/team/apps/authors', value: 'id', text: 'name' },
+        { label: 'Category', name: 'app_category_id', type: 'select', multiple: true, endpoint: '/admin/team/apps/categories', value: 'id', text: 'title' }
       ],
       sort: { key: 'created_at', order: 'desc' },
       layout: Apps,

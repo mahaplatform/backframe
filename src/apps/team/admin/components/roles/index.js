@@ -43,7 +43,7 @@ class Roles extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  roles: state.roles.roles
+  roles: state.team.roles.roles
 })
 
 const mapDispatchToProps = {

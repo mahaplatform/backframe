@@ -1,4 +1,4 @@
 // @flow
 
-export const SET: string = 'flash/SET'
-export const CLEAR: string = 'flash/CLEAR'
+export const SET: string = 'admin.flash/SET'
+export const CLEAR: string = 'admin.flash/CLEAR'

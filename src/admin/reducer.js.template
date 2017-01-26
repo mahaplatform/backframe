@@ -1,12 +1,13 @@
 <%
 reducers = {}
 for (var app of apps) {
-  if(fs.existsSync(app.filepath+'/admin/reducer.js')) {
-    reducers[app.name] = app.filepath+'/admin/reducer.js'
+  const reducerPath = path.join(app.filepath, 'admin','reducer.js')
+  if(fs.existsSync(path.resolve('src',reducerPath))) {
+    reducers[app.name] = reducerPath
   }
 }
 %>import _ from 'lodash'
-<% for (var app in reducers) { %><% app.name %>: <% app.name %>(undefined, action),
+<% for (var app in reducers) { %>import <%= app %> from '<%= reducers[app] %>'
 <% } %>import admin from 'admin/components/admin/reducer'
 import browser from 'admin/components/browser/reducer'
 import container from 'admin/components/container/reducer'
@@ -28,9 +29,7 @@ import reset from './views/reset/reducer'
 import search from './views/search/reducer'
 import signin from './views/signin/reducer'
 
-const platformReducers = {
-  <% for (var app in reducers) { %><%= app %>,
-  <% } %>
+const adminReducers = {
   admin,
   browser,
   container,
@@ -52,18 +51,23 @@ const platformReducers = {
   tray
 }
 
+const appReducers = {
+  <% for (var app in reducers) { %><%= app %>,
+  <% } %>}
+
 export default (state, action) => {
 
   const namespace = action.type.split('/')[0]
   const parts = namespace.split('.')
   const app = parts[0]
-  const reducer = parts[parts.length - 1]
-  const is_platform = _.includes(Object.keys(platformReducers), reducer)
+  const reducer = parts[1]
+  const is_platform = _.includes(Object.keys(adminReducers), reducer)
+  const is_app = _.includes(Object.keys(appReducers), app)
 
   if(state === undefined) {
 
     return {
-      <% for (var app in reducers) { %><% app.name %>: <% app.name %>(undefined, action),
+      <% for (var component in reducers) { %><%= component %>: <%= component %>(undefined, '<%= component %>', action),
       <% } %>admin: admin(undefined, action),
       browser: browser(undefined, action),
       container: container(undefined, action),
@@ -90,7 +94,14 @@ export default (state, action) => {
 
     return {
       ...state,
-      [reducer]: platformReducers[reducer](state[reducer], action)
+      [reducer]: adminReducers[reducer](state[reducer], action)
+    }
+
+  } else if(is_app) {
+
+    return {
+      ...state,
+      [app]: appReducers[app](state, component, action)
     }
 
   } else {
@@ -99,6 +110,7 @@ export default (state, action) => {
       ...state,
       ...component(state, action)
     }
+
 
   }
 

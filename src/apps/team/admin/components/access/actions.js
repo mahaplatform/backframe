@@ -18,7 +18,7 @@ export function toggleRight(appIndex, index) {
 
 export function load() {
   return api.get({
-    endpoint: '/admin/access',
+    endpoint: '/admin/team/access',
     request: actionTypes.LOAD_REQUEST,
     success: actionTypes.LOAD_SUCCESS,
     failure: actionTypes.LOAD_FAILURE

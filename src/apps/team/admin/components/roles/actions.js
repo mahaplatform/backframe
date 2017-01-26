@@ -10,7 +10,7 @@ export function toggle(index) {
 
 export function load() {
   return api.get({
-    endpoint: '/admin/roles',
+    endpoint: '/admin/team/roles',
     request: actionTypes.LOAD_REQUEST,
     success: actionTypes.LOAD_SUCCESS,
     failure: actionTypes.LOAD_FAILURE

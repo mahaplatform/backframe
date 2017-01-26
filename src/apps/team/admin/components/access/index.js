@@ -73,7 +73,7 @@ class Access extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  access: state.access.access
+  access: state.team.access.access
 })
 
 const mapDispatchToProps = {

@@ -1,3 +1,3 @@
 // @flow
 
-export const SET: string = 'host/SET'
+export const SET: string = 'admin.host/SET'

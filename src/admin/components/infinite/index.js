@@ -18,7 +18,7 @@ class Infinite extends React.Component {
     loaded: React.PropTypes.number,
     records: React.PropTypes.array,
     status: React.PropTypes.string,
-    sort: React.PropTypes.string,
+    sort: React.PropTypes.object,
     total: React.PropTypes.number,
     onFetch: React.PropTypes.func,
     onReset: React.PropTypes.func

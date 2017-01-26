@@ -21,8 +21,9 @@ const reducers = {
 
 export default (state = { components: [] }, action) => {
 
-  const namespace = action.type.split('/')[0]
+  const namespace = action.type.split('/')[0].split('.')[1]
   const identifier = (action.cid) ? `${action.namespace}-${action.tid}-${action.cid}` : `${action.namespace}-${action.tid}`
+
   if(action.type === actionTypes.ADD) {
 
     return {

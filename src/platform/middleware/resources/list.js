@@ -10,10 +10,7 @@ export default (options) => {
 
   return (req, res, next) => {
 
-    let fetchOptions = {}
-    if(options.withRelated) {
-      fetchOptions.withRelated = options.withRelated
-    }
+    const fetchOptions = (options.withRelated) ? { withRelated:  options.withRelated }: {}
 
     const limit = parseInt(req.query.$limit) || 50
 

@@ -1,4 +1,4 @@
 // @flow
 
-export const PUSH: string = 'notifications/PUSH'
-export const CLEAR: string = 'notifications/CLEAR'
+export const PUSH: string = 'admin.notifications/PUSH'
+export const CLEAR: string = 'admin.notifications/CLEAR'

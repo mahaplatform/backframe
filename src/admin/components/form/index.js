@@ -75,7 +75,7 @@ class Form extends React.Component {
                 })}
               </div> :
               <div className="ui active centered inline loader" />
-            }            
+            }
           </div>
         </div>
       </div>

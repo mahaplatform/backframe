@@ -1,4 +1,4 @@
 // @flow
 
-export const OPEN: string = 'tasks/OPEN'
-export const CLOSE: string = 'tasks/CLOSE'
+export const OPEN: string = 'admin.tasks/OPEN'
+export const CLOSE: string = 'admin.tasks/CLOSE'

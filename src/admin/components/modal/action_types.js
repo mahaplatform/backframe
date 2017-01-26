@@ -1,5 +1,5 @@
 // @flow
 
-export const PUSH: string = 'modal/PUSH'
-export const POP: string = 'modal/POP'
-export const CLOSE: string = 'modal/CLOSE'
+export const PUSH: string = 'admin.modal/PUSH'
+export const POP: string = 'admin.modal/POP'
+export const CLOSE: string = 'admin.modal/CLOSE'
