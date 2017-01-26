@@ -1,0 +1,56 @@
+.ui.form {
+  position: static !important;
+}
+.chrome-modal-panel .form {
+  flex: 1;  
+}
+.form {
+  .ui.segment {
+    padding: 0;
+    margin: 0 0 1px;
+    & > h4 {
+      position: relative;
+      background-color: #EEE;
+      padding: 1em;
+      font-size: 1em;
+      line-height: 1em;
+      color: #999;
+      margin: 0;
+      i {
+        position: absolute;
+        right: 1em;
+        font-size: 1em;
+      }
+    }
+    &.collapsing {
+      cursor: pointer;
+      &.collapsed .section {
+        display: none;
+      }
+    }
+  }
+  .section {
+    padding: 1em;
+    & > .field {
+      line-height: 1.8em;
+      margin-bottom: 1em;
+      & > label {
+        margin-bottom: 0;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    & > .instructions {
+      margin-bottom: 1em;
+    }
+  }
+  .instructions {
+    color: #AAAAAA;
+    p {
+      color: #AAAAAA;
+      font-size: 1em;
+      line-height: 1em;
+    }
+  }
+}

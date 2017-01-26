@@ -1,0 +1,66 @@
+.access {
+  .border-radius(5px);
+  border: 1px solid #DDD;
+  .access-right {
+    &.last-child {
+      border: none;
+    }
+  }
+}
+.access-app-title,
+.access-right-empty,
+.access-right {
+  display: flex;
+  border-bottom: 1px solid #DDD;
+}
+.access-rights {
+  .transition(max-height 0.5s cubic-bezier(0.7, 0, 0.175, 1) 0s);
+  overflow: hidden;
+  max-height: 1000px;
+  &.expanded-enter,
+  &.expanded-leave.expanded-leave-active {
+    max-height: 0;
+  }
+  &.expanded-enter.expanded-enter-active,
+  &.expanded-leave {
+    max-height: 1000px;
+  }
+}
+.access-app-label {
+  flex: 1;
+  padding: 10px 15px;
+  font-weight: bold;
+  line-height: 20px;
+}
+.access-app-title {
+  background-color: #EEE;
+  color: #666666;
+  text-transform: uppercase;
+}
+.access-right-label,
+.access-right-empty {
+  flex: 1;
+  padding: 10px 15px;
+  color: #666666;
+  line-height: 20px;
+  strong {
+    text-transform: lowercase;
+    color: #444444;
+  }
+}
+.access-app-input,
+.access-right-input {
+  flex: 0 0 80px;
+  display: flex;
+  .toggle {
+    font-size: 2em;
+    height: auto;
+    margin: auto;
+    &.off {
+      color: #BBBBBB;
+    }
+    &.on {
+      color: #21BA45;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<%
+styles = []
+for (var app of apps) {
+  if(fs.existsSync('./src/'+app.filepath+'/admin/style.less')) {
+    styles.push(app.filepath+'/admin/style')
+  }
+}
+%>@import './core';
+//@import './components/style';
+//@import './views/style';
+<% for (var index in styles) { %>@import '../../<%= styles[index] %>';
+<% } %>

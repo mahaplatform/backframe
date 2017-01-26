@@ -1,0 +1,154 @@
+.chrome-signin-canvas {
+  .transition(transform .5s cubic-bezier(0.7, 0, 0.175, 1) 0s);
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  background-color: @primary_background_color;
+}
+.chrome-signin-team {
+  .chrome-signin-canvas:nth-child(1) {
+    .translateX(0)
+  }
+  .chrome-signin-canvas:nth-child(2) {
+    .translateX(100%)
+  }
+  .chrome-signin-canvas:nth-child(3) {
+    .translateX(200%)
+  }
+}
+.chrome-signin-email {
+  .chrome-signin-canvas:nth-child(1) {
+    .translateX(-100%)
+  }
+  .chrome-signin-canvas:nth-child(2) {
+    .translateX(0)
+  }
+  .chrome-signin-canvas:nth-child(3) {
+    .translateX(100%)
+  }
+}
+.chrome-signin-password {
+  .chrome-signin-canvas:nth-child(1) {
+    .translateX(-200%)
+  }
+  .chrome-signin-canvas:nth-child(2) {
+    .translateX(-100%)
+  }
+  .chrome-signin-canvas:nth-child(3) {
+    .translateX(0)
+  }
+}
+.chrome-signin-header,
+.chrome-signin-form,
+.chrome-signin-footer {
+   width: 100%;
+   max-width: 320px;
+   margin: auto;
+   overflow: hidden;
+   text-align: center;
+}
+.chrome-signin-header {
+  display: flex;
+  flex: 1;
+  .chrome-signin-content {
+    margin: auto auto 0;
+  }
+}
+.chrome-signin-form {
+  flex: 0 0 150px;
+  padding: 15px;
+}
+.chrome-signin-footer {
+  display: flex;
+  flex: 1;
+  .chrome-signin-content {
+    margin: 0 auto auto;
+  }
+}
+.chrome-signin-canvas{
+  @media (max-width: 767px) {
+    img {
+      display: none;
+    }
+  }
+  img.logo {
+    .border-radius(10px);
+    width: 150px;
+    margin-bottom: 15px;
+    border: 5px solid #FFF;
+  }
+  img.photo {
+    .border-radius(50%);
+    width: 175px;
+    margin-bottom: 15px;
+    border: 5px solid #000;
+  }
+  h1 {
+    text-align: center;
+    color: @primary_color;
+    margin: 0;
+    font-size: 24px;
+    line-height: 30px;
+  }
+  h4 {
+    text-align: center;
+    color: lighten(@primary_color, -5);
+    margin: 0;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  p {
+    text-align: center;
+    color: @primary_color;
+    margin: 0 0 15px;
+  }
+  label {
+    color: @primary_color !important;
+  }
+  .ui.button {
+    background-color: lighten(@primary_background_color, -10%);
+    color: @primary_color;
+    margin-bottom: 5px;
+    &:hover {
+      .transition(background-color 0.5s cubic-bezier(0.7, 0, 0.175, 1) 0s);
+      background-color: lighten(@primary_background_color, -15%);
+    }
+  }
+  a {
+    color: @primary_color;
+    cursor: pointer;
+  }
+  .team-field {
+    .suffix {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      color: #333 !important;
+    }
+  }
+  .email-field {
+    input {
+      border-width: 0 0 1px 0;
+      border-color: #DDD;
+    }
+  }
+  .password-field {
+    input {
+      border: 0px;
+    }
+    a {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background-color: #CCC;
+      font-size: 10px;
+      padding: 3px 5px;
+      border-radius: 3px;
+      width: 50px;
+    }
+  }
+}

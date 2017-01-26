@@ -1,3 +1,14 @@
 /node_modules
 npm-debug.log
 .env
+
+
+public/js/account.min.js
+public/js/admin.min.js
+public/css/account.min.css
+public/css/admin.min.css
+src/admin/reducer.js
+src/admin/style.less
+src/admin/views/apps.js
+tmp
+uploads

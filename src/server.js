@@ -5,6 +5,7 @@ import bodyParser from 'body-parser'
 import { loggerBegin, loggerEnd } from 'platform/middleware/logger'
 import exceptions from 'platform/middleware/exceptions'
 import notFound from 'platform/middleware/not_found'
+import render from 'platform/middleware/render'
 import admin from 'admin/server'
 
 const app = express()
@@ -15,6 +16,10 @@ app.use(bodyParser.json())
 app.use(loggerBegin)
 
 app.use('/api/admin', admin)
+
+app.use(express.static('public'))
+
+app.get('/admin*', render(admin))
 
 app.use(notFound)
 

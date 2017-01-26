@@ -1,0 +1,46 @@
+.chrome-feed {
+  display: flex;
+  flex: 1;
+}
+.chrome-feed-items {
+  flex: 1;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+.chrome-feed-item {
+  padding: 10px;
+  border-bottom: 1px solid #EEE;
+  display: flex;
+  &.unread {
+    background-color: #FFE;
+  }
+}
+.chrome-feed-item-avatar {
+  flex: 0 0 50px;
+  padding-right: 10px;
+  img {
+    width: 100%;
+  }
+}
+.chrome-feed-item-details {
+  flex: 1;
+}
+.chrome-feed-item-story {
+  color: #000
+}
+.chrome-feed-item-user,
+.chrome-feed-item-subject,
+.chrome-feed-item-object {
+  font-weight: bold;
+  margin-right: 3px;
+}
+
+.chrome-feed-item-timestamp,
+.chrome-feed-item-app {
+  font-size: .8em;
+  color: #888;
+  i {
+    margin: 0;
+    width: auto;
+  }
+}

@@ -1,0 +1,37 @@
+.chrome-tray {
+  flex: 1;
+  display: flex;
+}
+.chrome-tray-overlay {
+  .opacity-transition(0, 0.5, .25s);
+  .opacity(0.5);
+  background-color: #000;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.chrome-tray-panel {
+  background-color: #FFFFFF;
+  position: absolute;
+}
+@media only screen and (min-width: 768px) {
+  .chrome-tray-panel {
+    .opacity-transition(0, 1, .5s);
+    max-width: 414px;
+    width: 100%;
+    top: 30%;
+    left: 50%;
+    margin-left: -207px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .chrome-tray-panel {
+    .translate-y-transition(100%, 0, .25s);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 80vh;
+  }
+}
