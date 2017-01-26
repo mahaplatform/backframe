@@ -13,15 +13,8 @@ const statuses = {
 }
 
 export const succeed = (res, code, message, data = null) => {
-  return response(res, code, true, message, data)
-}
 
-export const fail = (res, code, message, data = null) => {
-  return response(res, code, false, message, data)
-}
-
-const response = (res, code, success, message, data) => {
-
+  const success = true
   const status = statuses[code]
 
   res.status(code).json({
@@ -31,6 +24,22 @@ const response = (res, code, success, message, data) => {
       message
     },
     data
+  })
+
+}
+
+export const fail = (res, code, message, error = null) => {
+
+  const success = false
+  const status = statuses[code]
+
+  res.status(code).json({
+    meta: {
+      success,
+      status,
+      message
+    },
+    error
   })
 
 }

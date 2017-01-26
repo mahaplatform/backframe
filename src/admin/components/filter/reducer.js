@@ -25,7 +25,7 @@ export default (state = INITIAL_STATE, action) => {
       ...state,
       results: {
         ...state.results,
-        [action.key]: action.data.data.map(record => {
+        [action.key]: action.data.records.map(record => {
           return {
             key: _.get(record, action.value),
             value: _.get(record, action.text)

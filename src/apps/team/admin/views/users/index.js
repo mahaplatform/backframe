@@ -17,7 +17,7 @@ class Index extends React.Component {
 
   _getCollection() {
     return {
-      endpoint: '/admin/users',
+      endpoint: '/admin/team/users',
       columns: [
         { label: 'Name', key: 'first_name', primary: true, format: NameCell },
         { label: 'Email', key: 'email' }

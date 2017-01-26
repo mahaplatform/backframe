@@ -17,8 +17,8 @@ class Edit extends React.Component {
     return {
       title: 'Edit Role',
       method: 'patch',
-      endpoint: `/admin/roles/${this.context.container.params.id}`,
-      action: `/admin/roles/${this.context.container.params.id}`,
+      endpoint: `/admin/team/roles/${this.context.container.params.id}`,
+      action: `/admin/team/roles/${this.context.container.params.id}`,
       onCancel: this.context.modal.pop,
       onSuccess: this.context.modal.pop,
       sections: [

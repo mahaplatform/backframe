@@ -41,7 +41,7 @@ export default (state = INITIAL_VALUE, action) => {
     return {
       ...state,
       status: 'success',
-      results: action.data.data
+      results: action.data.records
     }
 
   case actionTypes.LOOKUP_FAILURE:

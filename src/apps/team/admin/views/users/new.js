@@ -16,7 +16,7 @@ class New extends React.Component {
     return {
       title: 'New User',
       method: 'post',
-      action: '/admin/users',
+      action: '/admin/team/users',
       onCancel: this.context.modal.pop,
       onSuccess: this.context.modal.pop,
       sections: [

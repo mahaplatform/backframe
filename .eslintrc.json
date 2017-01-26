@@ -1,6 +1,7 @@
 {
   "parser": "babel-eslint",
   "env": {
+    "browser": true,
     "commonjs": true,
     "es6": true,
     "mocha": true
@@ -9,7 +10,8 @@
   "parserOptions": {
     "ecmaVersion": 6,
     "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
+      "experimentalObjectRestSpread": true,
+      "jsx": true
     },
     "sourceType": "module"
   },
@@ -47,11 +49,10 @@
     ],
     "quotes": [
       "error",
-      "single",
-      {
-          "allowTemplateLiterals": true
-      }
+      "single"
     ],
+    "react/jsx-uses-react":  "error",
+    "react/jsx-uses-vars":  "error",
     "semi": [
       "error",
       "never"

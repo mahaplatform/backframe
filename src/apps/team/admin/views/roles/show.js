@@ -97,8 +97,8 @@ const mapPropsToPage = (props, context) => {
       { label: 'Edit Role', modal: Edit }
     ],
     resources: {
-      role: `/admin/roles/${props.params.id}`,
-      access: `/admin/roles/${props.params.id}/access`
+      role: `/admin/team/roles/${props.params.id}`,
+      access: `/admin/team/roles/${props.params.id}/access`
     }
   }
 }

@@ -31,7 +31,7 @@ export default (state = INITIAL_STATE, action) => {
     return {
       ...state,
       status: 'failure',
-      error: action.error.message
+      error: action.meta.message
     }
 
   case actionTypes.TEAM_SUCCESS:

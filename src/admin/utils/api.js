@@ -91,7 +91,7 @@ class Api {
 
             dispatch({
               type: options.success,
-              data: json,
+              ...json,
               ...options.meta
             })
 
@@ -99,7 +99,7 @@ class Api {
 
             dispatch({
               type: options.failure,
-              error: response.entity,
+              ...response.entity,
               ...options.meta
             })
 

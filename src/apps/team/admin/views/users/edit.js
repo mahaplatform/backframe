@@ -17,8 +17,8 @@ class Edit extends React.Component {
     return {
       title: 'Edit User',
       method: 'patch',
-      endpoint: `/admin/users/${this.context.container.params.id}`,
-      action: `/admin/users/${this.context.container.params.id}`,
+      endpoint: `/admin/team/users/${this.context.container.params.id}`,
+      action: `/admin/team/users/${this.context.container.params.id}`,
       onCancel: this.context.modal.pop,
       onSuccess: this.context.modal.pop,
       sections: [

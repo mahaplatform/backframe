@@ -51,7 +51,7 @@ const mapPropsToPage = (props, context) => {
       { label: 'Sign Out of All Devices', handler: _handleSignOutAllDevices }
     ],
     resources: {
-      user: `/admin/users/${props.params.id}`
+      user: `/admin/team/users/${props.params.id}`
     }
   }
 }

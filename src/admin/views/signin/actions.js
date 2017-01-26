@@ -4,7 +4,7 @@ import api from 'admin/utils/api'
 export const team = (subdomain) => {
   return api.get({
     params: { subdomain },
-    endpoint: '/admin/auth/teams',
+    endpoint: '/admin/signin/teams',
     request: actionTypes.TEAM_REQUEST,
     success: actionTypes.TEAM_SUCCESS,
     failure: actionTypes.TEAM_FAILURE
@@ -14,7 +14,7 @@ export const team = (subdomain) => {
 export const email = (team_id, email) => {
   return api.get({
     params: { team_id, email },
-    endpoint: '/admin/auth/email',
+    endpoint: '/admin/signin/email',
     request: actionTypes.EMAIL_REQUEST,
     success: actionTypes.EMAIL_SUCCESS,
     failure: actionTypes.EMAIL_FAILURE
@@ -30,7 +30,7 @@ export const togglePassword = () => {
 export const password = (team_id, email, password) => {
   return api.post({
     params: { team_id, email, password },
-    endpoint: '/admin/auth/password',
+    endpoint: '/admin/signin/password',
     request: actionTypes.PASSWORD_REQUEST,
     success: actionTypes.PASSWORD_SUCCESS,
     failure: actionTypes.PASSWORD_FAILURE
@@ -40,7 +40,7 @@ export const password = (team_id, email, password) => {
 export const forgot = (team_id, email) => {
   return api.post({
     params: { team_id, email },
-    endpoint: '/admin/auth/forgot',
+    endpoint: '/admin/signin/forgot',
     request: actionTypes.FORGOT_REQUEST,
     success: actionTypes.FORGOT_SUCCESS,
     failure: actionTypes.FORGOT_FAILURE

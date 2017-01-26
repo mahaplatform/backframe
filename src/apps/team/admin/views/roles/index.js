@@ -17,7 +17,7 @@ class Index extends React.Component {
 
   _getCollection() {
     return {
-      endpoint: '/admin/roles',
+      endpoint: '/admin/team/roles',
       columns: [
         { label: 'Title', key: 'title', primary: true, format: TitleCell }
       ],

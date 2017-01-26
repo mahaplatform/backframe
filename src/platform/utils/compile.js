@@ -16,7 +16,7 @@ module.exports = function compileApps() {
   const files = [
     './src/admin/reducer.js',
     './src/admin/style.less',
-    './src/admin/views/apps.js'
+    './src/admin/client.js'
   ]
   files.map(file => {
     const template = _.template(fs.readFileSync(`${file}.template`), { imports: { fs } })
