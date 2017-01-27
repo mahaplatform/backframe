@@ -1,6 +1,13 @@
 import * as actionTypes from './action_types'
 import api from 'admin/utils/api'
 
+export function setAssigned(assigned) {
+  return {
+    type: actionTypes.SET_ASSIGNED,
+    assigned
+  }
+}
+
 export function toggle(index) {
   return {
     type: actionTypes.TOGGLE,

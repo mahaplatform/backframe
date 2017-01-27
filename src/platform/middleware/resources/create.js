@@ -12,9 +12,15 @@ export default (options) => {
       data.user_id = req.user.get('id')
     }
 
+    if(options.ownedByTeam) {
+      data.team_id = req.team.get('id')
+    }
+
     options.model.forge(data).save().then(record => {
 
       const data = options.serializer ? options.serializer(record) : record.toJSON()
+
+      req.resource = record
 
       succeed(res, 201, `Successfully created ${options.name}`, data)
 

@@ -8,7 +8,8 @@
     "start": "./node_modules/foreman/nf.js start",
     "server": "NODE_PATH=./src babel-node ./src/server.js",
     "worker": "NODE_PATH=./src babel-node ./src/worker.js",
-    "test": "NODE_ENV=test NODE_PATH=./src mocha --recursive --require babel-core/register ./src/**/*test.js"
+    "test": "NODE_ENV=test NODE_PATH=./src mocha --recursive --require babel-core/register ./src/**/*test.js",
+    "reset": "knex migrate:rollback && knex migrate:latest && knex seed:run"
   },
   "author": "",
   "license": "ISC",

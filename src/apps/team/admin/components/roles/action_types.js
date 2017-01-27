@@ -1,6 +1,7 @@
 // @flow
 
 export const TOGGLE: string = 'team.roles/TOGGLE'
+export const SET_ASSIGNED: string = 'team.roles/SET_ASSIGNED'
 export const LOAD_REQUEST: string = 'team.roles/LOAD_REQUEST'
 export const LOAD_SUCCESS: string = 'team.roles/LOAD_SUCCESS'
 export const LOAD_FAILURE: string = 'team.roles/LOAD_FAILURE'

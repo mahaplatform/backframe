@@ -8,21 +8,20 @@ export class Avatar extends React.Component {
 
   render() {
     const { user } = this.props
-    if(user.photo) {
-      return <img src={user.photo} className="avatar" />
-    } else {
-      return (
-        <div className="avatar">
-          <div className="avatar-badge">
+    return (
+      <div className="avatar">
+        <div className="avatar-badge">
+          { user.photo ?
+            <img src={user.photo} /> :
             <div className="avatar-initials">
               <div className="avatar-text">
                 { user.initials }
               </div>
             </div>
-          </div>
+          }
         </div>
-      )
-    }
+      </div>
+    )
   }
 
 }

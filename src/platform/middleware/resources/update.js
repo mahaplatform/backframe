@@ -1,13 +1,18 @@
 import { succeed } from 'platform/utils/responses'
+import allowedParams from 'platform/utils/allowed_params'
 import Error from 'platform/utils/error'
 
 export default (options) => {
 
   return (req, res, next) => {
 
-    req[options.name].destroy().then(record => {
+    let data = options.allowedParams ? allowedParams(req.body, options.allowedParams) : {}
 
-      succeed(res, 204, `Successfully updated ${options.name}`)
+    req.resource.save(data, { patch: true }).then(record => {
+
+      const data = options.serializer ? options.serializer(record) : record.toJSON()
+
+      succeed(res, 200, `Successfully updated ${options.name}`, data)
 
       next()
 

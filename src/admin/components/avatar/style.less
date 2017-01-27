@@ -1,24 +1,21 @@
-img.avatar {
-	.border-radius(50%);
-	background-color: @avatar_background_color;
-	display: block;
-}
 div.avatar {
 	div.avatar-badge {
-		.border-radius(50%);
-		background-color: @avatar_background_color;
 		width: 100%;
 		padding-top: 100%;
 		position: relative;
-		div.avatar-initials {
+		div.avatar-initials,
+		img {
+			.border-radius(50%);
 			position: absolute;
-			text-align: center;
-			color: @avatar_color;
-			font-family: monospace;
+			width: 100%;
 			top: 0;
 			right: 0;
 			bottom: 0;
 			left: 0;
+			text-align: center;
+			background-color: @avatar_background_color;
+			color: @avatar_color;
+			font-family: monospace;
 			display: flex;
 			div.avatar-text {
 				margin: auto;

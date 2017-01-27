@@ -6,9 +6,10 @@ export const setSections = (sections) => ({
   sections
 })
 
-export function fetchData(endpoint) {
+export function fetchData(cid, endpoint) {
   return api.get({
     endpoint,
+    meta: { cid },
     request: actionTypes.FETCH_DATA_REQUEST,
     success: actionTypes.FETCH_DATA_SUCCESS,
     failure: actionTypes.FETCH_DATA_FAILURE
@@ -30,11 +31,12 @@ export const updateData = (key, value) => ({
   value
 })
 
-export const submitForm = (method, endpoint, params) => {
+export const submitForm = (cid, method, endpoint, params) => {
   return api.request({
     method,
     params,
     endpoint,
+    meta: { cid },
     request: actionTypes.SUBMIT_REQUEST,
     success: actionTypes.SUBMIT_SUCCESS,
     failure: actionTypes.SUBMIT_FAILURE

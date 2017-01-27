@@ -10,6 +10,10 @@ export default (options) => {
 
       qb.where('id', req.params.id )
 
+      if(options.ownedByTeam) {
+        qb = qb.where('team_id', req.team.get('id'))
+      }
+
       if(options.ownedByUser) {
         qb = qb.where('user_id', req.user.get('id'))
       }
@@ -21,7 +25,7 @@ export default (options) => {
         return next(error)
       }
 
-      req[options.name] = record
+      req.resource = record
 
       next()
 

@@ -1,7 +1,7 @@
 import knex from 'platform/services/knex'
 
 export default (table, attribute) => {
-  return val => {
+  return function(val) {
     let query = knex(table).where(attribute, '=', val)
     if(this.target.id) {
       query = query.whereNot({ id: this.target.id })

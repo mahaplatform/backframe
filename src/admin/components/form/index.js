@@ -103,9 +103,9 @@ class Form extends React.Component {
   }
 
   _handleLoadData() {
-    const { endpoint, sections, onFetchData, onSetData } = this.props
+    const { cid, endpoint, sections, onFetchData, onSetData } = this.props
     if(endpoint) {
-      onFetchData(endpoint)
+      onFetchData(cid, endpoint)
     } else {
       const data = getDefaults(sections)
       onSetData(data)
@@ -118,10 +118,10 @@ class Form extends React.Component {
   }
 
   _handleSubmit() {
-    const { action, data, method, sections, onSubmit, onSubmitForm } = this.props
+    const { action, cid, data, method, sections, onSubmit, onSubmitForm } = this.props
     let filtered = collectData(sections, data)
     if(action) {
-      onSubmitForm(method, action, filtered)
+      onSubmitForm(cid, method, action, filtered)
     } else if(onSubmit) {
       if(onSubmit(filtered)) {
         this._handleSuccess()

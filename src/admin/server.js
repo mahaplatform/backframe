@@ -6,6 +6,7 @@ import reset from 'admin/middleware/reset'
 import signin from 'admin/middleware/signin'
 import authentication from 'admin/middleware/authentication'
 import session from 'admin/middleware/session'
+import search from 'admin/middleware/search'
 import apps from 'admin/middleware/apps'
 
 const router = Router()
@@ -21,6 +22,8 @@ router.use('/api/admin/signin', signin)
 router.use('/api/admin', authentication)
 
 router.use('/api/admin/session', session)
+
+router.get('/api/admin/search', search)
 
 router.use('/api/admin', apps)
 
