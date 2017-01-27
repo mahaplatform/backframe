@@ -1,0 +1,157 @@
+.apps {
+  flex: 1;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  .app {
+    margin: 10px;
+    .border-radius(5px);
+    @media only screen and (max-width: 767px) {
+      width: ~"calc(100% - 20px)";
+    }
+    @media only screen and (min-width: 768px) {
+      width: ~"calc(33.333% - 20px)";
+      float: left;
+    }
+    display: flex;
+    border: 1px solid #CCC;
+    overflow: hidden;
+    &.installed .app-icon {
+      background: #21BA45 !important;
+      i {
+        color: #FFFFFF !important;
+      }
+    }
+  }
+  .app-icon {
+    flex: 0 0 60px;
+    display: flex;
+    background: #DDDDDD !important;
+    i {
+      margin: auto;
+      font-size: 30px;
+      line-height: 30px;
+      color: #666666;
+    }
+  }
+  .app-content {
+    flex: 1;
+    background: #FFF;
+    padding: 10px;
+    h2 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 28px;
+    }
+    h4 {
+      margin: 0 0 10px;
+      font-size: 12px;
+      line-height: 14px;
+      font-weight: normal;
+      color: #444444;
+      height: 14px;
+    }
+    p {
+      margin: 0 0 10px;
+      color: #888888;
+      height: 40px;
+    }
+  }
+}
+.app-detail {
+  flex: 1;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  .app {
+    &.installed .app-icon {
+      position: relative;
+      background: #21BA45 !important;
+    }
+    .app-icon {
+      height: 150px;
+      display: flex;
+      background: #DDDDDD !important;
+      i {
+        margin: auto;
+        font-size: 60px;
+        line-height: 60px;
+        color: #FFFFFF;
+      }
+    }
+    .app-content {
+      flex: 1;
+      padding: 20px;
+      h2 {
+        margin: 0;
+        font-size: 18px;
+        line-height: 28px;
+      }
+      h4 {
+        margin: 0 0 10px;
+        font-size: 12px;
+        line-height: 14px;
+        font-weight: normal;
+        color: #444444;
+      }
+      p {
+        margin: 0 0 10px;
+        color: #888888;
+      }
+    }
+  }
+}
+.author-details {
+  padding: 10px;
+}
+
+.role-users {
+  .border-radius(5px);
+  border: 1px solid #DDD;
+}
+.role-user {
+  overflow: hidden;
+  padding: 10px 15px;
+  border-bottom: 1px solid #DDD;
+  color: #888;
+  strong {
+    color: #000;
+  }
+  img {
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin-right: 15px;
+  }
+}
+.role-access{
+  .border-radius(5px);
+  border: 1px solid #DDD;
+}
+.role-access-title {
+  padding: 10px 15px;
+  border-bottom: 1px solid #DDD;
+  background: #EEE;
+  text-transform: uppercase;
+}
+.role-access-right {
+  padding: 10px 15px;
+  border-bottom: 1px solid #DDD;
+  color: #888;
+  display: flex;
+  strong {
+    text-transform: lowercase;;
+    color: #000;
+  }
+  .role-access-right-icon {
+    flex: 0 0 30px;
+    display: flex;
+    i {
+      margin: auto 0;
+    }
+  }
+  .role-access-right-label {
+    flex: 1;
+  }
+}
+
+@import './components/access/style';
+@import './components/roles/style';

@@ -3,8 +3,6 @@ import roles from './components/roles/reducer.js'
 
 export default (state, component, action) => {
 
-  console.log(state)
-
   if(state === undefined) {
 
     return {
@@ -16,14 +14,14 @@ export default (state, component, action) => {
 
     return {
       ...state,
-      access: access(state.team.access, action)
+      access: access(state.access, action)
     }
 
   } else if(component === 'roles') {
 
     return {
       ...state,
-      access: access(state.team.roles, action)
+      roles: roles(state.roles, action)
     }
 
   } else {

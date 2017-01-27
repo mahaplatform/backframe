@@ -33,7 +33,7 @@ const mapPropsToPage = (props, context) => {
   return {
     title: 'App',
     resources: {
-      app: `/admin/apps/${props.params.id}`
+      app: `/admin/team/apps/${props.params.id}`
     }
   }
 }

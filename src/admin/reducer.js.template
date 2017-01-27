@@ -101,7 +101,7 @@ export default (state, action) => {
 
     return {
       ...state,
-      [app]: appReducers[app](state, component, action)
+      [app]: appReducers[app](state[app], reducer, action)
     }
 
   } else {

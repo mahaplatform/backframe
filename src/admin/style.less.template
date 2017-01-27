@@ -8,5 +8,5 @@ for (var app of apps) {
 %>@import './core';
 @import './components/style';
 @import './views/style';
-<% for (var index in styles) { %>@import '../../<%= styles[index] %>';
+<% for (var index in styles) { %>@import '../<%= styles[index] %>';
 <% } %>

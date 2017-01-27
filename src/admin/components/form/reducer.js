@@ -77,7 +77,7 @@ export default (state = INITIAL_STATE, action) => {
       ...state,
       status: 'failure',
       errors: action.error.errors,
-      message: action.error.message
+      message: action.error.meta.message
     }
 
   case actionTypes.RESET_FORM:
