@@ -70,11 +70,11 @@ class Control extends React.Component {
   }
 
   _getDynamic() {
-    const { endpoint, key, value } = this.props
+    const { endpoint, value, text } = this.props
     return {
       endpoint,
-      key,
-      value
+      value,
+      text
     }
   }
 

@@ -7,18 +7,18 @@ class Dynamic extends React.Component {
 
   static propTypes = {
     endpoint: React.PropTypes.string.isRequired,
-    key: React.PropTypes.string.isRequired,
     records: React.PropTypes.array,
     status: React.PropTypes.string,
+    text: React.PropTypes.string.isRequired,
     value: React.PropTypes.string.isRequired
   }
 
   render() {
-    const { children, key, records, status, value } = this.props
+    const { children, records, status, text, value } = this.props
     const options = records.map(record => {
       return {
-        key: _.get(record, key),
-        value: _.get(record, value)
+        key: _.get(record, value),
+        value: _.get(record, text)
       }
     })
     return React.cloneElement(children, { options, status })
@@ -26,7 +26,7 @@ class Dynamic extends React.Component {
 
   componentDidMount() {
     const { endpoint } = this.props
-    this.props.onFetch(this.props.cid, endpoint, { '$skip': 0 })
+    this.props.onFetch(this.props.cid, endpoint)
   }
 
 }

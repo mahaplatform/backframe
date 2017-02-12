@@ -16,12 +16,14 @@ class Member extends React.Component {
   _getForm() {
     return {
       title: 'Add Member',
+      method: 'post',
+      action: `/admin/expenses/projects/${this.context.container.params.id}/members`,
       onCancel: this.context.modal.pop,
       onSuccess: this._handleSuccess.bind(this),
       sections: [
         {
           fields: [
-            { label: 'User', name: 'user_id', type: 'select', placeholder: 'User', endpoint: '/admin/users', key: 'id', value: 'full_name' }
+            { label: 'User', name: 'user_id', type: 'select', placeholder: 'User', endpoint: '/admin/team/users', value: 'id', text: 'full_name' }
           ]
         }
       ]

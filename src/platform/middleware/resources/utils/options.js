@@ -3,7 +3,7 @@ import pluralize from 'pluralize'
 import _ from 'lodash'
 import { coerceArray } from './index'
 
-const VALID_OPTIONS = ['actions','after','allowedParams','authorizer','alter','before','cacheFor','defaults','defaultSort','dependents','except','filterParams','logger','model','name','only','ownedByTeam','ownedByUser','path','pathPrefix','prefix','processor','query','renderer','resources','responder','rights','serializer','softDelete','sortParams','withRelated']
+const VALID_OPTIONS = ['actions','after','allowedParams','authorizer','alter','before','cacheFor','defaultParams','defaultSort','dependents','except','filterParams','logger','model','name','only','ownedByTeam','ownedByUser','path','pathPrefix','prefix','processor','query','renderer','resources','responder','rights','serializer','softDelete','sortParams','withRelated']
 const REQUIRED_OPTIONS = ['name','model']
 const MAPPED_OPTIONS = ['alter','after','allowedParams','authorizer','before','logger','processor','query','renderer','responder','rights','serializer','withRelated']
 const ARRAY_OR_STRING_OPTIONS = ['allowedParams','defaultSort','except','filterParams','only','sortParams','withRelated']
@@ -11,6 +11,7 @@ const OBJECT_OR_FUNCTION_OPTIONS = ['actions','after','authorizer','alter','befo
 const BOOLEAN_OPTIONS = ['ownedByTeam','ownedByUser','softDelete']
 const INTEGER_OPTIONS = ['cacheFor']
 const STRING_OPTIONS = ['name','path','pathPrefix','prefix']
+const FUNCTION_OPTIONS = ['defaultParams']
 
 // checks the validity of the options and prints errors if not valid
 export const validateOptions = (options) => {
@@ -120,7 +121,8 @@ export const checkOptions = (options) => {
     ...checkOptionType(options, OBJECT_OR_FUNCTION_OPTIONS, ['object','function']),
     ...checkOptionType(options, BOOLEAN_OPTIONS, 'boolean'),
     ...checkOptionType(options, STRING_OPTIONS, 'string'),
-    ...checkOptionType(options, INTEGER_OPTIONS, 'integer')
+    ...checkOptionType(options, INTEGER_OPTIONS, 'integer'),
+    ...checkOptionType(options, FUNCTION_OPTIONS, 'function')
   ]
 
   return (errors.length === 0) ? true : errors

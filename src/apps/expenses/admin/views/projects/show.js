@@ -1,5 +1,5 @@
 import React from 'react'
-import Card from 'admin/components/card'
+import Details from 'admin/components/details'
 import Page from 'admin/components/page'
 import Edit from './edit'
 import Member from './member'
@@ -11,7 +11,7 @@ class Show extends React.Component {
     return (
       <div className="chrome-body">
         <div className="chrome-sidebar">
-          <Card {...this._getCard()} />
+        <Details {...this._getDetails()} />
         </div>
         <div className="chrome-content">
           <div className="project-members">
@@ -33,7 +33,7 @@ class Show extends React.Component {
     )
   }
 
-  _getCard() {
+  _getDetails() {
     const { project } = this.props
     return {
       items: [

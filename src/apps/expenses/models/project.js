@@ -10,8 +10,8 @@ export default bookshelf.Model.extend({
   hasTimestamps: ['created_at', 'updated_at'],
 
   rules: {
-    title: ['required', unique('projects', 'title')],
-    code: ['required', unique('projects', 'code')]
+    title: ['required', unique('expenses_projects', 'title')],
+    code: ['required', unique('expenses_projects', 'code')]
   },
 
   members: function() {

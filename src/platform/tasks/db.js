@@ -2,6 +2,7 @@ const _ = require('lodash')
 const glob = require('glob')
 const fs = require('fs')
 const path = require('path')
+const Promise = require('bluebird')
 const knex = require('platform/services/knex')
 const Migrator = require('knex/lib/migrate')
 const Seeder = require('knex/lib/seed')
@@ -33,11 +34,37 @@ module.exports = {
 
   fixtures(args, environment) {
     return seeder._seedData().spread((all) => {
-      let fixtures = _getFixtures()
+
+      let files = _getFixtures()
+
       return knex.raw('set session_replication_role = replica').then(() => {
-        return seeder._runSeeds(fixtures)
+
+        return Promise.map(files, file => {
+
+          const fixture = require(file)
+
+          return knex(fixture.tableName).del().then(() => {
+
+            const chunks = _.chunk(fixture.records, 50)
+
+            return Promise.map(chunks, chunk => {
+
+              return knex(fixture.tableName).insert(chunk)
+
+            })
+
+          }).then(() => {
+
+            return knex.raw(`SELECT pg_catalog.setval(pg_get_serial_sequence('${fixture.tableName}', 'id'), MAX(id)) FROM ${fixture.tableName}`)
+
+          })
+
+        })
+
       }).then(() => {
+
         return knex.raw('set session_replication_role = default')
+
       })
     })
   },

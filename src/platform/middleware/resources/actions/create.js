@@ -4,20 +4,28 @@ export default options => {
 
   const processor = req => {
 
-    const allowedParams = mergeParams(options.allowedParams.all, options.allowedParams.create)
+    return Promise.resolve().then(() => {
 
-    const data = {
-      ...options.defaults,
-      ...options.ownedByTeam ? { team_id: req.team.get('id') } : {},
-      ...options.ownedByUser ? { user_id: req.user.get('id') } : {},
-      ...filterParams(req.body, allowedParams)
-    }
+      return options.defaultParams ? options.defaultParams(req) : {}
 
-    return options.model.forge(data).save().catch(err => {
+    }).then(defaults => {
 
-      if(err.errors) throw({ code: 422, message: `Unable to create ${options.name}`, errors: err.toJSON() })
+      const allowedParams = mergeParams(options.allowedParams.all, options.allowedParams.create)
 
-      throw(err)
+      const data = {
+        ...defaults,
+        ...options.ownedByTeam ? { team_id: req.team.get('id') } : {},
+        ...options.ownedByUser ? { user_id: req.user.get('id') } : {},
+        ...filterParams(req.body, allowedParams)
+      }
+
+      return options.model.forge(data).save().catch(err => {
+
+        if(err.errors) throw({ code: 422, message: `Unable to create ${options.name}`, errors: err.toJSON() })
+
+        throw(err)
+
+      })
 
     })
 

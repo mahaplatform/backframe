@@ -41,10 +41,11 @@ class Select extends React.Component {
     } else if(status == 'error') {
       classes.push('error')
     }
+    const value = _.find(options, { key: defaultValue })
     return (
       <div className="select">
         <div className={classes.join(' ')} ref="control">
-          { defaultValue ? <div className="text">{defaultValue}</div> : <div className="default text">{prompt}</div> }
+          { value ? <div className="text">{value.text}</div> : <div className="default text">{prompt}</div> }
           <i className="dropdown icon" />
           <div className="menu">
             { options.map((option, index) => {

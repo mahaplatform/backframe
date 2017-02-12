@@ -10,6 +10,7 @@ export default resources({
     update: updateRoles
   },
   allowedParams: ['first_name','last_name','email'],
+  defaultSort: 'last_name',
   model: User,
   name: 'user',
   path: 'users',
