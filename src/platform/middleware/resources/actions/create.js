@@ -8,6 +8,7 @@ export default options => {
 
         const data = {
             ...options.defaults,
+            ...options.ownedByTeam ? { team_id: req.team.get('id') } : {},
             ...options.ownedByUser ? { user_id: req.user.get('id') } : {},
             ...filterParams(req.body, allowedParams)
         }

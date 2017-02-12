@@ -1,6 +1,6 @@
 import Promise from 'bluebird'
-import UserQuery from '../queries/user_query'
-import User from '../models/user'
+import UserQuery from 'platform/queries/user_query'
+import User from 'platform/models/user'
 
 export default filters => {
   return new Promise((resolve, reject) => {

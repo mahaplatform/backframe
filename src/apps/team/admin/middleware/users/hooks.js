@@ -1,64 +1,72 @@
 import Promise from 'bluebird'
 import _ from 'lodash'
 
-export const createRoles = (req, res, next) => {
+export const createRoles = (req, resource) => {
 
-  if(!req.body.role_ids) next()
+  return new Promise((resolve, reject) => {
 
-  return req.resource.roles().attach(req.body.role_ids).then(roles => {
+    if(!req.body.role_ids) resolve(resource)
 
-    next()
+    return resource.roles().attach(req.body.role_ids).then(roles => {
 
-    return null
+      resolve(resource)
 
-  }).catch(err => {
+      return null
 
-    if(err.errors) {
-      const error = new Error({ code: 422, message: 'Unable to attach roles', data: err.toJSON() })
-      return next(error)
-    }
+    }).catch(err => {
 
-    next(err)
+      if(err.errors) {
+        return reject({ code: 422, message: 'Unable to create roles', data: err.toJSON() })
+      }
+
+      reject(err)
+
+    })
 
   })
 
 }
 
-export const updateRoles = (req, res, next) => {
+export const updateRoles = (req, resource) => {
 
-  if(!req.body.role_ids === null) next()
+  return new Promise((resolve, reject) => {
 
-  const roleIds = req.resource.related('roles').map(role => role.id)
+    if(!req.body.role_ids) resolve(resource)
 
-  const removeIds = roleIds.reduce((ids, id) => {
-    return !_.includes(req.body.role_ids, id) ? [...ids, id] : ids
-  }, [])
+    const roleIds = resource.related('roles').map(role => role.id)
 
-  const addIds = req.body.role_ids.reduce((ids, id) => {
-    return !_.includes(roleIds, id) ? [...ids, id] : ids
-  }, [])
+    const removeIds = roleIds.reduce((ids, id) => {
+      return !_.includes(req.body.role_ids, id) ? [...ids, id] : ids
+    }, [])
 
-  let promises = []
+    const addIds = req.body.role_ids.reduce((ids, id) => {
+      return !_.includes(roleIds, id) ? [...ids, id] : ids
+    }, [])
 
-  if(removeIds.length) promises.push(req.resource.roles().detach(removeIds))
-  if(addIds.length) promises.push(req.resource.roles().attach(addIds))
+    let promises = []
 
-  if(!promises.length) next()
+    if(removeIds.length) promises.push(resource.roles().detach(removeIds))
+    if(addIds.length) promises.push(resource.roles().attach(addIds))
 
-  return Promise.all(promises).then(result => {
+    if(!promises.length) resolve(resource)
 
-    next()
+    return Promise.all(promises).then(result => {
 
-    return null
+      resolve(resource)
 
-  }).catch(err => {
+      return null
 
-    if(err.errors) {
-      const error = new Error({ code: 422, message: 'Unable to update roles', data: err.toJSON() })
-      return next(error)
-    }
+    }).catch(err => {
 
-    next(err)
+      if(err.errors) {
+
+        return reject({ code: 422, message: 'Unable to update roles', data: err.toJSON() })
+
+      }
+
+      reject(err)
+
+    })
 
   })
 

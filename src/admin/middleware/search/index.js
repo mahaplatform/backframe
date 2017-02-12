@@ -7,16 +7,24 @@ export default (req, res, next) => {
 
   const files = glob.sync(path.resolve(__dirname, '../../../../**/admin/searches/*_search.js'))
 
-  let searches = {}
-  files.map(filepath => {
+  const searches = files.reduce((searches, filepath) => {
+
     const matches = filepath.match(/([a-z]*)_search\.js/)
+
     if(matches) {
       const search = require(filepath).default
-      searches[matches[1]] = search(req.query)
+      return {
+        ...searches,
+        [matches[1]]: search(req.query)
+      }
     }
-  })
+
+    return searches
+
+  }, {})
 
   const promises = Object.keys(searches).map(key => searches[key])
+
   Promise.all(promises).then(results => {
 
     const data = results.reduce((data, result, index) => {
@@ -27,7 +35,7 @@ export default (req, res, next) => {
       return data
     }, {})
 
-    succeed(res, 200, '', data)
+    succeed(res, 200, '', { data })
 
     next()
 

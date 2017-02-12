@@ -110,7 +110,7 @@ export const wrapWithHooks = (authenticator, authorizer, before, processor, afte
 
     }).then(result => {
 
-        return runHooks(req, after).then(() => result)
+        return runHooks(req, after, result).then(() => result)
 
     }).then(result => {
 
