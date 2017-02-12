@@ -19,9 +19,6 @@ export default (req, res, next) => {
     req.team = user.related('team')
     req.jwt = info
 
-    req.logger.info('TEAM', `${req.team.get('title')}`, `ID#${req.team.get('id')}`)
-    req.logger.info('USER', `${req.user.get('full_name')}`, `ID#${req.user.get('id')}`)
-
     next()
 
     return null

@@ -9,15 +9,30 @@ import roles from './middleware/roles'
 import searches from './middleware/searches'
 import users from './middleware/users'
 
+export const resources = [
+  // access,
+  activities,
+  appAuthors,
+  appCategories,
+  apps,
+  assets,
+  roles,
+  searches,
+  users
+]
+
 const router = Router()
+
 router.use('/access', access)
-router.use('/activities', activities)
-router.use('/apps/authors', appAuthors)
-router.use('/apps/categories', appCategories)
-router.use('/apps', apps)
-router.use('/assets', assets)
-router.use('/roles', roles)
-router.use('/searches', searches)
-router.use('/users', users)
+
+router.use('/test', (req, res) => {
+  res.send('test')
+})
+
+resources.map(resource => {
+
+  router.use(resource.router)
+
+})
 
 export default router

@@ -5,11 +5,12 @@
   "main": "server.js",
   "scripts": {
     "build": "webpack",
-    "start": "./node_modules/foreman/nf.js start",
+    "start": "npm run server && npm run worker",
     "server": "NODE_PATH=./src babel-node ./src/server.js",
     "worker": "NODE_PATH=./src babel-node ./src/worker.js",
     "test": "NODE_ENV=test NODE_PATH=./src mocha --recursive --require babel-core/register ./src/**/*test.js",
-    "reset": "knex migrate:rollback && knex migrate:latest && knex seed:run"
+    "reset": "knex migrate:rollback && knex migrate:latest && knex seed:run",
+    "routes": "NODE_PATH=./src babel-node src/routes.js"
   },
   "author": "",
   "license": "ISC",

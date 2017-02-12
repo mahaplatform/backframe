@@ -22,6 +22,7 @@ import Chrome from 'admin/components/chrome'
 import Panel from 'admin/views/panel'
 import Dashboard from 'admin/views/dashboard'
 import NotFound from 'admin/views/not_found'
+import Expenses from 'apps/expenses/admin/client'
 import Team from 'apps/team/admin/client'
 
 
@@ -49,6 +50,9 @@ export default (
                           <Route component={ Transition }>
                             <Route component={ Panel }>
                               <IndexRoute component={ Dashboard } />
+                              <Route path="expenses">
+                                { Expenses }
+                              </Route>
                               <Route path="team">
                                 { Team }
                               </Route>

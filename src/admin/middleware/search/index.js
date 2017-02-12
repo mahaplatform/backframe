@@ -5,7 +5,7 @@ import { succeed } from 'platform/utils/responses'
 
 export default (req, res, next) => {
 
-  const files = glob.sync(path.resolve(__dirname, '../../../../**/searches/*_search.js'))
+  const files = glob.sync(path.resolve(__dirname, '../../../../**/admin/searches/*_search.js'))
 
   let searches = {}
   files.map(filepath => {

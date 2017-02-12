@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
       table.increments('id').primary()
       table.string('title')
       table.string('subdomain')
+      table.timestamp('deleted_at')
       table.timestamps()
     })
   ])

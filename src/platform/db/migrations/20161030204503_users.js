@@ -20,6 +20,7 @@ exports.up = function(knex, Promise) {
       table.timestamp('activated_at')
       table.timestamp('reset_at')
       table.timestamp('logged_out_at')
+      table.timestamp('deleted_at')
       table.timestamps()
     })
   ])

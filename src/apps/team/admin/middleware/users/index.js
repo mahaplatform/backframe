@@ -7,6 +7,7 @@ import { createRoles, updateRoles } from './hooks'
 export default resources({
   name: 'user',
   model: User,
+  path: 'users',
   query: UserQuery,
   serializer: UserSerializer,
   withRelated: ['photo','roles'],
