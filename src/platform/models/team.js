@@ -4,18 +4,18 @@ import Strategy from 'platform/models/strategy'
 
 export default model.extend({
 
-  tableName: 'teams',
+    tableName: 'teams',
 
-  rules: {
-    title: 'required'
-  },
+    rules: {
+      title: 'required'
+    },
 
-  logo: function() {
-    return this.belongsTo(Asset, 'logo_id')
-  },
+    logo: function() {
+      return this.belongsTo(Asset, 'logo_id')
+    },
 
-  strategies: function() {
-    return this.hasMany(Strategy, 'team_id')
-  }
+    strategies: function() {
+      return this.hasMany(Strategy, 'team_id')
+    }
 
 })

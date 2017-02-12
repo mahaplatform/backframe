@@ -6,18 +6,18 @@ import { printRoutingTable } from 'platform/middleware/resources/utils'
 
 const resources = fs.readdirSync(path.join(__dirname, 'apps')).reduce((resources, app) => {
 
-  const adminPath = path.join(__dirname, 'apps', app, 'admin')
+    const adminPath = path.join(__dirname, 'apps', app, 'admin')
 
-  if(fs.existsSync(adminPath)) {
+    if(fs.existsSync(adminPath)) {
 
-    return [
-      ...resources,
-      ...require(path.join(adminPath, 'server')).resources
-    ]
+        return [
+            ...resources,
+            ...require(path.join(adminPath, 'server')).resources
+        ]
 
-  }
+    }
 
-  return resources
+    return resources
 
 }, [])
 

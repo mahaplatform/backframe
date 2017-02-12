@@ -3,16 +3,16 @@ import unique from 'platform/validations/unique'
 
 export default model.extend({
 
-  tableName: 'assets',
+    tableName: 'assets',
 
-  rules: {
-    fingerprint: [unique('assets', 'fingerprint')]
-  },
+    rules: {
+        fingerprint: [unique('assets', 'fingerprint')]
+    },
 
-  virtuals: {
-    url: function() {
-      return (!this.isNew()) ? `/images/${this.get('file_name')}` : null
+    virtuals: {
+        url: function() {
+            return (!this.isNew()) ? `/images/${this.get('file_name')}` : null
+        }
     }
-  }
 
 })

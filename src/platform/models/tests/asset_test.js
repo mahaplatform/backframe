@@ -3,8 +3,8 @@ import Asset from '../asset'
 
 describe('asset model', function() {
 
-  it('enforces unique fingerprint')
+    it('enforces unique fingerprint')
 
-  it('returns url')
+    it('returns url')
 
 })

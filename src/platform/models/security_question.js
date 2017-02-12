@@ -2,10 +2,10 @@ import model from 'platform/models/model'
 
 export default model.extend({
 
-  tableName: 'security_questions',
+    tableName: 'security_questions',
 
-  rules: {
-    text: ['required']
-  }
+    rules: {
+        text: ['required']
+    }
 
 })

@@ -4,18 +4,18 @@ import User from 'platform/models/user'
 
 export default model.extend({
 
-  tableName: 'notifications',
+    tableName: 'notifications',
 
-  rules: {
-    user_id: ['required']
-  },
+    rules: {
+        user_id: ['required']
+    },
 
-  story: function() {
-    return this.belongsTo(Story)
-  },
+    story: function() {
+        return this.belongsTo(Story)
+    },
 
-  user: function() {
-    return this.belongsTo(User)
-  }
+    user: function() {
+        return this.belongsTo(User)
+    }
 
 })

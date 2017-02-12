@@ -8,60 +8,60 @@ dotenv.config({ path: '.env' })
 
 export default key => {
 
-  const fromUrl = (req) => {
-    const matches = req.path.match(/[\w\-]*\.[\w\-]*\.[\w\-]*/)
-    return (matches) ? matches[0] : null
-  }
-
-  const jwtOptions = {
-    jwtFromRequest: ExtractJwt.fromExtractors([ExtractJwt.fromAuthHeaderWithScheme('Bearer'), fromUrl]),
-    secretOrKey: process.env.SECRET || ''
-  }
-
-  passport.use(new JwtStrategy(jwtOptions, (payload, done) => {
-
-    if(!payload.data[key]) {
-      return done(null, false, { message: 'invalid jwt' })
+    const fromUrl = (req) => {
+        const matches = req.path.match(/[\w\-]*\.[\w\-]*\.[\w\-]*/)
+        return (matches) ? matches[0] : null
     }
 
-    return User.where({ id: payload.data[key] }).fetch({ withRelated: ['photo','team'] }).then(user => {
+    const jwtOptions = {
+        jwtFromRequest: ExtractJwt.fromExtractors([ExtractJwt.fromAuthHeaderWithScheme('Bearer'), fromUrl]),
+        secretOrKey: process.env.SECRET || ''
+    }
 
-      if(!user) {
-        return done(null, false, { message: 'cannot find user' })
-      }
+    passport.use(new JwtStrategy(jwtOptions, (payload, done) => {
 
-      done(null, user, payload)
+        if(!payload.data[key]) {
+            return done(null, false, { message: 'invalid jwt' })
+        }
 
-      return null
+        return User.where({ id: payload.data[key] }).fetch({ withRelated: ['photo','team'] }).then(user => {
 
-    }).catch(err => {
-      done(null, false, { message: 'unable to load user' })
-    })
+            if(!user) {
+                return done(null, false, { message: 'cannot find user' })
+            }
 
-  }))
+            done(null, user, payload)
 
-  passport.use(new LocalStrategy({ usernameField: 'email' }, (username, password, done) => {
+            return null
 
-    return User.where({ email: username }).fetch().then(user => {
+        }).catch(err => {
+            done(null, false, { message: 'unable to load user' })
+        })
 
-      if(!user) {
-        return done(null, false, { message: 'cannot find user' })
-      }
+    }))
 
-      if(!user.authenticate(password)) {
-        return done(null, false, { message: 'invalid password' })
-      }
+    passport.use(new LocalStrategy({ usernameField: 'email' }, (username, password, done) => {
 
-      done(null, user)
+        return User.where({ email: username }).fetch().then(user => {
 
-      return null
+            if(!user) {
+                return done(null, false, { message: 'cannot find user' })
+            }
 
-    }).catch(err => {
-      done(null, false, { message: 'unable to load user' })
-    })
+            if(!user.authenticate(password)) {
+                return done(null, false, { message: 'invalid password' })
+            }
 
-  }))
+            done(null, user)
 
-  return passport
+            return null
+
+        }).catch(err => {
+            done(null, false, { message: 'unable to load user' })
+        })
+
+    }))
+
+    return passport
 
 }

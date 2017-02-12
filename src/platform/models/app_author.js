@@ -4,14 +4,14 @@ import App from 'platform/models/app'
 
 export default model.extend({
 
-  tableName: 'app_authors',
+    tableName: 'app_authors',
 
-  rules: {
-    title: ['required', unique('apps', 'name')]
-  },
+    rules: {
+        title: ['required', unique('apps', 'name')]
+    },
 
-  apps: function() {
-    return this.hasMany(App, 'app_author_id')
-  }
+    apps: function() {
+        return this.hasMany(App, 'app_author_id')
+    }
 
 })
