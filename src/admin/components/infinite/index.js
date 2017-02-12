@@ -110,6 +110,7 @@ class Infinite extends React.Component {
     if(!el || status == 'loading') return
     const bottomScrollPos = el.scrollTop + el.offsetHeight
     const bottomPosition = (el.scrollHeight - bottomScrollPos)
+    console.log('%s : %s : %s',bottomPosition,loaded,total)
     if(bottomPosition < 250 && loaded < total) {
       this._handleFetch(loaded)
     }
@@ -117,8 +118,10 @@ class Infinite extends React.Component {
 
   _handleFetch(loaded) {
     const { cid, endpoint, filter, sort, onFetch } = this.props
+    const $filter = filter
+    const $page = { skip: loaded }
     const $sort = (sort.order === 'desc' ? '-' : '') + sort.key
-    onFetch(cid, endpoint, { ...filter, $skip: loaded, $sort })
+    onFetch(cid, endpoint, { $filter, $page, $sort })
   }
 
 }

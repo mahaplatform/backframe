@@ -28,7 +28,7 @@ export default (req, res, next) => {
         strategies
       }
 
-      succeed(res, 200, 'Successfully found your team', data)
+      succeed(res, 200, 'Successfully found your team', { data })
 
     }).catch(next)
 

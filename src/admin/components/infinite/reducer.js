@@ -18,22 +18,22 @@ export default (state = INITIAL_STATE, action) => {
   case actionTypes.FETCH_REQUEST:
     return {
       ...state,
-      records: (action.params['$skip'] > 0) ? state.records : [],
+      records: (action.params.$page.skip > 0) ? state.records : [],
       status: 'loading'
     }
 
   case actionTypes.FETCH_SUCCESS:
-    const loaded = state.records.length + action.data.records.length
+    const loaded = state.records.length + action.data.length
     return {
       ...state,
-      all: action.data.all,
+      all: action.pagination.all,
       records: [
         ...state.records,
-        ...action.data.records
+        ...action.data
       ],
       loaded,
-      total: action.data.total,
-      status: (loaded >= action.data.total) ? 'completed' : 'loaded'
+      total: action.pagination.total,
+      status: (loaded >= action.pagination.total) ? 'completed' : 'loaded'
     }
 
   case actionTypes.FETCH_FAILURE:

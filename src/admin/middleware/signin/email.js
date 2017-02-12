@@ -24,7 +24,7 @@ export default (req, res, next) => {
         photo: user.related('photo').get('url')
       }
 
-      succeed(res, 200, '', data)
+      succeed(res, 200, '', { data })
 
     }).catch(next)
 

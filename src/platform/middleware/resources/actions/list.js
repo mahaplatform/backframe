@@ -1,5 +1,6 @@
 import Promise from 'bluebird'
 import _ from 'lodash'
+import knex from 'platform/services/knex'
 import { coerceArray, defaultQuery, filterParams, applyToRecords, resourceRenderer } from '../utils'
 import { extractSort, filter, selectFields } from '../utils/list'
 
@@ -16,9 +17,9 @@ export default options => {
 
         const fetchOptions = withRelated ? { withRelated:  coerceArray(withRelated) } : {}
 
-        const limit = _.get(req.query, '$page.limit') || 50
+        const limit = parseInt(_.get(req.query, '$page.limit')) || 50
 
-        const skip = _.get(req.query, '$page.skip') || 0
+        const skip = parseInt(_.get(req.query, '$page.skip')) || 0
 
         const query = qb => {
 
@@ -56,13 +57,19 @@ export default options => {
 
         }).fetchAll()
 
-        const count = () => options.model.query(qb => {
+        const tableName = options.model.extend().__super__.tableName
 
-            qb = query(qb)
+        const queryObject = query(knex(tableName)).toSQL()
 
-            qb.count('*')
+        const count = () => knex.raw(`SELECT COUNT(*) FROM (${queryObject.sql}) AS temp`, queryObject.bindings)
 
-        }).fetchAll()
+        // const count = () => options.model.query(qb => {
+        //
+        //     qb = query(qb)
+        //
+        //     qb.count('*')
+        //
+        // }).fetchAll()
 
         const paged = () => options.model.query(qb => {
 
@@ -86,9 +93,11 @@ export default options => {
 
         return Promise.all([all(), count(), paged()]).then(responses => {
 
+          console.log(responses[1].rows[0].count)
+
             const all = parseInt(responses[0].toJSON()[0].count)
 
-            const total = responses[1].toJSON()[0] ? parseInt(responses[1].toJSON()[0].count) : 0
+            const total = responses[1].rows[0].count ? parseInt(responses[1].rows[0].count) : 0
 
             const records = responses[2]
 

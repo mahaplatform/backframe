@@ -29,8 +29,9 @@ export default (req, res, next) => {
 
       const two_weeks = 60 * 60 * 24 * 7 * 2
       const token = jwt.encode({ user_id: user.id }, two_weeks)
+      const data = { token }
 
-      succeed(res, 200, '', { token })
+      succeed(res, 200, '', { data })
 
       next()
 

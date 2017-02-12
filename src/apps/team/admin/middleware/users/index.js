@@ -5,15 +5,17 @@ import UserSerializer from 'platform/serializers/user_serializer'
 import { createRoles, updateRoles } from './hooks'
 
 export default resources({
-  name: 'user',
-  model: User,
-  path: 'users',
-  query: UserQuery,
-  serializer: UserSerializer,
-  withRelated: ['photo','roles'],
-  allowedParams: ['first_name','last_name','email'],
   after: {
     create: createRoles,
     update: updateRoles
-  }
+  },
+  allowedParams: ['first_name','last_name','email'],
+  model: User,
+  name: 'user',
+  path: 'users',
+  query: UserQuery,
+  serializer: UserSerializer,
+  sortParams: ['last_name'],
+  filterParams: ['role_id'],
+  withRelated: ['photo','roles']
 })
