@@ -10,7 +10,6 @@ import searches from './middleware/searches'
 import users from './middleware/users'
 
 export const resources = [
-  // access,
   activities,
   appAuthors,
   appCategories,
@@ -23,7 +22,7 @@ export const resources = [
 
 const router = Router()
 
-router.use('/access', access)
+router.use(access)
 
 router.use('/test', (req, res) => {
   res.send('test')

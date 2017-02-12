@@ -8,11 +8,13 @@ export default (action, options) => {
 
         const fetchOptions = withRelated ? { withRelated: coerceArray(withRelated) } : {}
 
+        const tableName = options.model.extend().__super__.tableName
+
         return options.model.query(qb => {
 
             qb = defaultQuery(req, options, action, qb, {})
 
-            qb.where('id', req.params[options.primaryKey])
+            qb.where(`${tableName}.id`, req.params[options.primaryKey])
 
         }).fetch(fetchOptions).then(record => {
 

@@ -12,7 +12,7 @@ export default (state = INITIAL_STATE, action) => {
   case actionTypes.LOAD_SUCCESS:
     return {
       ...state,
-      access: action.data.records
+      access: action.data
     }
 
   case actionTypes.TOGGLE_APP:

@@ -1,6 +1,7 @@
 import App from 'platform/models/app'
 import Right from 'platform/models/right'
 import knex from 'platform/services/knex'
+import { succeed } from 'platform/utils/responses'
 
 export default (req, res, next) => {
 
@@ -39,7 +40,7 @@ export default (req, res, next) => {
       return rights
     }, {})
 
-    const access = results[0].map(app => {
+    const data = results[0].map(app => {
       return {
         id: app.get('id'),
         title: app.get('title'),
@@ -48,7 +49,7 @@ export default (req, res, next) => {
       }
     })
 
-    res.status(200).json(access)
+    succeed(res, 200, '', { data })
 
     next()
 

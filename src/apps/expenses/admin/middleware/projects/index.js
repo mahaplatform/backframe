@@ -10,6 +10,9 @@ export default resources({
     {
       name: 'member',
       model: Member,
+      query: (qb, req, filters) => {
+        qb.where({ project_id: req.params.project_id })
+      },
       withRelated: ['user.photo']
     }
   ],

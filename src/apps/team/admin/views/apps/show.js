@@ -9,7 +9,7 @@ class Show extends React.Component {
     return (
       <div className="chrome-body">
         <div className="app-detail">
-          <div className={`app${app.installed && ' installed'}`}>
+          <div className={`app${app.installed ? ' installed' : ''}`}>
             <div className="app-icon">
               <i className={`${app.icon} icon`} />
             </div>

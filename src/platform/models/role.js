@@ -1,4 +1,5 @@
 import model from 'platform/models/model'
+import unique from 'platform/validations/unique'
 import App from 'platform/models/app'
 import Right from 'platform/models/right'
 import User from 'platform/models/user'
@@ -8,7 +9,8 @@ export default model.extend({
   tableName: 'roles',
 
   rules: {
-    text: 'required'
+    title: ['required', unique('roles', 'title')],
+    description: 'required'
   },
 
   apps: function() {

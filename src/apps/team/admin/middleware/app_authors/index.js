@@ -6,7 +6,7 @@ export default resources({
   name: 'app_author',
   model: AppAuthor,
   ownedByTeam: false,
-  only: ['list'],
+  only: ['list','show'],
   path: 'apps/authors',
   serializer: AppAuthorSerializer
 })

@@ -93,8 +93,6 @@ export default options => {
 
         return Promise.all([all(), count(), paged()]).then(responses => {
 
-          console.log(responses[1].rows[0].count)
-
             const all = parseInt(responses[0].toJSON()[0].count)
 
             const total = responses[1].rows[0].count ? parseInt(responses[1].rows[0].count) : 0

@@ -3,8 +3,9 @@ import App from 'platform/models/app'
 import AppSerializer from 'platform/serializers/app_serializer'
 
 export default resources({
-  name: 'app',
+  filterParams: ['app_author_id','app_category_id'],
   model: App,
+  name: 'app',
   ownedByTeam: false,
   query: (qb, req, filters) => {
     qb.column('apps.*', 'installations.team_id')
