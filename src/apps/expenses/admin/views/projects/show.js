@@ -2,32 +2,20 @@ import React from 'react'
 import Details from 'admin/components/details'
 import Page from 'admin/components/page'
 import Edit from './edit'
+import Tabs from 'admin/components/tabs'
+import Avatar from 'admin/components/avatar'
 import Member from './member'
 
 class Show extends React.Component {
 
   render() {
-    const { members } = this.props
     return (
       <div className="chrome-body">
         <div className="chrome-sidebar">
         <Details {...this._getDetails()} />
         </div>
         <div className="chrome-content">
-          <div className="project-members">
-            <h2>Members</h2>
-            {members.map((member, index) => {
-              return (
-                <div key={`member_${index}`} className="project-member" to={`/admin/expenses/projects/${member.project_id}/members/${member.id}`}>
-                  <img src={ member.user.photo.url } className="ui circular image" title={ member.user.full_name } />
-                  <p>
-                    <strong>{member.user.full_name}</strong><br />
-                    {member.user.email}
-                  </p>
-                </div>
-              )
-            })}
-          </div>
+          <Tabs {...this.props} {...this._getTabs()} />
         </div>
       </div>
     )
@@ -44,6 +32,54 @@ class Show extends React.Component {
     }
   }
 
+  _getTabs() {
+    return {
+      tabs: [
+        { label: 'Members', content: Members },
+        { label: 'Expense Types', content: ExpenseTypes }
+      ]
+    }
+  }
+
+}
+
+const Members = (props) => {
+  const { members } = props
+  return (
+    <div className="project-members">
+      {members.map((member, index) => {
+        return (
+          <div key={`member_${index}`} className="project-member" to={`/admin/expenses/projects/${member.project_id}/members/${member.id}`}>
+            <Avatar user={ member.user  } />
+            <p>
+              <strong>{member.user.full_name}</strong><br />
+              {member.user.email}
+            </p>
+          </div>
+        )
+      })}
+    </div>
+
+  )
+}
+
+const ExpenseTypes = (props) => {
+  const { expense_types } = props
+  return (
+    <div className="project-members">
+      {expense_types.map((expense_type, index) => {
+        return (
+          <div key={`expense_types_${index}`} className="project-member">
+            <p>
+              <strong>{expense_type.code}</strong><br />
+              {expense_type.title}
+            </p>
+          </div>
+        )
+      })}
+    </div>
+
+  )
 }
 
 const mapPropsToPage = (props, context) => ({
@@ -51,11 +87,13 @@ const mapPropsToPage = (props, context) => ({
   rights: [],
   tasks: [
     { label: 'Edit Project', modal: Edit },
-    { label: 'Add Member', modal: Member }
+    { label: 'Add Member', modal: Member },
+    { label: 'Add Expense Type', modal: Member }
   ],
   resources: {
     project: `/admin/expenses/projects/${props.params.id}`,
-    members: `/admin/expenses/projects/${props.params.id}/members`
+    members: `/admin/expenses/projects/${props.params.id}/members`,
+    expense_types: `/admin/expenses/projects/${props.params.id}/expense_types`
   }
 })
 

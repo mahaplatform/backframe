@@ -1,7 +1,8 @@
 import checkit from  'checkit'
 import bookshelf from 'platform/services/bookshelf'
 import unique from 'platform/validations/unique'
-import member from './member'
+import Member from './member'
+import ExpenseType from './expense_type'
 
 export default bookshelf.Model.extend({
 
@@ -15,7 +16,11 @@ export default bookshelf.Model.extend({
   },
 
   members: function() {
-    return this.hasMany(member, 'project_id')
+    return this.hasMany(Member, 'project_id')
+  },
+
+  expense_types: function() {
+    return this.belongsToMany(ExpenseType, 'expense_types')
   },
 
   initialize: function(attrs, opts) {
