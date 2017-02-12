@@ -1,5 +1,6 @@
 import resources from 'platform/middleware/resources'
 import Project from '../../../models/project'
+import ProjectSerializer from '../../../serializers/project_serializer'
 import Member from '../../../models/member'
 
 export default resources({
@@ -11,5 +12,6 @@ export default resources({
       model: Member,
       withRelated: ['user.photo']
     }
-  ]
+  ],
+  serializer: ProjectSerializer
 })

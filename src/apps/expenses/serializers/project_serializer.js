@@ -2,7 +2,8 @@ export default (object) => {
 
   return Promise.resolve({
     id: object.get('id'),
-    name: object.get('name')
+    title: object.get('title'),
+    code: object.get('code')
   })
 
 }

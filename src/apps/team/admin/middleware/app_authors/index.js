@@ -5,6 +5,8 @@ import AppAuthorSerializer from 'platform/serializers/app_author_serializer'
 export default resources({
   name: 'app_author',
   model: AppAuthor,
-  serializer: AppAuthorSerializer,
-  ownedByTeam: false
+  ownedByTeam: false,
+  only: ['list'],
+  path: 'apps/authors',
+  serializer: AppAuthorSerializer
 })

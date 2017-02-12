@@ -5,6 +5,7 @@ import AppCategorySerializer from 'platform/serializers/app_category_serializer'
 export default resources({
   name: 'app_category',
   model: AppCategory,
+  only: ['list'],
   ownedByTeam: false,
   path: 'apps/categories',
   serializer: AppCategorySerializer

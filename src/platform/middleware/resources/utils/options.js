@@ -3,9 +3,9 @@ import pluralize from 'pluralize'
 import _ from 'lodash'
 import { coerceArray } from './index'
 
-const VALID_OPTIONS = ['actions','after','allowedParams','authorizer','alter','before','cacheFor','defaults','defaultSort','dependents','except','filterParams','logger','model','name','only','ownedByTeam','ownedByUser','path','pathPrefix','prefix','processor','query','renderer','resources','responder','serializer','softDelete','sortParams','withRelated']
+const VALID_OPTIONS = ['actions','after','allowedParams','authorizer','alter','before','cacheFor','defaults','defaultSort','dependents','except','filterParams','logger','model','name','only','ownedByTeam','ownedByUser','path','pathPrefix','prefix','processor','query','renderer','resources','responder','rights','serializer','softDelete','sortParams','withRelated']
 const REQUIRED_OPTIONS = ['name','model']
-const MAPPED_OPTIONS = ['alter','after','allowedParams','authorizer','before','logger','processor','query','renderer','responder','serializer','withRelated']
+const MAPPED_OPTIONS = ['alter','after','allowedParams','authorizer','before','logger','processor','query','renderer','responder','rights','serializer','withRelated']
 const ARRAY_OR_STRING_OPTIONS = ['allowedParams','defaultSort','except','filterParams','only','sortParams','withRelated']
 const OBJECT_OR_FUNCTION_OPTIONS = ['actions','after','authorizer','alter','before','logger','processor','renderer','responder','serializer']
 const BOOLEAN_OPTIONS = ['ownedByTeam','ownedByUser','softDelete']
@@ -149,7 +149,7 @@ export const normalizeOptions = (userOptions) => {
         ownedByUser: false,
         primaryKey: 'id',
         resources: [],
-        softDelete: true
+        softDelete: false
     }
 
     return {
@@ -166,6 +166,7 @@ export const normalizeOptions = (userOptions) => {
         query:  mapOptionToActions(userOptions.query),
         renderer: mapOptionToActions(userOptions.renderer),
         responder: mapOptionToActions(userOptions.responder),
+        rights: mapOptionToActions(userOptions.rights),
         serializer: mapOptionToActions(userOptions.serializer),
         withRelated: mapOptionToActions(userOptions.withRelated)
     }

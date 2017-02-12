@@ -5,6 +5,7 @@ import ActivitySerializer from 'platform/serializers/activity_serializer'
 export default resources({
   name: 'activity',
   model: Activity,
+  only: ['list'],
   serializer: ActivitySerializer,
   withRelated: ['story', 'user.photo', 'app']
 })

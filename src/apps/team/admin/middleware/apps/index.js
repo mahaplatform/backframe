@@ -1,6 +1,6 @@
 import resources from 'platform/middleware/resources'
 import App from 'platform/models/app'
-import AppSerializer from 'platform/serializers/app_author_serializer'
+import AppSerializer from 'platform/serializers/app_serializer'
 
 export default resources({
   name: 'app',

@@ -1,5 +1,6 @@
 import resources from 'platform/middleware/resources'
 import Advance from '../../../models/advance'
+import AdvanceSerializer from '../../../serializers/advance_serializer'
 
 export default resources({
   name: 'advance',

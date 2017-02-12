@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "build": "webpack",
-    "start": "npm run server && npm run worker",
+    "start": "DEBUG=knex:query npm run server && npm run worker",
     "server": "NODE_PATH=./src babel-node ./src/server.js",
     "worker": "NODE_PATH=./src babel-node ./src/worker.js",
     "test": "NODE_ENV=test NODE_PATH=./src mocha --recursive --require babel-core/register ./src/**/*test.js",
@@ -32,6 +32,7 @@
     "knex": "^0.12.6",
     "localforage": "^1.4.3",
     "lodash": "^4.17.4",
+    "minimist": "^1.2.0",
     "moment": "^2.17.1",
     "numeral": "^2.0.4",
     "passport": "^0.3.2",

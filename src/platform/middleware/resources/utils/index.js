@@ -71,11 +71,13 @@ export const buildHandler = (action, builder, options) => {
 
         const alter = mergeParams(options.alter.all, options.alter[action])
 
+        const rights = mergeParams(options.rights.all, options.rights[action])
+
         const defaults = builder(options)
 
         const { authorizer, processor, renderer, responder, logger } = buildHandlerComponents(options, action, defaults.authorizer, defaults.processor, defaults.renderer, defaults.responder, defaults.logger)
 
-        const authenticator = resourceAuthenticator(options)
+        const authenticator = resourceAuthenticator(options, rights)
 
         const withHooks = () => wrapWithHooks(authenticator, authorizer, before, processor, after, logger, renderer, alter, responder, req, res, next)
 
@@ -284,17 +286,21 @@ export const serializeRecord = (record, serializer) => {
 }
 
 // default authenticator for resources
-export const resourceAuthenticator = (options) => {
+export const resourceAuthenticator = (options, rights) => {
 
     return (req) => {
 
         return new Promise((resolve, reject) => {
 
-            if(!options.ownedByUser) resolve()
+            const allowed = rights.reduce((allowed, right) => {
 
-            if(!req.user) reject({ code: 403, message: 'You must be logged in to access this resource.' })
+                if(!allowed) return false
 
-            if(req.user === 'expired') reject({ code: 403, message: 'Your token has expired.' })
+                return _.includes(req.rights, right)
+
+            }, true)
+
+            if(!allowed) reject({ code: 403, message: 'You do not have the rights to access this resource.' })
 
             resolve()
 
