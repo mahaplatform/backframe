@@ -1,13 +1,10 @@
-import checkit from  'checkit'
-import bookshelf from 'platform/services/bookshelf'
+import model from 'platform/models/model'
 import project from './project'
 import user from 'platform/models/user'
 
-export default bookshelf.Model.extend({
+export default model.extend({
 
   tableName: 'expenses_members',
-
-  hasTimestamps: ['created_at', 'updated_at'],
 
   rules: {
     user_id: ['required'],
@@ -20,14 +17,6 @@ export default bookshelf.Model.extend({
 
   user: function() {
     return this.belongsTo(user, 'user_id')
-  },
-
-  initialize: function(attrs, opts) {
-    this.on('saving', this.validateSave)
-  },
-
-  validateSave: function() {
-    return new checkit(this.rules).run(this.attributes)
   }
 
 })

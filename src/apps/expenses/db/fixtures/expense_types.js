@@ -56,6 +56,101 @@ module.exports = {
       team_id: 1,
       title: 'Computer Software',
       code: '65401'
+    }, {
+      id: 12,
+      team_id: 1,
+      title: 'Fees and Licenses, Memberships, Permits,sales tax	',
+      code: '69600	'
+    }, {
+      id: 13,
+      team_id: 1,
+      title: 'Subscriptions',
+      code: '69500'
+    }, {
+      id: 14,
+      team_id: 1,
+      title: 'Lease & Rental/Office ',
+      code: '64300'
+    }, {
+      id: 15,
+      team_id: 1,
+      title: 'Lease & Rental Equipment/Vehicles',
+      code: '64100'
+    }, {
+      id: 16,
+      team_id: 1,
+      title: 'Car Share Lease',
+      code: '64400'
+    }, {
+      id: 17,
+      team_id: 1,
+      title: 'Staff & Volunteer Mtgs - expenses for meetings sponsored by CCE - except food which is charged to 62900',
+      code: '63100'
+    }, {
+      id: 18,
+      team_id: 1,
+      title: 'Employee meals-to attend assoc. & staff & vol. mtgs (not workshops & conf)',
+      code: '62500'
+    }, {
+      id: 19,
+      team_id: 1,
+      title: 'Workshop, Meeting, Conferences & Program Related Food Expenses',
+      code: '62900'
+    }, {
+      id: 20,
+      team_id: 1,
+      title: 'Mileage Personal Vehicle for CCE Business',
+      code: '62700'
+    }, {
+      id: 21,
+      team_id: 1,
+      title: 'Travel Expenses Incurred - meals, public transportation, parking, etc',
+      code: '62701'
+    }, {
+      id: 22,
+      team_id: 1,
+      title: 'Fleet-Gas, oil, repairs, upkeep, tolls, garage rent',
+      code: '66400'
+    }, {
+      id: 23,
+      team_id: 1,
+      title: 'Equipment < $1000',
+      code: '63700'
+    }, {
+      id: 24,
+      team_id: 1,
+      title: 'Computers, parts, supplies < $1000',
+      code: '63701'
+    }, {
+      id: 25,
+      team_id: 1,
+      title: 'Computer Software',
+      code: '65401'
+    }, {
+      id: 26,
+      team_id: 1,
+      title: 'Computer Software',
+      code: '61300'
+    }, {
+      id: 27,
+      team_id: 1,
+      title: 'Computer - IT Support / hosting',
+      code: '61300'
+    }, {
+      id: 28,
+      team_id: 1,
+      title: 'Printing/Copying',
+      code: '63500'
+    }, {
+      id: 29,
+      team_id: 1,
+      title: 'Classified Advertising, Newspaper / magazines(job postings)',
+      code: '60300'
+    }, {
+      id: 30,
+      team_id: 1,
+      title: 'Publicity-Promoting assoc. services, signs/promotional material, shirts, caps, etc',
+      code: '60500'
     }
   ]
 }

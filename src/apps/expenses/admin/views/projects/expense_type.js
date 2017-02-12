@@ -1,7 +1,7 @@
 import React from 'react'
 import Form from 'admin/components/form'
 
-class Member extends React.Component {
+class ExpenseTypes extends React.Component {
 
   static contextTypes = {
     container: React.PropTypes.object,
@@ -17,14 +17,13 @@ class Member extends React.Component {
     return {
       title: 'Add Member',
       method: 'post',
-      action: `/admin/expenses/projects/${this.context.container.params.id}/members`,
+      action: `/admin/expenses/projects/${this.context.container.params.id}/expense_types`,
       onCancel: this.context.modal.pop,
       onSuccess: this._handleSuccess.bind(this),
       sections: [
         {
           fields: [
-            { label: 'User', name: 'user_id', type: 'lookup', placeholder: 'User', endpoint: '/admin/team/users', value: 'id', text: 'full_name' },
-            { label: 'Is Owner', name: 'is_owner', type: 'checkbox' }
+            { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Expense Type', endpoint: '/admin/expenses/expense_types', value: 'id', text: 'title' }
           ]
         }
       ]
@@ -32,10 +31,10 @@ class Member extends React.Component {
   }
 
   _handleSuccess(project) {
-    this.context.container.refresh('members')
+    this.context.container.refresh('project_expense_types')
     this.context.modal.pop()
   }
 
 }
 
-export default Member
+export default ExpenseTypes

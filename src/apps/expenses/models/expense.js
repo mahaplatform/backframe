@@ -3,6 +3,7 @@ import bookshelf from 'platform/services/bookshelf'
 import ExpenseType from  './expense_type'
 import Project from  './project'
 import User from  'platform/models/user'
+import Vendor from  './vendor'
 
 export default bookshelf.Model.extend({
 
@@ -24,6 +25,10 @@ export default bookshelf.Model.extend({
 
   user: function() {
     return this.belongsTo(User, 'user_id')
+  },
+
+  vendor: function() {
+    return this.belongsTo(Vendor, 'vendor_id')
   },
 
   initialize: function(attrs, opts) {

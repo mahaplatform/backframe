@@ -15,13 +15,14 @@ class Lookup extends React.Component {
   }
 
   render() {
-    const { selected, results, value } = this.props
+    const { placeholder, selected, results, text } = this.props
     const chosen = (selected !== null) ? results[selected] : null
     return (
       <div className="lookup-field">
         <input type="text"
                onFocus={ this._handleBegin.bind(this) }
-               value={ chosen ? _.get(chosen, value) : '' }/>
+               value={ chosen ? _.get(chosen, text) : '' }
+               placeholder={ placeholder }/>
       </div>
     )
   }

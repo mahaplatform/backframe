@@ -11,7 +11,7 @@ class Search extends React.Component {
   }
 
   render() {
-    const { label, results, selected, value } = this.props
+    const { label, results, selected, text } = this.props
     return (
       <div className="chrome-modal-panel">
        <div className="chrome-modal-panel-header">
@@ -36,7 +36,7 @@ class Search extends React.Component {
                return (
                  <div key={`result_${index}`} className="lookup-panel-result" onClick={ this._handleChoose.bind(this, index) }>
                    <div className="lookup-panel-result-label">
-                     { _.get(result, value) }
+                     { _.get(result, text) }
                    </div>
                    <div className="lookup-panel-result-icon">
                      { index === selected ? <i className="green check icon" /> : null }
@@ -72,8 +72,11 @@ class Search extends React.Component {
   }
 
   _handleChoose(index) {
+    const chosen = this.props.results[index]
+    const value = _.get(chosen, this.props.value)
     this.context.modal.pop()
     this.props.onChoose(index)
+    this.props.onChange(value)
   }
 
 }

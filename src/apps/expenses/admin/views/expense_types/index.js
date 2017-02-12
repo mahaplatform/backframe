@@ -20,7 +20,7 @@ class Index extends React.Component {
         { label: 'Title', key: 'title', primary: true },
         { label: 'Code', key: 'code', primary: true }
       ],
-      sort: { key: 'created_at', order: 'desc' },
+      sort: { key: 'code', order: 'asc' },
       entity: 'expense_type',
       empty: {
         icon: 'tag',

@@ -24,9 +24,9 @@ class New extends React.Component {
           fields: [
             { label: 'Receipt', name: 'upload_id', type: 'filefield', endpoint: '/admin/uploads', prompt: 'Upload Receipt' },
             { label: 'Date', name: 'date_needed', type: 'datefield', placeholder: 'Date Needed', defaultValue: moment().format('YYYY-MM-DD') },
-            { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Project', endpoint: '/admin/expenses/projects', key: 'id', value: 'title' },
-            { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Expense Type', endpoint: '/admin/expenses/expense_types', key: 'id', value: 'title' },
-            { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Vendor', endpoint: '/admin/expenses/vendors', key: 'id', value: 'name' },
+            { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Project', endpoint: '/admin/expenses/projects', value: 'id', text: 'title' },
+            { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Expense Type', endpoint: '/admin/expenses/expense_types', value: 'id', text: 'title' },
+            { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Vendor', endpoint: '/admin/expenses/vendors', value: 'id', vatextlue: 'name' },
             { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Description' },
             { label: 'Amount', name: 'amount', type: 'textfield', placeholder: 'Amount' },
             { label: 'Visa?', name: 'is_visa', type: 'checkbox' }

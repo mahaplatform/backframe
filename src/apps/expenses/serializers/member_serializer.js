@@ -7,7 +7,8 @@ export default (object) => {
       initials: object.related('user').get('initials'),
       photo: object.related('user').related('photo').get('url'),
       email: object.related('user').get('email')
-    }
+    },
+    is_owner: object.get('is_owner')
   })
 
 }

@@ -5,57 +5,68 @@ module.exports = {
       id: 1,
       team_id: 1,
       project_id: 1,
-      user_id: 64
+      user_id: 64,
+      is_owner: true
     }, {
       id: 2,
       team_id: 1,
       project_id: 1,
-      user_id: 54
+      user_id: 54,
+      is_owner: true
     }, {
       id: 3,
       team_id: 1,
       project_id: 1,
-      user_id: 49
+      user_id: 49,
+      is_owner: false
     }, {
       id: 4,
       team_id: 1,
       project_id: 1,
-      user_id: 95
+      user_id: 95,
+      is_owner: false
     }, {
       id: 5,
       team_id: 1,
       project_id: 1,
-      user_id: 63
+      user_id: 63,
+      is_owner: false
     }, {
       id: 6,
       team_id: 1,
       project_id: 2,
-      user_id: 13
+      user_id: 13,
+      is_owner: false
     }, {
       id: 7,
       team_id: 1,
       project_id: 2,
-      user_id: 48
+      user_id: 48,
+      is_owner: false
     }, {
       id: 8,
       team_id: 1,
       project_id: 2,
-      user_id: 1
+      user_id: 1,
+      is_owner: false
     }, {
       id: 9,
       team_id: 1,
       project_id: 3,
-      user_id: 19
+      user_id: 19,
+      is_owner: false
     }, {
       id: 10,
       team_id: 1,
       project_id: 3,
-      user_id: 21
+      user_id: 21,
+      is_owner: false
     }, {
       id: 11,
       team_id: 1,
       project_id: 3,
-      user_id: 1
+      user_id: 1,
+      is_owner: false
     }
   ]
 }

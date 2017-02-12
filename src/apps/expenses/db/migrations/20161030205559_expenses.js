@@ -16,6 +16,8 @@ exports.up = function(knex, Promise) {
       table.text('description')
       table.decimal('amount', 6, 2)
       table.boolean('is_visa')
+      table.boolean('is_approved')
+      table.text('reason_rejected')
       table.timestamps()
     })
   ])

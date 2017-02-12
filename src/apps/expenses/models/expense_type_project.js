@@ -1,14 +1,16 @@
 import model from 'platform/models/model'
-import ExpenseType from  './expense_type'
-import Project from  './project'
-import User from 'platform/models/user'
+import Project from './project'
+import ExpenseType from './expense_type'
 
 export default model.extend({
 
-  tableName: 'expenses_advances',
+  tableName: 'expenses_expense_types_projects',
+
+  hasTimestamps: ['created_at', 'updated_at'],
 
   rules: {
-    name: ['required']
+    expense_type_id: ['required'],
+    project_id: ['required']
   },
 
   expense_type: function() {
@@ -17,10 +19,6 @@ export default model.extend({
 
   project: function() {
     return this.belongsTo(Project, 'project_id')
-  },
-
-  user: function() {
-    return this.belongsTo(User, 'user_id')
   }
 
 })

@@ -60,8 +60,9 @@ const Status = (props) => {
 }
 
 const Check = (props, times) => {
-  let alternate = (times) ? <i className="icon red times" /> : <span />
-  return ((props.value !== false && !_.isNull(props.value)) || props.value === true) ? <i className="icon green check" /> : alternate
+  if(props.value === true) return <i className="icon green check" />
+  if(times && props.value === false) return <i className="icon red remove" />
+  return <span />
 }
 
 const Currency = (props) => {

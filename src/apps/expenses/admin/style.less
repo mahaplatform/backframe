@@ -10,20 +10,33 @@
   .project-member {
     border-bottom: 1px solid #DDD;
     display: flex;
-    padding: 10px 20px;
+    padding: 10px 0;
     .avatar {
       flex: 0 0 40px;
-      margin: 0 !important;
+      margin: 0 10px 0 0 !important;
       display: block;
       width: 40px;
       height: 40px;
     }
     p {
       flex: 1;
-      padding: 0 10px;
       color: #666;
+      margin: 0;
       strong {
         color: #000;
+      }
+    }
+    .owner {
+      flex: 0 0 60px;
+      display: flex;
+      span {
+        display: block;
+        margin: auto 0 auto auto;
+        background-color: @red;
+        color: @white;
+        padding: 2px 6px;
+        font-size: 10px;
+        border-radius: 4px;
       }
     }
   }

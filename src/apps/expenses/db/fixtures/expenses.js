@@ -11,7 +11,8 @@ module.exports = {
       date: '2017-01-01',
       description: 'test',
       amount: 83.62,
-      is_visa: false
+      is_visa: false,
+      is_approved: true
     },{
       id: 2,
       team_id: 1,
@@ -44,7 +45,9 @@ module.exports = {
       date: '2017-01-01',
       description: 'test',
       amount: 83.62,
-      is_visa: false
+      is_visa: false,
+      is_approved: false,
+      reason_rejected: 'Invalid expense code'
     },{
       id: 5,
       team_id: 1,

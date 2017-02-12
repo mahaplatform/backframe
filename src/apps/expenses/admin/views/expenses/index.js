@@ -19,7 +19,8 @@ class Index extends React.Component {
       columns: [
         { label: 'Date', key: 'date', primary: true , format: 'date' },
         { label: 'Project', key: 'project.title', primary: true },
-        { label: 'Amount', key: 'amount', primary: true, format: 'currency' }
+        { label: 'Amount', key: 'amount', primary: true, format: 'currency' },
+        { label: 'Approved', key: 'is_approved', primary: true, format: 'check_times' }
       ],
       filters: [
         { label: 'Projects', name: 'project_id', type: 'select', multiple: true, endpoint: '/admin/expenses/projects', value: 'id', text: 'title' },
