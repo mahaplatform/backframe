@@ -7,37 +7,37 @@ import { flattenKeys } from '../utils'
 
 export default (all, total, limit, skip, records, options, req, res, next) => {
 
-    return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
 
-        const keys = flattenKeys(records[0])
-        const workbook = new Excel.Workbook()
-        const worksheet = workbook.addWorksheet('test')
+    const keys = flattenKeys(records[0])
+    const workbook = new Excel.Workbook()
+    const worksheet = workbook.addWorksheet('test')
 
-        worksheet.addRow(keys)
+    worksheet.addRow(keys)
 
-        records.map(record => {
-            worksheet.addRow(keys.map(key => {
-                return _.get(record, key)
-            }))
-        })
+    records.map(record => {
+      worksheet.addRow(keys.map(key => {
+        return _.get(record, key)
+      }))
+    })
 
-        const tempFilePath = tempfile('.xlsx')
+    const tempFilePath = tempfile('.xlsx')
 
-        return workbook.xlsx.writeFile(tempFilePath).then(() => {
+    return workbook.xlsx.writeFile(tempFilePath).then(() => {
 
-            fs.readFile(tempFilePath, (err, data) => {
+      fs.readFile(tempFilePath, (err, data) => {
 
-                if(err) reject(err)
+        if(err) reject(err)
 
-                res.send(data)
-                resolve()
+        res.send(data)
+        resolve()
 
-            })
+      })
 
-            return null
-
-        })
+      return null
 
     })
+
+  })
 
 }

@@ -2,48 +2,48 @@ import redis from 'platform/services/redis'
 
 const parseJSON = string => {
 
-    try {
-        return JSON.parse(string)
-    } catch(e) {
-        return string
-    }
+  try {
+    return JSON.parse(string)
+  } catch(e) {
+    return string
+  }
 
 }
 
 export const wrapper = (redis) => {
 
-    return (key, duration, method) => {
+  return (key, duration, method) => {
 
-        return redis.getAsync(key).then(result => {
+    return redis.getAsync(key).then(result => {
 
-            if(result) {
-                return  {
-                    cached: true,
-                    data: parseJSON(result)
-                }
-            }
+      if(result) {
+        return  {
+          cached: true,
+          data: parseJSON(result)
+        }
+      }
 
-            return method()
+      return method()
 
-        }).then(json => {
+    }).then(json => {
 
-            if(json.cached) {
-                return json.data
-            }
+      if(json.cached) {
+        return json.data
+      }
 
-            return redis.setAsync(key, JSON.stringify(json)).then(result => {
+      return redis.setAsync(key, JSON.stringify(json)).then(result => {
 
-                return redis.expireAsync(key, duration)
+        return redis.expireAsync(key, duration)
 
-            }).then(result => {
+      }).then(result => {
 
-                return json
+        return json
 
-            })
+      })
 
-        })
+    })
 
-    }
+  }
 
 }
 

@@ -3,15 +3,15 @@ import SecurityQuestion from '../security_question'
 
 describe('security_question model', function() {
 
-    it('requires text', function(done) {
+  it('requires text', function(done) {
 
-        SecurityQuestion.forge({}).save().catch(err => {
+    SecurityQuestion.forge({}).save().catch(err => {
 
-            expect(err.errors).to.have.property('text')
-            done()
-
-        })
+      expect(err.errors).to.have.property('text')
+      done()
 
     })
+
+  })
 
 })

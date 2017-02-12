@@ -7,26 +7,26 @@ import User from 'platform/models/user'
 
 export default model.extend({
 
-    tableName: 'apps',
+  tableName: 'apps',
 
-    rules: {
-        title: ['required', unique('apps', 'title')]
-    },
+  rules: {
+    title: ['required', unique('apps', 'title')]
+  },
 
-    author: function() {
-        return this.belongsTo(Author, 'app_author_id')
-    },
+  author: function() {
+    return this.belongsTo(Author, 'app_author_id')
+  },
 
-    category: function() {
-        return this.belongsTo(Category, 'app_category_id')
-    },
+  category: function() {
+    return this.belongsTo(Category, 'app_category_id')
+  },
 
-    users: function() {
-        return this.belongsToMany(User, 'users_apps', 'app_id', 'user_id')
-    },
+  users: function() {
+    return this.belongsToMany(User, 'users_apps', 'app_id', 'user_id')
+  },
 
-    roles: function() {
-        return this.belongsToMany(Role, 'roles_apps', 'role_id', 'app_id')
-    }
+  roles: function() {
+    return this.belongsToMany(Role, 'roles_apps', 'role_id', 'app_id')
+  }
 
 })

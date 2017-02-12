@@ -2,35 +2,35 @@ import { mergeParams, filterParams, resourceRenderer, resourceResponder, resourc
 
 export default options => {
 
-    const processor = req => {
+  const processor = req => {
 
-        const allowedParams = mergeParams(options.allowedParams.all, options.allowedParams.create)
+    const allowedParams = mergeParams(options.allowedParams.all, options.allowedParams.create)
 
-        const data = {
-            ...options.defaults,
-            ...options.ownedByTeam ? { team_id: req.team.get('id') } : {},
-            ...options.ownedByUser ? { user_id: req.user.get('id') } : {},
-            ...filterParams(req.body, allowedParams)
-        }
-
-        return options.model.forge(data).save().catch(err => {
-
-            if(err.errors) throw({ code: 422, message: `Unable to create ${options.name}`, errors: err.toJSON() })
-
-            throw(err)
-
-        })
-
+    const data = {
+      ...options.defaults,
+      ...options.ownedByTeam ? { team_id: req.team.get('id') } : {},
+      ...options.ownedByUser ? { user_id: req.user.get('id') } : {},
+      ...filterParams(req.body, allowedParams)
     }
 
-    const serializer = options.serializer.create || options.serializer.all
+    return options.model.forge(data).save().catch(err => {
 
-    const renderer = resourceRenderer(serializer, options)
+      if(err.errors) throw({ code: 422, message: `Unable to create ${options.name}`, errors: err.toJSON() })
 
-    const responder = resourceResponder(200, `Sucessfully created ${options.name}`)
+      throw(err)
 
-    const logger = resourceLogger('created {object1}')
+    })
 
-    return { processor, renderer, responder, logger }
+  }
+
+  const serializer = options.serializer.create || options.serializer.all
+
+  const renderer = resourceRenderer(serializer, options)
+
+  const responder = resourceResponder(200, `Sucessfully created ${options.name}`)
+
+  const logger = resourceLogger('created {object1}')
+
+  return { processor, renderer, responder, logger }
 
 }

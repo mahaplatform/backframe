@@ -3,10 +3,10 @@ import Team from 'platform/models/team'
 
 export default model.extend({
 
-    tableName: 'strategies',
+  tableName: 'strategies',
 
-    team: function() {
-        return this.belongsTo(Team, 'team_id')
-    }
+  team: function() {
+    return this.belongsTo(Team, 'team_id')
+  }
 
 })

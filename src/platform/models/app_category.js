@@ -4,14 +4,14 @@ import App from 'platform/models/app'
 
 export default model.extend({
 
-    tableName: 'app_categories',
+  tableName: 'app_categories',
 
-    rules: {
-        title: ['required', unique('apps', 'title')]
-    },
+  rules: {
+    title: ['required', unique('apps', 'title')]
+  },
 
-    apps: function() {
-        return this.hasMany(App, 'app_category_id')
-    }
+  apps: function() {
+    return this.hasMany(App, 'app_category_id')
+  }
 
 })

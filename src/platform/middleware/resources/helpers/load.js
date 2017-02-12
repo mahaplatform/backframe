@@ -2,30 +2,30 @@ import { coerceArray, defaultQuery } from '../utils'
 
 export default (action, options) => {
 
-    return req => {
+  return req => {
 
-        const withRelated = options.withRelated[action] || options.withRelated.all
+    const withRelated = options.withRelated[action] || options.withRelated.all
 
-        const fetchOptions = withRelated ? { withRelated: coerceArray(withRelated) } : {}
+    const fetchOptions = withRelated ? { withRelated: coerceArray(withRelated) } : {}
 
-        const tableName = options.model.extend().__super__.tableName
+    const tableName = options.model.extend().__super__.tableName
 
-        return options.model.query(qb => {
+    return options.model.query(qb => {
 
-            qb = defaultQuery(req, options, action, qb, {})
+      qb = defaultQuery(req, options, action, qb, {})
 
-            qb.where(`${tableName}.id`, req.params[options.primaryKey])
+      qb.where(`${tableName}.id`, req.params[options.primaryKey])
 
-        }).fetch(fetchOptions).then(record => {
+    }).fetch(fetchOptions).then(record => {
 
-            if(!record) {
-                throw new Error({ code: 404, message: `Unable to find ${options.name}` })
-            }
+      if(!record) {
+        throw new Error({ code: 404, message: `Unable to find ${options.name}` })
+      }
 
-            return record
+      return record
 
-        })
+    })
 
-    }
+  }
 
 }

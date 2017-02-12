@@ -4,69 +4,69 @@ import bcrypt from 'bcrypt-nodejs'
 
 describe('user model', function() {
 
-    it('requires first_name, last_name, and email', function(done) {
+  it('requires first_name, last_name, and email', function(done) {
 
-        User.forge({}).save().catch(err => {
+    User.forge({}).save().catch(err => {
 
-            expect(err.errors).to.have.property('first_name')
-            expect(err.errors).to.have.property('last_name')
-            expect(err.errors).to.have.property('email')
-            done()
-
-        })
+      expect(err.errors).to.have.property('first_name')
+      expect(err.errors).to.have.property('last_name')
+      expect(err.errors).to.have.property('email')
+      done()
 
     })
 
-    it('enforces unique email', function(done) {
+  })
 
-        User.forge({ email: 'gmk8@cornell.edu' }).save().catch(err => {
+  it('enforces unique email', function(done) {
 
-            expect(err.errors).to.have.property('email')
-            done()
+    User.forge({ email: 'gmk8@cornell.edu' }).save().catch(err => {
 
-        })
-
-    })
-
-    it('returns full name', function(done) {
-
-        User.where({ id: 1 }).fetch().then(user => {
-
-            expect(user.get('full_name')).to.equal('Greg Kops')
-            done()
-
-        })
+      expect(err.errors).to.have.property('email')
+      done()
 
     })
 
-    it('does not return password', function(done) {
+  })
 
-        User.where({ id: 1 }).fetch().then(user => {
+  it('returns full name', function(done) {
 
-            expect(user.get('password')).to.be.undefined
-            done()
+    User.where({ id: 1 }).fetch().then(user => {
 
-        })
+      expect(user.get('full_name')).to.equal('Greg Kops')
+      done()
+
+    })
+
+  })
+
+  it('does not return password', function(done) {
+
+    User.where({ id: 1 }).fetch().then(user => {
+
+      expect(user.get('password')).to.be.undefined
+      done()
 
     })
 
-    it('can set password', function(done) {
+  })
 
-        User.where({ id: 1 }).fetch().then(user => {
+  it('can set password', function(done) {
 
-            user.set('password', 'cce')
+    User.where({ id: 1 }).fetch().then(user => {
 
-            const salt = user.get('password_salt')
-            const hash = user.get('password_hash')
+      user.set('password', 'cce')
 
-            expect(salt).to.exist
-            expect(hash).to.exist
-            expect(bcrypt.compareSync('cce', hash))
+      const salt = user.get('password_salt')
+      const hash = user.get('password_hash')
 
-            done()
+      expect(salt).to.exist
+      expect(hash).to.exist
+      expect(bcrypt.compareSync('cce', hash))
 
-        })
+      done()
 
     })
+
+  })
 
 })

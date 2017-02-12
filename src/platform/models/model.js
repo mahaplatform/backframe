@@ -3,14 +3,14 @@ import checkit from  'checkit'
 
 export default bookshelf.Model.extend({
 
-    hasTimestamps: ['created_at', 'updated_at'],
+  hasTimestamps: ['created_at', 'updated_at'],
 
-    initialize: function(attrs, opts) {
-        this.on('saving', this.validateSave)
-    },
+  initialize: function(attrs, opts) {
+    this.on('saving', this.validateSave)
+  },
 
-    validateSave: function() {
-        return new checkit(this.rules).run(this.attributes)
-    }
+  validateSave: function() {
+    return new checkit(this.rules).run(this.attributes)
+  }
 
 })

@@ -5,59 +5,59 @@ import { succeed } from 'platform/utils/responses'
 
 export default options => {
 
-    const destroyRelated = resource => {
+  const destroyRelated = resource => {
 
-        return Promise.each(options.dependents, (dependent, index, length) => {
+    return Promise.each(options.dependents, (dependent, index, length) => {
 
-            return dependent.model.where({ [dependent.foreignKey]: resource.get('id') }).fetchAll().then(results => {
+      return dependent.model.where({ [dependent.foreignKey]: resource.get('id') }).fetchAll().then(results => {
 
-                const records = results.map(result => result)
+        const records = results.map(result => result)
 
-                return Promise.each(records, (record, index, length) => {
+        return Promise.each(records, (record, index, length) => {
 
-                    return (dependent.strategy === 'destroy') ? record.destroy() : record.save({ [dependent.foreignKey]: null }, { patch: true })
-
-                })
-
-            })
+          return (dependent.strategy === 'destroy') ? record.destroy() : record.save({ [dependent.foreignKey]: null }, { patch: true })
 
         })
 
-    }
+      })
 
-    const destroyResource = resource => {
+    })
 
-        return options.softDelete ? resource.save({ deleted_at: new Date() }, { patch: true }) : resource.destroy()
+  }
 
-    }
+  const destroyResource = resource => {
 
-    const processor = req => {
+    return options.softDelete ? resource.save({ deleted_at: new Date() }, { patch: true }) : resource.destroy()
 
-        return load('destroy', options)(req).then(resource => {
+  }
 
-            return destroyRelated(resource).then(() => resource)
+  const processor = req => {
 
-        }).then(resource => {
+    return load('destroy', options)(req).then(resource => {
 
-            return destroyResource(resource)
+      return destroyRelated(resource).then(() => resource)
 
-        }).catch(err => {
+    }).then(resource => {
 
-            if(err.errors) throw({ code: 422, message: `Unable to delete ${options.name}`, data: err.toJSON() })
+      return destroyResource(resource)
 
-            throw(err)
-        })
+    }).catch(err => {
 
-    }
+      if(err.errors) throw({ code: 422, message: `Unable to delete ${options.name}`, data: err.toJSON() })
 
-    const responder = (req, res, next) => {
+      throw(err)
+    })
 
-        succeed(res, 200, `Successfully deleted ${options.name}`)
+  }
 
-    }
+  const responder = (req, res, next) => {
 
-    const logger = resourceLogger('deleted {object1}')
+    succeed(res, 200, `Successfully deleted ${options.name}`)
 
-    return { processor, responder, logger }
+  }
+
+  const logger = resourceLogger('deleted {object1}')
+
+  return { processor, responder, logger }
 
 }
