@@ -88,7 +88,7 @@ class Form extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { entity, status } = this.props
+    const { data, entity, status } = this.props
     if(prevProps.status !== status) {
       if(status === 'configured') {
         this._handleLoadData()
@@ -99,6 +99,8 @@ class Form extends React.Component {
       } else if(status === 'failure') {
         this._handleFailure()
       }
+    } else if(prevProps.data != data) {
+      this._handleChange(prevProps.data, data)
     }
   }
 
@@ -115,6 +117,20 @@ class Form extends React.Component {
   _handleUpdateData(key, value) {
     const { onUpdateData } = this.props
     onUpdateData(key, value)
+  }
+
+  _handleChange(previous, current) {
+    const { onChangeField, onChange } = this.props
+    if(onChangeField) {
+      _.forOwn(current, (value, code) => {
+        if(previous[code] != current[code]) {
+          onChangeField(code, value)
+        }
+      })
+    }
+    if(onChange) {
+      onChange(current)
+    }
   }
 
   _handleSubmit() {

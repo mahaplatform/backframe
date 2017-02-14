@@ -4,6 +4,13 @@ import moment from 'moment'
 
 class New extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      project_id: null
+    }
+  }
+
   static contextTypes = {
     modal: React.PropTypes.object
   }
@@ -13,19 +20,28 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const expense_type_endpoint = `/admin/expenses/projects/${this.state.project_id}/expense_types`
+    const expense_type_disabled = (this.state.project_id === null)
     return {
       title: 'New Expense',
       method: 'post',
       action: '/admin/expenses/expenses',
       onCancel: this.context.modal.pop,
       onSuccess: this.context.modal.pop,
+      onChangeField: (key, value) => {
+        if(key === 'project_id') {
+          this.setState({
+            project_id: value
+          })
+        }
+      },
       sections: [
         {
           fields: [
             { label: 'Receipt', name: 'upload_id', type: 'filefield', endpoint: '/admin/uploads', prompt: 'Upload Receipt' },
             { label: 'Date', name: 'date_needed', type: 'datefield', placeholder: 'Date Needed', defaultValue: moment().format('YYYY-MM-DD') },
             { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Project', endpoint: '/admin/expenses/projects', value: 'id', text: 'title' },
-            { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Expense Type', endpoint: '/admin/expenses/expense_types', value: 'id', text: 'title' },
+            { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Expense Type', endpoint: expense_type_endpoint, value: 'expense_type.id', text: 'expense_type.title', disabled: expense_type_disabled },
             { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Vendor', endpoint: '/admin/expenses/vendors', value: 'id', text: 'name' },
             { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Description' },
             { label: 'Amount', name: 'amount', type: 'textfield', placeholder: 'Amount', prefix: '$' },

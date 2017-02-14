@@ -26,11 +26,13 @@ class TextArea extends React.Component {
   }
 
   render() {
+    const { placeholder, disabled } = this.props
+    const { defaultValue } = this.state
     return (
       <div className="textarea">
-        <textarea placeholder={this.props.placeholder}
-                  disabled={this.props.disabled}
-                  defaultValue={this.state.value}
+        <textarea placeholder={placeholder}
+                  disabled={disabled}
+                  defaultValue={defaultValue}
                   onChange={this.handleChange.bind(this)} />
       </div>
     )

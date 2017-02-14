@@ -12,7 +12,12 @@ export default bookshelf.Model.extend({
   hasTimestamps: ['created_at', 'updated_at'],
 
   rules: {
-    name: ['required']
+    date: ['required'],
+    project_id: ['required'],
+    expense_type_id: ['required'],
+    vendor_id: ['required'],
+    description: ['required'],
+    amount: ['required']
   },
 
   expense_type: function() {

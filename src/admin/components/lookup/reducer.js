@@ -18,6 +18,12 @@ export default (state = INITIAL_VALUE, action) => {
       active: true
     }
 
+  case actionTypes.CLEAR:
+    return {
+      ...state,
+      selected: null
+    }
+
   case actionTypes.CANCEL:
     return {
       ...state,

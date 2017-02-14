@@ -15,22 +15,27 @@ class Lookup extends React.Component {
   }
 
   render() {
-    const { prompt, selected, results, text } = this.props
+    const { disabled, prompt, selected, results, text } = this.props
     const chosen = (selected !== null) ? results[selected] : null
+    const value = chosen ? _.get(chosen, text) : ''
     return (
       <div className="lookup-field">
         <input type="text"
+               disabled={disabled}
                onFocus={ this._handleBegin.bind(this) }
-               value={ chosen ? _.get(chosen, text) : '' }
+               value={value}
                placeholder={ prompt } />
+             { chosen && <i className="icon remove" onClick={ this._handleClear.bind(this) } /> }
       </div>
     )
   }
 
   componentDidUpdate(prevProps) {
-    const { active } = this.props
+    const { active, selected } = this.props
     if(prevProps.active !== active && active) {
       this.context.modal.push(<Search {...this.props} />)
+    } else if(prevProps.selected !== selected) {
+      this.props.onChange(selected)
     }
   }
 
@@ -39,6 +44,10 @@ class Lookup extends React.Component {
     e.target.blur()
     e.preventDefault()
     return false
+  }
+
+  _handleClear() {
+    this.props.onClear()
   }
 
 }
@@ -50,7 +59,8 @@ const mapStateToProps = (state, props) => ({
 })
 
 const mapDispatchToProps = {
-  onBegin: actions.begin
+  onBegin: actions.begin,
+  onClear: actions.clear
 }
 
 export default component(mapStateToProps, mapDispatchToProps, Lookup, 'lookup', true)

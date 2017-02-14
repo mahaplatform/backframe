@@ -7,6 +7,12 @@ export function begin() {
   }
 }
 
+export function clear() {
+  return {
+    type: actionTypes.CLEAR
+  }
+}
+
 export function cancel() {
   return {
     type: actionTypes.CANCEL
