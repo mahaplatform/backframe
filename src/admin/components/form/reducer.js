@@ -76,7 +76,7 @@ export default (state = INITIAL_STATE, action) => {
     return {
       ...state,
       status: 'failure',
-      errors: action.error,
+      errors: action.errors,
       message: action.meta.message
     }
 

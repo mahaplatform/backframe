@@ -22,6 +22,7 @@ export default (object) => {
       photo: object.related('user').related('photo').get('url'),
       email: object.related('user').get('email')
     },
+    amount: object.get('amount'),
     is_visa: object.get('is_visa'),
     is_approved: object.get('is_approved'),
     reason_rejected: object.get('reason_rejected')

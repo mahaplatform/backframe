@@ -25,15 +25,21 @@ class Lookup extends React.Component {
                onFocus={ this._handleBegin.bind(this) }
                value={value}
                placeholder={ prompt } />
-             { chosen && <i className="icon remove" onClick={ this._handleClear.bind(this) } /> }
-      </div>
+             { chosen &&
+               <div className="lookup-field-clear">
+                 <i className="icon circle remove" onClick={ this._handleClear.bind(this) } />
+               </div>
+             }
+       </div>
     )
   }
 
   componentDidUpdate(prevProps) {
-    const { active, selected } = this.props
+    const { active, disabled, selected } = this.props
     if(prevProps.active !== active && active) {
       this.context.modal.push(<Search {...this.props} />)
+    } else if(prevProps.disabled !== disabled) {
+      this.props.onClear()
     } else if(prevProps.selected !== selected) {
       this.props.onChange(selected)
     }
