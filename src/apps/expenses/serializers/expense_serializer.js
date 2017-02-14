@@ -6,7 +6,9 @@ export default (object) => {
     description: object.get('description'),
     expense_type: {
       id: object.related('expense_type').get('id'),
-      title: object.related('expense_type').get('title')
+      code: object.related('expense_type').get('code'),
+      title: object.related('expense_type').get('title'),
+      description: object.related('expense_type').get('description')
     },
     project: {
       id: object.related('project').get('id'),
@@ -14,7 +16,7 @@ export default (object) => {
     },
     vendor: {
       id: object.related('vendor').get('id'),
-      title: object.related('vendor').get('title')
+      name: object.related('vendor').get('name')
     },
     user: {
       full_name: object.related('user').get('full_name'),

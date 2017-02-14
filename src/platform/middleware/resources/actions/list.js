@@ -73,9 +73,7 @@ export default options => {
     const paged = () => options.model.query(qb => {
 
       const sort = extractSort(req.query.$sort, options.defaultSort, options.sortParams)
-      console.log(req.query.$sort)
-      console.log(options.defaultSort)
-      console.log(sort)
+
       qb = query(qb)
 
       if(req.query.$page) {

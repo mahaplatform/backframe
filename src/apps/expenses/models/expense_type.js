@@ -8,6 +8,14 @@ export default model.extend({
   rules: {
     title: ['required', unique('users', 'email')],
     code: ['required', unique('users', 'email')]
+  },
+
+  virtuals: {
+
+    description: function() {
+      return this.get('code') + ' - ' + this.get('title')
+    }
+
   }
 
 })

@@ -34,14 +34,16 @@ class Lookup extends React.Component {
     )
   }
 
+  componentDidMount() {
+    this.props.onLookup(this.props.cid, '', this.props.endpoint)
+  }
+
   componentDidUpdate(prevProps) {
-    const { active, disabled, selected } = this.props
+    const { active, disabled } = this.props
     if(prevProps.active !== active && active) {
       this.context.modal.push(<Search {...this.props} />)
     } else if(prevProps.disabled !== disabled) {
       this.props.onClear()
-    } else if(prevProps.selected !== selected) {
-      this.props.onChange(selected)
     }
   }
 
@@ -66,7 +68,8 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = {
   onBegin: actions.begin,
-  onClear: actions.clear
+  onClear: actions.clear,
+  onLookup: actions.lookup
 }
 
 export default component(mapStateToProps, mapDispatchToProps, Lookup, 'lookup', true)

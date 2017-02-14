@@ -3,6 +3,8 @@ import Project from '../../../models/project'
 import ProjectSerializer from '../../../serializers/project_serializer'
 import Member from '../../../models/member'
 import MemberSerializer from '../../../serializers/member_serializer'
+import ExpenseType from '../../../models/expense_type'
+import ExpenseTypeSerializer from '../../../serializers/expense_type_serializer'
 import User from 'platform/models/user'
 import UserSerializer from 'platform/serializers/user_serializer'
 import ExpenseTypeProject from '../../../models/expense_type_project'
@@ -34,6 +36,19 @@ export default resources({
       searchParams: ['first_name','last_name','email'],
       sortParams: ['last_name'],
       withRelated: ['photo']
+    },{
+      defaultSort: 'title',
+      model: ExpenseType,
+      name: 'expense_type_project',
+      only: 'list',
+      path: 'expense_types/unassigned',
+      query: (qb, req, filters) => {
+        qb.joinRaw('left join "expenses_expense_types_projects" on "expenses_expense_types_projects"."expense_type_id"="expenses_expense_types"."id" and "expenses_expense_types_projects"."project_id"=?', req.params.project_id)
+        qb.whereNull('expenses_expense_types_projects.id')
+      },
+      serializer: ExpenseTypeSerializer,
+      searchParams: ['title','code'],
+      sortParams: ['title']
     },{
       allowedParams: ['user_id','is_owner'],
       defaultParams,

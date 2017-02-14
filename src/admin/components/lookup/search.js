@@ -52,10 +52,8 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onLookup(this.props.cid, '', this.props.endpoint)
     const query = $(this.refs.query)
     setTimeout(function() { query.focus() }, 500)
-
   }
 
   _handleBegin() {
@@ -90,8 +88,7 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = {
   onBegin: actions.begin,
   onCancel: actions.cancel,
-  onChoose: actions.choose,
-  onLookup: actions.lookup
+  onChoose: actions.choose
 }
 
 export default component(mapStateToProps, mapDispatchToProps, Search, 'lookup', false)

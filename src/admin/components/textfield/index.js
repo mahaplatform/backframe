@@ -55,9 +55,14 @@ class TextField extends React.Component {
                          onKeyUp={this._handleKeyUp.bind(this)}
                          onKeyDown={this._handleKeyDown.bind(this)} />
     if(this.props.prefix || this.props.suffix) {
+      let classes = [
+        ...['ui','labeled','input'],
+        ...(this.props.prefix ? ['left'] : []),
+        ...(this.props.suffix ? ['right'] : [])
+      ]
       return (
         <div className="textfield">
-          <div className="ui left right labeled input">
+          <div className={classes.join(' ')}>
             { this.props.prefix && <div className="ui label">{this.props.prefix}</div> }
             {input}
             { this.props.suffix && <div className="ui label">{this.props.suffix}</div> }

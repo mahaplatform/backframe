@@ -36,7 +36,7 @@ module.exports = {
       team_id: 1,
       project_id: 2,
       user_id: 13,
-      is_owner: false
+      is_owner: true
     }, {
       id: 7,
       team_id: 1,
@@ -54,7 +54,7 @@ module.exports = {
       team_id: 1,
       project_id: 3,
       user_id: 19,
-      is_owner: false
+      is_owner: true
     }, {
       id: 10,
       team_id: 1,

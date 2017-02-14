@@ -37,14 +37,22 @@ export class Tabs extends React.Component {
        <div className="tab-panes">
          <CSSTransitionGroup transitionName={`slide-${state}`} component="div" transitionEnterTimeout={ 500 } transitionLeaveTimeout={ 500 }>
            <div className="tab-pane" key={`pane-${active}`}>
-             { _.isString(content) && <p>{content}</p> }
-             { _.isElement(content) && <content { ...this.props } /> }
-             { _.isFunction(content) && content(this.props) }
+             { this._tabContent(content, this.props) }
            </div>
          </CSSTransitionGroup>
        </div>
      </div>
     )
+  }
+
+  _tabContent(content, props) {
+    if(React.Component.isPrototypeOf(content)) {
+      return React.createElement(content, props)
+    } else if(_.isString(content)) {
+      return <p>{content}</p>
+    } else if(_.isFunction(content)) {
+      return content(props)
+    }
   }
 
   _handleChangeTab(index) {

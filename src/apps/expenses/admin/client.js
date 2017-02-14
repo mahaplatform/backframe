@@ -2,7 +2,8 @@ import React from 'react'
 import { IndexRoute, Route } from 'react-router'
 import AdvancesIndex from './views/advances'
 import ExpenseTypesIndex from './views/expense_types/index'
-import ExpensesIndex from './views/expenses'
+import ExpensesIndex from './views/expenses/index'
+import ExpensesShow from './views/expenses/show'
 import ProjectsIndex from './views/projects/index'
 import ProjectsShow from './views/projects/show'
 import ReportsIndex from './views/reports'
@@ -13,7 +14,10 @@ const routes = (
   <Route>
     <Route path="advances" component={AdvancesIndex} />
     <Route path="expense_types" component={ExpenseTypesIndex} />
-    <Route path="expenses" component={ExpensesIndex} />
+    <Route path="expenses">
+      <IndexRoute component={ExpensesIndex} />
+      <Route path=":id" component={ExpensesShow} />
+    </Route>
     <Route path="projects">
       <IndexRoute component={ProjectsIndex} />
       <Route path=":id" component={ProjectsShow} />

@@ -1,11 +1,16 @@
 module.exports = {
   label: 'Expenses', rights: [], icon: 'dollar', items: [
-    { label: 'Advances', rights: [], route: '/admin/expenses/advances' },
-    { label: 'Expense Types', route: '/admin/expenses/expense_types' },
-    { label: 'Expenses', rights: [], route: '/admin/expenses/expenses' },
+    { label: 'Approvals', rights: [], items:[
+      { label: 'Expenses', rights: [], route: '/admin/expenses/projects' }
+    ] },
+    { label: 'Reports', rights: [], items:[
+      { label: 'Expenses', rights: [], route: '/admin/expenses/projects' }
+    ] },
     { label: 'Projects', rights: [], route: '/admin/expenses/projects' },
-    { label: 'Trips', rights: [], route: '/admin/expenses/trips' },
+    { label: 'Expense Types', route: '/admin/expenses/expense_types' },
     { label: 'Vendors', rights: [], route: '/admin/expenses/vendors' },
-    { label: 'Reports', rights: [], route: '/admin/expenses/reports' }
+    { label: 'Advances', rights: [], route: '/admin/expenses/advances' },
+    { label: 'Expenses', rights: [], route: '/admin/expenses/expenses' },
+    { label: 'Trips', rights: [], route: '/admin/expenses/trips' }
   ]
 }

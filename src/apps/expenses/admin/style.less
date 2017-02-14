@@ -1,3 +1,27 @@
+.approved,
+.rejected,
+.unreviewed {
+  margin: 10px;
+  padding: 10px;
+  .border-radius(4px);
+  display: block;
+  text-align: center;
+  p { margin: 0; }
+  color: @white;
+  width: 80px;
+  font-size: 10px;
+  margin: 0;
+  padding: 4px;
+}
+.approved {
+  background-color: @green;
+}
+.rejected {
+  background-color: @red;
+}
+.unreviewed {
+  background-color: @blue;
+}
 .project-members {
   width: 100%;
   h2 {

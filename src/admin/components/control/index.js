@@ -11,6 +11,7 @@ import Lookup from 'admin/components/lookup'
 // import Radios from './radios'
 import Select from 'admin/components/select'
 // import TableField from './tablefield'
+import Text from 'admin/components/text'
 import TextArea from 'admin/components/textarea'
 import TextField from 'admin/components/textfield'
 import Password from 'admin/components/password'
@@ -25,6 +26,7 @@ const standardControls = {
   // 'multiselect': MultiSelect,
   // 'radios': Radios,
   'select': Select,
+  'text': Text,
   'textfield': TextField,
   'password': Password,
   'textarea': TextArea,

@@ -5,6 +5,9 @@
   flex: 1;
 }
 .form {
+  .form-before, .form-after {
+    padding: 15px;
+  }
   .ui.segment {
     padding: 0;
     margin: 0 0 1px;
@@ -55,5 +58,18 @@
   }
   :disabled  {
     background-color: #F0F0F0 !important;
+  }
+  .error {
+    input, textarea, select, .lookup-field {
+      border-color: #DB2828 !important
+    }
+    & > label,
+    .error-message {
+      color: #DB2828 !important;
+    }
+    .ui.label {
+      background-color: #DB2828 !important;
+      color: #FFF !important;
+    }
   }
 }

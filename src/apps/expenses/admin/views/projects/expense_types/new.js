@@ -15,7 +15,7 @@ class ExpenseTypes extends React.Component {
 
   _getForm() {
     return {
-      title: 'Add Member',
+      title: 'Add Expense Type',
       method: 'post',
       action: `/admin/expenses/projects/${this.context.container.params.id}/expense_types`,
       onCancel: this.context.modal.pop,
@@ -23,7 +23,7 @@ class ExpenseTypes extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Expense Type', endpoint: '/admin/expenses/expense_types', value: 'id', text: 'title' }
+            { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Expense Type',  endpoint: `/admin/expenses/projects/${this.context.container.params.id}/expense_types/unassigned`, value: 'id', text: 'title' }
           ]
         }
       ]

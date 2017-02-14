@@ -391,6 +391,7 @@ export const buildStandardRoutes = (options, prefix, pathPrefix) => {
     { name: 'list', method: 'get', path: '(\.:ext)?' },
     { name: 'create', method: 'post', path: '' },
     { name: 'show', method: 'get', path: '/:id' },
+    { name: 'edit', method: 'get', path: '/:id/edit' },
     { name: 'update', method: 'patch', path: '/:id' },
     { name: 'destroy', method: 'delete', path: '/:id' }
   ]

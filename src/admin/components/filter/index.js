@@ -103,10 +103,20 @@ class Filter extends React.Component {
     const filters = Object.keys(results).reduce((filters, key) => {
       return {
         ...filters,
-        [key]: (_.isArray(results[key])) ? { $in: results[key].map(item => item.key) } : { $eq: results[key].key }
+        [key]: this._getValue(key)
       }
+
     }, {})
     this.props.onChange(filters)
+  }
+
+  _getValue(key) {
+    const { results, fields } = this.props
+    const field = _.find(fields, { name: key })
+    const value = results[key]
+    if(field.type === 'daterange') return { $dr: value.key }
+    if(_.isArray(value)) return { $in: value.map(item => item.key) }
+    return { $eq: value.key }
   }
 
   _handleChoose(key) {

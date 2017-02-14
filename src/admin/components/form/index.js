@@ -41,7 +41,7 @@ class Form extends React.Component {
   }
 
   render() {
-    const { title, instructions, status, sections, data, errors } = this.props
+    const { after, before, title, instructions, status, sections, data, errors } = this.props
     let formClasses = ['ui', 'form', status]
     if(_.includes(['pending', 'submitting'], status)) {
       formClasses.push('loading')
@@ -61,6 +61,7 @@ class Form extends React.Component {
         </div>
         <div className="chrome-modal-panel-body">
           <div className="form">
+            { before && <div className="form-before">{ before }</div> }
             { status !== 'loading' ?
               <div className={formClasses.join(' ')} ref="form">
                 { instructions &&
@@ -76,6 +77,7 @@ class Form extends React.Component {
               </div> :
               <div className="ui active centered inline loader" />
             }
+            { after && <div className="form-after">{ after }</div> }
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import Fields from './fields'
 import Control from 'admin/components/control'
+import _ from 'lodash'
 
 class Field extends React.Component {
 
@@ -41,7 +42,7 @@ class Field extends React.Component {
     const { label, name, options, required, type, text, show, value, onUpdateData } = this.props
     const { prefix, suffix, disabled } = this.props
     const error = (errors && errors[name]) ? errors[name][0] : null
-    const defaultValue = data[name]
+    const defaultValue = _.get(data, name)
     let classes = ['field']
     if(error) {
       classes.push('error')
@@ -75,7 +76,7 @@ class Field extends React.Component {
                    onChange={this._handleUpdateData.bind(this)} />
         }
         { error &&
-          <div className="ui pointing red label">
+          <div className="error-message">
             {error}
           </div>
         }
