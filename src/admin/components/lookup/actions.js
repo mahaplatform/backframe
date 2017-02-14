@@ -22,7 +22,7 @@ export function choose(index) {
 
 export function lookup(cid, q, endpoint) {
   return api.get({
-    params: { q },
+    params: { $filter: { q } },
     endpoint,
     meta: { cid },
     request: actionTypes.LOOKUP_REQUEST,

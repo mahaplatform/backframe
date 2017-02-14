@@ -48,9 +48,10 @@ const Members = (props) => {
   const { members } = props
   return (
     <div className="project-members">
-      {members.map((member, index) => {
+      { members.length === 0 && <p>This project does not yet have any members yet</p>}
+      { members.map((member, index) => {
         return (
-          <div key={`member_${index}`} className="project-member" to={`/admin/expenses/projects/${member.project_id}/members/${member.id}`}>
+          <div key={`member_${index}`} className="project-member">
             <Avatar user={ member.user  } />
             <p>
               <strong>{ member.user.full_name }</strong><br />
@@ -59,7 +60,7 @@ const Members = (props) => {
             { member.is_owner && <div className="owner"><span>OWNER</span></div> }
           </div>
         )
-      })}
+      }) }
     </div>
 
   )
@@ -69,7 +70,8 @@ const ExpenseTypes = (props) => {
   const { project_expense_types } = props
   return (
     <div className="project-members">
-      {project_expense_types.map((project_expense_type, index) => {
+      { project_expense_types.length === 0 && <p>This project does not yet have any expense types yet</p>}
+      { project_expense_types.map((project_expense_type, index) => {
         return (
           <div key={`expense_types_${index}`} className="project-member">
             <p>
@@ -78,7 +80,7 @@ const ExpenseTypes = (props) => {
             </p>
           </div>
         )
-      })}
+      }) }
     </div>
 
   )

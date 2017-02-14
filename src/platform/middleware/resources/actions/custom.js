@@ -4,7 +4,7 @@ export default (name, action) => {
 
   return (options) => {
 
-    const serializer = action.serializer[name] || action.serializer.all
+    const serializer = options.serializer[name] || options.serializer.all
 
     const renderer = (req, result) => {
       const renderer = resourceRenderer(serializer, options)

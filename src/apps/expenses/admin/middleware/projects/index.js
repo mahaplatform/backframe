@@ -3,8 +3,11 @@ import Project from '../../../models/project'
 import ProjectSerializer from '../../../serializers/project_serializer'
 import Member from '../../../models/member'
 import MemberSerializer from '../../../serializers/member_serializer'
+import User from 'platform/models/user'
+import UserSerializer from 'platform/serializers/user_serializer'
 import ExpenseTypeProject from '../../../models/expense_type_project'
 import ExpenseTypeProjectSerializer from '../../../serializers/expense_type_project_serializer'
+import { create } from './processors'
 
 const defaultParams = (req) => {
   return Promise.resolve({
@@ -18,15 +21,35 @@ export default resources({
   model: Project,
   resources: [
     {
+      defaultSort: 'last_name',
+      model: User,
+      name: 'user',
+      only: 'list',
+      path: 'members/unassigned',
+      query: (qb, req, filters) => {
+        qb.joinRaw('left join "expenses_members" on "expenses_members"."user_id"="users"."id" and "expenses_members"."project_id"=?', req.params.project_id)
+        qb.whereNull('expenses_members.id')
+      },
+      serializer: UserSerializer,
+      searchParams: ['first_name','last_name','email'],
+      sortParams: ['last_name'],
+      withRelated: ['photo']
+    },{
       allowedParams: ['user_id','is_owner'],
       defaultParams,
-      defaultSort: ['is_owner', 'last_name'],
+      defaultSort: ['-is_owner', 'last_name'],
       name: 'member',
       model: Member,
+      processor: {
+        create
+      },
       query: (qb, req, filters) => {
+        qb.innerJoin('users','users.id','expenses_members.user_id')
         qb.where({ project_id: req.params.project_id })
       },
-      serializer: MemberSerializer,
+      serializer: {
+        all: MemberSerializer
+      },
       withRelated: ['user.photo']
     },{
       allowedParams: ['expense_type_id'],

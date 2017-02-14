@@ -63,21 +63,21 @@ export const includeAction = (action, only, except) => {
 // wrapped in a transaction
 export const buildHandler = (action, builder, options) => {
 
+  const before = mergeParams(options.before.all, options.before[action])
+
+  const after = mergeParams(options.after.all, options.after[action])
+
+  const alter = mergeParams(options.alter.all, options.alter[action])
+
+  const rights = mergeParams(options.rights.all, options.rights[action])
+
+  const defaults = builder(options)
+
+  const { authorizer, processor, renderer, responder, logger } = buildHandlerComponents(options, action, defaults.authorizer, defaults.processor, defaults.renderer, defaults.responder, defaults.logger)
+
+  const authenticator = resourceAuthenticator(options, rights)
+
   return (req, res, next) => {
-
-    const before = mergeParams(options.before.all, options.before[action])
-
-    const after = mergeParams(options.after.all, options.after[action])
-
-    const alter = mergeParams(options.alter.all, options.alter[action])
-
-    const rights = mergeParams(options.rights.all, options.rights[action])
-
-    const defaults = builder(options)
-
-    const { authorizer, processor, renderer, responder, logger } = buildHandlerComponents(options, action, defaults.authorizer, defaults.processor, defaults.renderer, defaults.responder, defaults.logger)
-
-    const authenticator = resourceAuthenticator(options, rights)
 
     const withHooks = () => wrapWithHooks(authenticator, authorizer, before, processor, after, logger, renderer, alter, responder, req, res, next)
 
@@ -242,12 +242,14 @@ export const wrapWithLogger = (req, res, handler) => {
 
 export const defaultQuery = (req, options, action, qb, filters) => {
 
+  const tableName = options.model.extend().__super__.tableName
+
   if(options.ownedByTeam) {
-    qb = qb.where('team_id', req.user.get('id'))
+    qb = qb.where(`${tableName}.team_id`, req.user.get('id'))
   }
 
   if(options.ownedByUser) {
-    qb = qb.where('user_id', req.user.get('id'))
+    qb = qb.where(`${tableName}.user_id`, req.user.get('id'))
   }
 
   const query = options.query.list || options.query.all
@@ -375,8 +377,8 @@ export const buildRoutes = (userOptions) => {
   const pathPrefix = options.pathPrefix || ''
 
   return {
-    ...buildStandardRoutes(options, prefix, pathPrefix),
     ...buildCustomRoutes(options, prefix, pathPrefix),
+    ...buildStandardRoutes(options, prefix, pathPrefix),
     ...buildNestedRoutes(options, prefix, pathPrefix)
   }
 

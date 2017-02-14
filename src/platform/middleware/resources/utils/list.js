@@ -4,16 +4,18 @@ import { coerceArray } from './index'
 // takes sort param and converts to sort array
 export const extractSort = (query, defaults, allowedParams = []) => {
 
+  if(query) {
+    query = coerceArray(query).filter(item => _.includes(allowedParams, item.key))
+  }
+
   const sort = query || defaults || null
 
   if(!sort) return null
 
-  const items = coerceArray(sort).map(item => ({
+  return coerceArray(sort).map(item => ({
     key: item.replace('-', ''),
     order: (item[0] === '-') ? 'desc' : 'asc'
   }))
-
-  return items.filter(item => _.includes(allowedParams, item.key))
 
 }
 

@@ -23,7 +23,7 @@ class Member extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'User', name: 'user_id', type: 'lookup', placeholder: 'User', endpoint: '/admin/team/users', value: 'id', text: 'full_name' },
+            { label: 'User', name: 'user_id', type: 'lookup', prompt: 'Find a User', endpoint: `/admin/expenses/projects/${this.context.container.params.id}/members/unassigned`, value: 'id', text: 'full_name' },
             { label: 'Is Owner', name: 'is_owner', type: 'checkbox' }
           ]
         }

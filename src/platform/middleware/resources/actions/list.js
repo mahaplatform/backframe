@@ -27,6 +27,13 @@ export default options => {
 
       const filters = filterParams(req.query.$filter, options.filterParams)
 
+      if(options.searchParams && req.query.$filter.q) {
+        const term = `%${req.query.$filter.q.toLowerCase()}%`
+        const sql = options.searchParams.map(param => `LOWER(${param}) LIKE ?`).join(' OR ')
+        const vars = options.searchParams.map(param => term)
+        qb.whereRaw(sql, vars)
+      }
+
       if(filters) {
         filter(qb, filters)
       }
@@ -63,18 +70,12 @@ export default options => {
 
     const count = () => knex.raw(`SELECT COUNT(*) FROM (${queryObject.sql}) AS temp`, queryObject.bindings)
 
-    // const count = () => options.model.query(qb => {
-    //
-    //   qb = query(qb)
-    //
-    //   qb.count('*')
-    //
-    // }).fetchAll()
-
     const paged = () => options.model.query(qb => {
 
       const sort = extractSort(req.query.$sort, options.defaultSort, options.sortParams)
-
+      console.log(req.query.$sort)
+      console.log(options.defaultSort)
+      console.log(sort)
       qb = query(qb)
 
       if(req.query.$page) {

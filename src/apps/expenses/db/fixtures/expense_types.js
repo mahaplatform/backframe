@@ -151,6 +151,41 @@ module.exports = {
       team_id: 1,
       title: 'Publicity-Promoting assoc. services, signs/promotional material, shirts, caps, etc',
       code: '60500'
+    }, {
+      id: 31,
+      team_id: 1,
+      title: 'Computer Parts/Supplies',
+      code: '63101'
+    }, {
+      id: 32,
+      team_id: 1,
+      title: 'Teaching Materials, Supplies for projects, and/or programs',
+      code: '65200'
+    }, {
+      id: 33,
+      team_id: 1,
+      title: 'Nutrition Supplies, Supplies for EFNEP, FSNEP, all nutrition programs',
+      code: '65000'
+    }, {
+      id: 34,
+      team_id: 1,
+      title: 'Facilities, utilities, heating, electric/ water, sewer, gas',
+      code: '66000'
+    }, {
+      id: 35,
+      team_id: 1,
+      title: 'Facilities, Maintenance/Janitorial, trash removal, snow plowing, cleaning supples, salting',
+      code: '64500'
+    }, {
+      id: 36,
+      team_id: 1,
+      title: 'Contract Services, Consulting, teaching, program delivery',
+      code: '61500'
+    }, {
+      id: 37,
+      team_id: 1,
+      title: 'Repair & Maintenance, Maintenance expense, equipment, furniture, machinery',
+      code: '64600'
     }
   ]
 }
