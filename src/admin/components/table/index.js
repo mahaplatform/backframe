@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 import $ from 'jquery'
 import _ from 'lodash'
 import Format from 'admin/utils/format'
@@ -11,7 +12,7 @@ class Table extends React.Component {
   }
 
   render() {
-    const { columns, sort, records, status } = this.props
+    const { columns, link, sort, records, status } = this.props
     if(records.length > 0) {
       return (
         <div className="collection-layout">
@@ -31,19 +32,30 @@ class Table extends React.Component {
             </div>
             <div className="table-body">
               {records.map((record, recordIndex) => {
-                return (
-                  <div key={ `record_${recordIndex}` } className="table-row">
-                    {columns.map((column, columnIndex) => {
-                      const value = _.get(record, column.key)
-                      const classes = (column.primary) ? 'table-cell mobile' : 'table-cell'
-                      return (
-                        <div key={ `cell_${recordIndex}_${columnIndex}` } className={ classes }>
-                          <Format {...record} format={column.format} value={value} />
-                        </div>
-                      )
-                    })}
-                  </div>
-                )
+                const row = columns.map((column, columnIndex) => {
+                  const value = _.get(record, column.key)
+                  const classes = (column.primary) ? 'table-cell mobile' : 'table-cell'
+                  return (
+                    <div key={ `cell_${recordIndex}_${columnIndex}` } className={ classes }>
+                      <Format {...record} format={column.format} value={value} />
+                    </div>
+                  )
+                })
+                if(link) {
+                  _.templateSettings.interpolate = /#{([\s\S]+?)}/g
+                  const to = _.template(link)(record)
+                  return (
+                    <Link to={to} key={ `record_${recordIndex}` } className="table-row">
+                      { row }
+                    </Link>
+                  )
+                } else {
+                  return (
+                    <div key={ `record_${recordIndex}` } className="table-row">
+                      { row }
+                    </div>
+                  )
+                }
               })}
             </div>
           </div>

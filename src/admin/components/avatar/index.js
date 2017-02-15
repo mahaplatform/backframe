@@ -8,7 +8,6 @@ export class Avatar extends React.Component {
 
   render() {
     const { user } = this.props
-    console.log(user)
     return (
       <div className="avatar">
         <div className="avatar-badge">

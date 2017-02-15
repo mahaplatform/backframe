@@ -4,6 +4,8 @@ import AdvancesIndex from './views/advances'
 import ExpenseTypesIndex from './views/expense_types/index'
 import ExpensesIndex from './views/expenses/index'
 import ExpensesShow from './views/expenses/show'
+import ApprovalsIndex from './views/approvals/index'
+import ApprovalsUpdate from './views/approvals/update'
 import ProjectsIndex from './views/projects/index'
 import ProjectsShow from './views/projects/show'
 import ReportsIndex from './views/reports'
@@ -12,6 +14,10 @@ import VendorsIndex from './views/vendors/index'
 
 const routes = (
   <Route>
+    <Route path="approvals">
+      <IndexRoute component={ApprovalsIndex} />
+      <Route path=":id" component={ApprovalsUpdate} />
+    </Route>
     <Route path="advances" component={AdvancesIndex} />
     <Route path="expense_types" component={ExpenseTypesIndex} />
     <Route path="expenses">

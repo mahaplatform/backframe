@@ -1,5 +1,6 @@
 import React from 'react'
 import _ from 'lodash'
+import Format from 'admin/utils/format'
 
 class Text extends React.Component {
 
@@ -18,9 +19,10 @@ class Text extends React.Component {
   }
 
   render() {
+    const { format } = this.props
     return (
       <div className="text">
-        {this.state.value}
+        <Format format={format} value={this.state.value} />
       </div>
     )
   }

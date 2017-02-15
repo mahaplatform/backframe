@@ -31,12 +31,14 @@ export class Topbar extends React.Component {
           <div className="chrome-topbar-icon" onClick={this._handleOpenSearch.bind(this)}>
             <i className="search icon" />
           </div>
-          <div className="chrome-topbar-icon" onClick={this._handleOpenNotifications.bind(this)}>
-            <i className="alarm icon" />
-            { user.unread > 0 &&
-              <div className="chrome-alerts-label">{ user.unread }</div>
-            }
-          </div>
+          { false &&
+            <div className="chrome-topbar-icon" onClick={this._handleOpenNotifications.bind(this)}>
+              <i className="alarm icon" />
+              { user.unread > 0 &&
+                <div className="chrome-alerts-label">{ user.unread }</div>
+              }
+            </div>
+          }
           <div className="chrome-topbar-icon" onClick={this._handleOpenAccount.bind(this)}>
             <Avatar user={ user } />
           </div>

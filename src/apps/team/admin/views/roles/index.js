@@ -22,6 +22,7 @@ class Index extends React.Component {
         { label: 'Title', key: 'title', primary: true, format: TitleCell }
       ],
       entity: 'role',
+      link: '/admin/team/roles/#{id}',
       recordActions: [
         { label: 'edit', icon: 'edit', redirect: '/admin/team/users/#{id}/edit'}
       ],
@@ -33,10 +34,10 @@ class Index extends React.Component {
 
 var TitleCell = (props) => {
   return (
-    <Link to={`/admin/team/roles/${props.id}` }>
+    <div>
       <strong>{ props.title }</strong><br />
       { props.description }
-    </Link>
+    </div>
   )
 }
 

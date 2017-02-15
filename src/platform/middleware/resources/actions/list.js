@@ -27,7 +27,7 @@ export default options => {
 
       const filters = filterParams(req.query.$filter, options.filterParams)
 
-      if(options.searchParams && req.query.$filter.q) {
+      if(options.searchParams && req.query.$filter && req.query.$filter.q) {
         const term = `%${req.query.$filter.q.toLowerCase()}%`
         const sql = options.searchParams.map(param => `LOWER(${param}) LIKE ?`).join(' OR ')
         const vars = options.searchParams.map(param => term)

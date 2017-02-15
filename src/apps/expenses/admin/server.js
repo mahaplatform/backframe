@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import approvals from './middleware/approvals'
 import advances from './middleware/advances'
 import expenses from './middleware/expenses'
 import expenseTypes from './middleware/expense_types'
@@ -7,6 +8,7 @@ import trips from './middleware/trips'
 import vendors from './middleware/vendors'
 
 export const resources = [
+  approvals,
   advances,
   expenses,
   expenseTypes,

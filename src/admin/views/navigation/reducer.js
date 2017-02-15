@@ -13,8 +13,12 @@ export default (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case actionTypes.RESET:
-    return INITIAL_STATE
+  case actionTypes.CLOSE:
+    return {
+      ...state,
+      active: null,
+      route: null
+    }
 
   case actionTypes.TOGGLE_MODE:
     return {

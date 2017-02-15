@@ -18,9 +18,10 @@ class Index extends React.Component {
     return {
       endpoint: '/admin/expenses/projects',
       columns: [
-        { label: 'Title', key: 'title', primary: true, format: TitleCell },
+        { label: 'Title', key: 'title', primary: true },
         { label: 'Code', key: 'code', primary: true }
       ],
+      link: '/admin/expenses/projects/#{id}',
       sort: { key: 'created_at', order: 'desc' },
       entity: 'project',
       empty: {
@@ -33,14 +34,6 @@ class Index extends React.Component {
     }
   }
 
-}
-
-var TitleCell = (props) => {
-  return (
-    <Link to={`/admin/expenses/projects/${props.id}` }>
-      {props.title}
-    </Link>
-  )
 }
 
 const mapPropsToPage = (props, context) => ({

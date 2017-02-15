@@ -24,7 +24,7 @@ export class Navigation extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.onReset()
+    this.props.onClose()
   }
 
 }
@@ -36,7 +36,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-  onReset: actions.reset
+  onClose: actions.close
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation)

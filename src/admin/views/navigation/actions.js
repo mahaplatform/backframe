@@ -19,8 +19,8 @@ export function back() {
   }
 }
 
-export function reset() {
+export function close() {
   return {
-    type: actionTypes.RESET
+    type: actionTypes.CLOSE
   }
 }

@@ -52,6 +52,11 @@
     float: left;
   }
 }
+a.table-row {
+  &:hover {
+    background: #F9F9F9;
+  }
+}
 .table-row {
   display: table-row;
 }
@@ -62,15 +67,9 @@
   padding: 12px 18px;
   line-height: 20px;
   vertical-align: middle;
-  a {
-    display: block;
-    margin: -12px -18px;
-    padding: 12px 18px;
-    color: #888888;
-    overflow: hidden;
-  }
+  color: #888888 !important;
   strong {
-    color: #4183DD;
+    color: #000;
   }
 }
 .table-empty {

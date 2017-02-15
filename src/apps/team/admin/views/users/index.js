@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router'
 import Page from 'admin/components/page'
 import Collection from 'admin/components/collection'
 import Avatar from 'admin/components/avatar'
@@ -25,6 +24,7 @@ class Index extends React.Component {
       filters: [
         { label: 'Role', name: 'role_id', type: 'select', multiple: true, endpoint: '/admin/team/roles', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' } }
       ],
+      link: '/admin/team/users/#{id}',
       entity: 'user',
       recordActions: [
         { label: 'edit', icon: 'edit', redirect: '/admin/team/users/#{id}/edit'}
@@ -37,11 +37,11 @@ class Index extends React.Component {
 
 var NameCell = (props) => {
   return (
-    <Link to={`/admin/team/users/${props.id}` }>
+    <div>
       <Avatar user={ props } />
       <strong>{ props.first_name } { props.last_name }</strong><br />
       { props.email }
-    </Link>
+    </div>
   )
 }
 

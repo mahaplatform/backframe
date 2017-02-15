@@ -55,11 +55,15 @@ class Members extends React.Component {
   render() {
     const { members } = this.props
     return (
-      <div className="project-members">
-        { members.length === 0 && <p>This project does not yet have any members yet</p>}
+      <div className="list project-members">
+        { members.length === 0 &&
+          <div className="item">
+            <p>This project does not yet have any members yet</p>
+          </div>
+        }
         { members.map((member, index) => {
           return (
-            <div key={`member_${index}`} className="project-member" onClick={this._handleEdit.bind(this, member.id)}>
+            <div key={`member_${index}`} className="item project-member" onClick={this._handleEdit.bind(this, member.id)}>
               <Avatar user={ member.user  } />
               <p>
                 <strong>{ member.user.full_name }</strong><br />
@@ -89,11 +93,15 @@ class ExpenseTypes extends React.Component {
   render() {
     const { project_expense_types } = this.props
     return (
-      <div className="project-members">
-        { project_expense_types.length === 0 && <p>This project does not yet have any expense types yet</p>}
+      <div className="list project-members">
+        { project_expense_types.length === 0 &&
+          <div className="item">
+            <p>This project does not yet have any expense types yet</p>
+          </div>
+        }
         { project_expense_types.map((project_expense_type, index) => {
           return (
-            <div key={`expense_types_${index}`} className="project-member" onClick={this._handleEdit.bind(this, project_expense_type.id)}>
+            <div key={`expense_types_${index}`} className="item project-member" onClick={this._handleEdit.bind(this, project_expense_type.id)}>
               <p>
                 <strong>{project_expense_type.expense_type.code}</strong><br />
                 {project_expense_type.expense_type.title}

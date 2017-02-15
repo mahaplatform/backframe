@@ -10,10 +10,12 @@ class Show extends React.Component {
     return (
       <div className="chrome-body">
         <div className="chrome-sidebar">
-          { expense.is_approved === true && <div className="ui green inverted segment">This expense has been approved</div> }
-          { expense.is_approved === false && <div className="ui red inverted segment">This expense has been rejected</div> }
-          { expense.is_approved === null && <div className="ui blue inverted segment">This expense has not yet been reviewed</div> }
           <Details {...this._getDetails()} />
+        </div>
+        <div className="chrome-content">
+          { expense.is_approved === true && <div className="ui center aligned green inverted segment">This expense has been approved</div> }
+          { expense.is_approved === false && <div className="ui center aligned red inverted segment">This expense has been rejected</div> }
+          { expense.is_approved === null && <div className="ui center aligned blue inverted segment">This expense has not yet been reviewed</div> }
         </div>
       </div>
     )

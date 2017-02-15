@@ -21,9 +21,6 @@
   margin: 0;
   font-weight: normal;
   display: flex;
-  @media only screen and (min-width: 768px) {
-    border-bottom: 5px solid #CCC;
-  }
 }
 .chrome-back,
 .chrome-more {
@@ -47,18 +44,21 @@
   line-height: 50px;
   color: #555;
 }
-.chrome-sidebar .ui.segment {
-  margin: 15px;
-}
 .chrome-body {
   height: 1px;
   flex: 1;
   display: flex;
+  .chrome-sidebar {
+    padding: 15px;
+  }
+  .chrome-content {
+    padding: 15px;
+  }
   @media only screen and (min-width: 768px) {
     display: flex;
     .chrome-sidebar {
       flex: 0 0 300px;
-      background: #EEE;
+      background: @black;
     }
     .chrome-content {
       flex: 1;

@@ -7,19 +7,42 @@
       background-color: #FFF;
     }
   }
-  .item {
-    padding: 10px 20px !important;
-    color: #666;
-    line-height: 22px !important;
+  @media only screen and (min-width: 768px) {
+    .header {
+      color: #FFF !important;
+    }
+    .item {
+      color: #CCC;
+    }
+    a {
+      color: #CCC;
+      text-decoration: underline;
+    }
+  }
+  @media only screen and (max-width: 767px) {
     .header {
       color: #000;
     }
+    .item {
+      color: #666;
+    }
+  }
+
+  .item {
+    padding: 10px 0 !important;
+    line-height: 22px !important;
   }
 }
+
 .chrome-details-top,
 .chrome-details-image {
-  background: #EEE;
-  padding: 0 0 20px;
+  @media only screen and (max-width: 767px) {
+    background: #EEE;
+    padding: 0 0 20px;
+  }
+  @media only screen and (min-width: 768px) {
+    padding: 20px 0;
+  }
   display: flex;
   .avatar {
     margin: auto;

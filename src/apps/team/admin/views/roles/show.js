@@ -44,10 +44,10 @@ class Show extends React.Component {
 const Users = (props) => {
   const { role } = props
   return (
-    <div className="role-users">
+    <div className="list role-users">
       { role.users.map(user => {
         return (
-          <div className="role-user">
+          <div className="item role-user">
             <Avatar user={ user } />
             <strong>{ user.full_name }</strong><br />
             { user.email }
@@ -61,7 +61,7 @@ const Users = (props) => {
 const Access = (props) => {
   const { access } = props
   return (
-    <div className="role-access">
+    <div className="list role-access">
       { access.map((app, appindex) => {
         return (
           <div className="role-access-app">
