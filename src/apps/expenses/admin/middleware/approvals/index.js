@@ -35,6 +35,7 @@ export default resources({
   query: (qb, req, filters) => {
     qb.whereNot('expenses_expenses.user_id', req.user.get('id'))
     qb.joinRaw('inner join expenses_members on expenses_members.project_id = expenses_expenses.project_id and expenses_members.user_id=? and expenses_members.is_owner=?', [req.user.get('id'), true])
+    qb.whereNull('is_approved')
   },
   serializer: ExpenseSerializer,
   sortParams: ['date'],
