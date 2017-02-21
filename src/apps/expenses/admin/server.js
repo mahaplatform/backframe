@@ -6,6 +6,7 @@ import expenseTypes from './middleware/expense_types'
 import projects from './middleware/projects'
 import trips from './middleware/trips'
 import vendors from './middleware/vendors'
+import reports from './middleware/reports'
 
 export const resources = [
   approvals,
@@ -14,7 +15,8 @@ export const resources = [
   expenseTypes,
   projects,
   trips,
-  vendors
+  vendors,
+  reports
 ]
 
 const router = Router()

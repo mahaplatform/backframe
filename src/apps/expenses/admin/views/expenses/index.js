@@ -1,6 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router'
-import moment from 'moment'
 import Page from 'admin/components/page'
 import Collection from 'admin/components/collection'
 import New from './new'

@@ -7,8 +7,11 @@ export default (name, action) => {
     const serializer = options.serializer[name] || options.serializer.all
 
     const renderer = (req, result) => {
+
       const renderer = resourceRenderer(serializer, options)
-      return applyToRecords(req, result, renderer).then(result => result.records)
+
+      return (options.actions[name].on === 'collection') ? applyToRecords(req, result, renderer).then(result => result.records) : result
+
     }
 
     const responder = resourceResponder(200, 'Success')

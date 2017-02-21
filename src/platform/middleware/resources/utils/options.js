@@ -179,6 +179,6 @@ export const normalizeOptions = (userOptions) => {
 // actions
 export const mapOptionToActions = (value) => {
 
-  return value ? (_.isObject(value) && (value.all || value.create || value.update || value.destroy || value.show || value.list) ? value : { all: value }) : {}
+  return value ? (!_.isPlainObject(value) ? { all: value } : value) : {}
 
 }

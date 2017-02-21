@@ -1,6 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router'
-import moment from 'moment'
 import Page from 'admin/components/page'
 import Collection from 'admin/components/collection'
 
@@ -20,7 +18,7 @@ class Index extends React.Component {
       columns: [
         { label: 'Date', key: 'date', primary: true , format: 'date' },
         { label: 'User', key: 'user.full_name', primary: true },
-        { label: 'Project', key: 'project.title', primary: true },
+        { label: 'Project', key: 'project.title', primary: false },
         { label: 'Vendor', key: 'vendor.name', primary: false },
         { label: 'Expense Type', key: 'expense_type.title', primary: false },
         { label: 'Amount', key: 'amount', primary: true, format: 'currency' },
