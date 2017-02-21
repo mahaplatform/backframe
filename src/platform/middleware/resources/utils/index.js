@@ -81,9 +81,11 @@ export const buildHandler = (action, builder, options) => {
 
     const withHooks = () => wrapWithHooks(authenticator, authorizer, before, processor, after, logger, renderer, alter, responder, req, res, next)
 
-    const withTransaction = () => wrapWithTransaction(withHooks)
+    // const withTransaction = () => wrapWithTransaction(withHooks)
+    //
+    // return wrapWithLogger(req, res, withTransaction)
 
-    return wrapWithLogger(req, res, withTransaction)
+    return wrapWithLogger(req, res, withHooks)
 
   }
 

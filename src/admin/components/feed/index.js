@@ -25,9 +25,6 @@ export class Feed extends React.Component {
           <div className="chrome-feed-items">
             { records.map((item, index) => {
               let story = item.story.text
-              if(item.subject_text) {
-                story = story.replace('{subject}', `the ${item.subject_type} <span class="chrome-feed-item-subject">${item.subject_text}</span>`)
-              }
               if(item.object1_text) {
                 story = story.replace('{object1}', `the ${item.object1_type} <span class="chrome-feed-item-object">${item.object1_text}</span>`)
               }

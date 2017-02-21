@@ -10,7 +10,9 @@ export default (req, text, object1_type = null, object1_text = null, object2_typ
   }).then(story => {
 
     const data = {
+      team_id: req.team.get('id'),
       user_id: req.user.get('id'),
+      app_id: req.app.get('id'),
       story_id: story.get('id'),
       object1_type,
       object1_text,

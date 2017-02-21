@@ -20,6 +20,15 @@ export default bookshelf.Model.extend({
     amount: ['required']
   },
 
+  virtuals: {
+    activity: function() {
+      return {
+        type: 'expense',
+        text: this.get('description')
+      }
+    }
+  },
+
   expense_type: function() {
     return this.belongsTo(ExpenseType, 'expense_type_id')
   },

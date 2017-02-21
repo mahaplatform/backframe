@@ -9,7 +9,8 @@ import User from 'platform/models/user'
 import UserSerializer from 'platform/serializers/user_serializer'
 import ExpenseTypeProject from '../../../models/expense_type_project'
 import ExpenseTypeProjectSerializer from '../../../serializers/expense_type_project_serializer'
-import { create } from './processors'
+import { createProcessor } from './processors'
+import { createMemberLogger, createExpenseTypeLogger } from './loggers'
 
 const defaultParams = (req) => {
   return Promise.resolve({
@@ -53,10 +54,13 @@ export default resources({
       allowedParams: ['user_id','is_owner'],
       defaultParams,
       defaultSort: ['-is_owner', 'last_name'],
-      name: 'member',
+      logger: {
+        create: createMemberLogger
+      },
       model: Member,
+      name: 'member',
       processor: {
-        create
+        create: createProcessor
       },
       query: (qb, req, filters) => {
         qb.innerJoin('users','users.id','expenses_members.user_id')
@@ -69,8 +73,11 @@ export default resources({
     },{
       allowedParams: ['expense_type_id'],
       defaultParams,
-      name: 'expense_type',
+      logger: {
+        create: createExpenseTypeLogger
+      },
       model: ExpenseTypeProject,
+      name: 'expense_type',
       ownedByTeam: false,
       query: (qb, req, filters) => {
         qb.where({ project_id: req.params.project_id })

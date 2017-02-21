@@ -19,7 +19,7 @@ class Index extends React.Component {
       filters: [
         { label: 'User', name: 'user_id', type: 'select', multiple: true, endpoint: '/admin/team/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' } },
         { label: 'App', name: 'app_id', type: 'select', multiple: true, endpoint: '/admin/team/apps', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' } },
-        { label: 'Date Range', name: 'daterange', type: 'daterange', include: ['this','last'] }
+        { label: 'Date Range', name: 'created_at', type: 'daterange', include: ['this','last'] }
       ],
       sort: { key: 'created_at', order: 'desc' },
       layout: Feed,

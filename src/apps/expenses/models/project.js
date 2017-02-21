@@ -12,6 +12,15 @@ export default model.extend({
     code: ['required', unique('expenses_projects', 'code')]
   },
 
+  virtuals: {
+    activity: function() {
+      return {
+        type: 'project',
+        text: this.get('title')
+      }
+    }
+  },
+
   members: function() {
     return this.hasMany(Member, 'project_id')
   },

@@ -12,8 +12,8 @@ const defaults = {
   client: 'postgresql',
   connection: process.env.DATABASE_URL,
   pool: {
-    min: 1,
-    max: 1
+    min: 4,
+    max: 8
   }
 }
 
@@ -23,8 +23,8 @@ module.exports = {
     client: 'sqlite3',
     connection: { filename: ':memory:' },
     pool: {
-      min: 1,
-      max: 1
+      min: 4,
+      max: 8
     },
     useNullAsDefault: true
   }),

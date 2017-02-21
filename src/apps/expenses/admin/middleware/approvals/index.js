@@ -1,4 +1,4 @@
-import resources from 'platform/middleware/resources'
+ import resources from 'platform/middleware/resources'
 import Expense from '../../../models/expense'
 import ExpenseSerializer from '../../../serializers/expense_serializer'
 
@@ -10,7 +10,7 @@ export default resources({
   only: ['list','show','update'],
   ownedByUser: false,
   path: 'approvals',
-  query: (qb, filters, req) => {
+  query: (qb, req, filters) => {
     qb.whereNot({ user_id: req.user.get('id') })
   },
   serializer: ExpenseSerializer,

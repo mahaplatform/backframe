@@ -11,6 +11,15 @@ export default model.extend({
     project_id: ['required']
   },
 
+  virtuals: {
+    activity: function() {
+      return {
+        type: 'member',
+        text: this.related('user').get('full_name')
+      }
+    }
+  },
+
   project: function() {
     return this.belongsTo(project, 'project_id')
   },

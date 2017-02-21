@@ -34,13 +34,10 @@ class Lookup extends React.Component {
     )
   }
 
-  componentDidMount() {
-    this.props.onLookup(this.props.cid, '', this.props.endpoint)
-  }
-
   componentDidUpdate(prevProps) {
     const { active, disabled } = this.props
     if(prevProps.active !== active && active) {
+      this.props.onLookup(this.props.cid, '', this.props.endpoint)
       this.context.modal.push(<Search {...this.props} />)
     } else if(prevProps.disabled !== disabled) {
       this.props.onClear()

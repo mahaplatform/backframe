@@ -8,8 +8,8 @@ module.exports = {
       story_id: 1,
       app_id: 2,
       url: '/admin/expenses/projects/1',
-      subject_type: 'project',
-      subject_text: 'Primitive Pursuits',
+      object1_type: 'project',
+      object1_text: 'Primitive Pursuits',
       created_at: '2016-04-01'
     }, {
       id: 2,
@@ -18,10 +18,10 @@ module.exports = {
       story_id: 2,
       app_id: 2,
       url: '/admin/expenses/expenses',
-      subject_type: 'expense',
-      subject_text: 'food for party',
-      object1_type: 'project',
-      object1_text: 'Primitive Pursuits',
+      object1_type: 'expense',
+      object1_text: 'food for party',
+      object2_type: 'project',
+      object2_text: 'Primitive Pursuits',
       created_at: '2016-04-02'
     }, {
       id: 3,
@@ -30,10 +30,10 @@ module.exports = {
       story_id: 2,
       app_id: 2,
       url: '/admin/expenses/expenses',
-      subject_type: 'expense',
-      subject_text: 'food for party',
-      object1_type: 'project',
-      object1_text: 'Primitive Pursuits',
+      object1_type: 'expense',
+      object1_text: 'food for party',
+      object2_type: 'project',
+      object2_text: 'Primitive Pursuits',
       created_at: '2016-04-02'
     }, {
       id: 4,
@@ -42,10 +42,10 @@ module.exports = {
       story_id: 2,
       app_id: 2,
       url: '/admin/expenses/expenses',
-      subject_type: 'expense',
-      subject_text: 'food for party',
-      object1_type: 'project',
-      object1_text: 'Primitive Pursuits',
+      object1_type: 'expense',
+      object1_text: 'food for party',
+      object2_type: 'project',
+      object2_text: 'Primitive Pursuits',
       created_at: '2016-04-02'
     }, {
       id: 5,
@@ -54,8 +54,8 @@ module.exports = {
       story_id: 1,
       app_id: 2,
       url: '/admin/expenses/projects/2',
-      subject_type: 'project',
-      subject_text: 'Eat Smart New York',
+      object1_type: 'project',
+      object1_text: 'Eat Smart New York',
       created_at: '2016-04-03'
     }, {
       id: 6,
@@ -64,8 +64,8 @@ module.exports = {
       story_id: 1,
       app_id: 2,
       url: '/admin/expenses/projects/3',
-      subject_type: 'project',
-      subject_text: 'Website Platform',
+      object1_type: 'project',
+      object1_text: 'Website Platform',
       created_at: '2016-04-03'
     }, {
       id: 7,
@@ -74,10 +74,10 @@ module.exports = {
       story_id: 2,
       app_id: 2,
       url: '/admin/expenses/expenses',
-      subject_type: 'expense',
-      subject_text: 'food for party',
-      object1_type: 'project',
-      object1_text: 'Eat Smart New York',
+      object1_type: 'expense',
+      object1_text: 'food for party',
+      object2_type: 'project',
+      object2_text: 'Eat Smart New York',
       created_at: '2016-04-04'
     }, {
       id: 8,
@@ -86,10 +86,10 @@ module.exports = {
       story_id: 2,
       app_id: 2,
       url: '/admin/expenses/expenses',
-      subject_type: 'expense',
-      subject_text: 'website hosting',
-      object1_type: 'project',
-      object1_text: 'Eat Smart New York',
+      object1_type: 'expense',
+      object1_text: 'website hosting',
+      object2_type: 'project',
+      object2_text: 'Eat Smart New York',
       created_at: '2016-04-04'
     }, {
       id: 9,
@@ -98,10 +98,10 @@ module.exports = {
       story_id: 2,
       app_id: 2,
       url: '/admin/expenses/expenses',
-      subject_type: 'expense',
-      subject_text: 'website hosting',
-      object1_type: 'project',
-      object1_text: 'Eat Smart New York',
+      object1_type: 'expense',
+      object1_text: 'website hosting',
+      object2_type: 'project',
+      object2_text: 'Eat Smart New York',
       created_at: '2016-04-05'
     }, {
       id: 10,
@@ -110,10 +110,10 @@ module.exports = {
       story_id: 2,
       app_id: 2,
       url: '/admin/expenses/expenses',
-      subject_type: 'expense',
-      subject_text: 'website hosting',
-      object1_type: 'project',
-      object1_text: 'Eat Smart New York',
+      object1_type: 'expense',
+      object1_text: 'website hosting',
+      object2_type: 'project',
+      object2_text: 'Eat Smart New York',
       created_at: '2016-04-05'
     }, {
       id: 11,
@@ -122,8 +122,8 @@ module.exports = {
       story_id: 1,
       app_id: 2,
       url: '/admin/expenses/projects/3',
-      subject_type: 'project',
-      subject_text: 'Website Platform',
+      object1_type: 'project',
+      object1_text: 'Website Platform',
       created_at: '2016-04-05'
     }, {
       id: 12,
@@ -132,8 +132,8 @@ module.exports = {
       story_id: 1,
       app_id: 2,
       url: '/admin/expenses/projects/3',
-      subject_type: 'project',
-      subject_text: 'Website Platform',
+      object1_type: 'project',
+      object1_text: 'Website Platform',
       created_at: '2016-04-05'
     }, {
       id: 13,
@@ -142,10 +142,10 @@ module.exports = {
       story_id: 2,
       app_id: 2,
       url: '/admin/expenses/expenses',
-      subject_type: 'expense',
-      subject_text: 'food for party',
-      object1_type: 'project',
-      object1_text: 'Primitive Pursuits',
+      object1_type: 'expense',
+      object1_text: 'food for party',
+      object2_type: 'project',
+      object2_text: 'Primitive Pursuits',
       created_at: '2016-04-06'
     }, {
       id: 14,
@@ -154,10 +154,10 @@ module.exports = {
       story_id: 2,
       app_id: 2,
       url: '/admin/expenses/expenses',
-      subject_type: 'expense',
-      subject_text: 'food for party',
-      object1_type: 'project',
-      object1_text: 'Primitive Pursuits',
+      object1_type: 'expense',
+      object1_text: 'food for party',
+      object2_type: 'project',
+      object2_text: 'Primitive Pursuits',
       created_at: '2016-04-07'
     }, {
       id: 15,
@@ -166,10 +166,10 @@ module.exports = {
       story_id: 2,
       app_id: 2,
       url: '/admin/expenses/expenses',
-      subject_type: 'expense',
-      subject_text: 'food for party',
-      object1_type: 'project',
-      object1_text: 'Primitive Pursuits',
+      object1_type: 'expense',
+      object1_text: 'food for party',
+      object2_type: 'project',
+      object2_text: 'Primitive Pursuits',
       created_at: '2016-04-08'
     }
   ]

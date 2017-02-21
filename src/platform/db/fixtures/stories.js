@@ -3,10 +3,10 @@ module.exports = {
   records: [
     {
       id: 1,
-      text: 'created {subject}'
+      text: 'created {object1}'
     }, {
       id: 2,
-      text: 'created {subject} in {object1}'
+      text: 'created {object1} in {object2}'
     }
   ]
 }

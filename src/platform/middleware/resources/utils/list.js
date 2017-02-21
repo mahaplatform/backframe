@@ -73,51 +73,51 @@ export const filter = (qb, filters) => {
 
       if(filters[key].$dr === 'this_week') {
 
-        qb = daterange(qb, 0, 'week')
+        qb = daterange(qb, key, 0, 'week')
 
       } else if(filters[key].$dr === 'last_week') {
 
-        qb = daterange(qb, -1, 'week')
+        qb = daterange(qb, key, -1, 'week')
 
       } else if(filters[key].$dr === 'next_week') {
 
-        qb = daterange(qb, 1, 'week')
+        qb = daterange(qb, key, 1, 'week')
 
       } else if(filters[key].$dr === 'this_month') {
 
-        qb = daterange(qb, 0, 'month')
+        qb = daterange(qb, key, 0, 'month')
 
       } else if(filters[key].$dr === 'last_month') {
 
-        qb = daterange(qb, -1, 'month')
+        qb = daterange(qb, key, -1, 'month')
 
       } else if(filters[key].$dr === 'next_month') {
 
-        qb = daterange(qb, 1, 'month')
+        qb = daterange(qb, key, 1, 'month')
 
       } else if(filters[key].$dr === 'this_quarter') {
 
-        qb = daterange(qb, 0, 'quarter')
+        qb = daterange(qb, key, 0, 'quarter')
 
       } else if(filters[key].$dr === 'last_quarter') {
 
-        qb = daterange(qb, -1, 'quarter')
+        qb = daterange(qb, key, -1, 'quarter')
 
       } else if(filters[key].$dr === 'next_quarter') {
 
-        qb = daterange(qb, 1, 'quarter')
+        qb = daterange(qb, key, 1, 'quarter')
 
       } else if(filters[key].$dr === 'this_year') {
 
-        qb = daterange(qb, 0, 'year')
+        qb = daterange(qb, key, 0, 'year')
 
       } else if(filters[key].$dr === 'last_year') {
 
-        qb = daterange(qb, -1, 'year')
+        qb = daterange(qb, key, -1, 'year')
 
       } else if(filters[key].$dr === 'next_year') {
 
-        qb = daterange(qb, 1, 'year')
+        qb = daterange(qb, key, 1, 'year')
 
       }
 
@@ -129,9 +129,9 @@ export const filter = (qb, filters) => {
 
 }
 
-export const daterange = (qb, quantity, unit) => {
+export const daterange = (qb, field, quantity, unit) => {
 
-  qb.where('date', '>=', moment().add(quantity, unit).startOf(unit).format('YYYY-MM-DD')).where('date', '<=', moment().add(quantity, unit).endOf(unit).format('YYYY-MM-DD'))
+  qb.where(field, '>=', moment().add(quantity, unit).startOf(unit).format('YYYY-MM-DD')).where(field, '<=', moment().add(quantity, unit).endOf(unit).format('YYYY-MM-DD'))
 
   return qb
 

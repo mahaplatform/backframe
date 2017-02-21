@@ -17,8 +17,6 @@ export default (object) => {
       text: object.related('story').get('text')
     },
     url: object.get('url'),
-    subject_type: object.get('subject_type'),
-    subject_text: object.get('subject_text'),
     object1_type: object.get('object1_type'),
     object1_text: object.get('object1_text'),
     object2_type: object.get('object2_type'),
