@@ -1,8 +1,13 @@
 import React from 'react'
 import Details from 'admin/components/details'
 import Page from 'admin/components/page'
+import Approve from '../../components/approve'
 
 class Show extends React.Component {
+
+  static contextTypes = {
+    container: React.PropTypes.object
+  }
 
   render() {
     const { expense } = this.props
@@ -13,11 +18,7 @@ class Show extends React.Component {
           { expense.is_approved === false && <div className="ui center aligned red inverted segment">This expense has been rejected</div> }
           { expense.is_approved === null && <div className="ui center aligned blue inverted segment">This expense has not yet been reviewed</div> }
           <Details {...this._getDetails()} />
-          <div className="ui fluid buttons">
-            <button className="ui red button">Reject</button>
-            <div className="or"></div>
-            <button className="ui green button">Approve</button>
-          </div>
+          { expense.is_approved === null && <Approve {...this._getApprove()} /> }
         </div>
       </div>
     )
@@ -38,6 +39,15 @@ class Show extends React.Component {
         { label: 'Reason Rejected ', content: expense.reason_rejected }
 
       ]
+    }
+  }
+
+  _getApprove() {
+    return {
+      expense: this.props.expense,
+      onChange: () => {
+        this.context.container.refresh('expense')
+      }
     }
   }
 

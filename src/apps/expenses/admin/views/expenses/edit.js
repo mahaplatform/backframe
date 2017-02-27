@@ -1,5 +1,6 @@
 import React from 'react'
 import Form from 'admin/components/form'
+import moment from 'moment'
 
 class Edit extends React.Component {
 
@@ -24,8 +25,10 @@ class Edit extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Title' },
-            { label: 'Code', name: 'code', type: 'textfield', placeholder: 'Code' }
+            { label: 'Date', name: 'date', type: 'datefield', placeholder: 'Date Needed', defaultValue: moment().format('YYYY-MM-DD') },
+            { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Description' },
+            { label: 'Amount', name: 'amount', type: 'textfield', placeholder: 'Amount', prefix: '$' },
+            { label: 'Visa?', name: 'is_visa', type: 'checkbox' }
           ]
         }
       ]

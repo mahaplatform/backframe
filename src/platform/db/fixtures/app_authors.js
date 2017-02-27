@@ -4,9 +4,6 @@ module.exports = {
     {
       id: 1,
       name: 'CCE Tompkins'
-    }, {
-      id: 2,
-      name: 'Think Topography'
     }
   ]
 }

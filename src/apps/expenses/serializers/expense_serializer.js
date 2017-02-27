@@ -26,8 +26,16 @@ export default (object) => {
     },
     amount: object.get('amount'),
     is_visa: object.get('is_visa'),
-    is_approved: object.get('is_approved'),
-    reason_rejected: object.get('reason_rejected')
+    approval: object.related('approval').get('id') ? {
+      approved_by: object.related('approval').related('approved_by').get('id') ? {
+        full_name: object.related('approval').related('approved_by').get('full_name'),
+        initials: object.related('approval').related('approved_by').get('initials'),
+        photo: object.related('approval').related('approved_by').related('photo').get('url'),
+        email: object.related('approval').related('approved_by').get('email')
+      } : null,
+      is_approved: object.related('approval').get('is_approved'),
+      reason_rejected: object.related('approval').get('reason_rejected')
+    } : null
   })
 
 }

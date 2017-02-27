@@ -64,7 +64,9 @@ class Apps extends React.Component {
         <div className="chrome-navigation-body">
           { path.length === 0 &&
             <div className="chrome-navigation-item" onClick={ this._handleDashboard.bind(this) }>
-              <i className="home icon" />
+              <div className="chrome-navigation-item-icon">
+                <i className="home icon" />
+              </div>
               Dashboard
             </div>
           }
@@ -72,7 +74,11 @@ class Apps extends React.Component {
             if(!item.rights || userHasRights(user, item.rights)) {
               return (
                 <div key={`item_${index}`} className="chrome-navigation-item" onClick={ this._handleForward.bind(this, item, index)}>
-                  { item.icon && <i className={`${item.icon} icon`} /> }
+                  { item.icon &&
+                    <div className="chrome-navigation-item-icon">
+                      <i className={`${item.icon} icon`} />
+                      </div>
+                  }
                   { item.label }
                   { item.items && <i className="chevron right icon" /> }
                 </div>

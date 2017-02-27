@@ -6,6 +6,8 @@ import AppsShow from './views/apps/show'
 import AppAuthorShow from './views/apps/author'
 import UsersIndex from './views/users/index'
 import UsersShow from './views/users/show'
+import SettingsIndex from './views/settings/index'
+import SettingsEdit from './views/settings/edit'
 import RolesIndex from './views/roles/index'
 import RolesShow from './views/roles/show'
 
@@ -22,6 +24,10 @@ const routes = (
     <Route path="users">
       <IndexRoute component={UsersIndex} />
       <Route path=":id" component={UsersShow} />
+    </Route>
+    <Route path="settings">
+      <IndexRoute component={SettingsIndex} />
+      <Route path=":id" component={SettingsEdit} />
     </Route>
     <Route path="roles">
       <IndexRoute component={RolesIndex} />

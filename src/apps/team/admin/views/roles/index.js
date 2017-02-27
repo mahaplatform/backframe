@@ -1,8 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router'
 import Page from 'admin/components/page'
 import Collection from 'admin/components/collection'
-import Avatar from 'admin/components/avatar'
 import New from './new'
 
 class Index extends React.Component {

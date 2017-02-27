@@ -4,7 +4,7 @@ import { succeed } from 'platform/utils/responses'
 
 export default (req, res, next) => {
 
-  const files = glob.sync(path.resolve(__dirname, '../../../../**/navigation.js'))
+  const files = glob.sync(path.resolve(__dirname, '../../../apps/*/admin/navigation.js'))
   let navigation = {}
   files.map(file => {
     const matches = file.match(/\/([a-z_]*)\/admin\/navigation\.js/)

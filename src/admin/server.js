@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import externalAuthentication from './middleware/external'
 import client from './client'
 import render from 'platform/middleware/render'
 import activation from 'admin/middleware/activation'
@@ -10,6 +11,8 @@ import search from 'admin/middleware/search'
 import apps from 'admin/middleware/apps'
 
 const router = Router()
+
+router.use('/admin', externalAuthentication)
 
 router.get('/admin*', render(client))
 

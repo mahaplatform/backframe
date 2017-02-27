@@ -12,8 +12,8 @@ const defaults = {
   client: 'postgresql',
   connection: process.env.DATABASE_URL,
   pool: {
-    min: 4,
-    max: 8
+    min: 1,
+    max: 1
   }
 }
 

@@ -8,13 +8,8 @@ dotenv.config({ path: '.env' })
 
 export default key => {
 
-  const fromUrl = (req) => {
-    const matches = req.path.match(/[\w\-]*\.[\w\-]*\.[\w\-]*/)
-    return (matches) ? matches[0] : null
-  }
-
   const jwtOptions = {
-    jwtFromRequest: ExtractJwt.fromExtractors([ExtractJwt.fromAuthHeaderWithScheme('Bearer'), fromUrl]),
+    jwtFromRequest: ExtractJwt.fromExtractors([ExtractJwt.fromAuthHeaderWithScheme('Bearer'), ExtractJwt.fromUrlQueryParameter('jwt')]),
     secretOrKey: process.env.SECRET || ''
   }
 

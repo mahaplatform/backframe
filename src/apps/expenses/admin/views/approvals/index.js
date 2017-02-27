@@ -16,18 +16,14 @@ class Index extends React.Component {
     return {
       endpoint: '/admin/expenses/approvals',
       columns: [
-        { label: 'Date', key: 'date', primary: true , format: 'date' },
-        { label: 'User', key: 'user.full_name', primary: true },
-        { label: 'Project', key: 'project.title', primary: false },
-        { label: 'Vendor', key: 'vendor.name', primary: false },
-        { label: 'Expense Type', key: 'expense_type.title', primary: false },
-        { label: 'Amount', key: 'amount', primary: true, format: 'currency' },
+        { label: 'Type', key: 'owner.type', primary: true },
+        { label: 'Project', key: 'owner.project.title', primary: true },
+        { label: 'User', key: 'owner.user.full_name', primary: true },
         { label: 'Status', key: 'is_approved', primary: true, format: ApprovalStatus }
       ],
       filters: [
         { label: 'User', name: 'user_id', type: 'select', multiple: true, endpoint: '/admin/team/users', value: 'id', text: 'full_name' },
         { label: 'Projects', name: 'project_id', type: 'select', multiple: true, endpoint: '/admin/expenses/projects', value: 'id', text: 'title' },
-        { label: 'Expense Type', name: 'expense_type_id', type: 'select', endpoint: '/admin/expenses/expense_types', value: 'id', text: 'title' },
         { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] },
         { label: 'Status', name: 'is_approved', type: 'select', options: [ { value: 'null', text: 'Unreviewed' }, { value: '1', text: 'Approved' }, { value: '0', text: 'Rejected' } ] }
       ],

@@ -280,7 +280,7 @@ export const defaultQuery = (req, options, action, qb, filters) => {
   const tableName = options.model.extend().__super__.tableName
 
   if(options.ownedByTeam) {
-    qb = qb.where(`${tableName}.team_id`, req.user.get('id'))
+    qb = qb.where(`${tableName}.team_id`, req.team.get('id'))
   }
 
   if(options.ownedByUser) {

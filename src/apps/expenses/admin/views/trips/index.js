@@ -18,12 +18,10 @@ class Index extends React.Component {
       endpoint: '/admin/expenses/trips',
       columns: [
         { label: 'Date', key: 'date', primary: true , format: 'date' },
-        { label: 'Name', key: 'name', primary: true }
+        { label: 'Status', key: 'is_approved', primary: true, format: ApprovalStatus }
       ],
       filters: [
-        { label: 'Projects', name: 'project_id', type: 'select', multiple: true, endpoint: '/admin/expenses/projects', value: 'id', text: 'title' },
-        { label: 'Expense Type', name: 'expense_type_id', type: 'select', endpoint: '/admin/expenses/expense_types', value: 'id', text: 'title' },
-        { label: 'Date Range', name: 'daterange', type: 'daterange', include: ['this','last'] }
+        { label: 'Projects', name: 'project_id', type: 'select', multiple: true, endpoint: '/admin/expenses/projects', value: 'id', text: 'title' }
       ],
       sort: { key: 'created_at', order: 'desc' },
       entity: 'trip',
@@ -37,6 +35,12 @@ class Index extends React.Component {
     }
   }
 
+}
+
+const ApprovalStatus = (props) => {
+  if(props.is_approved === true) return <span className="approved">APPROVED</span>
+  if(props.is_approved === false) return <span className="rejected">REJECTED</span>
+  if(props.is_approved === null) return <span className="unreviewed">UNREVIEWED</span>
 }
 
 const mapPropsToPage = (props, context) => ({

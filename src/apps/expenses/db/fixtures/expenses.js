@@ -10,9 +10,8 @@ module.exports = {
       vendor_id: 1,
       date: '2017-01-01',
       description: 'test',
-      amount: 83.62,
-      is_visa: false,
-      is_approved: true
+      amount: 45.22,
+      is_visa: false
     },{
       id: 2,
       team_id: 1,
@@ -33,7 +32,7 @@ module.exports = {
       vendor_id: 1,
       date: '2017-01-01',
       description: 'test',
-      amount: 83.62,
+      amount: 98.25,
       is_visa: false
     },{
       id: 4,
@@ -44,10 +43,8 @@ module.exports = {
       vendor_id: 1,
       date: '2017-01-01',
       description: 'test',
-      amount: 83.62,
-      is_visa: false,
-      is_approved: false,
-      reason_rejected: 'Invalid expense code'
+      amount: 44.06,
+      is_visa: false
     },{
       id: 5,
       team_id: 1,
@@ -57,7 +54,7 @@ module.exports = {
       vendor_id: 1,
       date: '2017-01-01',
       description: 'test',
-      amount: 83.62,
+      amount: 38.27,
       is_visa: false
     }
   ]

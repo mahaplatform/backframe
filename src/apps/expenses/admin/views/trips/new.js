@@ -1,5 +1,6 @@
 import React from 'react'
 import Form from 'admin/components/form'
+import moment from 'moment'
 
 class New extends React.Component {
 
@@ -21,11 +22,13 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Project', endpoint: '/admin/expenses/projects', key: 'id', value: 'title' },
-            { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Expense Type', endpoint: '/admin/expenses/expense_types', key: 'id', value: 'title' },
-            { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Vendor', endpoint: '/admin/expenses/vendors', key: 'id', value: 'name' },
-            { label: 'Date', name: 'date_needed', type: 'datefield', placeholder: 'Date Needed' },
-            { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Description' }
+            { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Project', required: true, endpoint: '/admin/expenses/projects', value: 'id', text: 'title' },
+            { label: 'Date', name: 'date', type: 'datefield', placeholder: 'Date', required: true, defaultValue: moment().format('YYYY-MM-DD') },
+            { label: 'Description', name: 'description', type: 'textarea', required: true, placeholder: 'Description' },
+            { label: 'Time Leaving', name: 'time_leaving', type: 'textfield', required: true, placeholder: 'Time Leaving' },
+            { label: 'Time Arriving', name: 'time_arriving', type: 'textfield', required: true, placeholder: 'Time Arriving' },
+            { label: 'Odometer Start', name: 'odometer_start', type: 'textfield', required: true, placeholder: 'Odometer Start' },
+            { label: 'Odometer End', name: 'odometer_end', type: 'textfield', required: true, placeholder: 'Odometer End' }
           ]
         }
       ]

@@ -30,7 +30,7 @@ class Index extends React.Component {
         { label: 'Expense Type', name: 'expense_type_id', type: 'select', endpoint: '/admin/expenses/expense_types', value: 'id', text: 'title' },
         { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] }
       ],
-      link: '/admin/expenses/approvals/#{id}',
+      export: true,
       sort: { key: 'date', order: 'desc' },
       entity: 'expense'
     }

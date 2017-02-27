@@ -6,13 +6,19 @@ import Format from 'admin/utils/format'
 
 class Table extends React.Component {
 
+  static contextTypes = {
+    drawer: React.PropTypes.object,
+    modal: React.PropTypes.object,
+    history: React.PropTypes.object
+  }
+
   static propTypes = {
     columns: React.PropTypes.array,
     onSort: React.PropTypes.func
   }
 
   render() {
-    const { columns, link, sort, records, status } = this.props
+    const { columns, link, modal, sort, records, status } = this.props
     if(records.length > 0) {
       return (
         <div className="collection-layout">
@@ -28,10 +34,14 @@ class Table extends React.Component {
                     </div>
                   )
                 })}
+                { this.props.export && <div className="table-header mobile" onClick={ this._handleExport.bind(this) }>
+                  <i className="download icon" />
+                </div> }
               </div>
             </div>
             <div className="table-body">
               {records.map((record, recordIndex) => {
+
                 const row = columns.map((column, columnIndex) => {
                   const value = _.get(record, column.key)
                   const classes = (column.primary) ? 'table-cell mobile' : 'table-cell'
@@ -40,14 +50,21 @@ class Table extends React.Component {
                       <Format {...record} format={column.format} value={value} />
                     </div>
                   )
-                })
+                }).concat((this.props.export ? [<div className="table-cell mobile" />] : []))
+
                 if(link) {
                   _.templateSettings.interpolate = /#{([\s\S]+?)}/g
                   const to = _.template(link)(record)
                   return (
-                    <Link to={to} key={ `record_${recordIndex}` } className="table-row">
+                    <Link key={ `record_${recordIndex}` } className="table-row" to={to}>
                       { row }
                     </Link>
+                  )
+                } else if(modal) {
+                  return (
+                    <div key={ `record_${recordIndex}` } className="table-row" onClick={ this._handleModal.bind(this, record.id) }>
+                      { row }
+                    </div>
                   )
                 } else {
                   return (
@@ -56,6 +73,7 @@ class Table extends React.Component {
                     </div>
                   )
                 }
+
               })}
             </div>
           </div>
@@ -79,6 +97,14 @@ class Table extends React.Component {
 
   componentDidUpdate() {
     this._resizeColumns()
+  }
+
+  _handleExport() {
+    window.location.href = 'http://localhost:8080/api/admin/expenses/reports/expenses.csv?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE0ODY4NzQ2NTcsImV4cCI6MTQ4ODA4NDI1NywiZGF0YSI6eyJ1c2VyX2lkIjoxfX0.g-XZWa5Vz-ePenNcn55tMb8IofkSLGIb-YkFxUiA1cE&%24page%5Bskip%5D=0&%24sort=-date'
+  }
+
+  _handleModal(id) {
+    this.context.modal.push(<this.props.modal id={ id } />)
   }
 
   _resizeColumns() {

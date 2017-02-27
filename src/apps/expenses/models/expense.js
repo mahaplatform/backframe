@@ -1,15 +1,13 @@
-import checkit from  'checkit'
-import bookshelf from 'platform/services/bookshelf'
+import model from 'platform/models/model'
+import Approval from  './approval'
 import ExpenseType from  './expense_type'
 import Project from  './project'
 import User from  'platform/models/user'
 import Vendor from  './vendor'
 
-export default bookshelf.Model.extend({
+export default model.extend({
 
   tableName: 'expenses_expenses',
-
-  hasTimestamps: ['created_at', 'updated_at'],
 
   rules: {
     date: ['required'],
@@ -29,6 +27,10 @@ export default bookshelf.Model.extend({
     }
   },
 
+  approval: function() {
+    return this.morphOne(Approval, 'owner')
+  },
+
   expense_type: function() {
     return this.belongsTo(ExpenseType, 'expense_type_id')
   },
@@ -43,14 +45,6 @@ export default bookshelf.Model.extend({
 
   vendor: function() {
     return this.belongsTo(Vendor, 'vendor_id')
-  },
-
-  initialize: function(attrs, opts) {
-    this.on('saving', this.validateSave)
-  },
-
-  validateSave: function() {
-    return new checkit(this.rules).run(this.attributes)
   }
 
 })

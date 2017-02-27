@@ -5,13 +5,7 @@
   .app {
     margin: 10px;
     .border-radius(5px);
-    @media only screen and (max-width: 767px) {
-      width: ~"calc(100% - 20px)";
-    }
-    @media only screen and (min-width: 768px) {
-      width: ~"calc(33.333% - 20px)";
-      float: left;
-    }
+    width: ~"calc(100% - 20px)";
     display: flex;
     border: 1px solid #CCC;
     overflow: hidden;
@@ -142,6 +136,31 @@
     flex: 1;
   }
 }
+
+
+.settings {
+  position: relative;
+  .app-icon {
+    .border-radius(5px);
+    background-color: @green;
+    color: #FFF;
+    padding: 5px;
+    margin-right: 10px;
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    i {
+      margin: 0;
+    }
+  }
+  .chevron {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+  }
+}
+
 
 @import './components/access/style';
 @import './components/roles/style';

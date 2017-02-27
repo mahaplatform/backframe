@@ -81,14 +81,47 @@
   &:hover {
     background-color: rgba(0,0,0,0.05);
   }
-  i:first-child {
-    margin-right: 10px;
-    color: #888;
-  }
   .chevron {
     position: absolute;
     right: 10px;
     color: #BBB;
+  }
+  &:nth-child(8n+1) .chrome-navigation-item-icon {
+    background-color: @red;
+  }
+  &:nth-child(8n+2) .chrome-navigation-item-icon {
+    background-color: @orange;
+  }
+  &:nth-child(8n+3) .chrome-navigation-item-icon {
+    background-color: @yellow;
+  }
+  &:nth-child(8n+4) .chrome-navigation-item-icon {
+    background-color: @green;
+  }
+  &:nth-child(8n+5) .chrome-navigation-item-icon {
+    background-color: @blue;
+  }
+  &:nth-child(8n+6) .chrome-navigation-item-icon {
+    background-color: @violet;
+  }
+  &:nth-child(8n+7) .chrome-navigation-item-icon {
+    background-color: @purple;
+  }
+  &:nth-child(8n+8) .chrome-navigation-item-icon {
+    background-color: @pink;
+  }
+}
+.chrome-navigation-item-icon {
+  .border-radius(5px);
+  color: #FFF;
+  padding: 5px;
+  margin: -10px 10px -10px -5px;
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  text-align: center;
+  i {
+    margin: 0;
   }
 }
 .chrome-navigation-empty {

@@ -43,9 +43,6 @@ class Apps extends React.Component {
           { records.map((app, index) => {
             return (
               <div key={`app_${index}`} className={`app ${app.installed && 'installed'}`}>
-                <div className="app-icon">
-                  <i className={`fa fa-${app.icon}`} />
-                </div>
                 <div className="app-content">
                   <h2>{ app.title }</h2>
                   <h4>by <Link to={{ pathname: `/admin/team/apps/authors/${app.author.id}`, state: 'next' }}>{ app.author.name }</Link></h4>

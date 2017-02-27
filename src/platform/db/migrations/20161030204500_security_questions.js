@@ -1,10 +1,10 @@
 exports.up = function(knex, Promise) {
   return Promise.all([
-  knex.schema.createTable('security_questions', function (table) {
-    table.increments('id').primary()
-    table.string('text')
-    table.timestamps()
-  })
+    knex.schema.createTable('security_questions', function (table) {
+      table.increments('id').primary()
+      table.string('text')
+      table.timestamps()
+    })
   ])
 }
 

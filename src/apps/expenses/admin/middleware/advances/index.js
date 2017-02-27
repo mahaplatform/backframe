@@ -7,5 +7,5 @@ export default resources({
   model: Advance,
   ownedByUser: true,
   path: 'advances',
-  withRelated: ['user','project','expense_type']
+  withRelated: ['user','project','expense_type','approval.approved_by']
 })

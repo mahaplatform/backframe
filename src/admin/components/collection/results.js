@@ -80,10 +80,12 @@ class Results extends React.Component {
   }
 
   _getTable() {
-    const { columns, params, link, records, status, onSort} = this.props
+    const { columns, params, link, modal, records, status, onSort} = this.props
     return {
       columns,
+      export: this.props.export,
       link,
+      modal,
       records,
       sort: params.sort,
       status,

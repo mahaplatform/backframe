@@ -45,9 +45,9 @@ const Users = (props) => {
   const { role } = props
   return (
     <div className="list role-users">
-      { role.users.map(user => {
+      { role.users.map((user, index) => {
         return (
-          <div className="item role-user">
+          <div key={`user_${index}`} className="item role-user">
             <Avatar user={ user } />
             <strong>{ user.full_name }</strong><br />
             { user.email }
@@ -64,13 +64,13 @@ const Access = (props) => {
     <div className="list role-access">
       { access.map((app, appindex) => {
         return (
-          <div className="role-access-app">
+          <div key={`app_${appindex}`} className="role-access-app">
             <div className="role-access-title">
               { app.title }
             </div>
             { app.rights.length > 0 && app.rights.map((right, rightindex) => {
               return (
-                <div className="role-access-right">
+                <div key={`right_${appindex}_${rightindex}`} className="role-access-right">
                   <div className="role-access-right-icon">
                     { right.assigned ? <i className="green check icon" /> : <i className="red remove icon" /> }
                   </div>

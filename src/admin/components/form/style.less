@@ -61,11 +61,19 @@
   }
   .error {
     input, textarea, select, .lookup-field {
-      border-color: #DB2828 !important
+      border-color: #DB2828 !important;
+      background-color: #FFF6F6;
+      .border-radius(5px 5px 0 0) !important;
     }
-    & > label,
-    .error-message {
+    & > label {
       color: #DB2828 !important;
+    }
+    .error-message {
+      background-color: #DB2828 !important;
+      color: #FFF !important;
+      padding: 5px 10px;
+      font-size: .8em;
+      .border-radius(0 0 5px 5px) !important;
     }
     .ui.label {
       background-color: #DB2828 !important;
