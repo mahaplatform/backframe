@@ -20,13 +20,16 @@ class Edit extends React.Component {
       endpoint: `/admin/team/roles/${this.context.container.params.id}`,
       action: `/admin/team/roles/${this.context.container.params.id}`,
       onCancel: this.context.modal.pop,
-      onSuccess: this.context.modal.pop,
+      onSuccess: () => {
+        this.context.container.refresh('role'),
+        this.context.modal.pop()
+      },
       sections: [
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Tile' },
             { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Description' },
-            { label: 'Access', name: 'description', type: Access }
+            { label: 'Access', name: 'access_ids', type: Access }
           ]
         }
       ]

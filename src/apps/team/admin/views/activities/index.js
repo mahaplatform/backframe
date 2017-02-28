@@ -30,7 +30,8 @@ class Index extends React.Component {
 }
 
 const mapPropsToPage = (props, context) => ({
-  title: 'Activities'
+  title: 'Activities',
+  rights: ['team.manage_people']
 })
 
 export default Page(mapPropsToPage)(Index)

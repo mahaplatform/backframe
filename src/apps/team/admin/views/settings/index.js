@@ -39,7 +39,8 @@ var TitleCell = (props) => {
 }
 
 const mapPropsToPage = (props, context) => ({
-  title: 'Settings'
+  title: 'Settings',
+  rights: ['team.manage_apps']
 })
 
 export default Page(mapPropsToPage)(Index)

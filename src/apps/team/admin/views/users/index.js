@@ -47,6 +47,7 @@ var NameCell = (props) => {
 
 const mapPropsToPage = (props, context) => ({
   title: 'Users',
+  rights: ['team.manage_people'],
   task: {
     label: 'New User',
     icon: 'plus',

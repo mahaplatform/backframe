@@ -24,7 +24,7 @@ class New extends React.Component {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Tile' },
             { label: 'Description', name: 'description', type: 'textfield', placeholder: 'Description' },
-            { label: 'Access', name: 'description', type: Access }
+            { label: 'Access', name: 'access_ids', type: Access }
           ]
         }
       ]

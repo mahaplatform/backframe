@@ -4,7 +4,7 @@ import ExpenseSerializer from '../../../serializers/expense_serializer'
 
 export default resources({
   defaultSort: '-date',
-  filterParams: ['user_id','expense_type_id','project_id','date'],
+  filterParams: ['user_id','expense_type_id','project_id','vendor_id','date'],
   model: Expense,
   name: 'expense',
   ownedByUser: false,

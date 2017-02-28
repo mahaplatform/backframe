@@ -4,6 +4,7 @@ import RoleQuery from 'platform/queries/role_query'
 import RoleSerializer from 'platform/serializers/role_serializer'
 
 export default resources({
+  allowedParams: ['title','description'],
   name: 'role',
   model: Role,
   path: 'roles',

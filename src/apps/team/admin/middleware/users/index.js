@@ -2,8 +2,17 @@ import resources from 'platform/middleware/resources'
 import User from 'platform/models/user'
 import UserSerializer from 'platform/serializers/user_serializer'
 import { createRoles, updateRoles } from './hooks'
+import accessHandler from '../access/user.js'
 
 export default resources({
+  actions: {
+    access: {
+      on: 'member',
+      path: 'access',
+      method: 'get',
+      handler: accessHandler
+    }
+  },
   after: {
     create: createRoles,
     update: updateRoles

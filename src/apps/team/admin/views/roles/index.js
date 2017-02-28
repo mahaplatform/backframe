@@ -41,6 +41,7 @@ var TitleCell = (props) => {
 
 const mapPropsToPage = (props, context) => ({
   title: 'Roles',
+  rights: ['team.manage_people'],
   task: {
     label: 'New Role',
     icon: 'plus',

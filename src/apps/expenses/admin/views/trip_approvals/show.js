@@ -26,11 +26,15 @@ class Show extends React.Component {
     const { trip } = this.props
     return {
       items: [
-        { label: 'Date ', content: trip.date, format: 'date' },
-        { label: 'User ', content: trip.user.full_name },
-        { label: 'Project ', content: trip.project.title },
-        { label: 'Description ', content: trip.description },
-        { label: 'Reason Rejected ', content: trip.reason_rejected }
+        { label: 'Date', content: trip.date, format: 'date' },
+        { label: 'Project', content: trip.project.title },
+        { label: 'Time Leaving', content: trip.time_leaving },
+        { label: 'Time Arriving', content: trip.time_arriving },
+        { label: 'Odometer Start', content: trip.odometer_start },
+        { label: 'Odometer End', content: trip.odometer_end },
+        { label: 'Distance', content: trip.total_miles },
+        { label: 'Rate', content: trip.mileage_rate, format: 'currency' },
+        { label: 'Amount', content: trip.amount, format: 'currency' }
       ]
     }
   }

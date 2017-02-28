@@ -32,6 +32,7 @@ const mapPropsToPage = (props, context) => {
 
   return {
     title: 'App',
+    rights: ['team.manage_apps'],
     resources: {
       app: `/admin/team/apps/${props.params.id}`
     }

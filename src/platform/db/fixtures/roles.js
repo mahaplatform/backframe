@@ -5,22 +5,17 @@ module.exports = {
       id: 1,
       team_id: 1,
       title: 'Administrator',
-      description: 'Sriracha bitters fixie bicycle rights, shoreditch lomo retro snackwave cold-pressed bespoke banjo synth beard keytar. '
+      description: 'Users who have adminstraive access to the entire platform'
     }, {
       id: 2,
       team_id: 1,
-      title: 'Supervisor',
-      description: 'Sriracha bitters fixie bicycle rights, shoreditch lomo retro snackwave cold-pressed bespoke banjo synth beard keytar. '
+      title: 'Finance',
+      description: 'Users where have access to financial reporting information'
     }, {
       id: 3,
       team_id: 1,
-      title: 'Finance',
-      description: 'Sriracha bitters fixie bicycle rights, shoreditch lomo retro snackwave cold-pressed bespoke banjo synth beard keytar. '
-    }, {
-      id: 4,
-      team_id: 1,
       title: 'Employee',
-      description: 'Sriracha bitters fixie bicycle rights, shoreditch lomo retro snackwave cold-pressed bespoke banjo synth beard keytar. '
+      description: 'Users who have access to staff tools'
     }
   ]
 }

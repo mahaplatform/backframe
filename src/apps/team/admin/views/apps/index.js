@@ -60,7 +60,8 @@ class Apps extends React.Component {
 }
 
 const mapPropsToPage = (props, context) => ({
-  title: 'Apps'
+  title: 'Apps',
+  rights: ['team.manage_apps']
 })
 
 export default Page(mapPropsToPage)(Index)

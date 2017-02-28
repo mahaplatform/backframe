@@ -4,18 +4,20 @@ import AdvancesIndex from './views/advances/index'
 import AdvancesShow from './views/advances/show'
 import AdvanceApprovalsIndex from './views/advance_approvals/index'
 import AdvanceApprovalsShow from './views/advance_approvals/show'
+import AdvanceReportIndex from './views/reports/advances'
 import ExpenseTypesIndex from './views/expense_types/index'
 import ExpensesIndex from './views/expenses/index'
 import ExpensesShow from './views/expenses/show'
 import ExpenseApprovalsIndex from './views/expense_approvals/index'
 import ExpenseApprovalsShow from './views/expense_approvals/show'
+import ExpenseReportIndex from './views/reports/expenses'
 import ProjectsIndex from './views/projects/index'
 import ProjectsShow from './views/projects/show'
-import ReportsIndex from './views/reports'
 import TripsIndex from './views/trips/index'
 import TripsShow from './views/trips/show'
 import TripApprovalsIndex from './views/trip_approvals/index'
 import TripApprovalsShow from './views/trip_approvals/show'
+import TripReportIndex from './views/reports/trips'
 import VendorsIndex from './views/vendors/index'
 
 const routes = (
@@ -47,11 +49,15 @@ const routes = (
       <IndexRoute component={ProjectsIndex} />
       <Route path=":id" component={ProjectsShow} />
     </Route>
-    <Route path="reports/expenses" component={ReportsIndex} />
-      <Route path="trips">
-        <IndexRoute component={TripsIndex} />
-        <Route path=":id" component={TripsShow} />
-      </Route>
+    <Route path="reports">
+      <Route path="advances" component={AdvanceReportIndex} />
+      <Route path="expenses" component={ExpenseReportIndex} />
+      <Route path="trips" component={TripReportIndex} />
+    </Route>
+    <Route path="trips">
+      <IndexRoute component={TripsIndex} />
+      <Route path=":id" component={TripsShow} />
+    </Route>
     <Route path="vendors" component={VendorsIndex} />
   </Route>
 )

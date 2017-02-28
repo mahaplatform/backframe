@@ -20,7 +20,10 @@ class Edit extends React.Component {
       endpoint: `/admin/team/users/${this.context.container.params.id}`,
       action: `/admin/team/users/${this.context.container.params.id}`,
       onCancel: this.context.modal.pop,
-      onSuccess: this.context.modal.pop,
+      onSuccess: () => {
+        this.context.container.refresh(['user','access']),
+        this.context.modal.pop()
+      },
       sections: [
         {
           fields: [

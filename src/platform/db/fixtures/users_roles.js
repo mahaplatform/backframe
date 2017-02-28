@@ -2,109 +2,329 @@ module.exports = {
   tableName: 'users_roles',
   records: [
     {
-      id: 1,
       user_id: 1,
       role_id: 1
     }, {
-      id: 2,
-      user_id: 1,
-      role_id: 4
-    }, {
-      id: 3,
       user_id: 2,
       role_id: 1
     }, {
-      id: 4,
-      user_id: 2,
-      role_id: 4
+      user_id: 9,
+      role_id: 1
     }, {
-      id: 5,
+      user_id: 21,
+      role_id: 1
+    }, {
+      user_id: 45,
+      role_id: 1
+    }, {
+      user_id: 11,
+      role_id: 2
+    }, {
+      user_id: 47,
+      role_id: 2
+    }, {
+      user_id: 80,
+      role_id: 2
+    }, {
+      user_id: 1,
+      role_id: 3
+    }, {
+      user_id: 2,
+      role_id: 3
+    }, {
       user_id: 3,
-      role_id: 4
+      role_id: 3
     }, {
-      id: 6,
       user_id: 4,
-      role_id: 4
+      role_id: 3
     }, {
-      id: 7,
       user_id: 5,
-      role_id: 4
+      role_id: 3
     }, {
-      id: 8,
       user_id: 6,
-      role_id: 4
+      role_id: 3
     }, {
-      id: 9,
       user_id: 7,
-      role_id: 4
+      role_id: 3
     }, {
-      id: 10,
       user_id: 8,
-      role_id: 4
+      role_id: 3
     }, {
-      id: 11,
       user_id: 9,
-      role_id: 1
+      role_id: 3
     }, {
-      id: 12,
-      user_id: 9,
-      role_id: 4
+      user_id: 10,
+      role_id: 3
     }, {
-      id: 13,
       user_id: 11,
       role_id: 3
     }, {
-      id: 14,
-      user_id: 11,
-      role_id: 4
+      user_id: 12,
+      role_id: 3
     }, {
-      id: 15,
+      user_id: 13,
+      role_id: 3
+    }, {
+      user_id: 14,
+      role_id: 3
+    }, {
+      user_id: 15,
+      role_id: 3
+    }, {
+      user_id: 16,
+      role_id: 3
+    }, {
+      user_id: 17,
+      role_id: 3
+    }, {
+      user_id: 18,
+      role_id: 3
+    }, {
+      user_id: 19,
+      role_id: 3
+    }, {
       user_id: 20,
-      role_id: 2
+      role_id: 3
     }, {
-      id: 16,
-      user_id: 20,
-      role_id: 4
-    }, {
-      id: 17,
       user_id: 21,
-      role_id: 1
+      role_id: 3
     }, {
-      id: 18,
-      user_id: 21,
-      role_id: 4
+      user_id: 22,
+      role_id: 3
     }, {
-      id: 19,
       user_id: 23,
-      role_id: 2
+      role_id: 3
     }, {
-      id: 20,
-      user_id: 23,
-      role_id: 4
+      user_id: 24,
+      role_id: 3
     }, {
-      id: 21,
+      user_id: 25,
+      role_id: 3
+    }, {
+      user_id: 26,
+      role_id: 3
+    }, {
+      user_id: 27,
+      role_id: 3
+    }, {
+      user_id: 28,
+      role_id: 3
+    }, {
+      user_id: 29,
+      role_id: 3
+    }, {
+      user_id: 30,
+      role_id: 3
+    }, {
+      user_id: 31,
+      role_id: 3
+    }, {
+      user_id: 32,
+      role_id: 3
+    }, {
+      user_id: 33,
+      role_id: 3
+    }, {
+      user_id: 34,
+      role_id: 3
+    }, {
+      user_id: 35,
+      role_id: 3
+    }, {
+      user_id: 36,
+      role_id: 3
+    }, {
+      user_id: 37,
+      role_id: 3
+    }, {
+      user_id: 38,
+      role_id: 3
+    }, {
+      user_id: 39,
+      role_id: 3
+    }, {
+      user_id: 40,
+      role_id: 3
+    }, {
+      user_id: 41,
+      role_id: 3
+    }, {
+      user_id: 42,
+      role_id: 3
+    }, {
+      user_id: 43,
+      role_id: 3
+    }, {
+      user_id: 44,
+      role_id: 3
+    }, {
       user_id: 45,
-      role_id: 1
+      role_id: 3
     }, {
-      id: 22,
-      user_id: 45,
-      role_id: 4
+      user_id: 46,
+      role_id: 3
     }, {
-      id: 23,
       user_id: 47,
       role_id: 3
     }, {
-      id: 24,
-      user_id: 47,
-      role_id: 4
+      user_id: 48,
+      role_id: 3
     }, {
-      id: 25,
+      user_id: 49,
+      role_id: 3
+    }, {
+      user_id: 50,
+      role_id: 3
+    }, {
+      user_id: 51,
+      role_id: 3
+    }, {
+      user_id: 52,
+      role_id: 3
+    }, {
+      user_id: 53,
+      role_id: 3
+    }, {
+      user_id: 54,
+      role_id: 3
+    }, {
+      user_id: 55,
+      role_id: 3
+    }, {
+      user_id: 56,
+      role_id: 3
+    }, {
+      user_id: 57,
+      role_id: 3
+    }, {
+      user_id: 58,
+      role_id: 3
+    }, {
+      user_id: 59,
+      role_id: 3
+    }, {
+      user_id: 60,
+      role_id: 3
+    }, {
+      user_id: 61,
+      role_id: 3
+    }, {
+      user_id: 62,
+      role_id: 3
+    }, {
+      user_id: 63,
+      role_id: 3
+    }, {
+      user_id: 64,
+      role_id: 3
+    }, {
+      user_id: 65,
+      role_id: 3
+    }, {
+      user_id: 66,
+      role_id: 3
+    }, {
+      user_id: 67,
+      role_id: 3
+    }, {
+      user_id: 68,
+      role_id: 3
+    }, {
+      user_id: 69,
+      role_id: 3
+    }, {
+      user_id: 70,
+      role_id: 3
+    }, {
+      user_id: 71,
+      role_id: 3
+    }, {
+      user_id: 72,
+      role_id: 3
+    }, {
+      user_id: 73,
+      role_id: 3
+    }, {
+      user_id: 74,
+      role_id: 3
+    }, {
+      user_id: 75,
+      role_id: 3
+    }, {
+      user_id: 76,
+      role_id: 3
+    }, {
+      user_id: 77,
+      role_id: 3
+    }, {
+      user_id: 78,
+      role_id: 3
+    }, {
+      user_id: 79,
+      role_id: 3
+    }, {
       user_id: 80,
       role_id: 3
     }, {
-      id: 26,
-      user_id: 80,
-      role_id: 4
+      user_id: 81,
+      role_id: 3
+    }, {
+      user_id: 82,
+      role_id: 3
+    }, {
+      user_id: 83,
+      role_id: 3
+    }, {
+      user_id: 84,
+      role_id: 3
+    }, {
+      user_id: 85,
+      role_id: 3
+    }, {
+      user_id: 86,
+      role_id: 3
+    }, {
+      user_id: 87,
+      role_id: 3
+    }, {
+      user_id: 88,
+      role_id: 3
+    }, {
+      user_id: 89,
+      role_id: 3
+    }, {
+      user_id: 90,
+      role_id: 3
+    }, {
+      user_id: 91,
+      role_id: 3
+    }, {
+      user_id: 92,
+      role_id: 3
+    }, {
+      user_id: 93,
+      role_id: 3
+    }, {
+      user_id: 94,
+      role_id: 3
+    }, {
+      user_id: 95,
+      role_id: 3
+    }, {
+      user_id: 96,
+      role_id: 3
+    }, {
+      user_id: 97,
+      role_id: 3
+    }, {
+      user_id: 98,
+      role_id: 3
+    }, {
+      user_id: 99,
+      role_id: 3
+    }, {
+      user_id: 100,
+      role_id: 3
     }
   ]
 }

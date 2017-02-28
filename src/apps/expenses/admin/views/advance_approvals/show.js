@@ -6,7 +6,8 @@ import Approve from '../../components/approve'
 class Show extends React.Component {
 
   static contextTypes = {
-    container: React.PropTypes.object
+    history: React.PropTypes.object,
+    flash: React.PropTypes.object
   }
 
   render() {
@@ -46,7 +47,7 @@ class Show extends React.Component {
       type: 'advances',
       id: this.props.advance.id,
       onChange: () => {
-        this.context.history.push('/admin/expenses/approvals/expenses')
+        this.context.history.push('/admin/expenses/approvals/advances')
         this.context.flash.set('success', 'This expense was successfully approved')
       }
     }

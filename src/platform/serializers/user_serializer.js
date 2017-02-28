@@ -11,7 +11,8 @@ export default (object) => {
     role_ids: object.related('roles').map(role => role.get('id')),
     roles: object.related('roles').map(role => ({
       id: role.get('id'),
-      title: role.get('title')
+      title: role.get('title'),
+      description: role.get('description')
     })),
     created_at: object.get('created_at'),
     updated_at: object.get('updated_at')

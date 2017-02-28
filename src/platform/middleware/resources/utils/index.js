@@ -330,7 +330,7 @@ export const resourceAuthenticator = (options, rights) => {
     return new Promise((resolve, reject) => {
 
       const allowed = rights.reduce((allowed, right) => {
-        
+
         if(!allowed) return false
 
         return _.includes(req.rights, right)
@@ -453,12 +453,14 @@ export const buildCustomRoutes = (options, prefix, pathPrefix) => {
 
     const builder = action.builder || custom(name, action)
 
+    const handler = action.handler || buildHandler(name, builder, options)
+
     return {
       ...routes,
       [`${prefix}${name}`]: {
         method: action.method,
         path: (action.on === 'collection') ? `${pathPrefix}/${options.path}/${action.path}` : `${pathPrefix}/${options.path}/:id/${action.path}`,
-        handler: buildHandler(name, builder, options)
+        handler
       }
     }
 
