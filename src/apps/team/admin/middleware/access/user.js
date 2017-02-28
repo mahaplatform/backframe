@@ -48,8 +48,9 @@ export default (req, res, next) => {
     next()
 
   }).catch(err => {
-    console.log(err)
+
     return next({ code: 500, message: err.message })
+
   })
 
 }
