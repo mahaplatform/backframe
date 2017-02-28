@@ -8,12 +8,12 @@ export default resources({
   model: Expense,
   name: 'expense',
   ownedByUser: false,
-  only: 'list',
+  only: ['list','show'],
   pathPrefix: '/reports',
   query: (qb, req, filters) => {
     qb.where('is_approved', true)
   },
   serializer: ExpenseSerializer,
   sortParams: ['date'],
-  withRelated: ['user.photo','project','expense_type','vendor']
+  withRelated: ['user','project','expense_type','approved_by','vendor']
 })

@@ -24,7 +24,7 @@ class Member extends React.Component {
         {
           fields: [
             { label: 'User', name: 'user_id', type: 'lookup', prompt: 'Find a User', endpoint: `/admin/expenses/projects/${this.context.container.params.id}/members/unassigned`, value: 'id', text: 'full_name' },
-            { label: 'Is Owner', name: 'is_owner', type: 'checkbox' }
+            { label: 'Is Owner', name: 'is_owner', type: 'checkbox', defaultValue: false }
           ]
         }
       ]

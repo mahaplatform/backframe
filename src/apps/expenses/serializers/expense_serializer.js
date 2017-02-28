@@ -4,6 +4,7 @@ export default (object) => {
     id: object.get('id'),
     date: object.get('date'),
     description: object.get('description'),
+    asset_id: object.get('asset_id'),
     expense_type: {
       id: object.related('expense_type').get('id'),
       code: object.related('expense_type').get('code'),

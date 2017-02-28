@@ -8,12 +8,12 @@ export default resources({
   model: Trip,
   name: 'trip',
   ownedByUser: false,
-  only: 'list',
+  only: ['list','show'],
   pathPrefix: '/reports',
   query: (qb, req, filters) => {
     qb.where('is_approved', true)
   },
   serializer: TripSerializer,
   sortParams: ['date'],
-  withRelated: ['user.photo','project']
+  withRelated: ['user','project','approved_by']
 })

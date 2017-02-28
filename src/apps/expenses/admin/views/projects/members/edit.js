@@ -42,7 +42,7 @@ class Member extends React.Component {
         {
           fields: [
             { label: 'User', name: 'user.full_name', type: 'text' },
-            { label: 'Is Owner', name: 'is_owner', type: 'checkbox' }
+            { label: 'Is Owner', name: 'is_owner', type: 'checkbox', defaultValue: false }
           ]
         }
       ],

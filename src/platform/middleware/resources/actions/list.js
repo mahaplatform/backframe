@@ -31,7 +31,7 @@ export default options => {
         const term = `%${req.query.$filter.q.toLowerCase()}%`
         const sql = options.searchParams.map(param => `LOWER(${param}) LIKE ?`).join(' OR ')
         const vars = options.searchParams.map(param => term)
-        qb.whereRaw(sql, vars)
+        qb.whereRaw(`(${sql})`, vars)
       }
 
       if(filters) {

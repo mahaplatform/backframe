@@ -63,7 +63,7 @@ class Apps extends React.Component {
         }
         <div className="chrome-navigation-body">
           { path.length === 0 &&
-            <div className="chrome-navigation-item" onClick={ this._handleDashboard.bind(this) }>
+            <div className="chrome-navigation-item dropdown" onClick={ this._handleDashboard.bind(this) }>
               <div className="chrome-navigation-item-icon">
                 <i className="home icon" />
               </div>
@@ -73,7 +73,7 @@ class Apps extends React.Component {
           { items.map((item, index) => {
             if(!item.rights || userHasRights(user, item.rights)) {
               return (
-                <div key={`item_${index}`} className="chrome-navigation-item" onClick={ this._handleForward.bind(this, item, index)}>
+                <div key={`item_${index}`} className={`chrome-navigation-item${item.items ? ' dropdown' : ''}`} onClick={ this._handleForward.bind(this, item, index)}>
                   { item.icon &&
                     <div className="chrome-navigation-item-icon">
                       <i className={`${item.icon} icon`} />

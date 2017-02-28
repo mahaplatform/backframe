@@ -34,7 +34,7 @@ class Show extends React.Component {
         { label: 'Vendor', content: expense.vendor.name },
         { label: 'Description', content: expense.description },
         { label: 'Amount', content: expense.amount, format: 'currency' },
-        { label: 'Reason Rejected', content: expense.reason_rejected }
+        { label: 'Visa? ', content: expense.is_visa, format: 'yes_no' }
       ]
     }
   }

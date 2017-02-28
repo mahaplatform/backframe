@@ -67,7 +67,7 @@ class Details extends React.Component {
               <div className="chrome-details-content">
                 <div className="ui list">
                   {items.map((item, index) => {
-                    if(item.content) {
+                    if(item.content !== null) {
                       return (
                         <div key={`item_${index}`} className="item">
                           <div className="header">{item.label}</div>

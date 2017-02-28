@@ -27,6 +27,7 @@ class Index extends React.Component {
         { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] }
       ],
       export: true,
+      link: '/admin/expenses/reports/trips/#{id}',
       sort: { key: 'date', order: 'desc' },
       entity: 'trip'
     }
@@ -35,7 +36,8 @@ class Index extends React.Component {
 }
 
 const mapPropsToPage = (props, context) => ({
-  title: 'Trips Report'
+  title: 'Trips Report',
+  rights: ['expenses.access_reports']
 })
 
 export default Page(mapPropsToPage)(Index)

@@ -28,7 +28,7 @@ export const getDefaults = sections => {
   let defaults = {}
   mapFields(sections, (field) => {
     if(field.include !== false) {
-      defaults[field.name] = field.defaultValue || null
+      defaults[field.name] = field.defaultValue
     }
   })
   return defaults

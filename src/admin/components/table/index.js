@@ -40,6 +40,7 @@ class Table extends React.Component {
               </div>
             </div>
             <div className="table-body">
+
               {records.map((record, recordIndex) => {
 
                 const row = columns.map((column, columnIndex) => {
@@ -50,7 +51,7 @@ class Table extends React.Component {
                       <Format {...record} format={column.format} value={value} />
                     </div>
                   )
-                }).concat((this.props.export ? [<div className="table-cell mobile" />] : []))
+                }).concat((this.props.export ? [<div key="cell_extra" className="table-cell mobile" />] : []))
 
                 if(link) {
                   _.templateSettings.interpolate = /#{([\s\S]+?)}/g

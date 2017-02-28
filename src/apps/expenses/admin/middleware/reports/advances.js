@@ -8,12 +8,12 @@ export default resources({
   model: Advance,
   name: 'advance',
   ownedByUser: false,
-  only: 'list',
+  only: ['list','show'],
   pathPrefix: '/reports',
   query: (qb, req, filters) => {
     qb.where('is_approved', true)
   },
   serializer: AdvanceSerializer,
   sortParams: ['date_needed'],
-  withRelated: ['user.photo','project','expense_type','vendor']
+  withRelated: ['user','project','expense_type','approved_by','vendor']
 })

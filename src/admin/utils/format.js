@@ -20,6 +20,8 @@ class Format extends React.Component {
       return Date(this.props, 'MM/DD/YY @ hh:mm A')
     } else if(format === 'check_times') {
       return Check(this.props, true)
+    } else if(format === 'yes_no') {
+      return YesNo(this.props, true)
     } else if(format === 'check') {
       return Check(this.props, false)
     } else if(format === 'capitalize') {
@@ -63,6 +65,10 @@ const Check = (props, times) => {
   if(props.value === true) return <i className="icon green check" />
   if(times && props.value === false) return <i className="icon red remove" />
   return <span />
+}
+
+const YesNo = (props) => {
+  return (props.value === false) ? <span className="no">NO</span> : <span className="yes">YES</span>
 }
 
 const Currency = (props) => {
