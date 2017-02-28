@@ -27,6 +27,7 @@ export default (object) => {
       id: object.related('approved_by').get('id'),
       full_name: object.related('approved_by').get('full_name')
     } : null,
+    approved_at: object.get('approved_at'),
     is_approved: object.get('is_approved'),
     reason_rejected: object.get('reason_rejected')
   })

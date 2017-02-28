@@ -23,6 +23,9 @@ class Show extends React.Component {
 
   _getDetails() {
     const { expense } = this.props
+    const approved_by_label = expense.is_approved ? 'Approved By' : 'Rejected By'
+    const approved_by_value = expense.approved_by ? expense.approved_by.full_name : null
+    const approved_at_label = expense.is_approved ? 'Approved At' : 'Rejected At'
     return {
       items: [
         { label: 'Receipt ', content: expense.asset_id, format: Receipt },
@@ -32,7 +35,8 @@ class Show extends React.Component {
         { label: 'Vendor ', content: expense.vendor.name },
         { label: 'Description ', content: expense.description },
         { label: 'Amount ', content: expense.amount, format: 'currency' },
-        { label: 'Approved By ', content: expense.approved_by.full_name },
+        { label: approved_by_label, content: approved_by_value },
+        { label: approved_at_label, content: expense.approved_at, format: 'datetime' },
         { label: 'Reason Rejected ', content: expense.reason_rejected }
       ]
     }

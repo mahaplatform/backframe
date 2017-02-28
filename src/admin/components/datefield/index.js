@@ -41,7 +41,7 @@ class DateField extends React.Component {
   render() {
     return (
       <div className="datefield">
-        <div className="ui left right labeled input">
+        <div className="ui right labeled input">
           <input ref="control"
                  type="text"
                  value={this.state.value}

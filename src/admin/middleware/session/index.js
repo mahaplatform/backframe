@@ -11,7 +11,7 @@ export default (req, res, next) => {
     if(matches) navigation[matches[1]] = require(file)
   })
 
-  const apps = req.apps.reduce((menu, app) => {
+  const apps = Object.keys(req.apps).reduce((menu, app) => {
     const nav = navigation[app]
     if(nav) menu.push(nav)
     return menu

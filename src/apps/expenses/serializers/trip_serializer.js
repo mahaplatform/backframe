@@ -7,10 +7,8 @@ export default (object) => {
       title: object.related('project').get('title')
     },
     user: {
-      full_name: object.related('user').get('full_name'),
-      initials: object.related('user').get('initials'),
-      photo: object.related('user').related('photo').get('url'),
-      email: object.related('user').get('email')
+      id: object.related('user').get('id'),
+      full_name: object.related('user').get('full_name')
     },
     date: object.get('date'),
     description: object.get('description'),
@@ -18,7 +16,16 @@ export default (object) => {
     time_arriving: object.get('time_arriving'),
     odometer_start: object.get('odometer_start'),
     odometer_end: object.get('odometer_end'),
-    total_miles: object.get('total_miles')
+    total_miles: object.get('total_miles'),
+    mileage_rate: object.get('mileage_rate'),
+    amount: object.get('amount'),
+    approved_by: object.related('approved_by').get('id') ? {
+      id: object.related('approved_by').get('id'),
+      full_name: object.related('approved_by').get('full_name')
+    } : null,
+    approved_at: object.get('approved_at'),
+    is_approved: object.get('is_approved'),
+    reason_rejected: object.get('reason_rejected')
   })
 
 }

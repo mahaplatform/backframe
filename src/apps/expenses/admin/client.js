@@ -12,7 +12,8 @@ import ExpenseApprovalsShow from './views/expense_approvals/show'
 import ProjectsIndex from './views/projects/index'
 import ProjectsShow from './views/projects/show'
 import ReportsIndex from './views/reports'
-import TripsIndex from './views/trips'
+import TripsIndex from './views/trips/index'
+import TripsShow from './views/trips/show'
 import TripApprovalsIndex from './views/trip_approvals/index'
 import TripApprovalsShow from './views/trip_approvals/show'
 import VendorsIndex from './views/vendors/index'
@@ -47,7 +48,10 @@ const routes = (
       <Route path=":id" component={ProjectsShow} />
     </Route>
     <Route path="reports/expenses" component={ReportsIndex} />
-    <Route path="trips" component={TripsIndex} />
+      <Route path="trips">
+        <IndexRoute component={TripsIndex} />
+        <Route path=":id" component={TripsShow} />
+      </Route>
     <Route path="vendors" component={VendorsIndex} />
   </Route>
 )

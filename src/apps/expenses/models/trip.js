@@ -14,7 +14,8 @@ export default model.extend({
     time_leaving: ['required'],
     time_arriving: ['required'],
     odometer_start: ['required'],
-    odometer_end: ['required']
+    odometer_end: ['required'],
+    total_miles: ['required']
   },
 
   approved_by: function() {

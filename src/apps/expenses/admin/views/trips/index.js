@@ -2,6 +2,7 @@ import React from 'react'
 import Page from 'admin/components/page'
 import Collection from 'admin/components/collection'
 import New from './new'
+import ApprovalStatus from '../../components/approval_status'
 
 class Index extends React.Component {
 
@@ -18,11 +19,17 @@ class Index extends React.Component {
       endpoint: '/admin/expenses/trips',
       columns: [
         { label: 'Date', key: 'date', primary: true , format: 'date' },
+        { label: 'Project', key: 'project.title', primary: true },
+        { label: 'Miles', key: 'total_miles', primary: false },
+        { label: 'Amount', key: 'amount', primary: false, format: 'currency' },
         { label: 'Status', key: 'is_approved', primary: true, format: ApprovalStatus }
       ],
       filters: [
-        { label: 'Projects', name: 'project_id', type: 'select', multiple: true, endpoint: '/admin/expenses/projects', value: 'id', text: 'title' }
+        { label: 'Projects', name: 'project_id', type: 'select', multiple: true, endpoint: '/admin/expenses/projects', value: 'id', text: 'title' },
+        { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] },
+        { label: 'Status', name: 'is_approved', type: 'select', options: [ { value: 'null', text: 'Unreviewed' }, { value: '1', text: 'Approved' }, { value: '0', text: 'Rejected' } ] }
       ],
+      link: '/admin/expenses/trips/#{id}',
       sort: { key: 'created_at', order: 'desc' },
       entity: 'trip',
       empty: {
@@ -35,12 +42,6 @@ class Index extends React.Component {
     }
   }
 
-}
-
-const ApprovalStatus = (props) => {
-  if(props.is_approved === true) return <span className="approved">APPROVED</span>
-  if(props.is_approved === false) return <span className="rejected">REJECTED</span>
-  if(props.is_approved === null) return <span className="unreviewed">UNREVIEWED</span>
 }
 
 const mapPropsToPage = (props, context) => ({

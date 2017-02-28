@@ -16,6 +16,7 @@ module.exports = {
       is_visa: false,
       is_approved: true,
       approved_by_id: 47,
+      approved_at: moment().subtract(10, 'days').format('YYYY-MM-DD HH:MM:ss ZZ'),
       reason_rejected: null,
       created_at: moment().subtract(25, 'days').format('YYYY-MM-DD HH:MM:ss ZZ'),
       updated_at: moment().subtract(25, 'days').format('YYYY-MM-DD HH:MM:ss ZZ')
@@ -32,6 +33,7 @@ module.exports = {
       is_visa: false,
       is_approved: null,
       approved_by_id: null,
+      approved_at: null,
       reason_rejected: null,
       created_at: moment().subtract(20, 'days').format('YYYY-MM-DD HH:MM:ss ZZ'),
       updated_at: moment().subtract(20, 'days').format('YYYY-MM-DD HH:MM:ss ZZ')
@@ -48,6 +50,7 @@ module.exports = {
       is_visa: false,
       is_approved: null,
       approved_by_id: null,
+      approved_at: null,
       reason_rejected: null,
       created_at: moment().subtract(16, 'days').format('YYYY-MM-DD HH:MM:ss ZZ'),
       updated_at: moment().subtract(16, 'days').format('YYYY-MM-DD HH:MM:ss ZZ')
@@ -64,6 +67,7 @@ module.exports = {
       is_visa: false,
       is_approved: false,
       approved_by_id: 47,
+      approved_at: moment().subtract(10, 'days').format('YYYY-MM-DD HH:MM:ss ZZ'),
       reason_rejected: 'invalid expense code',
       created_at: moment().subtract(12, 'days').format('YYYY-MM-DD HH:MM:ss ZZ'),
       updated_at: moment().subtract(12, 'days').format('YYYY-MM-DD HH:MM:ss ZZ')
@@ -80,6 +84,7 @@ module.exports = {
       is_visa: false,
       is_approved: null,
       approved_by_id: null,
+      approved_at: null,
       reason_rejected: null,
       created_at: moment().subtract(10, 'days').format('YYYY-MM-DD HH:MM:ss ZZ'),
       updated_at: moment().subtract(10, 'days').format('YYYY-MM-DD HH:MM:ss ZZ')

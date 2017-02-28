@@ -11,40 +11,37 @@ class Show extends React.Component {
   }
 
   render() {
-    const { expense } = this.props
+    const { trip } = this.props
     return (
       <div className="chrome-body">
         <div className="chrome-sidebar">
           <Details {...this._getDetails()} />
-          { expense.is_approved === null && <Approve {...this._getApprove()} /> }
+          { trip.is_approved === null && <Approve {...this._getApprove()} /> }
         </div>
       </div>
     )
   }
 
   _getDetails() {
-    const { expense } = this.props
+    const { trip } = this.props
     return {
       items: [
-        { label: 'Date ', content: expense.date, format: 'date' },
-        { label: 'User ', content: expense.user.full_name },
-        { label: 'Project ', content: expense.project.title },
-        { label: 'Expense Type ', content: expense.expense_type.description },
-        { label: 'Vendor ', content: expense.vendor.name },
-        { label: 'Description ', content: expense.description },
-        { label: 'Amount ', content: expense.amount, format: 'currency' },
-        { label: 'Reason Rejected ', content: expense.reason_rejected }
+        { label: 'Date ', content: trip.date, format: 'date' },
+        { label: 'User ', content: trip.user.full_name },
+        { label: 'Project ', content: trip.project.title },
+        { label: 'Description ', content: trip.description },
+        { label: 'Reason Rejected ', content: trip.reason_rejected }
       ]
     }
   }
 
   _getApprove() {
     return {
-      type: 'expenses',
-      id: this.props.expense.id,
+      type: 'trips',
+      id: this.props.trip.id,
       onChange: () => {
         this.context.history.push('/admin/expenses/approvals/trips')
-        this.context.flash.set('success', 'This expense was successfully approved')
+        this.context.flash.set('success', 'This trip was successfully approved')
       }
     }
   }
@@ -55,7 +52,7 @@ const mapPropsToPage = (props, context) => ({
   title: 'Approve Trip',
   rights: ['expenses.approve_expenses'],
   resources: {
-    expense: `/admin/expenses/approvals/trips/${props.params.id}`
+    trip: `/admin/expenses/approvals/trips/${props.params.id}`
   }
 })
 

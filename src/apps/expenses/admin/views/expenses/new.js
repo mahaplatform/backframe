@@ -4,16 +4,16 @@ import moment from 'moment'
 
 class New extends React.Component {
 
+  static contextTypes = {
+    container: React.PropTypes.object,
+    modal: React.PropTypes.object
+  }
+
   constructor(props) {
     super(props)
     this.state = {
       project_id: null
     }
-  }
-
-  static contextTypes = {
-    container: React.PropTypes.object,
-    modal: React.PropTypes.object
   }
 
   render() {

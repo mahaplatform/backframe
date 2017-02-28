@@ -28,7 +28,8 @@ class New extends React.Component {
             { label: 'Time Leaving', name: 'time_leaving', type: 'textfield', required: true, placeholder: 'Time Leaving' },
             { label: 'Time Arriving', name: 'time_arriving', type: 'textfield', required: true, placeholder: 'Time Arriving' },
             { label: 'Odometer Start', name: 'odometer_start', type: 'textfield', required: true, placeholder: 'Odometer Start' },
-            { label: 'Odometer End', name: 'odometer_end', type: 'textfield', required: true, placeholder: 'Odometer End' }
+            { label: 'Odometer End', name: 'odometer_end', type: 'textfield', required: true, placeholder: 'Odometer End' },
+            { label: 'Distance', name: 'total_miles', type: 'textfield', required: true, placeholder: 'Total Miles' }
           ]
         }
       ]

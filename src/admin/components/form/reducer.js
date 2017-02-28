@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import * as actionTypes from './action_types'
 import { validateForm } from './utils'
 
@@ -47,7 +48,8 @@ export default (state = INITIAL_STATE, action) => {
       data: {
         ...state.data,
         [action.key]: action.value
-      }
+      },
+      errors: _.omit(state.errors, action.key)
     }
 
   case actionTypes.VALIDATE_FORM:

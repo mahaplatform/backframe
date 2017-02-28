@@ -17,5 +17,5 @@ export default resources({
   rights: ['expenses.manage_expenses'],
   serializer: ExpenseSerializer,
   sortParams: ['date'],
-  withRelated: ['user','project','expense_type','vendor']
+  withRelated: ['user','project','expense_type','approved_by','vendor']
 })

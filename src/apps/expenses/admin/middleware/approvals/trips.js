@@ -1,8 +1,9 @@
 import resources from 'platform/middleware/resources'
-import Advance from '../../../models/advance'
-import AdvanceSerializer from '../../../serializers/advance_serializer'
-import { approveProcessor, rejectProcessor } from '../approvals/processors'
-import { approveLogger, rejectLogger } from '../approvals/loggers'
+import Trip from '../../../models/trip'
+import TripSerializer from '../../../serializers/trip_serializer'
+
+const loggers = require('./loggers').default('trip')
+const processors = require('./processors').default('trip', Trip)
 
 export default resources({
   actions: {
@@ -17,28 +18,28 @@ export default resources({
       method: 'patch'
     }
   },
-  defaultSort: '-date',
-  filterParams: ['user_id','advance_type_id','project_id','date','is_approved'],
+  defaultSort: '-date_needed',
+  filterParams: ['user_id','expense_type_id','project_id','date_needed','is_approved'],
   logger: {
-    approve: approveLogger,
-    reject: rejectLogger
+    approve: loggers.approve,
+    reject: loggers.reject
   },
-  model: Advance,
-  name: 'advance',
+  model: Trip,
+  name: 'trip',
   only: ['list','show','update'],
   ownedByUser: false,
   pathPrefix: '/approvals',
   processor: {
-    approve: approveProcessor,
-    reject: rejectProcessor
+    approve: processors.approve,
+    reject: processors.reject
   },
   query: (qb, req, filters) => {
-    qb.whereNot('expenses_advances.user_id', req.user.get('id'))
-    qb.joinRaw('inner join expenses_members on expenses_members.project_id = expenses_advances.project_id and expenses_members.user_id=? and expenses_members.is_owner=?', [req.user.get('id'), true])
+    qb.whereNot('expenses_trips.user_id', req.user.get('id'))
+    qb.joinRaw('inner join expenses_members on expenses_members.project_id = expenses_trips.project_id and expenses_members.user_id=? and expenses_members.is_owner=?', [req.user.get('id'), true])
     qb.whereNull('is_approved')
   },
   rights: ['expenses.approve_expenses'],
-  serializer: AdvanceSerializer,
+  serializer: TripSerializer,
   sortParams: ['date'],
-  withRelated: ['user.photo','project','advance_type','vendor']
+  withRelated: ['user.photo','project']
 })
