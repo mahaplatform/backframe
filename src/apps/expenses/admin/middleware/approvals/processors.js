@@ -1,25 +1,30 @@
 import Expense from '../../../models/expense'
 
-const expenseProcessor = (action, is_approved) => {
+export default (type, model) => {
 
-  return req => {
+  const expenseProcessor = (action, is_approved) => {
 
-    return Expense.where({ id: req.params.id }).fetch().then(resource => {
+    return req => {
 
-      return resource.save({ is_approved }, { patch: true }).then(() => resource)
+      return model.where({ id: req.params.id }).fetch().then(resource => {
 
-    }).catch(err => {
+        return resource.save({ is_approved }, { patch: true }).then(() => resource)
 
-      if(err.errors) throw({ code: 422, message: `Unable to ${action} expense`, errors: err.toJSON() })
+      }).catch(err => {
 
-      throw(err)
+        if(err.errors) throw({ code: 422, message: `Unable to ${action} ${type}`, errors: err.toJSON() })
 
-    })
+        throw(err)
+
+      })
+
+    }
 
   }
 
+  return {
+    approve: expenseProcessor('approve', true),
+    reject: expenseProcessor('reject', false)
+  }
+
 }
-
-export const approveProcessor = expenseProcessor('approve', true)
-
-export const rejectProcessor = expenseProcessor('reject', false)

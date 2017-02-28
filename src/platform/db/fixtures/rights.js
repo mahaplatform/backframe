@@ -9,18 +9,23 @@ module.exports = {
     }, {
       id: 2,
       app_id: 2,
-      text: 'MANAGE EXPENSES',
-      description: 'user can manage their own advances, expenses, and trips'
+      text: 'MANAGE CONFIGURATION',
+      description: 'user can manage projects and expense types'
     }, {
       id: 3,
       app_id: 2,
-      text: 'SUPERVISE EXPENSES',
-      description: 'user can access all advances, expense, and trip reports'
+      text: 'MANAGE EXPENSES',
+      description: 'user can manage their own advances, expenses, and trips'
     }, {
       id: 4,
       app_id: 2,
-      text: 'ADMIN EXPENSES',
-      description: 'user can manage projects, vendors, and expense types'
+      text: 'APPROVE EXPENSES',
+      description: 'user can approve other users advances, expense, and trip reports for projects they own'
+    }, {
+      id: 5,
+      app_id: 2,
+      text: 'ACCESS REPORTS',
+      description: 'user can access advance, expense, and trip reports'
     }
   ]
 }

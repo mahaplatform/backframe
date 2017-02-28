@@ -330,7 +330,7 @@ export const resourceAuthenticator = (options, rights) => {
     return new Promise((resolve, reject) => {
 
       const allowed = rights.reduce((allowed, right) => {
-
+        
         if(!allowed) return false
 
         return _.includes(req.rights, right)

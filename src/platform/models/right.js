@@ -11,6 +11,12 @@ export default model.extend({
     app_id: 'required'
   },
 
+  virtuals: {
+    code: function() {
+      return this.related('app').get('title').toLowerCase() + '.' + this.get('text').toLowerCase().replace(/\s/, '_')
+    }
+  },
+
   app: function() {
     return this.belongsTo(App, 'app_id')
   },

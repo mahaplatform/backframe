@@ -1,24 +1,42 @@
 import React from 'react'
 import { IndexRoute, Route } from 'react-router'
-import AdvancesIndex from './views/advances'
+import AdvancesIndex from './views/advances/index'
+import AdvancesShow from './views/advances/show'
+import AdvanceApprovalsIndex from './views/advance_approvals/index'
+import AdvanceApprovalsShow from './views/advance_approvals/show'
 import ExpenseTypesIndex from './views/expense_types/index'
 import ExpensesIndex from './views/expenses/index'
 import ExpensesShow from './views/expenses/show'
-import ApprovalsIndex from './views/approvals/index'
-import ApprovalsShow from './views/approvals/show'
+import ExpenseApprovalsIndex from './views/expense_approvals/index'
+import ExpenseApprovalsShow from './views/expense_approvals/show'
 import ProjectsIndex from './views/projects/index'
 import ProjectsShow from './views/projects/show'
 import ReportsIndex from './views/reports'
 import TripsIndex from './views/trips'
+import TripApprovalsIndex from './views/trip_approvals/index'
+import TripApprovalsShow from './views/trip_approvals/show'
 import VendorsIndex from './views/vendors/index'
 
 const routes = (
   <Route>
     <Route path="approvals">
-      <IndexRoute component={ApprovalsIndex} />
-      <Route path=":id" component={ApprovalsShow} />
+      <Route path="advances">
+        <IndexRoute component={AdvanceApprovalsIndex} />
+        <Route path=":id" component={AdvanceApprovalsShow} />
+      </Route>
+      <Route path="expenses">
+        <IndexRoute component={ExpenseApprovalsIndex} />
+        <Route path=":id" component={ExpenseApprovalsShow} />
+      </Route>
+      <Route path="trips">
+        <IndexRoute component={TripApprovalsIndex} />
+        <Route path=":id" component={TripApprovalsShow} />
+      </Route>
     </Route>
-    <Route path="advances" component={AdvancesIndex} />
+    <Route path="advances">
+      <IndexRoute component={AdvancesIndex} />
+      <Route path=":id" component={AdvancesShow} />
+    </Route>
     <Route path="expense_types" component={ExpenseTypesIndex} />
     <Route path="expenses">
       <IndexRoute component={ExpensesIndex} />

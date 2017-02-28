@@ -45,6 +45,7 @@ const ApprovalStatus = (props) => {
 
 const mapPropsToPage = (props, context) => ({
   title: 'Trips',
+  rights: ['expenses.manage_expenses'],
   task: {
     label: 'New Trip',
     icon: 'plus',

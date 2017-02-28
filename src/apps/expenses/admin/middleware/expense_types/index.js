@@ -7,5 +7,6 @@ export default resources({
   defaultSort: 'code',
   name: 'expense_type',
   model: ExpenseType,
-  query: ExpenseTypeQuery
+  query: ExpenseTypeQuery,
+  rights: ['expenses.manage_configuration']
 })

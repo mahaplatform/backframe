@@ -25,11 +25,11 @@ class Approve extends React.Component {
   }
 
   _handleApprove() {
-    this.props.onApprove(this.props.expense.id)
+    this.props.onApprove(this.props.type, this.props.id)
   }
 
   _handleReject() {
-    this.props.onReject(this.props.expense.id)
+    this.props.onReject(this.props.type, this.props.id)
   }
 
 }

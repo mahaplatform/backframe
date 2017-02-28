@@ -86,5 +86,6 @@ export default resources({
       withRelated: ['expense_type','project']
     }
   ],
+  rights: ['expenses.manage_configuration'],
   serializer: ProjectSerializer
 })

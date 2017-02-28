@@ -1,19 +1,24 @@
 import log from 'platform/middleware/resources/helpers/log'
 
-const expenseLogger = (action) => {
+export default (type) => {
 
-  return (req, result) => {
+  const expenseLogger = (action) => {
 
-    return result.load(['project']).then(() => {
+    return (req, result) => {
 
-      return log(req, `${action} {object1} in {object2}`, 'expense', result.get('description'), 'project', result.related('project').get('title')).then(() => result)
+      return result.load(['project']).then(() => {
 
-    })
+        return log(req, `${action} {object1} in {object2}`, type, result.get('description'), 'project', result.related('project').get('title')).then(() => result)
+
+      })
+
+    }
 
   }
 
+  return {
+    approve: expenseLogger('approved'),
+    reject: expenseLogger('rejected')
+  }
+
 }
-
-export const approveLogger = expenseLogger('approved')
-
-export const rejectLogger = expenseLogger('rejected')

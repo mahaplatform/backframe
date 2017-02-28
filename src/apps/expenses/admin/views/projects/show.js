@@ -121,7 +121,7 @@ class ExpenseTypes extends React.Component {
 
 const mapPropsToPage = (props, context) => ({
   title: 'Project',
-  rights: [],
+  rights: ['expenses.manage_configuration'],
   tasks: [
     { label: 'Edit Project', modal: Edit },
     { label: 'Add Member', modal: NewMember },

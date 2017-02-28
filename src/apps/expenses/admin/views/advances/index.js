@@ -2,6 +2,7 @@ import React from 'react'
 import Page from 'admin/components/page'
 import Collection from 'admin/components/collection'
 import New from './new'
+import ApprovalStatus from '../../components/approval_status'
 
 class Index extends React.Component {
 
@@ -17,14 +18,18 @@ class Index extends React.Component {
     return {
       endpoint: '/admin/expenses/advances',
       columns: [
-        { label: 'Date', key: 'date', primary: true , format: 'date' },
+        { label: 'Date Needed', key: 'date_needed', primary: true , format: 'date' },
         { label: 'Project', key: 'project.title', primary: true },
-        { label: 'Amount', key: 'amount', primary: true, formt: 'currency' }
+        { label: 'Vendor', key: 'vendor.name', primary: false },
+        { label: 'Expense Type', key: 'expense_type.title', primary: false },
+        { label: 'Amount', key: 'amount', primary: true, format: 'currency' },
+        { label: 'Status', key: 'is_approved', primary: true, format: ApprovalStatus }
       ],
       filters: [
         { label: 'Projects', name: 'project_id', type: 'select', multiple: true, endpoint: '/admin/expenses/projects', value: 'id', text: 'title' },
         { label: 'Expense Type', name: 'expense_type_id', type: 'select', endpoint: '/admin/expenses/expense_types', value: 'id', text: 'title' },
-        { label: 'Date Range', name: 'daterange', type: 'daterange', include: ['this','last'] }
+        { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] },
+        { label: 'Status', name: 'is_approved', type: 'select', options: [ { value: 'null', text: 'Unreviewed' }, { value: '1', text: 'Approved' }, { value: '0', text: 'Rejected' } ] }
       ],
       link: '/admin/expenses/advances/#{id}',
       sort: { key: 'created_at', order: 'desc' },
@@ -43,6 +48,7 @@ class Index extends React.Component {
 
 const mapPropsToPage = (props, context) => ({
   title: 'Advances',
+  rights: ['expenses.manage_expenses'],
   task: {
     label: 'New Advance',
     icon: 'plus',

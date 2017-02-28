@@ -1,6 +1,6 @@
 import resources from 'platform/middleware/resources'
-import Approval from '../../../models/approval'
-import ApprovalSerializer from '../../../serializers/approval_serializer'
+import Expense from '../../../models/expense'
+import ExpenseSerializer from '../../../serializers/expense_serializer'
 import { approveProcessor, rejectProcessor } from './processors'
 import { approveLogger, rejectLogger } from './loggers'
 
@@ -23,8 +23,8 @@ export default resources({
     approve: approveLogger,
     reject: rejectLogger
   },
-  model: Approval,
-  name: 'approval',
+  model: Expense,
+  name: 'expense',
   only: ['list','show','update'],
   ownedByUser: false,
   path: 'approvals',
@@ -32,11 +32,12 @@ export default resources({
     approve: approveProcessor,
     reject: rejectProcessor
   },
-  // query: (qb, req, filters) => {
-  //   qb.whereNot('expenses_expenses.user_id', req.user.get('id'))
-  //   qb.joinRaw('inner join expenses_members on expenses_members.project_id = expenses_expenses.project_id and expenses_members.user_id=? and expenses_members.is_owner=?', [req.user.get('id'), true])
-  // },
-  serializer: ApprovalSerializer,
+  query: (qb, req, filters) => {
+    qb.whereNot('expenses_expenses.user_id', req.user.get('id'))
+    qb.joinRaw('inner join expenses_members on expenses_members.project_id = expenses_expenses.project_id and expenses_members.user_id=? and expenses_members.is_owner=?', [req.user.get('id'), true])
+    qb.whereNull('is_approved')
+  },
+  serializer: ExpenseSerializer,
   sortParams: ['date'],
-  withRelated: ['owner.user.photo','owner.project']
+  withRelated: ['user.photo','project','expense_type','vendor']
 })

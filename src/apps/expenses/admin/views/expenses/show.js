@@ -10,9 +10,9 @@ class Show extends React.Component {
     return (
       <div className="chrome-body">
         <div className="chrome-sidebar">
-          { expense.approval.is_approved === true && <div className="ui center aligned green inverted segment">This expense has been approved</div> }
-          { expense.approval.is_approved === false && <div className="ui center aligned red inverted segment">This expense has been rejected</div> }
-          { expense.approval.is_approved === null && <div className="ui center aligned blue inverted segment">This expense has not yet been reviewed</div> }
+          { expense.is_approved === true && <div className="ui center aligned green inverted segment">This expense has been approved</div> }
+          { expense.is_approved === false && <div className="ui center aligned red inverted segment">This expense has been rejected</div> }
+          { expense.is_approved === null && <div className="ui center aligned blue inverted segment">This expense has not yet been reviewed</div> }
           <Details {...this._getDetails()} />
         </div>
         <div className="chrome-content">
@@ -32,8 +32,8 @@ class Show extends React.Component {
         { label: 'Vendor ', content: expense.vendor.name },
         { label: 'Description ', content: expense.description },
         { label: 'Amount ', content: expense.amount, format: 'currency' },
-        { label: 'Approved By ', content: expense.approval.approved_by.full_name },
-        { label: 'Reason Rejected ', content: expense.approval.reason_rejected }
+        { label: 'Approved By ', content: expense.approved_by.full_name },
+        { label: 'Reason Rejected ', content: expense.reason_rejected }
       ]
     }
   }
@@ -49,7 +49,7 @@ const Receipt = (props) => {
 
 const mapPropsToPage = (props, context) => ({
   title: 'Expense',
-  rights: [],
+  rights: ['expenses.manage_expenses'],
   tasks: [
     { label: 'Edit Expense', modal: Edit }
   ],

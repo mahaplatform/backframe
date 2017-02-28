@@ -6,7 +6,8 @@ import Approve from '../../components/approve'
 class Show extends React.Component {
 
   static contextTypes = {
-    container: React.PropTypes.object
+    history: React.PropTypes.object,
+    flash: React.PropTypes.object
   }
 
   render() {
@@ -14,9 +15,6 @@ class Show extends React.Component {
     return (
       <div className="chrome-body">
         <div className="chrome-sidebar">
-          { expense.is_approved === true && <div className="ui center aligned green inverted segment">This expense has been approved</div> }
-          { expense.is_approved === false && <div className="ui center aligned red inverted segment">This expense has been rejected</div> }
-          { expense.is_approved === null && <div className="ui center aligned blue inverted segment">This expense has not yet been reviewed</div> }
           <Details {...this._getDetails()} />
           { expense.is_approved === null && <Approve {...this._getApprove()} /> }
         </div>
@@ -28,7 +26,6 @@ class Show extends React.Component {
     const { expense } = this.props
     return {
       items: [
-        { label: 'Receipt ', content: expense.asset_id, format: Receipt },
         { label: 'Date ', content: expense.date, format: 'date' },
         { label: 'User ', content: expense.user.full_name },
         { label: 'Project ', content: expense.project.title },
@@ -37,35 +34,28 @@ class Show extends React.Component {
         { label: 'Description ', content: expense.description },
         { label: 'Amount ', content: expense.amount, format: 'currency' },
         { label: 'Reason Rejected ', content: expense.reason_rejected }
-
       ]
     }
   }
 
   _getApprove() {
     return {
-      expense: this.props.expense,
+      type: 'expenses',
+      id: this.props.expense.id,
       onChange: () => {
-        this.context.container.refresh('expense')
+        this.context.history.push('/admin/expenses/approvals/trips')
+        this.context.flash.set('success', 'This expense was successfully approved')
       }
     }
   }
 
 }
 
-const Receipt = (props) => {
-  return (
-    <a href="">View Receipt</a>
-  )
-}
-
-
 const mapPropsToPage = (props, context) => ({
-  title: 'Expense',
-  rights: [],
-  tasks: [],
+  title: 'Approve Trip',
+  rights: ['expenses.approve_expenses'],
   resources: {
-    expense: `/admin/expenses/approvals/${props.params.id}`
+    expense: `/admin/expenses/approvals/trips/${props.params.id}`
   }
 })
 

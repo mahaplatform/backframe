@@ -38,6 +38,7 @@ class Index extends React.Component {
 
 const mapPropsToPage = (props, context) => ({
   title: 'Projects',
+  rights: ['expenses.manage_configuration'],
   task: {
     label: 'New Project',
     icon: 'plus',

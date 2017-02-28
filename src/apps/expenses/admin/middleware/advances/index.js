@@ -7,5 +7,7 @@ export default resources({
   model: Advance,
   ownedByUser: true,
   path: 'advances',
-  withRelated: ['user','project','expense_type','approval.approved_by']
+  rights: ['expenses.manage_expenses'],
+  serializer: AdvanceSerializer,
+  withRelated: ['user','project','expense_type','approved_by','vendor']
 })

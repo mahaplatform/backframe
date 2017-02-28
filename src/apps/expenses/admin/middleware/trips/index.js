@@ -6,5 +6,6 @@ export default resources({
   name: 'trip',
   model: Trip,
   ownedByUser: true,
+  rights: ['expenses.manage_expenses'],
   withRelated: ['approval.approved_by']
 })
