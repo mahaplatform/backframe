@@ -7,10 +7,12 @@ module.exports = {
       original_file_name: 'cornell.jpg',
       file_name: 'cornell.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.371Z',
-      updated_at: '2017-03-03T05:31:00.371Z'
+      file_size: 17449,
+      fingerprint: '55c6c52c3426126710f6a40de94806a7',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.878Z',
+      updated_at: '2017-03-03T08:26:35.878Z'
     },
     {
       id: 2,
@@ -18,10 +20,12 @@ module.exports = {
       original_file_name: 'acm1.jpg',
       file_name: 'acm1.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.372Z',
-      updated_at: '2017-03-03T05:31:00.372Z'
+      file_size: 37564,
+      fingerprint: 'be996e8e2f88e43c88ddbaa5eda99c94',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.879Z',
+      updated_at: '2017-03-03T08:26:35.879Z'
     },
     {
       id: 3,
@@ -29,10 +33,12 @@ module.exports = {
       original_file_name: 'aaa247.jpg',
       file_name: 'aaa247.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.373Z',
-      updated_at: '2017-03-03T05:31:00.373Z'
+      file_size: 24707,
+      fingerprint: 'ed28627b32d45de185792895c987576a',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.881Z',
+      updated_at: '2017-03-03T08:26:35.881Z'
     },
     {
       id: 4,
@@ -40,10 +46,12 @@ module.exports = {
       original_file_name: 'ads32.jpg',
       file_name: 'ads32.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.373Z',
-      updated_at: '2017-03-03T05:31:00.373Z'
+      file_size: 57406,
+      fingerprint: 'fe81bff871207ae24c0895c53fdef8b1',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.882Z',
+      updated_at: '2017-03-03T08:26:35.882Z'
     },
     {
       id: 5,
@@ -51,10 +59,12 @@ module.exports = {
       original_file_name: 'ahs47.jpg',
       file_name: 'ahs47.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.373Z',
-      updated_at: '2017-03-03T05:31:00.373Z'
+      file_size: 29541,
+      fingerprint: '8df180c6477ae05ab36b1165dde8ed9f',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.883Z',
+      updated_at: '2017-03-03T08:26:35.883Z'
     },
     {
       id: 6,
@@ -62,10 +72,12 @@ module.exports = {
       original_file_name: 'ams69.jpg',
       file_name: 'ams69.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.373Z',
-      updated_at: '2017-03-03T05:31:00.373Z'
+      file_size: 40293,
+      fingerprint: '6d6e8e10311a5c57088ffd941716b982',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.884Z',
+      updated_at: '2017-03-03T08:26:35.884Z'
     },
     {
       id: 7,
@@ -73,10 +85,12 @@ module.exports = {
       original_file_name: 'abk95.jpg',
       file_name: 'abk95.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.373Z',
-      updated_at: '2017-03-03T05:31:00.373Z'
+      file_size: 27608,
+      fingerprint: '2551542095ce64de4b6c2d08816cd854',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.885Z',
+      updated_at: '2017-03-03T08:26:35.885Z'
     },
     {
       id: 8,
@@ -84,10 +98,12 @@ module.exports = {
       original_file_name: 'asn53.jpg',
       file_name: 'asn53.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.374Z',
-      updated_at: '2017-03-03T05:31:00.374Z'
+      file_size: 32940,
+      fingerprint: '255c41f618110ef83971ded7ce982927',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.886Z',
+      updated_at: '2017-03-03T08:26:35.886Z'
     },
     {
       id: 9,
@@ -95,10 +111,12 @@ module.exports = {
       original_file_name: 'agm32.jpg',
       file_name: 'agm32.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.375Z',
-      updated_at: '2017-03-03T05:31:00.375Z'
+      file_size: 35265,
+      fingerprint: '1640a60f3df75bbab85898bc16e2aa3f',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.886Z',
+      updated_at: '2017-03-03T08:26:35.886Z'
     },
     {
       id: 10,
@@ -106,10 +124,12 @@ module.exports = {
       original_file_name: 'bas25.jpg',
       file_name: 'bas25.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.375Z',
-      updated_at: '2017-03-03T05:31:00.375Z'
+      file_size: 39464,
+      fingerprint: 'fc6bac12115d15c7b4d5aadb4b4ec2a4',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.887Z',
+      updated_at: '2017-03-03T08:26:35.887Z'
     },
     {
       id: 11,
@@ -117,10 +137,12 @@ module.exports = {
       original_file_name: 'bab47.jpg',
       file_name: 'bab47.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.375Z',
-      updated_at: '2017-03-03T05:31:00.375Z'
+      file_size: 29822,
+      fingerprint: '95783f373d596c981f09904c99f1b315',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.889Z',
+      updated_at: '2017-03-03T08:26:35.889Z'
     },
     {
       id: 12,
@@ -128,10 +150,12 @@ module.exports = {
       original_file_name: 'btc6.jpg',
       file_name: 'btc6.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.376Z',
-      updated_at: '2017-03-03T05:31:00.376Z'
+      file_size: 43818,
+      fingerprint: 'ed1d461b4c1bc8ed06092aee61ad7e4a',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.890Z',
+      updated_at: '2017-03-03T08:26:35.890Z'
     },
     {
       id: 13,
@@ -139,10 +163,12 @@ module.exports = {
       original_file_name: 'bmd88.jpg',
       file_name: 'bmd88.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.376Z',
-      updated_at: '2017-03-03T05:31:00.376Z'
+      file_size: 40335,
+      fingerprint: '48f3fb4fa412b4994c51d93d34f2df9d',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.891Z',
+      updated_at: '2017-03-03T08:26:35.891Z'
     },
     {
       id: 14,
@@ -150,10 +176,12 @@ module.exports = {
       original_file_name: 'crf11.jpg',
       file_name: 'crf11.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      file_size: 40021,
+      fingerprint: '8d48a6586c824a8c189c16ac80752bf0',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.895Z',
+      updated_at: '2017-03-03T08:26:35.895Z'
     },
     {
       id: 15,
@@ -161,10 +189,12 @@ module.exports = {
       original_file_name: 'chj7.jpg',
       file_name: 'chj7.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      file_size: 29583,
+      fingerprint: '72247d74e43e8f67cd900cee620d0d82',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.896Z',
+      updated_at: '2017-03-03T08:26:35.896Z'
     },
     {
       id: 16,
@@ -172,10 +202,12 @@ module.exports = {
       original_file_name: 'css17.jpg',
       file_name: 'css17.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      file_size: 32797,
+      fingerprint: 'b708dee815387e79026a4157bae4fe80',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.897Z',
+      updated_at: '2017-03-03T08:26:35.897Z'
     },
     {
       id: 17,
@@ -183,10 +215,12 @@ module.exports = {
       original_file_name: 'cab69.jpg',
       file_name: 'cab69.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      file_size: 30632,
+      fingerprint: 'c57e83ec0db505f2f685073ce250e84d',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.898Z',
+      updated_at: '2017-03-03T08:26:35.898Z'
     },
     {
       id: 18,
@@ -194,10 +228,12 @@ module.exports = {
       original_file_name: 'cee29.jpg',
       file_name: 'cee29.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      file_size: 41924,
+      fingerprint: '58512e9166a55372e5d4eea6c123a2d0',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.899Z',
+      updated_at: '2017-03-03T08:26:35.899Z'
     },
     {
       id: 19,
@@ -205,10 +241,12 @@ module.exports = {
       original_file_name: 'dh67.jpg',
       file_name: 'dh67.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.378Z',
-      updated_at: '2017-03-03T05:31:00.378Z'
+      file_size: 32076,
+      fingerprint: 'de6384677d41d7d2a268287a4b1c7ef3',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.901Z',
+      updated_at: '2017-03-03T08:26:35.901Z'
     },
     {
       id: 20,
@@ -216,10 +254,12 @@ module.exports = {
       original_file_name: 'dlt22.jpg',
       file_name: 'dlt22.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.378Z',
-      updated_at: '2017-03-03T05:31:00.378Z'
+      file_size: 31580,
+      fingerprint: '72efc3da4aed5d981c9385c10fe07b31',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.902Z',
+      updated_at: '2017-03-03T08:26:35.902Z'
     },
     {
       id: 21,
@@ -227,10 +267,12 @@ module.exports = {
       original_file_name: 'em748.jpg',
       file_name: 'em748.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      file_size: 41294,
+      fingerprint: 'f2f2bd74a5593b047d4cfc985626bcfa',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.903Z',
+      updated_at: '2017-03-03T08:26:35.903Z'
     },
     {
       id: 22,
@@ -238,10 +280,12 @@ module.exports = {
       original_file_name: 'evk4.jpg',
       file_name: 'evk4.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      file_size: 50444,
+      fingerprint: '17d9893a449a9295fa5016b6b5ea3008',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.904Z',
+      updated_at: '2017-03-03T08:26:35.904Z'
     },
     {
       id: 23,
@@ -249,10 +293,12 @@ module.exports = {
       original_file_name: 'ebw52.jpg',
       file_name: 'ebw52.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      file_size: 54749,
+      fingerprint: '4a6819c488f484eb911a1f9c7776bb9c',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.904Z',
+      updated_at: '2017-03-03T08:26:35.904Z'
     },
     {
       id: 24,
@@ -260,10 +306,12 @@ module.exports = {
       original_file_name: 'emc333.jpg',
       file_name: 'emc333.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      file_size: 29383,
+      fingerprint: '64e337faa0f2e74a833571e3cacf6e31',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.905Z',
+      updated_at: '2017-03-03T08:26:35.905Z'
     },
     {
       id: 25,
@@ -271,10 +319,12 @@ module.exports = {
       original_file_name: 'enm6.jpg',
       file_name: 'enm6.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      file_size: 29909,
+      fingerprint: 'fc5de840d9033ac7ddddcdc8afd3aafc',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.905Z',
+      updated_at: '2017-03-03T08:26:35.905Z'
     },
     {
       id: 26,
@@ -282,10 +332,12 @@ module.exports = {
       original_file_name: 'egc24.jpg',
       file_name: 'egc24.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      file_size: 26726,
+      fingerprint: '7154369738b7faeeddab2479829a0e9f',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.906Z',
+      updated_at: '2017-03-03T08:26:35.906Z'
     },
     {
       id: 27,
@@ -293,10 +345,12 @@ module.exports = {
       original_file_name: 'fb29.jpg',
       file_name: 'fb29.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      file_size: 29850,
+      fingerprint: 'bc4292befad2321fb48fff07fd58cd30',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.906Z',
+      updated_at: '2017-03-03T08:26:35.906Z'
     },
     {
       id: 28,
@@ -304,10 +358,12 @@ module.exports = {
       original_file_name: 'gah225.jpg',
       file_name: 'gah225.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      file_size: 30431,
+      fingerprint: '928d5b02a75dba09852c1afe5ea25231',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.907Z',
+      updated_at: '2017-03-03T08:26:35.907Z'
     },
     {
       id: 29,
@@ -315,10 +371,12 @@ module.exports = {
       original_file_name: 'gmk8.jpg',
       file_name: 'gmk8.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      file_size: 30175,
+      fingerprint: '373f5a67f48b04d0d36840dc2a988904',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.907Z',
+      updated_at: '2017-03-03T08:26:35.907Z'
     },
     {
       id: 30,
@@ -326,10 +384,12 @@ module.exports = {
       original_file_name: 'gm52.jpg',
       file_name: 'gm52.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      file_size: 27360,
+      fingerprint: 'fb80a8780a746a11ce40be97aeb9a25f',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.908Z',
+      updated_at: '2017-03-03T08:26:35.908Z'
     },
     {
       id: 31,
@@ -337,10 +397,12 @@ module.exports = {
       original_file_name: 'hdk29.jpg',
       file_name: 'hdk29.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      file_size: 51634,
+      fingerprint: 'fa917a17e87cc9c0bfff30f3027a6c3d',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.908Z',
+      updated_at: '2017-03-03T08:26:35.908Z'
     },
     {
       id: 32,
@@ -348,10 +410,12 @@ module.exports = {
       original_file_name: 'hab27.jpg',
       file_name: 'hab27.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      file_size: 45862,
+      fingerprint: 'ae9f34e2f80798fd5a8586de66d08def',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.909Z',
+      updated_at: '2017-03-03T08:26:35.909Z'
     },
     {
       id: 33,
@@ -359,10 +423,12 @@ module.exports = {
       original_file_name: 'hdc38.jpg',
       file_name: 'hdc38.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      file_size: 44464,
+      fingerprint: 'ee8cd54c78c6cca80ca1d9760a9e8325',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.909Z',
+      updated_at: '2017-03-03T08:26:35.909Z'
     },
     {
       id: 34,
@@ -370,10 +436,12 @@ module.exports = {
       original_file_name: 'hmg2.jpg',
       file_name: 'hmg2.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      file_size: 36394,
+      fingerprint: '149ade853265ea51a1e8101d6242773a',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.910Z',
+      updated_at: '2017-03-03T08:26:35.910Z'
     },
     {
       id: 35,
@@ -381,10 +449,12 @@ module.exports = {
       original_file_name: 'jlf30.jpg',
       file_name: 'jlf30.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      file_size: 40924,
+      fingerprint: '5860dd5d3f7f9b93739c12de05022217',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.911Z',
+      updated_at: '2017-03-03T08:26:35.911Z'
     },
     {
       id: 36,
@@ -392,10 +462,12 @@ module.exports = {
       original_file_name: 'drj4.jpg',
       file_name: 'drj4.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      file_size: 28117,
+      fingerprint: '2b78c0a90902db205bd9136b17a3de69',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.912Z',
+      updated_at: '2017-03-03T08:26:35.912Z'
     },
     {
       id: 37,
@@ -403,10 +475,12 @@ module.exports = {
       original_file_name: 'jcg33.jpg',
       file_name: 'jcg33.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      file_size: 23865,
+      fingerprint: '54f666c98a5de12399ce3bf011c71316',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.912Z',
+      updated_at: '2017-03-03T08:26:35.912Z'
     },
     {
       id: 38,
@@ -414,10 +488,12 @@ module.exports = {
       original_file_name: 'jpb27.jpg',
       file_name: 'jpb27.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      file_size: 37324,
+      fingerprint: '7e6a262479a00bca3ae39fe43fc34e0f',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.914Z',
+      updated_at: '2017-03-03T08:26:35.914Z'
     },
     {
       id: 39,
@@ -425,10 +501,12 @@ module.exports = {
       original_file_name: 'jmh37.jpg',
       file_name: 'jmh37.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      file_size: 45624,
+      fingerprint: '87e4922e5cdaa0803ce57cb994eebdd9',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.915Z',
+      updated_at: '2017-03-03T08:26:35.915Z'
     },
     {
       id: 40,
@@ -436,10 +514,12 @@ module.exports = {
       original_file_name: 'jc2889.jpg',
       file_name: 'jc2889.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      file_size: 29630,
+      fingerprint: '315bf45720076e067d4da4b62086bb36',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.915Z',
+      updated_at: '2017-03-03T08:26:35.915Z'
     },
     {
       id: 41,
@@ -447,10 +527,12 @@ module.exports = {
       original_file_name: 'jd285.jpg',
       file_name: 'jd285.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      file_size: 40284,
+      fingerprint: '77271f92a149089b8175742d36752f0b',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.916Z',
+      updated_at: '2017-03-03T08:26:35.916Z'
     },
     {
       id: 42,
@@ -458,10 +540,12 @@ module.exports = {
       original_file_name: 'jlb293.jpg',
       file_name: 'jlb293.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      file_size: 34269,
+      fingerprint: '86392dcc4bab09d44d5f5c2847483cc1',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.917Z',
+      updated_at: '2017-03-03T08:26:35.917Z'
     },
     {
       id: 43,
@@ -469,10 +553,12 @@ module.exports = {
       original_file_name: 'jts286.jpg',
       file_name: 'jts286.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      file_size: 21858,
+      fingerprint: 'e9a224b821ad1cce377c109817f0b004',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.917Z',
+      updated_at: '2017-03-03T08:26:35.917Z'
     },
     {
       id: 44,
@@ -480,10 +566,12 @@ module.exports = {
       original_file_name: 'kwb6.jpg',
       file_name: 'kwb6.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      file_size: 28303,
+      fingerprint: 'cb3dc29dc19275054b47a6ba7ca8af10',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.918Z',
+      updated_at: '2017-03-03T08:26:35.918Z'
     },
     {
       id: 45,
@@ -491,10 +579,12 @@ module.exports = {
       original_file_name: 'kmm242.jpg',
       file_name: 'kmm242.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      file_size: 1782426,
+      fingerprint: '3f08aeb5ca8829d06508cb7b3cfbd8dd',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.926Z',
+      updated_at: '2017-03-03T08:26:35.926Z'
     },
     {
       id: 46,
@@ -502,10 +592,12 @@ module.exports = {
       original_file_name: 'klj27.jpg',
       file_name: 'klj27.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      file_size: 1732981,
+      fingerprint: '7c6c4bc90a9e9c482572083f5485449d',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.933Z',
+      updated_at: '2017-03-03T08:26:35.933Z'
     },
     {
       id: 47,
@@ -513,10 +605,12 @@ module.exports = {
       original_file_name: 'kem228.jpg',
       file_name: 'kem228.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      file_size: 42871,
+      fingerprint: 'e5874538ae2814464271eb58b1ff8ea7',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.934Z',
+      updated_at: '2017-03-03T08:26:35.934Z'
     },
     {
       id: 48,
@@ -524,10 +618,12 @@ module.exports = {
       original_file_name: 'ks47.jpg',
       file_name: 'ks47.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      file_size: 29316,
+      fingerprint: '109dbf159914da5c28d5795d166eb073',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.935Z',
+      updated_at: '2017-03-03T08:26:35.935Z'
     },
     {
       id: 49,
@@ -535,10 +631,12 @@ module.exports = {
       original_file_name: 'akb29.jpg',
       file_name: 'akb29.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      file_size: 611734,
+      fingerprint: '0360f777686e78d111b2993259a23438',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.938Z',
+      updated_at: '2017-03-03T08:26:35.938Z'
     },
     {
       id: 50,
@@ -546,10 +644,12 @@ module.exports = {
       original_file_name: 'km646.jpg',
       file_name: 'km646.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      file_size: 47791,
+      fingerprint: 'a4724283fc5b30a84c38790183d01737',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.939Z',
+      updated_at: '2017-03-03T08:26:35.939Z'
     },
     {
       id: 51,
@@ -557,10 +657,12 @@ module.exports = {
       original_file_name: 'kv89.jpg',
       file_name: 'kv89.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      file_size: 31001,
+      fingerprint: '7e719b0793c2ceb9271edf91da758120',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.941Z',
+      updated_at: '2017-03-03T08:26:35.941Z'
     },
     {
       id: 52,
@@ -568,10 +670,12 @@ module.exports = {
       original_file_name: 'krk7.jpg',
       file_name: 'krk7.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      file_size: 29727,
+      fingerprint: 'ae4e019d9c018326b0a72b5871935fb0',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.942Z',
+      updated_at: '2017-03-03T08:26:35.942Z'
     },
     {
       id: 53,
@@ -579,10 +683,12 @@ module.exports = {
       original_file_name: 'ljp9.jpg',
       file_name: 'ljp9.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      file_size: 28373,
+      fingerprint: '02da9beda38fb73f74b879eec4b5105b',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.943Z',
+      updated_at: '2017-03-03T08:26:35.943Z'
     },
     {
       id: 54,
@@ -590,10 +696,12 @@ module.exports = {
       original_file_name: 'lrk57.jpg',
       file_name: 'lrk57.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      file_size: 25731,
+      fingerprint: '9572b6bae9d69a2bdc3ffd315fdab35c',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.943Z',
+      updated_at: '2017-03-03T08:26:35.943Z'
     },
     {
       id: 55,
@@ -601,10 +709,12 @@ module.exports = {
       original_file_name: 'las466.jpg',
       file_name: 'las466.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      file_size: 28821,
+      fingerprint: 'd1d349688c9c330608db7c0f9f369aec',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.944Z',
+      updated_at: '2017-03-03T08:26:35.944Z'
     },
     {
       id: 56,
@@ -612,10 +722,12 @@ module.exports = {
       original_file_name: 'lam26.jpg',
       file_name: 'lam26.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      file_size: 40213,
+      fingerprint: '5f150f992343bca0ff5918cb26363b5b',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.945Z',
+      updated_at: '2017-03-03T08:26:35.945Z'
     },
     {
       id: 57,
@@ -623,10 +735,12 @@ module.exports = {
       original_file_name: 'arh238.jpg',
       file_name: 'arh238.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      file_size: 25477,
+      fingerprint: '50cc2668a9fb6b8a35137e4367115f0a',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.946Z',
+      updated_at: '2017-03-03T08:26:35.946Z'
     },
     {
       id: 58,
@@ -634,10 +748,12 @@ module.exports = {
       original_file_name: 'le93.jpg',
       file_name: 'le93.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      file_size: 33321,
+      fingerprint: 'e8fd782fad9d6d8815aa9a5a200dca4b',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.946Z',
+      updated_at: '2017-03-03T08:26:35.946Z'
     },
     {
       id: 59,
@@ -645,10 +761,12 @@ module.exports = {
       original_file_name: 'mab565.jpg',
       file_name: 'mab565.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.383Z',
-      updated_at: '2017-03-03T05:31:00.383Z'
+      file_size: 26850,
+      fingerprint: '2b30b3da370a99fecb2f3bc21fe85f4d',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.947Z',
+      updated_at: '2017-03-03T08:26:35.947Z'
     },
     {
       id: 60,
@@ -656,10 +774,12 @@ module.exports = {
       original_file_name: 'mjh17.jpg',
       file_name: 'mjh17.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.383Z',
-      updated_at: '2017-03-03T05:31:00.383Z'
+      file_size: 34867,
+      fingerprint: '35bccc2d6fa63e673e00399d74c018fb',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.948Z',
+      updated_at: '2017-03-03T08:26:35.948Z'
     },
     {
       id: 61,
@@ -667,10 +787,12 @@ module.exports = {
       original_file_name: 'mjc72.jpg',
       file_name: 'mjc72.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.383Z',
-      updated_at: '2017-03-03T05:31:00.383Z'
+      file_size: 41857,
+      fingerprint: 'a40c6fdc0219d566e2ffdb1102cb7aa3',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.948Z',
+      updated_at: '2017-03-03T08:26:35.948Z'
     },
     {
       id: 62,
@@ -678,10 +800,12 @@ module.exports = {
       original_file_name: 'mzo2.jpg',
       file_name: 'mzo2.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      file_size: 175788,
+      fingerprint: '646084b7dec50b2050c26290f76046bf',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.950Z',
+      updated_at: '2017-03-03T08:26:35.950Z'
     },
     {
       id: 63,
@@ -689,10 +813,12 @@ module.exports = {
       original_file_name: 'mg10.jpg',
       file_name: 'mg10.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      file_size: 50810,
+      fingerprint: '2aee07d59829385483bffd46821bb61b',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.951Z',
+      updated_at: '2017-03-03T08:26:35.951Z'
     },
     {
       id: 64,
@@ -700,10 +826,12 @@ module.exports = {
       original_file_name: 'mnl28.jpg',
       file_name: 'mnl28.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      file_size: 35767,
+      fingerprint: '55cec08f53ac9e8ab145fcdfab994082',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.952Z',
+      updated_at: '2017-03-03T08:26:35.952Z'
     },
     {
       id: 65,
@@ -711,10 +839,12 @@ module.exports = {
       original_file_name: 'mmp246.jpg',
       file_name: 'mmp246.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      file_size: 64535,
+      fingerprint: 'f9096e9e62d718887ac5d7c8a3403c92',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.952Z',
+      updated_at: '2017-03-03T08:26:35.952Z'
     },
     {
       id: 66,
@@ -722,10 +852,12 @@ module.exports = {
       original_file_name: 'msp94.jpg',
       file_name: 'msp94.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      file_size: 30246,
+      fingerprint: 'faeb5385eb707361f01311abcf14a1aa',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.953Z',
+      updated_at: '2017-03-03T08:26:35.953Z'
     },
     {
       id: 67,
@@ -733,10 +865,12 @@ module.exports = {
       original_file_name: 'mjs487.jpg',
       file_name: 'mjs487.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      file_size: 30585,
+      fingerprint: '7cf9aef273d1d942f40dda958911990a',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.954Z',
+      updated_at: '2017-03-03T08:26:35.954Z'
     },
     {
       id: 68,
@@ -744,10 +878,12 @@ module.exports = {
       original_file_name: 'met38.jpg',
       file_name: 'met38.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      file_size: 54984,
+      fingerprint: '8df7d797636cc62b37c7483c8e202248',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.955Z',
+      updated_at: '2017-03-03T08:26:35.955Z'
     },
     {
       id: 69,
@@ -755,10 +891,12 @@ module.exports = {
       original_file_name: 'mjm463.jpg',
       file_name: 'mjm463.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      file_size: 50003,
+      fingerprint: '52aa9349ec2a0c5aa58a36b3781255da',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.955Z',
+      updated_at: '2017-03-03T08:26:35.955Z'
     },
     {
       id: 70,
@@ -766,10 +904,12 @@ module.exports = {
       original_file_name: 'mlj77.jpg',
       file_name: 'mlj77.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      file_size: 30197,
+      fingerprint: '0bfbaf74acab481276b8afa8174865ac',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.956Z',
+      updated_at: '2017-03-03T08:26:35.956Z'
     },
     {
       id: 71,
@@ -777,10 +917,12 @@ module.exports = {
       original_file_name: 'ml989.jpg',
       file_name: 'ml989.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      file_size: 30241,
+      fingerprint: '443762ac48e462e78c7c6372be4c147e',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.957Z',
+      updated_at: '2017-03-03T08:26:35.957Z'
     },
     {
       id: 72,
@@ -788,10 +930,12 @@ module.exports = {
       original_file_name: 'mmd29.jpg',
       file_name: 'mmd29.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      file_size: 23433,
+      fingerprint: '6d34b624dcf164b59c996846f52c6981',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.957Z',
+      updated_at: '2017-03-03T08:26:35.957Z'
     },
     {
       id: 73,
@@ -799,10 +943,12 @@ module.exports = {
       original_file_name: 'mr55.jpg',
       file_name: 'mr55.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      file_size: 685902,
+      fingerprint: 'dfaa4945d874ef3fcb2d4811214f85a8',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.961Z',
+      updated_at: '2017-03-03T08:26:35.961Z'
     },
     {
       id: 74,
@@ -810,10 +956,12 @@ module.exports = {
       original_file_name: 'ncm55.jpg',
       file_name: 'ncm55.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      file_size: 41030,
+      fingerprint: '67366418054f60bdb5fb5a7e4288ec95',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.962Z',
+      updated_at: '2017-03-03T08:26:35.962Z'
     },
     {
       id: 75,
@@ -821,10 +969,12 @@ module.exports = {
       original_file_name: 'njn35.jpg',
       file_name: 'njn35.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      file_size: 21337,
+      fingerprint: 'ffb8c19c186831d08785abb6c5ac4215',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.963Z',
+      updated_at: '2017-03-03T08:26:35.963Z'
     },
     {
       id: 76,
@@ -832,10 +982,12 @@ module.exports = {
       original_file_name: 'ng32.jpg',
       file_name: 'ng32.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      file_size: 30724,
+      fingerprint: 'fed4f6c41651512fbdecbdd47a5257d9',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.964Z',
+      updated_at: '2017-03-03T08:26:35.964Z'
     },
     {
       id: 77,
@@ -843,10 +995,12 @@ module.exports = {
       original_file_name: 'pmh75.jpg',
       file_name: 'pmh75.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      file_size: 37277,
+      fingerprint: 'c1f4586c5bc1459a3cfcab251674960d',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.965Z',
+      updated_at: '2017-03-03T08:26:35.965Z'
     },
     {
       id: 78,
@@ -854,10 +1008,12 @@ module.exports = {
       original_file_name: 'pc21.jpg',
       file_name: 'pc21.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      file_size: 1270392,
+      fingerprint: 'aeafbf5759a315159181e69c8a5925d5',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.971Z',
+      updated_at: '2017-03-03T08:26:35.971Z'
     },
     {
       id: 79,
@@ -865,10 +1021,12 @@ module.exports = {
       original_file_name: 'peb28.jpg',
       file_name: 'peb28.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      file_size: 67714,
+      fingerprint: '7773ac65adf67d1aafe9eb39691ba069',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.972Z',
+      updated_at: '2017-03-03T08:26:35.972Z'
     },
     {
       id: 80,
@@ -876,10 +1034,12 @@ module.exports = {
       original_file_name: 'rlc263.jpg',
       file_name: 'rlc263.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      file_size: 37486,
+      fingerprint: 'ccde0b025809b186d8f732c9655b2f7a',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.974Z',
+      updated_at: '2017-03-03T08:26:35.974Z'
     },
     {
       id: 81,
@@ -887,10 +1047,12 @@ module.exports = {
       original_file_name: 'rjm442.jpg',
       file_name: 'rjm442.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      file_size: 29455,
+      fingerprint: 'ded4c32cdf90ca409be3626c461ea8e7',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.975Z',
+      updated_at: '2017-03-03T08:26:35.975Z'
     },
     {
       id: 82,
@@ -898,10 +1060,12 @@ module.exports = {
       original_file_name: 'rb667.jpg',
       file_name: 'rb667.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      file_size: 438828,
+      fingerprint: 'f3e3a2661e4419737dffe8075052aaab',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.977Z',
+      updated_at: '2017-03-03T08:26:35.977Z'
     },
     {
       id: 83,
@@ -909,10 +1073,12 @@ module.exports = {
       original_file_name: 'sjr37.jpg',
       file_name: 'sjr37.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      file_size: 9112,
+      fingerprint: '8ac63cbd4b26a9678620144aa822ff1a',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.978Z',
+      updated_at: '2017-03-03T08:26:35.978Z'
     },
     {
       id: 84,
@@ -920,10 +1086,12 @@ module.exports = {
       original_file_name: 'sjk266.jpg',
       file_name: 'sjk266.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      file_size: 31827,
+      fingerprint: 'bf44dd093c149b0677c655004c7fafd3',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.979Z',
+      updated_at: '2017-03-03T08:26:35.979Z'
     },
     {
       id: 85,
@@ -931,10 +1099,12 @@ module.exports = {
       original_file_name: 'sb2275.jpg',
       file_name: 'sb2275.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      file_size: 29995,
+      fingerprint: '0958aefc591e7618f1f5b1d19d2f1a57',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.980Z',
+      updated_at: '2017-03-03T08:26:35.980Z'
     },
     {
       id: 86,
@@ -942,10 +1112,12 @@ module.exports = {
       original_file_name: 'sec283.jpg',
       file_name: 'sec283.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      file_size: 20532,
+      fingerprint: 'ca4bf11e06eeec48874ab789882787f6',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.981Z',
+      updated_at: '2017-03-03T08:26:35.981Z'
     },
     {
       id: 87,
@@ -953,10 +1125,12 @@ module.exports = {
       original_file_name: 'ska2.jpg',
       file_name: 'ska2.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      file_size: 34620,
+      fingerprint: '21ff6bb7ba7514192b525ad1879260fa',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.982Z',
+      updated_at: '2017-03-03T08:26:35.982Z'
     },
     {
       id: 88,
@@ -964,10 +1138,12 @@ module.exports = {
       original_file_name: 'sjl44.jpg',
       file_name: 'sjl44.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      file_size: 24802,
+      fingerprint: 'b3d5ebd36c2c6fb12796dd297eece598',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.982Z',
+      updated_at: '2017-03-03T08:26:35.982Z'
     },
     {
       id: 89,
@@ -975,10 +1151,12 @@ module.exports = {
       original_file_name: 'tc629.jpg',
       file_name: 'tc629.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      file_size: 28625,
+      fingerprint: 'ce0102ee29c78b08ae1251662113b06d',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.983Z',
+      updated_at: '2017-03-03T08:26:35.983Z'
     },
     {
       id: 90,
@@ -986,10 +1164,12 @@ module.exports = {
       original_file_name: 'tlc98.jpg',
       file_name: 'tlc98.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      file_size: 29597,
+      fingerprint: '9913c16bb81b9f1a5245f6d22eac10c0',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.984Z',
+      updated_at: '2017-03-03T08:26:35.984Z'
     },
     {
       id: 91,
@@ -997,10 +1177,12 @@ module.exports = {
       original_file_name: 'tee1.jpg',
       file_name: 'tee1.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      file_size: 26917,
+      fingerprint: 'c18213cdbb670b757aa66528bb52f711',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.985Z',
+      updated_at: '2017-03-03T08:26:35.985Z'
     },
     {
       id: 92,
@@ -1008,10 +1190,12 @@ module.exports = {
       original_file_name: 'tfc43.jpg',
       file_name: 'tfc43.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      file_size: 25519,
+      fingerprint: '47c8256d0ed6f23e6f3718d24c13ce2f',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.986Z',
+      updated_at: '2017-03-03T08:26:35.986Z'
     },
     {
       id: 93,
@@ -1019,10 +1203,12 @@ module.exports = {
       original_file_name: 'td39.jpg',
       file_name: 'td39.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      file_size: 265541,
+      fingerprint: 'b498859eca786c377352b720bbf60e16',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.988Z',
+      updated_at: '2017-03-03T08:26:35.988Z'
     },
     {
       id: 94,
@@ -1030,10 +1216,12 @@ module.exports = {
       original_file_name: 'tmf8.jpg',
       file_name: 'tmf8.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      file_size: 43310,
+      fingerprint: 'b24c2c1eede971b31cb52e44e0f5cc77',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.989Z',
+      updated_at: '2017-03-03T08:26:35.989Z'
     },
     {
       id: 95,
@@ -1041,10 +1229,12 @@ module.exports = {
       original_file_name: 'ttj22.jpg',
       file_name: 'ttj22.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      file_size: 30048,
+      fingerprint: 'e6da21049cb96d8abc52371cccd3064c',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.990Z',
+      updated_at: '2017-03-03T08:26:35.990Z'
     },
     {
       id: 96,
@@ -1052,10 +1242,12 @@ module.exports = {
       original_file_name: 'vmt5.jpg',
       file_name: 'vmt5.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      file_size: 27874,
+      fingerprint: '106aeec8bce138d2f2619bad99cf1713',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.991Z',
+      updated_at: '2017-03-03T08:26:35.991Z'
     },
     {
       id: 97,
@@ -1063,10 +1255,12 @@ module.exports = {
       original_file_name: 'zak6.jpg',
       file_name: 'zak6.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      file_size: 31759,
+      fingerprint: 'c2e9bd03b8fabae4bd7dd5f5037b6804',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.993Z',
+      updated_at: '2017-03-03T08:26:35.993Z'
     },
     {
       id: 98,
@@ -1074,10 +1268,12 @@ module.exports = {
       original_file_name: 'ziv2.jpg',
       file_name: 'ziv2.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      file_size: 46846,
+      fingerprint: '1310925cbe43cdf5eb6224f699fd8d10',
+      chunks_total: 1,
+      status: 'processed',
+      created_at: '2017-03-03T08:26:35.993Z',
+      updated_at: '2017-03-03T08:26:35.993Z'
     }
   ]
 }

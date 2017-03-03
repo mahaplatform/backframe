@@ -10,8 +10,6 @@ exports.up = function(knex, Promise) {
       table.string('content_type')
       table.integer('file_size')
       table.string('fingerprint')
-      table.integer('width')
-      table.integer('height')
       table.integer('chunks_total')
       table.timestamps()
     })

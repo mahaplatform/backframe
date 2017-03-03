@@ -48,6 +48,11 @@ const Roles = (props) => {
   const { user } = props
   return (
     <div className="list role-users">
+      { user.roles.length === 0 &&
+        <div className="item">
+          <p>This user has not been assigned any roles</p>
+        </div>
+      }
       { user.roles.map((role, index) => {
         return (
           <div key={`role_${index}`} className="item role-user">

@@ -11,7 +11,7 @@ export default model.extend({
 
   virtuals: {
     url: function() {
-      return (!this.isNew()) ? `/photos/${this.get('file_name')}` : null
+      return (!this.isNew()) ? `https://s3.amazonaws.com/${process.env.AWS_BUCKET}/assets/${this.get('id')}/${this.get('file_name')}` : null
     }
   }
 

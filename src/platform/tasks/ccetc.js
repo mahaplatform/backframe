@@ -1,9 +1,14 @@
+require('platform/services/environment')
+
 const Promise = require('bluebird')
 const fs = require('fs')
 const path = require('path')
 const parse = require('csv-parse/lib/sync')
 const moment = require('moment')
 const _ = require('lodash')
+const aws = require('platform/services/aws')
+const mime = require('mime-types')
+const crypto = require('crypto')
 
 module.exports = {
 
@@ -17,11 +22,14 @@ module.exports = {
       original_file_name: 'cornell.jpg',
       file_name: 'cornell.jpg',
       content_type: 'image/jpeg',
-      file_size: 12345,
-      fingerprint: 'aefasdf7dsaf6sd87sda6f',
+      file_size: 17449,
+      fingerprint: '55c6c52c3426126710f6a40de94806a7',
+      chunks_total: 1,
+      status: 'processed',
       created_at: moment(),
       updated_at: moment()
     }]
+
 
     const userData = users.reduce((data, record) => {
 
@@ -29,20 +37,26 @@ module.exports = {
 
       const filename = `${record[2]}.jpg`
 
-      const photoExists = fs.existsSync(path.join(__dirname, '..', '..', '..', 'public', 'photos', `${record[2]}.jpg`))
+      const filepath = path.join(__dirname, '..', '..', '..', 'tmp', 'photos', filename)
+
+      const photoExists = fs.existsSync(filepath)
 
       const asset_id = photoExists ? (data.assets.length + 1) : null
 
       if(photoExists) {
+
+        const filedata = fs.readFileSync(filepath)
 
         data.assets.push({
           id: asset_id,
           team_id: 1,
           original_file_name: filename,
           file_name: filename,
-          content_type: 'image/jpeg',
-          file_size: 12345,
-          fingerprint: 'aefasdf7dsaf6sd87sda6f',
+          content_type: mime.lookup(filepath),
+          file_size: fs.statSync(filepath).size,
+          fingerprint: crypto.createHash('md5').update(filedata).digest('hex'),
+          chunks_total: 1,
+          status: 'processed',
           created_at: moment(),
           updated_at: moment()
         })
@@ -79,7 +93,7 @@ module.exports = {
 
       return data
 
-    }, { assets: assets, users: [], users_roles: [] })
+    }, { assets, users: [], users_roles: [] })
 
     const projects = toMatrix('projects.tsv', '\t')
 
@@ -163,6 +177,8 @@ module.exports = {
 
     }, { members: projectData.members })
 
+    const s3 = new aws.S3()
+
     return new Promise(function(resolve, reject) {
 
       fs.writeFileSync(path.join(__dirname, '..', '..', 'platform', 'db', 'imports', 'assets.js'), `module.exports = ${toJSON({ tableName: 'assets', records: userData.assets })}`, reject)
@@ -179,6 +195,27 @@ module.exports = {
 
       resolve()
 
+    // }).then(() => {
+    //
+    //   return Promise.map(userData.assets, asset => {
+    //
+    //     const filepath = path.join(__dirname, '..', '..', '..', 'tmp', 'photos', asset.file_name)
+    //
+    //     const Body = fs.readFileSync(filepath)
+    //
+    //     const ContentType = getContentTypeByFile(filepath)
+    //
+    //     return s3.upload({
+    //       Bucket: 'dev.platform',
+    //       Key: `assets/${asset.id}/${asset.file_name}`,
+    //       ACL: 'public-read',
+    //       Body,
+    //       ContentType
+    //     }).promise()
+    //
+    //   })
+    //
+    //
     })
 
   }
@@ -191,4 +228,15 @@ const toJSON = (object) => {
 
 const toMatrix = (filename, delimiter) => {
   return parse(fs.readFileSync(path.join(__dirname, '..', '..', '..', 'tmp', filename), 'utf8'), { delimiter, quote: '^' })
+}
+
+function getContentTypeByFile(fileName) {
+  const fn = fileName.toLowerCase()
+  if (fn.indexOf('.html') >= 0) return 'text/html'
+  else if (fn.indexOf('.css') >= 0) return 'text/css'
+  else if (fn.indexOf('.json') >= 0) return 'application/json'
+  else if (fn.indexOf('.js') >= 0) return 'application/x-javascript'
+  else if (fn.indexOf('.png') >= 0) return 'image/png'
+  else if (fn.indexOf('.jpg') >= 0) return 'image/jpg'
+  else return 'application/octet-stream'
 }

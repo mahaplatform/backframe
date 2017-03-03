@@ -4,19 +4,6 @@ module.exports = {
     {
       id: 1,
       team_id: 1,
-      first_name: 'First Name',
-      last_name: 'Last Name',
-      email: 'Netid@cornell.edu',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
-      photo_id: null,
-      created_at: '2017-03-03T05:31:00.372Z',
-      updated_at: '2017-03-03T05:31:00.372Z'
-    },
-    {
-      id: 2,
-      team_id: 1,
       first_name: 'Adam',
       last_name: 'Michaelides',
       email: 'acm1@cornell.edu',
@@ -24,11 +11,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 2,
-      created_at: '2017-03-03T05:31:00.372Z',
-      updated_at: '2017-03-03T05:31:00.372Z'
+      created_at: '2017-03-03T08:26:35.880Z',
+      updated_at: '2017-03-03T08:26:35.880Z'
     },
     {
-      id: 3,
+      id: 2,
       team_id: 1,
       first_name: 'Alexandra',
       last_name: 'Van Nostrand',
@@ -37,11 +24,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.373Z',
-      updated_at: '2017-03-03T05:31:00.373Z'
+      created_at: '2017-03-03T08:26:35.880Z',
+      updated_at: '2017-03-03T08:26:35.880Z'
     },
     {
-      id: 4,
+      id: 3,
       team_id: 1,
       first_name: 'Allison',
       last_name: 'Kootsikas',
@@ -50,11 +37,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.373Z',
-      updated_at: '2017-03-03T05:31:00.373Z'
+      created_at: '2017-03-03T08:26:35.880Z',
+      updated_at: '2017-03-03T08:26:35.880Z'
     },
     {
-      id: 5,
+      id: 4,
       team_id: 1,
       first_name: 'Aloja',
       last_name: 'Airewele',
@@ -63,11 +50,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 3,
-      created_at: '2017-03-03T05:31:00.373Z',
-      updated_at: '2017-03-03T05:31:00.373Z'
+      created_at: '2017-03-03T08:26:35.881Z',
+      updated_at: '2017-03-03T08:26:35.881Z'
     },
     {
-      id: 6,
+      id: 5,
       team_id: 1,
       first_name: 'Amanda',
       last_name: 'Spaulding',
@@ -76,11 +63,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 4,
-      created_at: '2017-03-03T05:31:00.373Z',
-      updated_at: '2017-03-03T05:31:00.373Z'
+      created_at: '2017-03-03T08:26:35.882Z',
+      updated_at: '2017-03-03T08:26:35.882Z'
     },
     {
-      id: 7,
+      id: 6,
       team_id: 1,
       first_name: 'Amara',
       last_name: 'Steinkraus',
@@ -89,11 +76,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 5,
-      created_at: '2017-03-03T05:31:00.373Z',
-      updated_at: '2017-03-03T05:31:00.373Z'
+      created_at: '2017-03-03T08:26:35.883Z',
+      updated_at: '2017-03-03T08:26:35.883Z'
     },
     {
-      id: 8,
+      id: 7,
       team_id: 1,
       first_name: 'Amy',
       last_name: 'Basil',
@@ -102,11 +89,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.373Z',
-      updated_at: '2017-03-03T05:31:00.373Z'
+      created_at: '2017-03-03T08:26:35.883Z',
+      updated_at: '2017-03-03T08:26:35.883Z'
     },
     {
-      id: 9,
+      id: 8,
       team_id: 1,
       first_name: 'Andrew',
       last_name: 'Canfield',
@@ -115,11 +102,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.373Z',
-      updated_at: '2017-03-03T05:31:00.373Z'
+      created_at: '2017-03-03T08:26:35.883Z',
+      updated_at: '2017-03-03T08:26:35.883Z'
     },
     {
-      id: 10,
+      id: 9,
       team_id: 1,
       first_name: 'Andrew',
       last_name: 'Ginter',
@@ -128,11 +115,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.373Z',
-      updated_at: '2017-03-03T05:31:00.373Z'
+      created_at: '2017-03-03T08:26:35.883Z',
+      updated_at: '2017-03-03T08:26:35.883Z'
     },
     {
-      id: 11,
+      id: 10,
       team_id: 1,
       first_name: 'Anna',
       last_name: 'Steinkraus',
@@ -141,11 +128,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 6,
-      created_at: '2017-03-03T05:31:00.373Z',
-      updated_at: '2017-03-03T05:31:00.373Z'
+      created_at: '2017-03-03T08:26:35.884Z',
+      updated_at: '2017-03-03T08:26:35.884Z'
     },
     {
-      id: 12,
+      id: 11,
       team_id: 1,
       first_name: 'Annalise',
       last_name: 'Kukor',
@@ -154,11 +141,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 7,
-      created_at: '2017-03-03T05:31:00.373Z',
-      updated_at: '2017-03-03T05:31:00.373Z'
+      created_at: '2017-03-03T08:26:35.885Z',
+      updated_at: '2017-03-03T08:26:35.885Z'
     },
     {
-      id: 13,
+      id: 12,
       team_id: 1,
       first_name: 'Anne',
       last_name: 'Rhodes',
@@ -167,11 +154,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.374Z',
-      updated_at: '2017-03-03T05:31:00.374Z'
+      created_at: '2017-03-03T08:26:35.885Z',
+      updated_at: '2017-03-03T08:26:35.885Z'
     },
     {
-      id: 14,
+      id: 13,
       team_id: 1,
       first_name: 'Athena',
       last_name: 'Steinkraus',
@@ -180,11 +167,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.374Z',
-      updated_at: '2017-03-03T05:31:00.374Z'
+      created_at: '2017-03-03T08:26:35.885Z',
+      updated_at: '2017-03-03T08:26:35.885Z'
     },
     {
-      id: 15,
+      id: 14,
       team_id: 1,
       first_name: 'Aurora',
       last_name: 'Namnum',
@@ -193,11 +180,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.374Z',
-      updated_at: '2017-03-03T05:31:00.374Z'
+      created_at: '2017-03-03T08:26:35.885Z',
+      updated_at: '2017-03-03T08:26:35.885Z'
     },
     {
-      id: 16,
+      id: 15,
       team_id: 1,
       first_name: 'Autumn',
       last_name: 'Newell',
@@ -206,11 +193,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 8,
-      created_at: '2017-03-03T05:31:00.374Z',
-      updated_at: '2017-03-03T05:31:00.374Z'
+      created_at: '2017-03-03T08:26:35.886Z',
+      updated_at: '2017-03-03T08:26:35.886Z'
     },
     {
-      id: 17,
+      id: 16,
       team_id: 1,
       first_name: 'Avi',
       last_name: 'Miner',
@@ -219,11 +206,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 9,
-      created_at: '2017-03-03T05:31:00.375Z',
-      updated_at: '2017-03-03T05:31:00.375Z'
+      created_at: '2017-03-03T08:26:35.886Z',
+      updated_at: '2017-03-03T08:26:35.886Z'
     },
     {
-      id: 18,
+      id: 17,
       team_id: 1,
       first_name: 'Avis',
       last_name: 'Frasier',
@@ -232,11 +219,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.375Z',
-      updated_at: '2017-03-03T05:31:00.375Z'
+      created_at: '2017-03-03T08:26:35.886Z',
+      updated_at: '2017-03-03T08:26:35.886Z'
     },
     {
-      id: 19,
+      id: 18,
       team_id: 1,
       first_name: 'Bambi',
       last_name: 'Lott',
@@ -245,11 +232,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.375Z',
-      updated_at: '2017-03-03T05:31:00.375Z'
+      created_at: '2017-03-03T08:26:35.886Z',
+      updated_at: '2017-03-03T08:26:35.886Z'
     },
     {
-      id: 20,
+      id: 19,
       team_id: 1,
       first_name: 'Barbara',
       last_name: 'Jordan',
@@ -258,11 +245,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.375Z',
-      updated_at: '2017-03-03T05:31:00.375Z'
+      created_at: '2017-03-03T08:26:35.886Z',
+      updated_at: '2017-03-03T08:26:35.886Z'
     },
     {
-      id: 21,
+      id: 20,
       team_id: 1,
       first_name: 'Barbara',
       last_name: 'Sinn',
@@ -271,11 +258,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 10,
-      created_at: '2017-03-03T05:31:00.375Z',
-      updated_at: '2017-03-03T05:31:00.375Z'
+      created_at: '2017-03-03T08:26:35.888Z',
+      updated_at: '2017-03-03T08:26:35.888Z'
     },
     {
-      id: 22,
+      id: 21,
       team_id: 1,
       first_name: 'Barry',
       last_name: 'Briggs',
@@ -284,11 +271,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.375Z',
-      updated_at: '2017-03-03T05:31:00.375Z'
+      created_at: '2017-03-03T08:26:35.888Z',
+      updated_at: '2017-03-03T08:26:35.888Z'
     },
     {
-      id: 23,
+      id: 22,
       team_id: 1,
       first_name: 'Beth',
       last_name: 'Bannister',
@@ -297,11 +284,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 11,
-      created_at: '2017-03-03T05:31:00.375Z',
-      updated_at: '2017-03-03T05:31:00.375Z'
+      created_at: '2017-03-03T08:26:35.889Z',
+      updated_at: '2017-03-03T08:26:35.889Z'
     },
     {
-      id: 24,
+      id: 23,
       team_id: 1,
       first_name: 'Bethany',
       last_name: 'Schull',
@@ -310,11 +297,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.376Z',
-      updated_at: '2017-03-03T05:31:00.376Z'
+      created_at: '2017-03-03T08:26:35.889Z',
+      updated_at: '2017-03-03T08:26:35.889Z'
     },
     {
-      id: 25,
+      id: 24,
       team_id: 1,
       first_name: 'Brady',
       last_name: 'Rogers',
@@ -323,11 +310,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.376Z',
-      updated_at: '2017-03-03T05:31:00.376Z'
+      created_at: '2017-03-03T08:26:35.889Z',
+      updated_at: '2017-03-03T08:26:35.889Z'
     },
     {
-      id: 26,
+      id: 25,
       team_id: 1,
       first_name: 'Brenda',
       last_name: 'Carpenter',
@@ -336,11 +323,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 12,
-      created_at: '2017-03-03T05:31:00.376Z',
-      updated_at: '2017-03-03T05:31:00.376Z'
+      created_at: '2017-03-03T08:26:35.890Z',
+      updated_at: '2017-03-03T08:26:35.890Z'
     },
     {
-      id: 27,
+      id: 26,
       team_id: 1,
       first_name: 'Britta',
       last_name: 'Goncarovs',
@@ -349,11 +336,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.376Z',
-      updated_at: '2017-03-03T05:31:00.376Z'
+      created_at: '2017-03-03T08:26:35.890Z',
+      updated_at: '2017-03-03T08:26:35.890Z'
     },
     {
-      id: 28,
+      id: 27,
       team_id: 1,
       first_name: 'Britton',
       last_name: 'Doughtery',
@@ -362,11 +349,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 13,
-      created_at: '2017-03-03T05:31:00.376Z',
-      updated_at: '2017-03-03T05:31:00.376Z'
+      created_at: '2017-03-03T08:26:35.892Z',
+      updated_at: '2017-03-03T08:26:35.894Z'
     },
     {
-      id: 29,
+      id: 28,
       team_id: 1,
       first_name: 'Caitlin',
       last_name: 'Harder',
@@ -375,11 +362,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.376Z',
-      updated_at: '2017-03-03T05:31:00.376Z'
+      created_at: '2017-03-03T08:26:35.894Z',
+      updated_at: '2017-03-03T08:26:35.894Z'
     },
     {
-      id: 30,
+      id: 29,
       team_id: 1,
       first_name: 'Caraya',
       last_name: 'Smith',
@@ -388,11 +375,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.376Z',
-      updated_at: '2017-03-03T05:31:00.376Z'
+      created_at: '2017-03-03T08:26:35.894Z',
+      updated_at: '2017-03-03T08:26:35.894Z'
     },
     {
-      id: 31,
+      id: 30,
       team_id: 1,
       first_name: 'Carla',
       last_name: 'Woolf',
@@ -401,11 +388,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      created_at: '2017-03-03T08:26:35.894Z',
+      updated_at: '2017-03-03T08:26:35.894Z'
     },
     {
-      id: 32,
+      id: 31,
       team_id: 1,
       first_name: 'Carmen',
       last_name: 'Santiago',
@@ -414,11 +401,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      created_at: '2017-03-03T08:26:35.894Z',
+      updated_at: '2017-03-03T08:26:35.894Z'
     },
     {
-      id: 33,
+      id: 32,
       team_id: 1,
       first_name: 'Carole',
       last_name: 'Fisher',
@@ -427,11 +414,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 14,
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      created_at: '2017-03-03T08:26:35.895Z',
+      updated_at: '2017-03-03T08:26:35.895Z'
     },
     {
-      id: 34,
+      id: 33,
       team_id: 1,
       first_name: 'Cate',
       last_name: 'Hicks',
@@ -440,11 +427,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      created_at: '2017-03-03T08:26:35.895Z',
+      updated_at: '2017-03-03T08:26:35.895Z'
     },
     {
-      id: 35,
+      id: 34,
       team_id: 1,
       first_name: 'Catherine',
       last_name: 'Gee',
@@ -453,11 +440,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      created_at: '2017-03-03T08:26:35.895Z',
+      updated_at: '2017-03-03T08:26:35.895Z'
     },
     {
-      id: 36,
+      id: 35,
       team_id: 1,
       first_name: 'Cathy',
       last_name: 'Kinder',
@@ -466,11 +453,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      created_at: '2017-03-03T08:26:35.895Z',
+      updated_at: '2017-03-03T08:26:35.895Z'
     },
     {
-      id: 37,
+      id: 36,
       team_id: 1,
       first_name: 'Chris',
       last_name: 'Kai-Jones',
@@ -479,11 +466,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 15,
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      created_at: '2017-03-03T08:26:35.896Z',
+      updated_at: '2017-03-03T08:26:35.896Z'
     },
     {
-      id: 38,
+      id: 37,
       team_id: 1,
       first_name: 'Chrisophia',
       last_name: 'Somerfeldt',
@@ -492,11 +479,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 16,
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      created_at: '2017-03-03T08:26:35.897Z',
+      updated_at: '2017-03-03T08:26:35.897Z'
     },
     {
-      id: 39,
+      id: 38,
       team_id: 1,
       first_name: 'Christina',
       last_name: 'Regan',
@@ -505,11 +492,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      created_at: '2017-03-03T08:26:35.897Z',
+      updated_at: '2017-03-03T08:26:35.897Z'
     },
     {
-      id: 40,
+      id: 39,
       team_id: 1,
       first_name: 'Chrys',
       last_name: 'Gardener',
@@ -518,11 +505,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 17,
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      created_at: '2017-03-03T08:26:35.898Z',
+      updated_at: '2017-03-03T08:26:35.898Z'
     },
     {
-      id: 41,
+      id: 40,
       team_id: 1,
       first_name: 'Cili',
       last_name: 'Phillips',
@@ -531,11 +518,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      created_at: '2017-03-03T08:26:35.898Z',
+      updated_at: '2017-03-03T08:26:35.898Z'
     },
     {
-      id: 42,
+      id: 41,
       team_id: 1,
       first_name: 'Corinne',
       last_name: 'Eisenman',
@@ -544,11 +531,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 18,
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      created_at: '2017-03-03T08:26:35.899Z',
+      updated_at: '2017-03-03T08:26:35.900Z'
     },
     {
-      id: 43,
+      id: 42,
       team_id: 1,
       first_name: 'Cruz',
       last_name: 'Colon',
@@ -557,11 +544,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.377Z'
+      created_at: '2017-03-03T08:26:35.900Z',
+      updated_at: '2017-03-03T08:26:35.900Z'
     },
     {
-      id: 44,
+      id: 43,
       team_id: 1,
       first_name: 'Cynthia',
       last_name: 'Montross-Tipa',
@@ -570,11 +557,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.377Z',
-      updated_at: '2017-03-03T05:31:00.378Z'
+      created_at: '2017-03-03T08:26:35.900Z',
+      updated_at: '2017-03-03T08:26:35.900Z'
     },
     {
-      id: 45,
+      id: 44,
       team_id: 1,
       first_name: 'Da Sol',
       last_name: 'Bak',
@@ -583,11 +570,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.378Z',
-      updated_at: '2017-03-03T05:31:00.378Z'
+      created_at: '2017-03-03T08:26:35.900Z',
+      updated_at: '2017-03-03T08:26:35.900Z'
     },
     {
-      id: 46,
+      id: 45,
       team_id: 1,
       first_name: 'Danielle',
       last_name: 'Prizzi',
@@ -596,11 +583,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.378Z',
-      updated_at: '2017-03-03T05:31:00.378Z'
+      created_at: '2017-03-03T08:26:35.900Z',
+      updated_at: '2017-03-03T08:26:35.900Z'
     },
     {
-      id: 47,
+      id: 46,
       team_id: 1,
       first_name: 'Daren',
       last_name: 'Bailey',
@@ -609,11 +596,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.378Z',
-      updated_at: '2017-03-03T05:31:00.378Z'
+      created_at: '2017-03-03T08:26:35.900Z',
+      updated_at: '2017-03-03T08:26:35.900Z'
     },
     {
-      id: 48,
+      id: 47,
       team_id: 1,
       first_name: 'Davi',
       last_name: 'Mozie',
@@ -622,11 +609,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.378Z',
-      updated_at: '2017-03-03T05:31:00.378Z'
+      created_at: '2017-03-03T08:26:35.900Z',
+      updated_at: '2017-03-03T08:26:35.900Z'
     },
     {
-      id: 49,
+      id: 48,
       team_id: 1,
       first_name: 'David',
       last_name: 'Hall',
@@ -635,11 +622,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 19,
-      created_at: '2017-03-03T05:31:00.378Z',
-      updated_at: '2017-03-03T05:31:00.378Z'
+      created_at: '2017-03-03T08:26:35.901Z',
+      updated_at: '2017-03-03T08:26:35.901Z'
     },
     {
-      id: 50,
+      id: 49,
       team_id: 1,
       first_name: 'David',
       last_name: 'Janeczek',
@@ -648,11 +635,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.378Z',
-      updated_at: '2017-03-03T05:31:00.378Z'
+      created_at: '2017-03-03T08:26:35.901Z',
+      updated_at: '2017-03-03T08:26:35.901Z'
     },
     {
-      id: 51,
+      id: 50,
       team_id: 1,
       first_name: 'Deborah',
       last_name: 'McKane',
@@ -661,11 +648,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.378Z',
-      updated_at: '2017-03-03T05:31:00.378Z'
+      created_at: '2017-03-03T08:26:35.901Z',
+      updated_at: '2017-03-03T08:26:35.901Z'
     },
     {
-      id: 52,
+      id: 51,
       team_id: 1,
       first_name: 'Deborah',
       last_name: 'Teeter',
@@ -674,11 +661,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 20,
-      created_at: '2017-03-03T05:31:00.378Z',
-      updated_at: '2017-03-03T05:31:00.378Z'
+      created_at: '2017-03-03T08:26:35.902Z',
+      updated_at: '2017-03-03T08:26:35.902Z'
     },
     {
-      id: 53,
+      id: 52,
       team_id: 1,
       first_name: 'Dina',
       last_name: 'Rigas',
@@ -687,11 +674,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.378Z',
-      updated_at: '2017-03-03T05:31:00.378Z'
+      created_at: '2017-03-03T08:26:35.902Z',
+      updated_at: '2017-03-03T08:26:35.902Z'
     },
     {
-      id: 54,
+      id: 53,
       team_id: 1,
       first_name: 'Donna',
       last_name: 'Veninsky',
@@ -700,11 +687,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.378Z',
-      updated_at: '2017-03-03T05:31:00.378Z'
+      created_at: '2017-03-03T08:26:35.902Z',
+      updated_at: '2017-03-03T08:26:35.902Z'
     },
     {
-      id: 55,
+      id: 54,
       team_id: 1,
       first_name: 'Edna',
       last_name: 'Brown',
@@ -713,11 +700,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.378Z',
-      updated_at: '2017-03-03T05:31:00.378Z'
+      created_at: '2017-03-03T08:26:35.902Z',
+      updated_at: '2017-03-03T08:26:35.902Z'
     },
     {
-      id: 56,
+      id: 55,
       team_id: 1,
       first_name: 'Edwin',
       last_name: 'Santiago',
@@ -726,11 +713,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.378Z',
-      updated_at: '2017-03-03T05:31:00.378Z'
+      created_at: '2017-03-03T08:26:35.902Z',
+      updated_at: '2017-03-03T08:26:35.902Z'
     },
     {
-      id: 57,
+      id: 56,
       team_id: 1,
       first_name: 'Elana',
       last_name: 'Maragni',
@@ -739,11 +726,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 21,
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      created_at: '2017-03-03T08:26:35.903Z',
+      updated_at: '2017-03-03T08:26:35.903Z'
     },
     {
-      id: 58,
+      id: 57,
       team_id: 1,
       first_name: 'Elena',
       last_name: 'Montesano',
@@ -752,11 +739,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      created_at: '2017-03-03T08:26:35.903Z',
+      updated_at: '2017-03-03T08:26:35.903Z'
     },
     {
-      id: 59,
+      id: 58,
       team_id: 1,
       first_name: 'Elizabeth',
       last_name: 'Karabinakis',
@@ -765,11 +752,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 22,
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      created_at: '2017-03-03T08:26:35.904Z',
+      updated_at: '2017-03-03T08:26:35.904Z'
     },
     {
-      id: 60,
+      id: 59,
       team_id: 1,
       first_name: 'Elizabeth',
       last_name: 'Wolff',
@@ -778,11 +765,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 23,
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      created_at: '2017-03-03T08:26:35.904Z',
+      updated_at: '2017-03-03T08:26:35.904Z'
     },
     {
-      id: 61,
+      id: 60,
       team_id: 1,
       first_name: 'Emem-Esther',
       last_name: 'Ikpot',
@@ -791,11 +778,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      created_at: '2017-03-03T08:26:35.904Z',
+      updated_at: '2017-03-03T08:26:35.904Z'
     },
     {
-      id: 62,
+      id: 61,
       team_id: 1,
       first_name: 'Emma',
       last_name: 'Dennis',
@@ -804,11 +791,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      created_at: '2017-03-03T08:26:35.904Z',
+      updated_at: '2017-03-03T08:26:35.904Z'
     },
     {
-      id: 63,
+      id: 62,
       team_id: 1,
       first_name: 'Eric',
       last_name: 'Carter',
@@ -817,11 +804,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 24,
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      created_at: '2017-03-03T08:26:35.905Z',
+      updated_at: '2017-03-03T08:26:35.905Z'
     },
     {
-      id: 64,
+      id: 63,
       team_id: 1,
       first_name: 'Erik',
       last_name: 'Pola',
@@ -830,11 +817,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      created_at: '2017-03-03T08:26:35.905Z',
+      updated_at: '2017-03-03T08:26:35.905Z'
     },
     {
-      id: 65,
+      id: 64,
       team_id: 1,
       first_name: 'Erin',
       last_name: 'Marteal',
@@ -843,11 +830,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 25,
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      created_at: '2017-03-03T08:26:35.905Z',
+      updated_at: '2017-03-03T08:26:35.905Z'
     },
     {
-      id: 66,
+      id: 65,
       team_id: 1,
       first_name: 'Ethan',
       last_name: 'Cramton',
@@ -856,11 +843,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 26,
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      created_at: '2017-03-03T08:26:35.906Z',
+      updated_at: '2017-03-03T08:26:35.906Z'
     },
     {
-      id: 67,
+      id: 66,
       team_id: 1,
       first_name: 'Eunice',
       last_name: 'Yoon',
@@ -869,11 +856,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      created_at: '2017-03-03T08:26:35.906Z',
+      updated_at: '2017-03-03T08:26:35.906Z'
     },
     {
-      id: 68,
+      id: 67,
       team_id: 1,
       first_name: 'Evan',
       last_name: 'Bixby',
@@ -882,11 +869,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      created_at: '2017-03-03T08:26:35.906Z',
+      updated_at: '2017-03-03T08:26:35.906Z'
     },
     {
-      id: 69,
+      id: 68,
       team_id: 1,
       first_name: 'Fabina',
       last_name: 'Colon',
@@ -895,11 +882,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 27,
-      created_at: '2017-03-03T05:31:00.379Z',
-      updated_at: '2017-03-03T05:31:00.379Z'
+      created_at: '2017-03-03T08:26:35.906Z',
+      updated_at: '2017-03-03T08:26:35.906Z'
     },
     {
-      id: 70,
+      id: 69,
       team_id: 1,
       first_name: 'Gibrian',
       last_name: 'Hagood',
@@ -908,11 +895,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 28,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.907Z',
+      updated_at: '2017-03-03T08:26:35.907Z'
     },
     {
-      id: 71,
+      id: 70,
       team_id: 1,
       first_name: 'Gillian',
       last_name: 'Grose',
@@ -921,11 +908,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.907Z',
+      updated_at: '2017-03-03T08:26:35.907Z'
     },
     {
-      id: 72,
+      id: 71,
       team_id: 1,
       first_name: 'Grace',
       last_name: 'Mitchell',
@@ -934,11 +921,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.907Z',
+      updated_at: '2017-03-03T08:26:35.907Z'
     },
     {
-      id: 73,
+      id: 72,
       team_id: 1,
       first_name: 'Gregory',
       last_name: 'Kops',
@@ -947,11 +934,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 29,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.907Z',
+      updated_at: '2017-03-03T08:26:35.907Z'
     },
     {
-      id: 74,
+      id: 73,
       team_id: 1,
       first_name: 'Guillermo',
       last_name: 'Metz',
@@ -960,11 +947,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 30,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.908Z',
+      updated_at: '2017-03-03T08:26:35.908Z'
     },
     {
-      id: 75,
+      id: 74,
       team_id: 1,
       first_name: 'Hannah',
       last_name: 'Kinsella',
@@ -973,11 +960,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 31,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.908Z',
+      updated_at: '2017-03-03T08:26:35.908Z'
     },
     {
-      id: 76,
+      id: 75,
       team_id: 1,
       first_name: 'Harichandana',
       last_name: 'Karne',
@@ -986,11 +973,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.908Z',
+      updated_at: '2017-03-03T08:26:35.908Z'
     },
     {
-      id: 77,
+      id: 76,
       team_id: 1,
       first_name: 'Heather',
       last_name: 'Ward',
@@ -999,11 +986,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 32,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.909Z',
+      updated_at: '2017-03-03T08:26:35.909Z'
     },
     {
-      id: 78,
+      id: 77,
       team_id: 1,
       first_name: 'Hector',
       last_name: 'Chang',
@@ -1012,11 +999,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 33,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.909Z',
+      updated_at: '2017-03-03T08:26:35.909Z'
     },
     {
-      id: 79,
+      id: 78,
       team_id: 1,
       first_name: 'Hillary',
       last_name: 'Pitoniak',
@@ -1025,11 +1012,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.909Z',
+      updated_at: '2017-03-03T08:26:35.909Z'
     },
     {
-      id: 80,
+      id: 79,
       team_id: 1,
       first_name: 'Hollis',
       last_name: 'Malkowski',
@@ -1038,11 +1025,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.909Z',
+      updated_at: '2017-03-03T08:26:35.909Z'
     },
     {
-      id: 81,
+      id: 80,
       team_id: 1,
       first_name: 'Holly',
       last_name: 'Gump',
@@ -1051,11 +1038,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 34,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.910Z',
+      updated_at: '2017-03-03T08:26:35.910Z'
     },
     {
-      id: 82,
+      id: 81,
       team_id: 1,
       first_name: 'Ixchel',
       last_name: 'Lec-Cutter',
@@ -1064,11 +1051,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.910Z',
+      updated_at: '2017-03-03T08:26:35.910Z'
     },
     {
-      id: 83,
+      id: 82,
       team_id: 1,
       first_name: 'J Christopher',
       last_name: 'Skawski',
@@ -1077,11 +1064,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.911Z',
+      updated_at: '2017-03-03T08:26:35.911Z'
     },
     {
-      id: 84,
+      id: 83,
       team_id: 1,
       first_name: 'Jean',
       last_name: 'Freese Popowitch',
@@ -1090,11 +1077,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 35,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.911Z',
+      updated_at: '2017-03-03T08:26:35.911Z'
     },
     {
-      id: 85,
+      id: 84,
       team_id: 1,
       first_name: 'Jed',
       last_name: 'Jordan',
@@ -1103,11 +1090,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 36,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.912Z',
+      updated_at: '2017-03-03T08:26:35.912Z'
     },
     {
-      id: 86,
+      id: 85,
       team_id: 1,
       first_name: 'Jennifer',
       last_name: 'Feingold',
@@ -1116,11 +1103,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.912Z',
+      updated_at: '2017-03-03T08:26:35.912Z'
     },
     {
-      id: 87,
+      id: 86,
       team_id: 1,
       first_name: 'Jennifer',
       last_name: 'Gray',
@@ -1129,11 +1116,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 37,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.912Z',
+      updated_at: '2017-03-03T08:26:35.912Z'
     },
     {
-      id: 88,
+      id: 87,
       team_id: 1,
       first_name: 'Jeremiah',
       last_name: 'Aviel',
@@ -1142,11 +1129,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.912Z',
+      updated_at: '2017-03-03T08:26:35.912Z'
     },
     {
-      id: 89,
+      id: 88,
       team_id: 1,
       first_name: 'Jeremy',
       last_name: 'Betterley',
@@ -1155,11 +1142,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.380Z',
-      updated_at: '2017-03-03T05:31:00.380Z'
+      created_at: '2017-03-03T08:26:35.912Z',
+      updated_at: '2017-03-03T08:26:35.913Z'
     },
     {
-      id: 90,
+      id: 89,
       team_id: 1,
       first_name: 'Jesse',
       last_name: 'Worden',
@@ -1168,11 +1155,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.913Z',
+      updated_at: '2017-03-03T08:26:35.913Z'
     },
     {
-      id: 91,
+      id: 90,
       team_id: 1,
       first_name: 'Jessica',
       last_name: 'Barbini',
@@ -1181,11 +1168,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.913Z',
+      updated_at: '2017-03-03T08:26:35.913Z'
     },
     {
-      id: 92,
+      id: 91,
       team_id: 1,
       first_name: 'Jian',
       last_name: 'Bentley',
@@ -1194,11 +1181,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.913Z',
+      updated_at: '2017-03-03T08:26:35.913Z'
     },
     {
-      id: 93,
+      id: 92,
       team_id: 1,
       first_name: 'Jim',
       last_name: 'Blizzard',
@@ -1207,11 +1194,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 38,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.914Z',
+      updated_at: '2017-03-03T08:26:35.914Z'
     },
     {
-      id: 94,
+      id: 93,
       team_id: 1,
       first_name: 'Joann',
       last_name: 'Huddle',
@@ -1220,11 +1207,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 39,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.915Z',
+      updated_at: '2017-03-03T08:26:35.915Z'
     },
     {
-      id: 95,
+      id: 94,
       team_id: 1,
       first_name: 'John',
       last_name: 'Chilkotowsky',
@@ -1233,11 +1220,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 40,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.915Z',
+      updated_at: '2017-03-03T08:26:35.915Z'
     },
     {
-      id: 96,
+      id: 95,
       team_id: 1,
       first_name: 'John',
       last_name: 'Elliott',
@@ -1246,11 +1233,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.915Z',
+      updated_at: '2017-03-03T08:26:35.915Z'
     },
     {
-      id: 97,
+      id: 96,
       team_id: 1,
       first_name: 'Joshua',
       last_name: 'Dolan',
@@ -1259,11 +1246,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 41,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.916Z',
+      updated_at: '2017-03-03T08:26:35.916Z'
     },
     {
-      id: 98,
+      id: 97,
       team_id: 1,
       first_name: 'Judith',
       last_name: 'Burrill',
@@ -1272,11 +1259,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 42,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.917Z',
+      updated_at: '2017-03-03T08:26:35.917Z'
     },
     {
-      id: 99,
+      id: 98,
       team_id: 1,
       first_name: 'Justin',
       last_name: 'Sutera',
@@ -1285,11 +1272,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 43,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.917Z',
+      updated_at: '2017-03-03T08:26:35.917Z'
     },
     {
-      id: 100,
+      id: 99,
       team_id: 1,
       first_name: 'Karim',
       last_name: 'Beers',
@@ -1298,11 +1285,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 44,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.918Z',
+      updated_at: '2017-03-03T08:26:35.918Z'
     },
     {
-      id: 101,
+      id: 100,
       team_id: 1,
       first_name: 'Katherine',
       last_name: 'Duell',
@@ -1311,11 +1298,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.918Z',
+      updated_at: '2017-03-03T08:26:35.918Z'
     },
     {
-      id: 102,
+      id: 101,
       team_id: 1,
       first_name: 'Kathleen',
       last_name: 'Maxson',
@@ -1324,11 +1311,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 45,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.926Z',
+      updated_at: '2017-03-03T08:26:35.926Z'
     },
     {
-      id: 103,
+      id: 102,
       team_id: 1,
       first_name: 'Kathleen',
       last_name: 'Tibbetts',
@@ -1337,11 +1324,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.926Z',
+      updated_at: '2017-03-03T08:26:35.926Z'
     },
     {
-      id: 104,
+      id: 103,
       team_id: 1,
       first_name: 'Kathy',
       last_name: 'Jett',
@@ -1350,11 +1337,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 46,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.933Z',
+      updated_at: '2017-03-03T08:26:35.933Z'
     },
     {
-      id: 105,
+      id: 104,
       team_id: 1,
       first_name: 'Katie',
       last_name: 'Cox',
@@ -1363,11 +1350,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.933Z',
+      updated_at: '2017-03-03T08:26:35.933Z'
     },
     {
-      id: 106,
+      id: 105,
       team_id: 1,
       first_name: 'Kenneth',
       last_name: 'McLaurin',
@@ -1376,11 +1363,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 47,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.934Z',
+      updated_at: '2017-03-03T08:26:35.934Z'
     },
     {
-      id: 107,
+      id: 106,
       team_id: 1,
       first_name: 'Kenneth',
       last_name: 'Schlather',
@@ -1389,11 +1376,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 48,
-      created_at: '2017-03-03T05:31:00.381Z',
-      updated_at: '2017-03-03T05:31:00.381Z'
+      created_at: '2017-03-03T08:26:35.935Z',
+      updated_at: '2017-03-03T08:26:35.935Z'
     },
     {
-      id: 108,
+      id: 107,
       team_id: 1,
       first_name: 'Kevin',
       last_name: 'Chieco',
@@ -1402,11 +1389,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      created_at: '2017-03-03T08:26:35.935Z',
+      updated_at: '2017-03-03T08:26:35.935Z'
     },
     {
-      id: 109,
+      id: 108,
       team_id: 1,
       first_name: 'Khalil',
       last_name: 'Bey',
@@ -1415,11 +1402,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 49,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      created_at: '2017-03-03T08:26:35.938Z',
+      updated_at: '2017-03-03T08:26:35.938Z'
     },
     {
-      id: 110,
+      id: 109,
       team_id: 1,
       first_name: 'Khulani',
       last_name: 'Mkhonza',
@@ -1428,11 +1415,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 50,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      created_at: '2017-03-03T08:26:35.939Z',
+      updated_at: '2017-03-03T08:26:35.939Z'
     },
     {
-      id: 111,
+      id: 110,
       team_id: 1,
       first_name: 'Kialisha',
       last_name: 'Emerson',
@@ -1441,11 +1428,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      created_at: '2017-03-03T08:26:35.940Z',
+      updated_at: '2017-03-03T08:26:35.940Z'
     },
     {
-      id: 112,
+      id: 111,
       team_id: 1,
       first_name: 'Kina',
       last_name: 'Viola',
@@ -1454,11 +1441,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 51,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      created_at: '2017-03-03T08:26:35.941Z',
+      updated_at: '2017-03-03T08:26:35.941Z'
     },
     {
-      id: 113,
+      id: 112,
       team_id: 1,
       first_name: 'Krystal',
       last_name: 'Watson',
@@ -1467,11 +1454,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 52,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      created_at: '2017-03-03T08:26:35.942Z',
+      updated_at: '2017-03-03T08:26:35.942Z'
     },
     {
-      id: 114,
+      id: 113,
       team_id: 1,
       first_name: 'Kyle',
       last_name: 'Rogers',
@@ -1480,11 +1467,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      created_at: '2017-03-03T08:26:35.942Z',
+      updated_at: '2017-03-03T08:26:35.942Z'
     },
     {
-      id: 115,
+      id: 114,
       team_id: 1,
       first_name: 'Lara',
       last_name: 'Kaltman',
@@ -1493,11 +1480,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 53,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      created_at: '2017-03-03T08:26:35.943Z',
+      updated_at: '2017-03-03T08:26:35.943Z'
     },
     {
-      id: 116,
+      id: 115,
       team_id: 1,
       first_name: 'Laura',
       last_name: 'Komor',
@@ -1506,11 +1493,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 54,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      created_at: '2017-03-03T08:26:35.943Z',
+      updated_at: '2017-03-03T08:26:35.943Z'
     },
     {
-      id: 117,
+      id: 116,
       team_id: 1,
       first_name: 'Laura',
       last_name: 'Parker',
@@ -1519,11 +1506,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      created_at: '2017-03-03T08:26:35.944Z',
+      updated_at: '2017-03-03T08:26:35.944Z'
     },
     {
-      id: 118,
+      id: 117,
       team_id: 1,
       first_name: 'Laura',
       last_name: 'Ward',
@@ -1532,11 +1519,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      created_at: '2017-03-03T08:26:35.944Z',
+      updated_at: '2017-03-03T08:26:35.944Z'
     },
     {
-      id: 119,
+      id: 118,
       team_id: 1,
       first_name: 'Lauren',
       last_name: 'Salzman',
@@ -1545,11 +1532,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 55,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      created_at: '2017-03-03T08:26:35.944Z',
+      updated_at: '2017-03-03T08:26:35.944Z'
     },
     {
-      id: 120,
+      id: 119,
       team_id: 1,
       first_name: 'Leigh',
       last_name: 'MacDonald-Rizzo',
@@ -1558,11 +1545,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 56,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      created_at: '2017-03-03T08:26:35.945Z',
+      updated_at: '2017-03-03T08:26:35.945Z'
     },
     {
-      id: 121,
+      id: 120,
       team_id: 1,
       first_name: 'Lexi',
       last_name: 'Hartley',
@@ -1571,11 +1558,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 57,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      created_at: '2017-03-03T08:26:35.946Z',
+      updated_at: '2017-03-03T08:26:35.946Z'
     },
     {
-      id: 122,
+      id: 121,
       team_id: 1,
       first_name: 'Linda',
       last_name: 'Schoffel',
@@ -1584,11 +1571,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      created_at: '2017-03-03T08:26:35.946Z',
+      updated_at: '2017-03-03T08:26:35.946Z'
     },
     {
-      id: 123,
+      id: 122,
       team_id: 1,
       first_name: 'Lisa',
       last_name: 'Ellin',
@@ -1597,11 +1584,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 58,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.382Z'
+      created_at: '2017-03-03T08:26:35.946Z',
+      updated_at: '2017-03-03T08:26:35.946Z'
     },
     {
-      id: 124,
+      id: 123,
       team_id: 1,
       first_name: 'Lisa',
       last_name: 'Pate',
@@ -1610,11 +1597,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.382Z',
-      updated_at: '2017-03-03T05:31:00.383Z'
+      created_at: '2017-03-03T08:26:35.946Z',
+      updated_at: '2017-03-03T08:26:35.946Z'
     },
     {
-      id: 125,
+      id: 124,
       team_id: 1,
       first_name: 'Lois',
       last_name: 'Nguyen',
@@ -1623,11 +1610,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.383Z',
-      updated_at: '2017-03-03T05:31:00.383Z'
+      created_at: '2017-03-03T08:26:35.946Z',
+      updated_at: '2017-03-03T08:26:35.946Z'
     },
     {
-      id: 126,
+      id: 125,
       team_id: 1,
       first_name: 'Louise',
       last_name: 'Bailey',
@@ -1636,11 +1623,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.383Z',
-      updated_at: '2017-03-03T05:31:00.383Z'
+      created_at: '2017-03-03T08:26:35.946Z',
+      updated_at: '2017-03-03T08:26:35.946Z'
     },
     {
-      id: 127,
+      id: 126,
       team_id: 1,
       first_name: 'Luke',
       last_name: 'Sjolund',
@@ -1649,11 +1636,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.383Z',
-      updated_at: '2017-03-03T05:31:00.383Z'
+      created_at: '2017-03-03T08:26:35.946Z',
+      updated_at: '2017-03-03T08:26:35.946Z'
     },
     {
-      id: 128,
+      id: 127,
       team_id: 1,
       first_name: 'Marc',
       last_name: 'Barker',
@@ -1662,11 +1649,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 59,
-      created_at: '2017-03-03T05:31:00.383Z',
-      updated_at: '2017-03-03T05:31:00.383Z'
+      created_at: '2017-03-03T08:26:35.947Z',
+      updated_at: '2017-03-03T08:26:35.947Z'
     },
     {
-      id: 129,
+      id: 128,
       team_id: 1,
       first_name: 'Margo',
       last_name: 'Hittleman',
@@ -1675,11 +1662,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 60,
-      created_at: '2017-03-03T05:31:00.383Z',
-      updated_at: '2017-03-03T05:31:00.383Z'
+      created_at: '2017-03-03T08:26:35.948Z',
+      updated_at: '2017-03-03T08:26:35.948Z'
     },
     {
-      id: 130,
+      id: 129,
       team_id: 1,
       first_name: 'Maria',
       last_name: 'Christian',
@@ -1688,11 +1675,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 61,
-      created_at: '2017-03-03T05:31:00.383Z',
-      updated_at: '2017-03-03T05:31:00.383Z'
+      created_at: '2017-03-03T08:26:35.948Z',
+      updated_at: '2017-03-03T08:26:35.948Z'
     },
     {
-      id: 131,
+      id: 130,
       team_id: 1,
       first_name: 'Mariah',
       last_name: 'Mahaney',
@@ -1701,11 +1688,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.383Z',
-      updated_at: '2017-03-03T05:31:00.383Z'
+      created_at: '2017-03-03T08:26:35.948Z',
+      updated_at: '2017-03-03T08:26:35.948Z'
     },
     {
-      id: 132,
+      id: 131,
       team_id: 1,
       first_name: 'Marina',
       last_name: 'Stevenson',
@@ -1714,11 +1701,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.383Z',
-      updated_at: '2017-03-03T05:31:00.383Z'
+      created_at: '2017-03-03T08:26:35.949Z',
+      updated_at: '2017-03-03T08:26:35.949Z'
     },
     {
-      id: 133,
+      id: 132,
       team_id: 1,
       first_name: 'Marissa',
       last_name: 'Contento',
@@ -1727,11 +1714,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.383Z',
-      updated_at: '2017-03-03T05:31:00.383Z'
+      created_at: '2017-03-03T08:26:35.949Z',
+      updated_at: '2017-03-03T08:26:35.949Z'
     },
     {
-      id: 134,
+      id: 133,
       team_id: 1,
       first_name: 'Marjorie',
       last_name: 'Olds',
@@ -1740,11 +1727,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 62,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.950Z',
+      updated_at: '2017-03-03T08:26:35.950Z'
     },
     {
-      id: 135,
+      id: 134,
       team_id: 1,
       first_name: 'Mark',
       last_name: 'Pierce',
@@ -1753,11 +1740,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.950Z',
+      updated_at: '2017-03-03T08:26:35.950Z'
     },
     {
-      id: 136,
+      id: 135,
       team_id: 1,
       first_name: 'Maroua',
       last_name: 'Jabouri',
@@ -1766,11 +1753,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.950Z',
+      updated_at: '2017-03-03T08:26:35.950Z'
     },
     {
-      id: 137,
+      id: 136,
       team_id: 1,
       first_name: 'Martha',
       last_name: 'Gioumousis',
@@ -1779,11 +1766,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 63,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.951Z',
+      updated_at: '2017-03-03T08:26:35.951Z'
     },
     {
-      id: 138,
+      id: 137,
       team_id: 1,
       first_name: 'Mary',
       last_name: 'Hicks',
@@ -1792,11 +1779,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.951Z',
+      updated_at: '2017-03-03T08:26:35.951Z'
     },
     {
-      id: 139,
+      id: 138,
       team_id: 1,
       first_name: 'Matthew',
       last_name: 'LeRoux',
@@ -1805,11 +1792,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 64,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.952Z',
+      updated_at: '2017-03-03T08:26:35.952Z'
     },
     {
-      id: 140,
+      id: 139,
       team_id: 1,
       first_name: 'Megan',
       last_name: 'Pugh',
@@ -1818,11 +1805,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 65,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.953Z',
+      updated_at: '2017-03-03T08:26:35.953Z'
     },
     {
-      id: 141,
+      id: 140,
       team_id: 1,
       first_name: 'Megan',
       last_name: 'Pulver',
@@ -1831,11 +1818,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 66,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.953Z',
+      updated_at: '2017-03-03T08:26:35.953Z'
     },
     {
-      id: 142,
+      id: 141,
       team_id: 1,
       first_name: 'Megan',
       last_name: 'Redmond',
@@ -1844,11 +1831,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.953Z',
+      updated_at: '2017-03-03T08:26:35.953Z'
     },
     {
-      id: 143,
+      id: 142,
       team_id: 1,
       first_name: 'Megan',
       last_name: 'Szpak',
@@ -1857,11 +1844,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 67,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.954Z',
+      updated_at: '2017-03-03T08:26:35.954Z'
     },
     {
-      id: 144,
+      id: 143,
       team_id: 1,
       first_name: 'Megan',
       last_name: 'Tifft',
@@ -1870,11 +1857,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 68,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.955Z',
+      updated_at: '2017-03-03T08:26:35.955Z'
     },
     {
-      id: 145,
+      id: 144,
       team_id: 1,
       first_name: 'Melis',
       last_name: 'Schildkraut',
@@ -1883,11 +1870,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.955Z',
+      updated_at: '2017-03-03T08:26:35.955Z'
     },
     {
-      id: 146,
+      id: 145,
       team_id: 1,
       first_name: 'Melissa',
       last_name: 'Blake',
@@ -1896,11 +1883,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 69,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.955Z',
+      updated_at: '2017-03-03T08:26:35.955Z'
     },
     {
-      id: 147,
+      id: 146,
       team_id: 1,
       first_name: 'Michael',
       last_name: 'Cederstrom',
@@ -1909,11 +1896,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.956Z',
+      updated_at: '2017-03-03T08:26:35.956Z'
     },
     {
-      id: 148,
+      id: 147,
       team_id: 1,
       first_name: 'Michele',
       last_name: 'Jones',
@@ -1922,11 +1909,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 70,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.956Z',
+      updated_at: '2017-03-03T08:26:35.956Z'
     },
     {
-      id: 149,
+      id: 148,
       team_id: 1,
       first_name: 'Michelle',
       last_name: 'Shin',
@@ -1935,11 +1922,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.956Z',
+      updated_at: '2017-03-03T08:26:35.956Z'
     },
     {
-      id: 150,
+      id: 149,
       team_id: 1,
       first_name: 'Miguel',
       last_name: 'Rivera',
@@ -1948,11 +1935,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.384Z',
-      updated_at: '2017-03-03T05:31:00.384Z'
+      created_at: '2017-03-03T08:26:35.956Z',
+      updated_at: '2017-03-03T08:26:35.956Z'
     },
     {
-      id: 151,
+      id: 150,
       team_id: 1,
       first_name: 'Min',
       last_name: 'Liu',
@@ -1961,11 +1948,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 71,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.957Z',
+      updated_at: '2017-03-03T08:26:35.957Z'
     },
     {
-      id: 152,
+      id: 151,
       team_id: 1,
       first_name: 'Monica',
       last_name: 'Dykeman',
@@ -1974,11 +1961,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 72,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.957Z',
+      updated_at: '2017-03-03T08:26:35.957Z'
     },
     {
-      id: 153,
+      id: 152,
       team_id: 1,
       first_name: 'Monica',
       last_name: 'Hargraves',
@@ -1987,11 +1974,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.957Z',
+      updated_at: '2017-03-03T08:26:35.958Z'
     },
     {
-      id: 154,
+      id: 153,
       team_id: 1,
       first_name: 'Monika',
       last_name: 'Roth',
@@ -2000,11 +1987,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 73,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.961Z',
+      updated_at: '2017-03-03T08:26:35.961Z'
     },
     {
-      id: 155,
+      id: 154,
       team_id: 1,
       first_name: 'Nancy',
       last_name: 'Malina',
@@ -2013,11 +2000,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 74,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.962Z',
+      updated_at: '2017-03-03T08:26:35.962Z'
     },
     {
-      id: 156,
+      id: 155,
       team_id: 1,
       first_name: 'Nathaniel',
       last_name: 'Martinez',
@@ -2026,11 +2013,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.962Z',
+      updated_at: '2017-03-03T08:26:35.962Z'
     },
     {
-      id: 157,
+      id: 156,
       team_id: 1,
       first_name: 'Nichole',
       last_name: 'Nease',
@@ -2039,11 +2026,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 75,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.963Z',
+      updated_at: '2017-03-03T08:26:35.963Z'
     },
     {
-      id: 158,
+      id: 157,
       team_id: 1,
       first_name: 'Norma',
       last_name: 'Gutierrez',
@@ -2052,11 +2039,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 76,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.964Z',
+      updated_at: '2017-03-03T08:26:35.964Z'
     },
     {
-      id: 159,
+      id: 158,
       team_id: 1,
       first_name: 'Paige',
       last_name: 'Demun',
@@ -2065,11 +2052,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.964Z',
+      updated_at: '2017-03-03T08:26:35.964Z'
     },
     {
-      id: 160,
+      id: 159,
       team_id: 1,
       first_name: 'Pat',
       last_name: 'Haggerty',
@@ -2078,11 +2065,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 77,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.965Z',
+      updated_at: '2017-03-03T08:26:35.965Z'
     },
     {
-      id: 161,
+      id: 160,
       team_id: 1,
       first_name: 'Patricia',
       last_name: 'Curran',
@@ -2091,11 +2078,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 78,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.971Z',
+      updated_at: '2017-03-03T08:26:35.971Z'
     },
     {
-      id: 162,
+      id: 161,
       team_id: 1,
       first_name: 'Patricia',
       last_name: 'Karr-Segal',
@@ -2104,11 +2091,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.971Z',
+      updated_at: '2017-03-03T08:26:35.971Z'
     },
     {
-      id: 163,
+      id: 162,
       team_id: 1,
       first_name: 'Peter',
       last_name: 'Dodge',
@@ -2117,11 +2104,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.971Z',
+      updated_at: '2017-03-03T08:26:35.971Z'
     },
     {
-      id: 164,
+      id: 163,
       team_id: 1,
       first_name: 'Phoebe',
       last_name: 'Brown',
@@ -2130,11 +2117,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 79,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.972Z',
+      updated_at: '2017-03-03T08:26:35.972Z'
     },
     {
-      id: 165,
+      id: 164,
       team_id: 1,
       first_name: 'Phouphet',
       last_name: 'Souvorachak',
@@ -2143,11 +2130,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.972Z',
+      updated_at: '2017-03-03T08:26:35.972Z'
     },
     {
-      id: 166,
+      id: 165,
       team_id: 1,
       first_name: 'Qiyam',
       last_name: 'Archibald',
@@ -2156,11 +2143,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.973Z',
+      updated_at: '2017-03-03T08:26:35.973Z'
     },
     {
-      id: 167,
+      id: 166,
       team_id: 1,
       first_name: 'Ramona',
       last_name: 'Cornell',
@@ -2169,11 +2156,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 80,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.974Z',
+      updated_at: '2017-03-03T08:26:35.974Z'
     },
     {
-      id: 168,
+      id: 167,
       team_id: 1,
       first_name: 'Rebecca',
       last_name: 'Mendez',
@@ -2182,11 +2169,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 81,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.975Z',
+      updated_at: '2017-03-03T08:26:35.975Z'
     },
     {
-      id: 169,
+      id: 168,
       team_id: 1,
       first_name: 'Reed',
       last_name: 'Steberger',
@@ -2195,11 +2182,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.385Z',
-      updated_at: '2017-03-03T05:31:00.385Z'
+      created_at: '2017-03-03T08:26:35.975Z',
+      updated_at: '2017-03-03T08:26:35.975Z'
     },
     {
-      id: 170,
+      id: 169,
       team_id: 1,
       first_name: 'Rosalyn',
       last_name: 'Bandy',
@@ -2208,11 +2195,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 82,
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      created_at: '2017-03-03T08:26:35.977Z',
+      updated_at: '2017-03-03T08:26:35.977Z'
     },
     {
-      id: 171,
+      id: 170,
       team_id: 1,
       first_name: 'Rose',
       last_name: 'Fleurant',
@@ -2221,11 +2208,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      created_at: '2017-03-03T08:26:35.977Z',
+      updated_at: '2017-03-03T08:26:35.977Z'
     },
     {
-      id: 172,
+      id: 171,
       team_id: 1,
       first_name: 'Samuel',
       last_name: 'Greenhouse',
@@ -2234,11 +2221,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      created_at: '2017-03-03T08:26:35.977Z',
+      updated_at: '2017-03-03T08:26:35.977Z'
     },
     {
-      id: 173,
+      id: 172,
       team_id: 1,
       first_name: 'Sandra',
       last_name: 'Repp',
@@ -2247,11 +2234,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 83,
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      created_at: '2017-03-03T08:26:35.978Z',
+      updated_at: '2017-03-03T08:26:35.978Z'
     },
     {
-      id: 174,
+      id: 173,
       team_id: 1,
       first_name: 'Sara',
       last_name: 'Koste',
@@ -2260,11 +2247,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 84,
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      created_at: '2017-03-03T08:26:35.979Z',
+      updated_at: '2017-03-03T08:26:35.979Z'
     },
     {
-      id: 175,
+      id: 174,
       team_id: 1,
       first_name: 'Sarah',
       last_name: 'Brown',
@@ -2273,11 +2260,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 85,
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      created_at: '2017-03-03T08:26:35.980Z',
+      updated_at: '2017-03-03T08:26:35.980Z'
     },
     {
-      id: 176,
+      id: 175,
       team_id: 1,
       first_name: 'Sean',
       last_name: 'Cornell',
@@ -2286,11 +2273,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 86,
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      created_at: '2017-03-03T08:26:35.981Z',
+      updated_at: '2017-03-03T08:26:35.981Z'
     },
     {
-      id: 177,
+      id: 176,
       team_id: 1,
       first_name: 'Serena',
       last_name: 'Ward',
@@ -2299,11 +2286,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      created_at: '2017-03-03T08:26:35.981Z',
+      updated_at: '2017-03-03T08:26:35.981Z'
     },
     {
-      id: 178,
+      id: 177,
       team_id: 1,
       first_name: 'Sharon',
       last_name: 'Anderson',
@@ -2312,11 +2299,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 87,
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      created_at: '2017-03-03T08:26:35.982Z',
+      updated_at: '2017-03-03T08:26:35.982Z'
     },
     {
-      id: 179,
+      id: 178,
       team_id: 1,
       first_name: 'Shelley',
       last_name: 'Lester',
@@ -2325,11 +2312,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 88,
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      created_at: '2017-03-03T08:26:35.982Z',
+      updated_at: '2017-03-03T08:26:35.982Z'
     },
     {
-      id: 180,
+      id: 179,
       team_id: 1,
       first_name: 'Sophia',
       last_name: 'Heyerdahl',
@@ -2338,11 +2325,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      created_at: '2017-03-03T08:26:35.983Z',
+      updated_at: '2017-03-03T08:26:35.983Z'
     },
     {
-      id: 181,
+      id: 180,
       team_id: 1,
       first_name: 'Stephanie',
       last_name: 'Potts',
@@ -2351,11 +2338,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      created_at: '2017-03-03T08:26:35.983Z',
+      updated_at: '2017-03-03T08:26:35.983Z'
     },
     {
-      id: 182,
+      id: 181,
       team_id: 1,
       first_name: 'Taili',
       last_name: 'Mugambee',
@@ -2364,11 +2351,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      created_at: '2017-03-03T08:26:35.983Z',
+      updated_at: '2017-03-03T08:26:35.983Z'
     },
     {
-      id: 183,
+      id: 182,
       team_id: 1,
       first_name: 'Terrell',
       last_name: 'Dickson',
@@ -2377,11 +2364,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      created_at: '2017-03-03T08:26:35.983Z',
+      updated_at: '2017-03-03T08:26:35.983Z'
     },
     {
-      id: 184,
+      id: 183,
       team_id: 1,
       first_name: 'Terry',
       last_name: 'Carroll',
@@ -2390,11 +2377,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 89,
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.386Z'
+      created_at: '2017-03-03T08:26:35.983Z',
+      updated_at: '2017-03-03T08:26:35.983Z'
     },
     {
-      id: 185,
+      id: 184,
       team_id: 1,
       first_name: 'Thena',
       last_name: 'LeVan',
@@ -2403,11 +2390,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 90,
-      created_at: '2017-03-03T05:31:00.386Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      created_at: '2017-03-03T08:26:35.984Z',
+      updated_at: '2017-03-03T08:26:35.984Z'
     },
     {
-      id: 186,
+      id: 185,
       team_id: 1,
       first_name: 'Theresa',
       last_name: 'Emerick',
@@ -2416,11 +2403,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 91,
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      created_at: '2017-03-03T08:26:35.985Z',
+      updated_at: '2017-03-03T08:26:35.985Z'
     },
     {
-      id: 187,
+      id: 186,
       team_id: 1,
       first_name: 'Thomas',
       last_name: 'Janda',
@@ -2429,11 +2416,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      created_at: '2017-03-03T08:26:35.985Z',
+      updated_at: '2017-03-03T08:26:35.985Z'
     },
     {
-      id: 188,
+      id: 187,
       team_id: 1,
       first_name: 'Thomas',
       last_name: 'Kowalik',
@@ -2442,11 +2429,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      created_at: '2017-03-03T08:26:35.985Z',
+      updated_at: '2017-03-03T08:26:35.985Z'
     },
     {
-      id: 189,
+      id: 188,
       team_id: 1,
       first_name: 'Tim',
       last_name: 'Crowley',
@@ -2455,11 +2442,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 92,
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      created_at: '2017-03-03T08:26:35.986Z',
+      updated_at: '2017-03-03T08:26:35.986Z'
     },
     {
-      id: 190,
+      id: 189,
       team_id: 1,
       first_name: 'Timothy',
       last_name: 'Drake',
@@ -2468,11 +2455,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 93,
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      created_at: '2017-03-03T08:26:35.988Z',
+      updated_at: '2017-03-03T08:26:35.988Z'
     },
     {
-      id: 191,
+      id: 190,
       team_id: 1,
       first_name: 'Tina',
       last_name: 'Snyder',
@@ -2481,11 +2468,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 94,
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      created_at: '2017-03-03T08:26:35.989Z',
+      updated_at: '2017-03-03T08:26:35.989Z'
     },
     {
-      id: 192,
+      id: 191,
       team_id: 1,
       first_name: 'Travis',
       last_name: 'Judd',
@@ -2494,11 +2481,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 95,
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      created_at: '2017-03-03T08:26:35.990Z',
+      updated_at: '2017-03-03T08:26:35.990Z'
     },
     {
-      id: 193,
+      id: 192,
       team_id: 1,
       first_name: 'Troy',
       last_name: 'Mock',
@@ -2507,11 +2494,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      created_at: '2017-03-03T08:26:35.990Z',
+      updated_at: '2017-03-03T08:26:35.990Z'
     },
     {
-      id: 194,
+      id: 193,
       team_id: 1,
       first_name: 'Venda',
       last_name: 'Harris',
@@ -2520,8 +2507,21 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 96,
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      created_at: '2017-03-03T08:26:35.991Z',
+      updated_at: '2017-03-03T08:26:35.991Z'
+    },
+    {
+      id: 194,
+      team_id: 1,
+      first_name: 'Wanda',
+      last_name: 'Vrede',
+      email: 'wcv3@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: true,
+      photo_id: null,
+      created_at: '2017-03-03T08:26:35.992Z',
+      updated_at: '2017-03-03T08:26:35.992Z'
     },
     {
       id: 195,
@@ -2533,24 +2533,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      created_at: '2017-03-03T08:26:35.992Z',
+      updated_at: '2017-03-03T08:26:35.992Z'
     },
     {
       id: 196,
-      team_id: 1,
-      first_name: 'Wanda',
-      last_name: 'Vrede',
-      email: 'wcv3@cornell.edu',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
-      photo_id: null,
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
-    },
-    {
-      id: 197,
       team_id: 1,
       first_name: 'William',
       last_name: 'Harrod',
@@ -2559,11 +2546,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      created_at: '2017-03-03T08:26:35.992Z',
+      updated_at: '2017-03-03T08:26:35.992Z'
     },
     {
-      id: 198,
+      id: 197,
       team_id: 1,
       first_name: 'William',
       last_name: 'Sims',
@@ -2572,11 +2559,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      created_at: '2017-03-03T08:26:35.992Z',
+      updated_at: '2017-03-03T08:26:35.992Z'
     },
     {
-      id: 199,
+      id: 198,
       team_id: 1,
       first_name: 'Zachary',
       last_name: 'Kozlowski',
@@ -2585,11 +2572,11 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 97,
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      created_at: '2017-03-03T08:26:35.993Z',
+      updated_at: '2017-03-03T08:26:35.993Z'
     },
     {
-      id: 200,
+      id: 199,
       team_id: 1,
       first_name: 'Zoe',
       last_name: 'Van Nostrand',
@@ -2598,8 +2585,8 @@ module.exports = {
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 98,
-      created_at: '2017-03-03T05:31:00.387Z',
-      updated_at: '2017-03-03T05:31:00.387Z'
+      created_at: '2017-03-03T08:26:35.993Z',
+      updated_at: '2017-03-03T08:26:35.993Z'
     }
   ]
 }
