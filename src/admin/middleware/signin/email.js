@@ -18,6 +18,7 @@ export default (req, res, next) => {
             const data = {
                 id: user.get('id'),
                 full_name: user.get('full_name'),
+                initials: user.get('initials'),
                 email: user.get('email'),
                 photo: user.related('photo').get('url')
             }

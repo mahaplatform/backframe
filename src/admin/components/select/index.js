@@ -26,12 +26,12 @@ class Select extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: _.toString(props.defaultValue)
+      value: props.defaultValue
     }
   }
 
   render() {
-    const { prompt, options, defaultValue, disabled, status } = this.props
+    const { prompt, options, disabled, status } = this.props
     let classes = ['ui','fluid','search','selection','dropdown']
     if(disabled) {
       classes.push('disabled')
@@ -41,11 +41,11 @@ class Select extends React.Component {
     } else if(status == 'error') {
       classes.push('error')
     }
-    const value = _.find(options, { key: defaultValue })
+    const chosen = _.find(options, { key: this.state.value })
     return (
       <div className="select">
         <div className={classes.join(' ')} ref="control">
-          { value ? <div className="text">{value.text}</div> : <div className="default text">{prompt}</div> }
+          { chosen ? <div className="text">{chosen.value}</div> : <div className="default text">{prompt}</div> }
           <i className="dropdown icon" />
           <div className="menu">
             { options.map((option, index) => {
@@ -76,7 +76,7 @@ class Select extends React.Component {
   }
 
   setValue(value) {
-    this.setState({value})
+    this.setState({ value })
   }
 
 }

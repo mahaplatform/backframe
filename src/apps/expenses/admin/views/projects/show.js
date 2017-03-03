@@ -30,6 +30,7 @@ class Show extends React.Component {
       items: [
         { label: 'Title ', content: project.title },
         { label: 'Code ', content: project.code, format: 'code' },
+        { label: 'Active ', content: project.is_active, format: 'yes_no' },
         { label: 'Created ', content: project.created_at, format: 'datetime' }
       ]
     }
@@ -69,7 +70,7 @@ class Members extends React.Component {
                 <strong>{ member.user.full_name }</strong><br />
                 { member.user.email }
               </p>
-              { member.is_owner && <div className="owner"><span>OWNER</span></div> }
+              <div className={member.member_type.name.toLowerCase()}><span>{member.member_type.name.toUpperCase()}</span></div>
             </div>
           )
         }) }

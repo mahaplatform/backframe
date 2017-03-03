@@ -19,7 +19,8 @@ const defaultParams = (req) => {
 }
 
 export default resources({
-  allowedParams: ['title','code'],
+  allowedParams: ['title','code','is_active'],
+  defaultSort: 'title',
   name: 'project',
   model: Project,
   resources: [
@@ -51,9 +52,9 @@ export default resources({
       searchParams: ['title','code'],
       sortParams: ['title']
     },{
-      allowedParams: ['user_id','is_owner'],
+      allowedParams: ['user_id','member_type_id'],
       defaultParams,
-      defaultSort: ['-is_owner', 'last_name'],
+      defaultSort: ['member_type_id', 'last_name'],
       logger: {
         create: createMemberLogger
       },
@@ -69,7 +70,7 @@ export default resources({
       serializer: {
         all: MemberSerializer
       },
-      withRelated: ['user.photo']
+      withRelated: ['user.photo','member_type']
     },{
       allowedParams: ['expense_type_id'],
       defaultParams,
@@ -87,5 +88,6 @@ export default resources({
     }
   ],
   rights: ['expenses.manage_configuration'],
-  serializer: ProjectSerializer
+  serializer: ProjectSerializer,
+  sortParams: ['title','code','is_active']
 })

@@ -245,6 +245,8 @@ export const wrapWithLogger = (req, res, handler) => {
 
   return Promise.resolve().then(() => {
 
+    queries = []
+
     return knex.client.on('start', captureQueries)
 
   }).then(() => {

@@ -33,40 +33,11 @@ module.exports = {
   },
 
   fixtures(args, environment) {
-    return seeder._seedData().spread((all) => {
+    return _loadFixtures('fixtures')
+  },
 
-      let files = _getFixtures()
-
-      return knex.raw('set session_replication_role = replica').then(() => {
-
-        return Promise.map(files, file => {
-
-          const fixture = require(file)
-
-          return knex(fixture.tableName).del().then(() => {
-
-            const chunks = _.chunk(fixture.records, 50)
-
-            return Promise.map(chunks, chunk => {
-
-              return knex(fixture.tableName).insert(chunk)
-
-            })
-
-          }).then(() => {
-
-            return knex.raw(`SELECT pg_catalog.setval(pg_get_serial_sequence('${fixture.tableName}', 'id'), MAX(id)) FROM ${fixture.tableName}`)
-
-          })
-
-        })
-
-      }).then(() => {
-
-        return knex.raw('set session_replication_role = default')
-
-      })
-    })
+  imports(args, environment) {
+    return _loadFixtures('imports')
   },
 
   setup(args, environment) {
@@ -103,9 +74,9 @@ function _getMigrations (completed, direction) {
 }
 
 
-function _getFixtures (completed, direction) {
+function _getFixtures (directory) {
 
-  return glob.sync(path.resolve(__dirname, '../../**/db/fixtures/*.js'))
+  return glob.sync(path.resolve(__dirname, `../../**/db/${directory}/*.js`))
 
 }
 
@@ -126,5 +97,43 @@ function _getSeeds (filename) {
   }
 
   return seeds
+
+}
+
+function _loadFixtures(directory) {
+
+  let files = _getFixtures(directory)
+  return seeder._seedData().spread((all) => {
+
+    return knex.raw('set session_replication_role = replica').then(() => {
+
+      return Promise.map(files, file => {
+
+        const fixture = require(file)
+
+        return knex(fixture.tableName).del().then(() => {
+
+          const chunks = _.chunk(fixture.records, 50)
+
+          return Promise.map(chunks, chunk => {
+
+            return knex(fixture.tableName).insert(chunk)
+
+          })
+
+        }).then(() => {
+
+          return knex.raw(`SELECT pg_catalog.setval(pg_get_serial_sequence('${fixture.tableName}', 'id'), MAX(id)) FROM ${fixture.tableName}`)
+
+        })
+
+      })
+
+    }).then(() => {
+
+      return knex.raw('set session_replication_role = default')
+
+    })
+  })
 
 }

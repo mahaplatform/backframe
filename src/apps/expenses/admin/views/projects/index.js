@@ -19,10 +19,11 @@ class Index extends React.Component {
       endpoint: '/admin/expenses/projects',
       columns: [
         { label: 'Title', key: 'title', primary: true },
-        { label: 'Code', key: 'code', primary: true }
+        { label: 'Code', key: 'code', primary: true },
+        { label: 'Active', key: 'is_active', primary: true, format: 'check_times' }
       ],
       link: '/admin/expenses/projects/#{id}',
-      sort: { key: 'created_at', order: 'desc' },
+      sort: { key: 'title', order: 'asc' },
       entity: 'project',
       empty: {
         icon: 'folder',

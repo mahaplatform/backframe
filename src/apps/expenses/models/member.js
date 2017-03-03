@@ -1,4 +1,5 @@
 import model from 'platform/models/model'
+import member_type from './member_type'
 import project from './project'
 import user from 'platform/models/user'
 
@@ -18,6 +19,10 @@ export default model.extend({
         text: this.related('user').get('full_name')
       }
     }
+  },
+
+  member_type: function() {
+    return this.belongsTo(member_type, 'member_type_id')
   },
 
   project: function() {

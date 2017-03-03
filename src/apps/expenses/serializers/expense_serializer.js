@@ -31,7 +31,8 @@ export default (object) => {
     } : null,
     approved_at: object.get('approved_at'),
     is_approved: object.get('is_approved'),
-    reason_rejected: object.get('reason_rejected')
+    reason_rejected: object.get('reason_rejected'),
+    created_at: object.get('created_at'),
+    updated_at: object.get('updated_at')
   })
-
 }

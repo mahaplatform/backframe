@@ -8,6 +8,7 @@ export default (object) => {
       id: user.get('id'),
       photo: user.related('photo').get('url'),
       full_name: user.get('full_name'),
+      initials: user.get('initials'),
       email: user.get('email')
     })),
     created_at: object.get('created_at'),

@@ -1,7 +1,6 @@
 import React from 'react'
 import Form from 'admin/components/form'
 
-
 class DeleteButton extends React.Component {
 
   render() {
@@ -42,7 +41,7 @@ class Member extends React.Component {
         {
           fields: [
             { label: 'User', name: 'user.full_name', type: 'text' },
-            { label: 'Is Owner', name: 'is_owner', type: 'checkbox', defaultValue: false }
+            { label: 'Type', name: 'member_type_id', type: 'select', endpoint: '/admin/expenses/member_types', value: 'id', text: 'name' }
           ]
         }
       ],

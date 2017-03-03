@@ -9,6 +9,7 @@ exports.up = function(knex, Promise) {
       table.string('email')
       table.string('password_salt')
       table.string('password_hash')
+      table.boolean('is_active').defaultTo(false)
       table.integer('photo_id').unsigned()
       table.foreign('photo_id').references('assets.id')
       table.integer('security_question_1_id').unsigned()

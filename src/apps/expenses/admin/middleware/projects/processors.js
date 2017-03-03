@@ -10,7 +10,7 @@ export const createProcessor = req => {
       team_id: req.team.get('id'),
       project_id: req.params.project_id,
       user_id: req.body.user_id,
-      is_owner: req.body.is_owner
+      member_type_id: req.body.member_type_id
     }
 
     return Member.forge(data).save().catch(err => {

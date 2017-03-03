@@ -1,4 +1,5 @@
 import React from 'react'
+import Avatar from 'admin/components/avatar'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import $ from 'jquery'
@@ -27,7 +28,7 @@ export class Password extends React.Component {
       <div className="chrome-session">
         <div className="chrome-session-widget">
           <div className="chrome-signin">
-            <img src={ user.photo } className="photo" />
+            <Avatar user={ user } />
             <h1>{ user.full_name }</h1>
             <h4>{ user.email }</h4>
             <form className="ui form" onSubmit={this._handleSubmit.bind(this)}>

@@ -116,8 +116,8 @@ class Table extends React.Component {
   }
 
   _handleSort(key) {
-    const { cid, onSort } = this.props
-    onSort(cid, key)
+    const { onSort } = this.props
+    onSort(key)
   }
 
 }

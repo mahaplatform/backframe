@@ -1,4 +1,5 @@
 import React from 'react'
+import Avatar from 'admin/components/avatar'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import $ from 'jquery'
@@ -74,7 +75,7 @@ class Signin extends React.Component {
         <div className="chrome-signin-canvas">
           <div className="chrome-signin-header">
             <div className="chrome-signin-content">
-              { user && <img src={ user.photo } className="photo" /> }
+              { user && <Avatar user={ user } /> }
               { user && <h1>{ user.full_name }</h1> }
               { user && <h4>{ user.email }</h4> }
             </div>

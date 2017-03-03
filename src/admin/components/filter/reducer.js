@@ -89,7 +89,8 @@ export default (state = INITIAL_STATE, action) => {
   case actionTypes.LOOKUP:
     return {
       ...state,
-      query: action.query
+      query: action.query,
+      results: {}
     }
 
   case actionTypes.ABORT:

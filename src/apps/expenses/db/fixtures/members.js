@@ -6,73 +6,73 @@ module.exports = {
       team_id: 1,
       project_id: 1,
       user_id: 64,
-      is_owner: true
+      type: 'owner'
     }, {
       id: 2,
       team_id: 1,
       project_id: 1,
       user_id: 54,
-      is_owner: true
+      type: 'owner'
     }, {
       id: 3,
       team_id: 1,
       project_id: 1,
       user_id: 49,
-      is_owner: false
+      type: 'member'
     }, {
       id: 4,
       team_id: 1,
       project_id: 1,
       user_id: 95,
-      is_owner: false
+      type: 'member'
     }, {
       id: 5,
       team_id: 1,
       project_id: 1,
       user_id: 63,
-      is_owner: false
+      type: 'member'
     }, {
       id: 6,
       team_id: 1,
       project_id: 2,
       user_id: 13,
-      is_owner: true
+      type: 'owner'
     }, {
       id: 7,
       team_id: 1,
       project_id: 2,
       user_id: 48,
-      is_owner: false
+      type: 'member'
     }, {
       id: 8,
       team_id: 1,
       project_id: 2,
       user_id: 1,
-      is_owner: false
+      type: 'member'
     }, {
       id: 9,
       team_id: 1,
       project_id: 3,
       user_id: 19,
-      is_owner: true
+      type: 'owner'
     }, {
       id: 10,
       team_id: 1,
       project_id: 3,
       user_id: 21,
-      is_owner: false
+      type: 'member'
     }, {
       id: 11,
       team_id: 1,
       project_id: 3,
       user_id: 1,
-      is_owner: false
+      type: 'member'
     }, {
       id: 12,
       team_id: 1,
       project_id: 1,
       user_id: 1,
-      is_owner: true
+      type: 'owner'
     }
   ]
 }

@@ -15,21 +15,32 @@ class Results extends React.Component {
   render() {
     const { all, columns, empty, entity, filters, layout, records, status } = this.props
     if(status === 'completed' && all === 0) {
-      return (
-        <div className="table-empty">
-          <div className="table-empty-message">
-            <h2><i className={`circular ${empty.icon} icon`} /></h2>
-            <h3>No { _.startCase(pluralize(entity.replace('_', ' '))) }</h3>
-            <p>You have not yet created any { pluralize(entity.replace('_', ' ')) }</p>
-            { empty.modal &&
-              <div className="ui basic button red" onClick={ this._handleAddNew.bind(this)}>
-                <i className="plus icon" />
-                Create New {_.startCase(entity.replace('_', ' '))}
-              </div>
-            }
+      if(empty) {
+        return (
+          <div className="table-empty">
+            <div className="table-empty-message">
+              <h2><i className={`circular ${empty.icon} icon`} /></h2>
+              <h3>No { _.startCase(pluralize(entity.replace('_', ' '))) }</h3>
+              <p>You have not yet created any { pluralize(entity.replace('_', ' ')) }</p>
+              { empty.modal &&
+                <div className="ui basic button red" onClick={ this._handleAddNew.bind(this)}>
+                  <i className="plus icon" />
+                  Create New {_.startCase(entity.replace('_', ' '))}
+                </div>
+              }
+            </div>
           </div>
-        </div>
-      )
+        )
+      } else  {
+        return (
+          <div className="table-empty">
+            <div className="table-empty-message">
+              <h3>No Results Found</h3>
+              <p>There are no { _.startCase(pluralize(entity.replace('_', ' '))) }</p>
+            </div>
+          </div>
+        )
+      }
     } else {
       return (
         <div className="collection">

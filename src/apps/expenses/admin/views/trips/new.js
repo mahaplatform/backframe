@@ -22,7 +22,7 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Project', required: true, endpoint: '/admin/expenses/projects', value: 'id', text: 'title' },
+            { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Project', endpoint: '/admin/expenses/memberships', value: 'id', text: 'title' },
             { label: 'Date', name: 'date', type: 'datefield', placeholder: 'Date', required: true, defaultValue: moment().format('YYYY-MM-DD') },
             { label: 'Description', name: 'description', type: 'textarea', required: true, placeholder: 'Description' },
             { label: 'Time Leaving', name: 'time_leaving', type: 'textfield', required: true, placeholder: 'Time Leaving' },

@@ -11,7 +11,7 @@ export default model.extend({
 
   virtuals: {
     url: function() {
-      return (!this.isNew()) ? `/images/${this.get('file_name')}` : null
+      return (!this.isNew()) ? `/photos/${this.get('file_name')}` : null
     }
   }
 

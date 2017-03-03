@@ -4,15 +4,12 @@ import TripSerializer from '../../../serializers/trip_serializer'
 
 export default resources({
   defaultSort: '-date',
-  filterParams: ['user_id','project_id','date'],
+  filterParams: ['user_id','project_id','date','is_approved'],
   model: Trip,
   name: 'trip',
   ownedByUser: false,
   only: ['list','show'],
   pathPrefix: '/reports',
-  query: (qb, req, filters) => {
-    qb.where('is_approved', true)
-  },
   serializer: TripSerializer,
   sortParams: ['date'],
   withRelated: ['user','project','approved_by']

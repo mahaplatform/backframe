@@ -11,7 +11,9 @@ export default (object) => {
       email: object.related('approved_by').get('email')
     } : null,
     is_approved: object.get('is_approved'),
-    reason_rejected: object.get('reason_rejected')
+    reason_rejected: object.get('reason_rejected'),
+    created_at: object.get('created_at'),
+    updated_at: object.get('updated_at')
   })
 
 }

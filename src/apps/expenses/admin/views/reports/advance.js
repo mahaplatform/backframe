@@ -1,6 +1,7 @@
 import React from 'react'
 import Details from 'admin/components/details'
 import Page from 'admin/components/page'
+import ApprovalStatus from '../../components/approval_status'
 
 class Show extends React.Component {
 
@@ -8,6 +9,7 @@ class Show extends React.Component {
     return (
       <div className="chrome-body">
         <div className="chrome-sidebar">
+          <ApprovalStatus {...this.props.advance} />
           <Details {...this._getDetails()} />
         </div>
         <div className="chrome-content" />

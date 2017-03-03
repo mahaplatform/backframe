@@ -7,6 +7,7 @@ import expenseTypes from './middleware/expense_types'
 import expenseApprovals from './middleware/approvals/expenses'
 import expenseReport from './middleware/reports/expenses'
 import memberships from './middleware/memberships'
+import memberTypes from './middleware/member_types'
 import projects from './middleware/projects'
 import trips from './middleware/trips'
 import tripApprovals from './middleware/approvals/trips'
@@ -22,6 +23,7 @@ export const resources = [
   expenseTypes,
   expenses,
   memberships,
+  memberTypes,
   projects,
   tripApprovals,
   tripReport,

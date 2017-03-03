@@ -37,7 +37,7 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Project', required: true, endpoint: '/admin/expenses/projects', value: 'id', text: 'title' },
+            { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Project', endpoint: '/admin/expenses/memberships', value: 'id', text: 'title' },
             { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Expense Type', endpoint: expense_type_endpoint, value: 'expense_type.id', text: 'expense_type.title', disabled: expense_type_disabled },
             { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Vendor', required: true, endpoint: '/admin/expenses/vendors', value: 'id', text: 'name' },
             { label: 'Delivery Method', name: 'delivery_method', type: 'select', placeholder: 'Delivery Method', required: true, options: [ { key: 'mail', value: 'Mail' }, { key: 'pickup', value: 'Pickup' }] },
