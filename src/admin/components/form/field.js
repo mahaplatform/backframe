@@ -40,7 +40,7 @@ class Field extends React.Component {
   render() {
     const { columns, data, endpoint, errors, fields, include, instructions, prompt } = this.props
     const { label, name, options, required, type, text, show, value, onUpdateData } = this.props
-    const { format, prefix, suffix, disabled } = this.props
+    const { format, prefix, suffix, disabled, sort } = this.props
     const error = (errors && errors[name]) ? errors[name][0] : null
     const defaultValue = _.get(data, name)
     let classes = ['field']
@@ -69,6 +69,7 @@ class Field extends React.Component {
                    suffix={suffix}
                    disabled={disabled}
                    endpoint={endpoint}
+                   sort={sort}
                    value={value}
                    text={text}
                    columns={columns}

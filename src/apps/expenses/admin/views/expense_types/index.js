@@ -17,7 +17,7 @@ class Index extends React.Component {
     return {
       endpoint: '/admin/expenses/expense_types',
       columns: [
-        { label: 'Title', key: 'title', primary: true },
+        { label: 'Title', key: 'title', primary: true, format: TitleCell },
         { label: 'Code', key: 'code', primary: true }
       ],
       sort: { key: 'code', order: 'asc' },
@@ -33,6 +33,16 @@ class Index extends React.Component {
   }
 
 }
+
+var TitleCell = (props) => {
+  return (
+    <div>
+      <strong>{ props.title }</strong><br />
+      { props.description }
+    </div>
+  )
+}
+
 
 const mapPropsToPage = (props, context) => ({
   title: 'Expense Types',

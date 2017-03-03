@@ -37,7 +37,8 @@ class Lookup extends React.Component {
   componentDidUpdate(prevProps) {
     const { active, disabled } = this.props
     if(prevProps.active !== active && active) {
-      this.props.onLookup(this.props.cid, '', this.props.endpoint)
+      const params = { $filter: { q: '' }, $sort: this.props.sort }
+      this.props.onLookup(this.props.cid, params, this.props.endpoint)
       this.context.modal.push(<Search {...this.props} />)
     } else if(prevProps.disabled !== disabled) {
       this.props.onClear()

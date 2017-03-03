@@ -39,7 +39,7 @@ export default resources({
       sortParams: ['last_name'],
       withRelated: ['photo']
     },{
-      defaultSort: 'title',
+      defaultSort: 'code',
       model: ExpenseType,
       name: 'expense_type_project',
       only: 'list',
@@ -74,6 +74,7 @@ export default resources({
     },{
       allowedParams: ['expense_type_id'],
       defaultParams,
+      defaultSort: ['code'],
       logger: {
         create: createExpenseTypeLogger
       },
@@ -81,7 +82,8 @@ export default resources({
       name: 'expense_type',
       ownedByTeam: false,
       query: (qb, req, filters) => {
-        qb.where({ project_id: req.params.project_id })
+        qb.innerJoin('expenses_expense_types', 'expenses_expense_types.id', 'expenses_expense_types_projects.expense_type_id')
+        qb.where('expenses_expense_types_projects.project_id', req.params.project_id)
       },
       serializer: ExpenseTypeProjectSerializer,
       withRelated: ['expense_type','project']

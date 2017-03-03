@@ -23,7 +23,7 @@ class ExpenseTypes extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Expense Type',  endpoint: `/admin/expenses/projects/${this.context.container.params.id}/expense_types/unassigned`, value: 'id', text: 'title' }
+            { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Expense Type',  endpoint: `/admin/expenses/projects/${this.context.container.params.id}/expense_types/unassigned`, sort: 'code', value: 'id', text: 'text' }
           ]
         }
       ]

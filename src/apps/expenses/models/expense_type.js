@@ -16,7 +16,7 @@ export default model.extend({
         text: this.get('title')
       }
     },
-    description: function() {
+    text: function() {
       return this.get('code') + ' - ' + this.get('title')
     }
   }

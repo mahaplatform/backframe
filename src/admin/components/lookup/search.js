@@ -66,7 +66,8 @@ class Search extends React.Component {
   }
 
   _handleLookup(event) {
-    this.props.onLookup(this.props.cid,event.target.value, this.props.endpoint)
+    const params = { $filter: { q: event.target.value }, $sort: this.props.sort }
+    this.props.onLookup(this.props.cid, params, this.props.endpoint)
   }
 
   _handleChoose(index) {
