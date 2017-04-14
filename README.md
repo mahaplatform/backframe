@@ -1,3 +1,25 @@
+<table>
+  <tr>
+    <td>Build Status</td>
+    <td>
+      <a href="https://circleci.com/gh/thinktopography/backframe">
+        <img src="https://img.shields.io/circleci/project/thinktopography/backframe.svg?maxAge=600" alt="Build Status" >
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td>Code Quality</td>
+    <td>
+      <a href="https://codeclimate.com/github/thinktopography/reframe">
+        <img src="https://img.shields.io/codeclimate/github/thinktopography/backframe.svg?maxAge=600" alt="Code Climate" />
+      </a>
+      <a href="https://codeclimate.com/github/thinktopography/backframe/coverage">
+        <img src="https://img.shields.io/codeclimate/coverage/github/thinktopography/backframe.svg?maxAge=600" alt="Code Coverage" />
+      </a>
+    </td>
+  </tr>
+</table>
+
 # Backframe
 Backframe is a javascript library for declaratively creating REST APIs for
 Express. Express is a great tool for building lightweight web and application
@@ -28,7 +50,7 @@ const kittens = resources({
   name: 'kittens'
 })
 
-const app = Express()
+const app = express()
 
 app.use(router({
   routes: kittens
