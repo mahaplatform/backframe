@@ -7,9 +7,9 @@ a lot of repetitive code. Backframe provides simple, declarative tools for
 building REST APIs.
 
 ## Handler
-The fundamental actor in a Backframe application is the handler. A handlers is a
-function that perform san atomic unit of work. A handler has the signature `(req, res) => {}`
-and can be used within an express middleware. Although Backrame is primarily
+The fundamental actor in a Backframe application is the handler. A handler is a
+function that performs an atomic unit of work. A handler has the signature `(req, res) => {}`
+and can be used within an express middleware. Although Backframe is primarily
 intended to build handlers for expres, these function can be used outside of
 express as well in the context of a worker or some other asynchronous process.
 
