@@ -47,7 +47,7 @@ export default  (buildRoute) => {
 
       if(err.errors) return reject({ code: 422, message: `Unable to delete ${options.name}`, errors: err.toJSON() })
 
-      reject({ code: 500, message: err.message })
+      throw err
 
     })
 

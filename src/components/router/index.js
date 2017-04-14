@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import bodyParser from 'body-parser'
 import cors from 'cors'
 import _ from 'lodash'
 import { validateOptions, defaultOptions } from '../../utils/options'
@@ -21,7 +22,12 @@ export default (backframeOptions = {}) => {
 
     validateOptions('router', userOptions, TYPES)
 
-    const options = normalizeOptions(userOptions, TYPES)
+    const mergedOptions = {
+      ..._.pick(backframeOptions, ['knex','redis']),
+      ...userOptions
+    }
+
+    const options = normalizeOptions(mergedOptions, TYPES)
 
     return buildRouter(backframeOptions, options, buildHandler(backframeOptions))
 
@@ -54,6 +60,9 @@ const renderHandler = (plugins, route) => {
 export const buildRouter = (backframeOptions, options, buildHandler) => {
 
   const router = Router({ mergeParams: true })
+
+  router.use(bodyParser.urlencoded({ extended: true }))
+  router.use(bodyParser.json())
 
   if(options.cors) router.use(cors())
 

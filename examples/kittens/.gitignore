@@ -1,0 +1,4 @@
+/node_modules
+data.sqllite3
+npm-debug.log
+.env

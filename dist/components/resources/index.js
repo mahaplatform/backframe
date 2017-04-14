@@ -183,7 +183,7 @@ var buildSingleRoute = exports.buildSingleRoute = function buildSingleRoute(name
 // destructure mapped options and preapre hash to be merged
 var mergeRouteOptions = exports.mergeRouteOptions = function mergeRouteOptions(name, options) {
 
-  return _lodash2.default.omitBy(_extends({}, options, mergeOptionsForAction(options, constants.BACKFRAME_HOOKS, name), mapOptionsForAction(options, [].concat(_toConsumableArray(constants.BACKFRAME_EVENTS), ['query', 'serializer', 'withRelated']), name)), _lodash2.default.isNil);
+  return _lodash2.default.omitBy(_extends({}, options, mergeOptionsForAction(options, constants.BACKFRAME_HOOKS, name), overrideOptionsForAction(options, [].concat(_toConsumableArray(constants.BACKFRAME_EVENTS), ['allowedParams', 'query', 'serializer', 'withRelated']), name)), _lodash2.default.isNil);
 };
 
 var mapOptionsToActions = function mapOptionsToActions(options, keys) {
@@ -206,7 +206,7 @@ var mergeOptionsForAction = function mergeOptionsForAction(options, keys, name) 
 };
 
 // override all option with named option
-var mapOptionsForAction = function mapOptionsForAction(options, keys, name) {
+var overrideOptionsForAction = function overrideOptionsForAction(options, keys, name) {
 
   return keys.reduce(function (mapped, key) {
     return _extends({}, mapped, _defineProperty({}, key, options[key][name] || options[key].all));

@@ -19,7 +19,7 @@ export default (buildRoute) => {
       })
 
       if(unpermitted.length > 0 && process.env.NODE_ENV == 'development') {
-        return reject({ code: 412, message: `Unable to filter on the keys ${toList(unpermitted)}` })
+        return reject({ code: 412, message: `Unable to filter on the keys ${toList(unpermitted)}. Please add it to 'filterParams'` })
       }
 
       if(req.query.$filter.q && !options.searchParams && process.env.NODE_ENV == 'development') {
@@ -31,11 +31,11 @@ export default (buildRoute) => {
     if(req.query.$sort) {
 
       const unpermitted = req.query.$sort.filter(key => {
-        return !_.includes(coerceArray(options.sortParams), key)
+        return !_.includes(coerceArray(options.sortParams), key.replace('-', ''))
       })
 
       if(unpermitted.length > 0 && process.env.NODE_ENV == 'development') {
-        return reject({ code: 412, message: `Unable to sort on the keys ${toList(unpermitted)}` })
+        return reject({ code: 412, message: `Unable to sort on the keys ${toList(unpermitted)}. Please add it to 'sortParams'` })
       }
 
     }
@@ -100,7 +100,7 @@ export default (buildRoute) => {
 
     const queryObject = query(options.knex(tableName)).toSQL()
 
-    const count = () => options.knex.raw(`select count(*) from (${queryObject.sql}) as temp`, queryObject.bindings)
+    const count = () => options.knex.raw(`select count(*) as count from (${queryObject.sql}) as temp`, queryObject.bindings)
 
     const paged = () => options.model.query(qb => {
 
@@ -126,7 +126,9 @@ export default (buildRoute) => {
 
       const all = parseInt(responses[0].toJSON()[0].count)
 
-      const total = responses[1].rows[0].count ? parseInt(responses[1].rows[0].count) : 0
+      const totalResonse = responses[1].rows ? responses[1].rows[0] : responses[1][0]
+
+      const total = totalResonse.count ? parseInt(totalResonse.count) : 0
 
       const records = responses[2]
 
@@ -136,7 +138,7 @@ export default (buildRoute) => {
 
       if(err.errors) return reject({ code: 422, message: `Unable to create ${options.name}`, errors: err.toJSON() })
 
-      reject({ code: 500, message: err.message })
+      throw err
 
     })
 

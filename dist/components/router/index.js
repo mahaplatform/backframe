@@ -9,6 +9,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _express = require('express');
 
+var _bodyParser = require('body-parser');
+
+var _bodyParser2 = _interopRequireDefault(_bodyParser);
+
 var _cors = require('cors');
 
 var _cors2 = _interopRequireDefault(_cors);
@@ -60,7 +64,9 @@ exports.default = function () {
 
     (0, _options.validateOptions)('router', userOptions, TYPES);
 
-    var options = normalizeOptions(userOptions, TYPES);
+    var mergedOptions = _extends({}, _lodash2.default.pick(backframeOptions, ['knex', 'redis']), userOptions);
+
+    var options = normalizeOptions(mergedOptions, TYPES);
 
     return buildRouter(backframeOptions, options, (0, _handler2.default)(backframeOptions));
   };
@@ -85,6 +91,9 @@ var renderHandler = function renderHandler(plugins, route) {
 var buildRouter = exports.buildRouter = function buildRouter(backframeOptions, options, buildHandler) {
 
   var router = (0, _express.Router)({ mergeParams: true });
+
+  router.use(_bodyParser2.default.urlencoded({ extended: true }));
+  router.use(_bodyParser2.default.json());
 
   if (options.cors) router.use((0, _cors2.default)());
 

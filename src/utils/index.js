@@ -51,9 +51,9 @@ export const defaultRenderer = (options) => {
       resolve(result)
 
     }).catch(err => {
-      console.log(err)
 
-      reject({ code: 500, message: 'Unable to render response' })
+      throw err
+
     })
 
   }

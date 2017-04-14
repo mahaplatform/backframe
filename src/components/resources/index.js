@@ -166,7 +166,7 @@ export const mergeRouteOptions = (name, options) => {
   return _.omitBy({
     ...options,
     ...mergeOptionsForAction(options, constants.BACKFRAME_HOOKS, name, ),
-    ...mapOptionsForAction(options, [...constants.BACKFRAME_EVENTS, 'query','serializer','withRelated'], name)
+    ...overrideOptionsForAction(options, [...constants.BACKFRAME_EVENTS,'allowedParams','query','serializer','withRelated'], name)
   }, _.isNil)
 
 }
@@ -196,7 +196,7 @@ const mergeOptionsForAction = (options, keys, name) => {
 }
 
 // override all option with named option
-const mapOptionsForAction = (options, keys, name) => {
+const overrideOptionsForAction = (options, keys, name) => {
 
   return keys.reduce((mapped, key) => ({
     ...mapped,

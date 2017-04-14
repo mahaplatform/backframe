@@ -35,7 +35,7 @@ exports.default = function (buildRoute) {
       });
 
       if (unpermitted.length > 0 && process.env.NODE_ENV == 'development') {
-        return reject({ code: 412, message: 'Unable to create record with the values ' + (0, _core.toList)(unpermitted) });
+        return reject({ code: 412, message: 'Unable to create record with the values ' + (0, _core.toList)(unpermitted) + '. Please add it to \'allowedParams\'' });
       }
 
       resolve();
@@ -51,7 +51,7 @@ exports.default = function (buildRoute) {
 
         if (err.errors) return reject({ code: 422, message: 'Unable to create record', errors: err.toJSON() });
 
-        reject({ code: 500, message: err.message });
+        throw err;
       });
     };
   };

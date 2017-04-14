@@ -38,8 +38,8 @@ exports.default = function () {
 
   var TYPES = {
     knex: { type: 'object', required: true },
-    redis: { type: 'object', required: true },
-    plugins: { type: 'object[]', required: false }
+    redis: { type: 'object', required: false },
+    plugins: { type: 'object[]', required: false, default: [] }
   };
 
   (0, _options.validateOptions)('backframe', userOptions, TYPES);

@@ -20,10 +20,6 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _knex = require('app/services/knex');
-
-var _knex2 = _interopRequireDefault(_knex);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (options) {
@@ -57,13 +53,13 @@ exports.default = function (options) {
 
       queries = [];
 
-      return _knex2.default.client.on('start', captureQueries);
+      return options.knex.client.on('start', captureQueries);
     }).then(function () {
 
       return handler(req, res);
     }).then(function (result) {
 
-      _knex2.default.client.removeListener('start', captureQueries);
+      options.knex.client.removeListener('start', captureQueries);
 
       var extra = options.log ? options.log(req) : {};
 

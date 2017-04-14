@@ -10,8 +10,8 @@ export default (userOptions = {}) => {
 
   const TYPES = {
     knex: { type: 'object', required: true },
-    redis: { type: 'object', required: true },
-    plugins: { type: 'object[]', required: false }
+    redis: { type: 'object', required: false },
+    plugins: { type: 'object[]', required: false, default: [] }
   }
 
   validateOptions('backframe', userOptions, TYPES)

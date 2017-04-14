@@ -25,7 +25,7 @@ exports.default = function (options) {
     var serialize = function serialize() {
 
       if (!options.serializer) {
-        return result;
+        return _bluebird2.default.resolve(result);
       }
 
       return new _bluebird2.default(function (resolve, reject) {
@@ -34,6 +34,10 @@ exports.default = function (options) {
     };
 
     if (options.cacheFor) {
+
+      if (!options.redis && process.env.NODE_ENV == 'development') {
+        return reject({ code: 412, message: 'you must include a redis configuration' });
+      }
 
       var key = options.name + '-' + result.get('id') + '-' + Math.floor(result.get('updated_at').getTime() / 1000);
 

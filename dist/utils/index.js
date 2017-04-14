@@ -66,9 +66,8 @@ var defaultRenderer = exports.defaultRenderer = function defaultRenderer(options
 
       resolve(result);
     }).catch(function (err) {
-      console.log(err);
 
-      reject({ code: 500, message: 'Unable to render response' });
+      throw err;
     });
   };
 };

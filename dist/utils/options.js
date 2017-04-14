@@ -31,7 +31,7 @@ var validateOptions = exports.validateOptions = function validateOptions(type, o
 
   if (valid !== true) {
 
-    console.log(valid);
+    // console.log(valid)
 
     if (process.env.NODE_ENV === 'development') {
       printOptionErrors(type, name, valid);

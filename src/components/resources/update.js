@@ -23,7 +23,7 @@ export default (buildRoute) => {
     })
 
     if(unpermitted.length > 0 && process.env.NODE_ENV == 'development') {
-      return reject({ code: 422, message: `Unable to update record with the values ${toList(unpermitted)}` })
+      return reject({ code: 422, message: `Unable to update record with the values ${toList(unpermitted)}. Please add it to 'allowedParams'` })
     }
 
     resolve()
@@ -42,7 +42,7 @@ export default (buildRoute) => {
 
       if(err.errors) return reject({ code: 422, message: `Unable to update record`, errors: err.toJSON() })
 
-      reject({ code: 500, message: err.message })
+      throw err
 
     })
 
