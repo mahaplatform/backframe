@@ -30,7 +30,7 @@ A Backframe handler observes the following sequence of lifecyle events:
 All functions are promise based and either resolve successfully or reject with
 an error code and message that can be displayed to the user or written to a log
 
-[Learn more about handlers](https://github.com/thinktopography/backframejs/docs/handler.md)
+[Learn more about handlers](https://github.com/thinktopography/backframejs/blob/master/docs/handler.md)
 
 ## Resources
 At the core of most REST APIs is the concept of a resource or a collection of
@@ -47,7 +47,7 @@ the following endpoints
 | update   | PATCH  | updates an existing resource                                         |
 | destroy  | DELETE | deletes an existing resource                                         |
 
-[Learn more about resources](https://github.com/thinktopography/backframejs/docs/resources.md)
+[Learn more about resources](https://github.com/thinktopography/backframejs/blob/master/docs/resources.md)
 
 ## Segments
 In order to handle routes and resources collectively, routes can be grouped into
@@ -100,7 +100,7 @@ produces the following routing table:
 | /pages/:id            | PATCH  | FALSE          |
 | /pages/:id            | DELETE | FALSE          |
 
-[Learn more about segments](https://github.com/thinktopography/backframejs/docs/segment.md)
+[Learn more about segments](https://github.com/thinktopography/backframejs/blob/master/docs/segment.md)
 
 ## Router
 In most cases, you will want to use Backframe to within Express as a middleware
@@ -121,7 +121,7 @@ app.use(router({
 app.listen(3000)
 ```
 
-[Learn more about routers](https://github.com/thinktopography/backframejs/docs/router.md)
+[Learn more about routers](https://github.com/thinktopography/backframejs/blob/master/docs/router.md)
 
 ## Plugins
 Backframe has a plugin framework that enables developers to extend or decorate
@@ -184,7 +184,7 @@ export default plugin({
 })
 ```
 
-[Learn more about plugins](https://github.com/thinktopography/backframejs/docs/plugin.md)
+[Learn more about plugins](https://github.com/thinktopography/backframejs/blob/master/docs/plugin.md)
 
 ## Author & Credits
 
