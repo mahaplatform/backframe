@@ -47,8 +47,8 @@ the following endpoints
 
 ## Segments
 In order to handle routes and resources collectively, routes can be grouped into
-one or more nested segments. Segments can be nested as deeply as needed and
-hooks and attributes can be applied in batch.
+one or more nested segments. Segments can be nested as deeply as needed allowing
+attributes to be applied in batch to any level of the hierarchy. For example,
 
 ```Javascript
 import { resources, segment } from 'backframe'
@@ -78,6 +78,23 @@ const website = segment({
   ]
 })
 ```
+
+produces the following routing table:
+
+| PATH                  | METHOD | AUTHENTICATED  |
+|-----------------------|--------|----------------|
+| /admin/users          | GET    | TRUE           |
+| /admin/users          | POST   | TRUE           |
+| /admin/users/:id      | GET    | TRUE           |
+| /admin/users/:id/edit | GET    | TRUE           |
+| /admin/users/:id      | PATCH  | TRUE           |
+| /admin/users/:id      | DELETE | TRUE           |
+| /pages                | GET    | FALSE          |
+| /pages                | POST   | FALSE          |
+| /pages/:id            | GET    | FALSE          |
+| /pages/:id/edit       | GET    | FALSE          |
+| /pages/:id            | PATCH  | FALSE          |
+| /pages/:id            | DELETE | FALSE          |
 
 ## Router
 In most cases, you will want to use Backframe to within Express as a middleware
