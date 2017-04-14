@@ -14,9 +14,11 @@ npm run start
 and open your browser to: http://localhost:3000/kittens. Here are some queries
 to try for yourself:
 
-```
-BASIC LIST
-http://localhost:3000/kittens
+
+| DESCRIPTION                  | http://localhost:3000/kittens              |
+
+|-----------------------------|--------------------------------------------|
+| BASIC LIST                  | http://localhost:3000/kittens              |
 
 SORTED BY NAME ASC
 http://localhost:3000/kittens?$sort[]=name
