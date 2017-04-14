@@ -131,7 +131,7 @@ const commitHooks = options => (req, result, resolve, reject) => {
   resolve()
 }
 
-export default plugin(){
+export default plugin({
   options: {
     option1: {
       type: 'boolean',
