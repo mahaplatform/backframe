@@ -8,6 +8,35 @@ tools for building REST APIs.
 
 [Read the overview](https://github.com/thinktopography/backframejs/blob/master/docs/overview.md)
 
+## Installation
+Install with [npm](http://npmjs.com) or [yarn](https://yarnpkg.com):
+
+```sh
+npm install --save backframe
+```
+
+## Usage
+Using backframe in your application is easy:
+
+```javascript
+import express from 'express'
+import { router, resources } from 'backframe'
+import Kittens from from 'app/models/kittens'
+
+const kittens = resources({
+  model: Kittens,
+  name: 'kittens'
+})
+
+const app = Express()
+
+app.use(router({
+  routes: kittens
+}))
+
+app.listen(3000)
+```
+
 ## Handlers
 The fundamental actor in a Backframe application is the handler. A handler is a
 function that performs an atomic unit of work. A handler has the signature `(req, res) => {}`
