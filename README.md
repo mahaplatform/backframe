@@ -51,6 +51,8 @@ one or more nested segments. Segments can be nested as deeply as needed and
 hooks and attributes can be applied in batch.
 
 ```Javascript
+import { resources, segment } from 'backframe'
+
 const users = resources({
   model: User,
   name: 'user'
@@ -83,6 +85,8 @@ router. The Backframe router component enables you to wrap a routing segment
 with an Express router and mount it within your application.
 
 ```Javascript
+import { router } from 'backframe'
+
 const app = Express()
 
 app.use(router({
@@ -101,6 +105,8 @@ the addition of one or more hooks. Plugins can also define their own configurati
 options to be invoked when constructing Backframe objects.
 
 ```Javascript
+import { plugin } from 'backframe'
+
 const beginHooks = options => (req, resolve, reject) => {
   console.log('beginning handler')
   resolve()
