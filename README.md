@@ -2,19 +2,19 @@
   <tr>
     <td>Build Status</td>
     <td>
-      <a href="https://circleci.com/gh/thinktopography/backframe">
-        <img src="https://img.shields.io/circleci/project/thinktopography/backframe.svg?maxAge=600" alt="Build Status" >
+      <a href="https://circleci.com/gh/thinktopography/backframejs">
+        <img src="https://img.shields.io/circleci/project/thinktopography/backframejs.svg?maxAge=600" alt="Build Status" >
       </a>
     </td>
   </tr>
   <tr>
     <td>Code Quality</td>
     <td>
-      <a href="https://codeclimate.com/github/thinktopography/reframe">
-        <img src="https://img.shields.io/codeclimate/github/thinktopography/backframe.svg?maxAge=600" alt="Code Climate" />
+      <a href="https://codeclimate.com/github/thinktopography/backframejs">
+        <img src="https://img.shields.io/codeclimate/github/thinktopography/backframejs.svg?maxAge=600" alt="Code Climate" />
       </a>
-      <a href="https://codeclimate.com/github/thinktopography/backframe/coverage">
-        <img src="https://img.shields.io/codeclimate/coverage/github/thinktopography/backframe.svg?maxAge=600" alt="Code Coverage" />
+      <a href="https://codeclimate.com/github/thinktopography/backframejs/coverage">
+        <img src="https://img.shields.io/codeclimate/coverage/github/thinktopography/backframejs.svg?maxAge=600" alt="Code Coverage" />
       </a>
     </td>
   </tr>
