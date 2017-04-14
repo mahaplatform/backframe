@@ -1,6 +1,6 @@
 {
   "name": "backframe",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Library for building REST API's for expressjs",
   "main": "index.js",
   "scripts": {

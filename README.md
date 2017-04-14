@@ -185,3 +185,10 @@ export default plugin({
 ```
 
 [Learn more about plugins](https://github.com/thinktopography/backframejs/docs/plugin.md)
+
+## Author & Credits
+
+Backframe was originally written by [Greg Kops](https://github.com/mochini) and
+is based upon his work with [Think Topography](http://thinktopography.com),
+[Funkhaus](http://funkhaus.us) and
+[The Cornell Cooperative Extension of Tompkins County](http://ccetompkins.org)
