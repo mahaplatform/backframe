@@ -17,20 +17,28 @@ to try for yourself:
 ```
 BASIC LIST
 http://localhost:3000/kittens
+
 SORTED BY NAME ASC
 http://localhost:3000/kittens?$sort[]=name
+
 SORTED BY AGE DESC
 http://localhost:3000/kittens?$sort[]=-age
+
 SORTED BY NAME ASC, AGE DESC
 http://localhost:3000/kittens?$sort[]=name&$sort[]=-age
+
 KITTENS WHEN NAME IS SOCKS
 http://localhost:3000/kittens?$filter[name][$eq]=socks
+
 KITTENS WHEN NAME LIKE MIT
 http://localhost:3000/kittens?$filter[name][$eq]=mit
+
 KITTENS IN CSV
 http://localhost:3000/kittens.csv
+
 KITTENS IN XML
 http://localhost:3000/kittens.xml
+
 BASIC SHOW
 http://localhost:3000/kittens/1
 ```
