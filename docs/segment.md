@@ -1,4 +1,4 @@
-# Segment
+# Segments
 In order to handle routes and resources collectively, routes can be grouped into
 one or more nested segments. Segments can be nested as deeply as needed allowing
 attributes to be applied in batch to any level of the hierarchy. For example,

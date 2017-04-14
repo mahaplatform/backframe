@@ -8,7 +8,7 @@ tools for building REST APIs.
 
 [Read the overview](https://github.com/thinktopography/backframejs/blob/master/docs/overview.md)
 
-## Handler
+## Handlers
 The fundamental actor in a Backframe application is the handler. A handler is a
 function that performs an atomic unit of work. A handler has the signature `(req, res) => {}`
 and can be used within an Express middleware. Although Backframe is primarily
@@ -31,7 +31,7 @@ attributes to be applied in batch to any level of the hierarchy.
 
 [Learn more about segments](https://github.com/thinktopography/backframejs/blob/master/docs/segment.md)
 
-## Router
+## Routers
 In most cases, you will want to use Backframe to within Express as a middleware
 router. The Backframe router component enables you to wrap a routing segment
 with an Express router and mount it within your application.

@@ -1,4 +1,4 @@
-# Handler
+# Handlers
 The fundamental actor in a Backframe application is the handler. A handler is a
 function that performs an atomic unit of work. A handler has the signature `(req, res) => {}`
 and can be used within an Express middleware. Although Backframe is primarily
