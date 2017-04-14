@@ -1,6 +1,6 @@
 # Backframe
 Backframe is a javascript library for declaratively creating REST APIs for
-express. Express is a great tool for building lightweight web and application
+Express. Express is a great tool for building lightweight web and application
 servers, but it leaves almost all of the implementation to the developer. When
 building REST API's, this usually ends up requiring the developer to write
 a lot of repetitive code. Backframe provides simple, declarative tools for
@@ -9,9 +9,9 @@ building REST APIs.
 ## Handler
 The fundamental actor in a Backframe application is the handler. A handler is a
 function that performs an atomic unit of work. A handler has the signature `(req, res) => {}`
-and can be used within an express middleware. Although Backframe is primarily
+and can be used within an Express middleware. Although Backframe is primarily
 intended to build handlers for expres, these function can be used outside of
-express as well in the context of a worker or some other asynchronous process.
+Express as well in the context of a worker or some other asynchronous process.
 
 A Backframe handler observes the following sequence of lifecyle events:
 
@@ -78,12 +78,12 @@ const website = segment({
 ```
 
 ## Router
-In most cases, you will want to use Backframe to within express as a middleware
+In most cases, you will want to use Backframe to within Express as a middleware
 router. The Backframe router component enables you to wrap a routing segment
-with an express router and mount it
+with an Express router and mount it within your application.
 
 ```Javascript
-const app = express()
+const app = Express()
 
 app.use(router({
   cors: true,
@@ -131,7 +131,7 @@ const commitHooks = options => (req, result, resolve, reject) => {
   resolve()
 }
 
-export default {
+export default plugin(){
   options: {
     option1: {
       type: 'boolean',
@@ -150,5 +150,5 @@ export default {
   afterHooks,
   alterRequest,
   commitHooks
-}
+})
 ```
