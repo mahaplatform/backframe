@@ -40,6 +40,7 @@ exports.default = function () {
     });
 
     handler({}, res).then(function (result) {
+      console.log(result);
       (0, _chai.expect)(result).to.equal('foo');
       done();
     });

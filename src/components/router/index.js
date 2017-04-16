@@ -6,8 +6,8 @@ import { validateOptions, defaultOptions } from '../../utils/options'
 import { mergeEvents, mergeHooks } from '../../utils/core'
 import buildHandler from '../handler'
 import notFound from './not_found'
-import logger from '../../utils/logger'
 import * as constants from '../../constants'
+import { beginLogger, endLogger, printLogger } from '../../utils/logger'
 
 export default (backframeOptions = {}) => {
 
@@ -72,14 +72,40 @@ export const buildRouter = (backframeOptions, options, buildHandler) => {
 
     const handler = _.isFunction(route.handler) ? route.handler : buildHandler(renderHandler(backframeOptions.plugins, route))
 
-    const wrappedHandler = (req, res) => logger(options)(req, res, handler)
+    const wrapped = buildRoute(options, handler)
 
-    router[route.method](`${path.replace(':id',':id(\\d+)')}\.:format?`, wrappedHandler)
+    router[route.method](`${path.replace(':id',':id(\\d+)')}\.:format?`, wrapped)
 
   })
 
   if(options.notFound) router.use((req, res) => logger(options)(req, res, buildHandler(notFound)))
 
   return router
+
+}
+
+const buildRoute = (options, handler) => {
+
+  return (req, res) => {
+
+    return Promise.resolve().then(() => {
+
+      return beginLogger(options)
+
+    }).then(() => {
+
+      return handler(req, res)
+
+    }).then(result => {
+
+      return endLogger(options)().then(() => result)
+
+    }).then(result => {
+
+      printLogger(options)(req, res, result)
+
+    })
+
+  }
 
 }

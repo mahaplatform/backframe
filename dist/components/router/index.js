@@ -33,13 +33,11 @@ var _not_found = require('./not_found');
 
 var _not_found2 = _interopRequireDefault(_not_found);
 
-var _logger = require('../../utils/logger');
-
-var _logger2 = _interopRequireDefault(_logger);
-
 var _constants = require('../../constants');
 
 var constants = _interopRequireWildcard(_constants);
+
+var _logger = require('../../utils/logger');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -103,16 +101,36 @@ var buildRouter = exports.buildRouter = function buildRouter(backframeOptions, o
 
     var handler = _lodash2.default.isFunction(route.handler) ? route.handler : buildHandler(renderHandler(backframeOptions.plugins, route));
 
-    var wrappedHandler = function wrappedHandler(req, res) {
-      return (0, _logger2.default)(options)(req, res, handler);
-    };
+    var wrapped = buildRoute(options, handler);
 
-    router[route.method](path.replace(':id', ':id(\\d+)') + '.:format?', wrappedHandler);
+    router[route.method](path.replace(':id', ':id(\\d+)') + '.:format?', wrapped);
   });
 
   if (options.notFound) router.use(function (req, res) {
-    return (0, _logger2.default)(options)(req, res, buildHandler(_not_found2.default));
+    return logger(options)(req, res, buildHandler(_not_found2.default));
   });
 
   return router;
+};
+
+var buildRoute = function buildRoute(options, handler) {
+
+  return function (req, res) {
+
+    return Promise.resolve().then(function () {
+
+      return (0, _logger.beginLogger)(options);
+    }).then(function () {
+
+      return handler(req, res);
+    }).then(function (result) {
+
+      return (0, _logger.endLogger)(options)().then(function () {
+        return result;
+      });
+    }).then(function (result) {
+
+      (0, _logger.printLogger)(options)(req, res, result);
+    });
+  };
 };

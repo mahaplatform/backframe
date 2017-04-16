@@ -70,7 +70,9 @@ exports.default = function () {
 
 var normalizeOptions = exports.normalizeOptions = function normalizeOptions(userOptions, types) {
 
-  return expandLifecycle(_extends({}, (0, _options.defaultOptions)(types), userOptions));
+  return expandLifecycle(_extends({}, (0, _options.defaultOptions)(types), {
+    responder: (0, _utils.defaultResponder)('Success')(userOptions)
+  }, userOptions));
 };
 
 var expandLifecycle = exports.expandLifecycle = function expandLifecycle(userOptions) {

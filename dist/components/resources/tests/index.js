@@ -86,7 +86,7 @@ exports.default = function () {
 
       (0, _chai.expect)(list).to.include.keys(['method', 'path', 'handler', 'options']);
       (0, _chai.expect)(list.method).to.equal('get');
-      (0, _chai.expect)(list.path).to.equal('/users(\.:format)?');
+      (0, _chai.expect)(list.path).to.equal('/users');
       (0, _chai.expect)(list.handler).to.include.keys(constants.BACKFRAME_LIFECYCLE);
       (0, _chai.expect)(list.handler.beginHooks).to.be.empty;
       (0, _chai.expect)(list.handler.alterRequest).to.be.empty;
