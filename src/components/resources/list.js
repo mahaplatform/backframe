@@ -1,8 +1,9 @@
 import Promise from 'bluebird'
 import _ from 'lodash'
 import { defaultQuery, defaultRenderer, defaultResponder } from '../../utils'
-import { coerceArray, toList } from '../../utils/core'
+import { coerceArray } from '../../utils/core'
 import { extractSort, filter } from '../../utils/list'
+import { checkPermitted } from '../../utils/options'
 
 export default (buildRoute) => {
 
@@ -10,13 +11,7 @@ export default (buildRoute) => {
 
     if(req.query.$filter) {
 
-      const unpermitted = Object.keys(req.query.$filter).filter(key => {
-        return !_.includes(coerceArray(options.filterParams), key) && key !== 'q'
-      })
-
-      if(unpermitted.length > 0 && process.env.NODE_ENV == 'development') {
-        return reject({ code: 412, message: `Unable to filter on the keys ${toList(unpermitted)}. Please add it to 'filterParams'` })
-      }
+      checkPermitted(req.query.$filter, [...options.filterParams, 'q'], reject, 'Unable to filter on the keys {unpermitted}. Please add it to filterParams')
 
       if(req.query.$filter.q && !options.searchParams && process.env.NODE_ENV == 'development') {
         return reject({ code: 412, message: 'Unable to search on q without searchParams' })
@@ -25,15 +20,7 @@ export default (buildRoute) => {
     }
 
     if(req.query.$sort) {
-
-      const unpermitted = req.query.$sort.filter(key => {
-        return !_.includes(coerceArray(options.sortParams), key.replace('-', ''))
-      })
-
-      if(unpermitted.length > 0 && process.env.NODE_ENV == 'development') {
-        return reject({ code: 412, message: `Unable to sort on the keys ${toList(unpermitted)}. Please add it to 'sortParams'` })
-      }
-
+      checkPermitted(req.query.$sort, options.sortParams, reject, 'Unable to sort on the keys {unpermitted}. Please add it to sortParams')
     }
 
     resolve()

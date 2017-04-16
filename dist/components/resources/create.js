@@ -14,6 +14,8 @@ var _core = require('../../utils/core');
 
 var _utils = require('../../utils');
 
+var _options = require('../../utils/options');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (buildRoute) {
@@ -21,7 +23,7 @@ exports.default = function (buildRoute) {
   var alterRequest = function alterRequest(options) {
     return function (req, resolve, reject) {
 
-      req.data = _extends({}, req.body, req.defaults, req.query);
+      req.data = _lodash2.default.assign(req.body, req.defaults, req.query);
 
       resolve(req);
     };
@@ -30,13 +32,7 @@ exports.default = function (buildRoute) {
   var beforeHooks = function beforeHooks(options) {
     return function (req, resolve, reject) {
 
-      var unpermitted = Object.keys(req.data).filter(function (key) {
-        return !_lodash2.default.includes((0, _core.coerceArray)(options.allowedParams), key);
-      });
-
-      if (unpermitted.length > 0 && process.env.NODE_ENV == 'development') {
-        return reject({ code: 412, message: 'Unable to create record with the values ' + (0, _core.toList)(unpermitted) + '. Please add it to \'allowedParams\'' });
-      }
+      (0, _options.checkPermitted)(req.data, options.allowedParams, reject, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams');
 
       resolve();
     };

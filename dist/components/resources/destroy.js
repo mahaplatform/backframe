@@ -20,7 +20,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 exports.default = function (buildRoute) {
 
-  var destroyRelated = function destroyRelated(resource) {
+  var destroyRelated = function destroyRelated(options, resource, resolve, reject) {
+
+    if (!options.dependents) return resolve(resource);
 
     return _bluebird2.default.each(options.dependents, function (dependent, index, length) {
 
@@ -35,10 +37,10 @@ exports.default = function (buildRoute) {
           return dependent.strategy === 'destroy' ? record.destroy() : record.save(_defineProperty({}, dependent.foreignKey, null), { patch: true });
         });
       });
-    });
+    }).then(resolve(resource));
   };
 
-  var destroyResource = function destroyResource(resource) {
+  var destroyResource = function destroyResource(options, resource) {
 
     return options.softDelete ? resource.save({ deleted_at: new Date() }, { patch: true }) : resource.destroy();
   };
@@ -46,14 +48,14 @@ exports.default = function (buildRoute) {
   var processor = function processor(options) {
     return function (req, resolve, reject) {
 
-      (0, _load2.default)('destroy', options)(req).then(function (resource) {
+      (0, _load2.default)(options)(req).then(function (resource) {
 
-        return destroyRelated(resource).then(function () {
-          return resource;
+        return new _bluebird2.default(function (resolve, reject) {
+          return destroyRelated(options, resource, resolve, reject);
         });
       }).then(function (resource) {
 
-        return destroyResource(resource);
+        return destroyResource(options, resource);
       }).then(function () {
 
         resolve();

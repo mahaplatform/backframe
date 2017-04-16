@@ -18,7 +18,11 @@ var _core = require('../../utils/core');
 
 var _list = require('../../utils/list');
 
+var _options = require('../../utils/options');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 exports.default = function (buildRoute) {
 
@@ -27,13 +31,7 @@ exports.default = function (buildRoute) {
 
       if (req.query.$filter) {
 
-        var unpermitted = Object.keys(req.query.$filter).filter(function (key) {
-          return !_lodash2.default.includes((0, _core.coerceArray)(options.filterParams), key) && key !== 'q';
-        });
-
-        if (unpermitted.length > 0 && process.env.NODE_ENV == 'development') {
-          return reject({ code: 412, message: 'Unable to filter on the keys ' + (0, _core.toList)(unpermitted) + '. Please add it to \'filterParams\'' });
-        }
+        (0, _options.checkPermitted)(req.query.$filter, [].concat(_toConsumableArray(options.filterParams), ['q']), reject, 'Unable to filter on the keys {unpermitted}. Please add it to filterParams');
 
         if (req.query.$filter.q && !options.searchParams && process.env.NODE_ENV == 'development') {
           return reject({ code: 412, message: 'Unable to search on q without searchParams' });
@@ -41,14 +39,7 @@ exports.default = function (buildRoute) {
       }
 
       if (req.query.$sort) {
-
-        var _unpermitted = req.query.$sort.filter(function (key) {
-          return !_lodash2.default.includes((0, _core.coerceArray)(options.sortParams), key.replace('-', ''));
-        });
-
-        if (_unpermitted.length > 0 && process.env.NODE_ENV == 'development') {
-          return reject({ code: 412, message: 'Unable to sort on the keys ' + (0, _core.toList)(_unpermitted) + '. Please add it to \'sortParams\'' });
-        }
+        (0, _options.checkPermitted)(req.query.$sort, options.sortParams, reject, 'Unable to sort on the keys {unpermitted}. Please add it to sortParams');
       }
 
       resolve();

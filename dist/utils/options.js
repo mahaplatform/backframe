@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.printOptionErrors = exports.defaultOptions = exports.getOperation = exports.checkRequired = exports.checkType = exports.checkTypes = exports.checkOptions = exports.validateOptions = undefined;
+exports.printOptionErrors = exports.checkPermitted = exports.defaultOptions = exports.getOperation = exports.checkRequired = exports.checkType = exports.checkTypes = exports.checkOptions = exports.validateOptions = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -30,8 +30,6 @@ var validateOptions = exports.validateOptions = function validateOptions(type, o
   var name = options.name || options.path || '';
 
   if (valid !== true) {
-
-    // console.log(valid)
 
     if (process.env.NODE_ENV === 'development') {
       printOptionErrors(type, name, valid);
@@ -131,6 +129,17 @@ var defaultOptions = exports.defaultOptions = function defaultOptions(types) {
   return Object.keys(types).reduce(function (defaults, type) {
     return _extends({}, defaults, types[type].default ? _defineProperty({}, type, types[type].default) : {});
   }, {});
+};
+
+var checkPermitted = exports.checkPermitted = function checkPermitted(keys, permitted, reject, message) {
+
+  var unpermitted = Object.keys(keys).filter(function (key) {
+    return !_lodash2.default.includes((0, _core.coerceArray)(permitted), key);
+  });
+
+  if (unpermitted.length > 0 && process.env.NODE_ENV == 'development') {
+    return reject({ code: 412, message: message.replace('{unpermitted}', (0, _core.toList)(unpermitted)) });
+  }
 };
 
 var printOptionErrors = exports.printOptionErrors = function printOptionErrors(type, name, issues) {

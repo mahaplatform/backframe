@@ -2,9 +2,11 @@ import Promise from 'bluebird'
 import load from '../../utils/load'
 import { defaultResponder } from '../../utils'
 
-export default  (buildRoute) => {
+export default (buildRoute) => {
 
-  const destroyRelated = (resource) => {
+  const destroyRelated = (options, resource, resolve, reject) => {
+
+    if(!options.dependents) return resolve(resource)
 
     return Promise.each(options.dependents, (dependent, index, length) => {
 
@@ -20,11 +22,11 @@ export default  (buildRoute) => {
 
       })
 
-    })
+    }).then(resolve(resource))
 
   }
 
-  const destroyResource = (resource) => {
+  const destroyResource = (options, resource) => {
 
     return options.softDelete ? resource.save({ deleted_at: new Date() }, { patch: true }) : resource.destroy()
 
@@ -32,13 +34,13 @@ export default  (buildRoute) => {
 
   const processor = options => (req, resolve, reject) => {
 
-    load('destroy', options)(req).then(resource => {
+    load(options)(req).then(resource => {
 
-      return destroyRelated(resource).then(() => resource)
+      return new Promise((resolve, reject) => destroyRelated(options, resource, resolve, reject))
 
     }).then(resource => {
 
-      return destroyResource(resource)
+      return destroyResource(options, resource)
 
     }).then(() => {
 

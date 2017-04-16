@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 import _ from 'lodash'
-import { coerceArray } from './core'
+import { coerceArray, toList } from './core'
 
 export const validateOptions = (type, options, definitions) => {
 
@@ -9,8 +9,6 @@ export const validateOptions = (type, options, definitions) => {
   const name = options.name || options.path || ''
 
   if(valid !== true) {
-
-    // console.log(valid)
 
     if(process.env.NODE_ENV === 'development') {
       printOptionErrors(type, name, valid)
@@ -133,6 +131,18 @@ export const defaultOptions = (types) => {
     ...defaults,
     ...types[type].default ? { [type]: types[type].default } : {}
   }), {})
+
+}
+
+export const checkPermitted = (keys, permitted, reject, message) => {
+
+  const unpermitted = Object.keys(keys).filter(key => {
+    return !_.includes(coerceArray(permitted), key)
+  })
+
+  if(unpermitted.length > 0 && process.env.NODE_ENV == 'development') {
+    return reject({ code: 412, message: message.replace('{unpermitted}', toList(unpermitted)) })
+  }
 
 }
 

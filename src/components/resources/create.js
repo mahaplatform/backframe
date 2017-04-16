@@ -1,16 +1,13 @@
 import _ from 'lodash'
-import { coerceArray, toList } from '../../utils/core'
+import { coerceArray } from '../../utils/core'
 import { defaultRenderer, defaultResponder } from '../../utils'
+import { checkPermitted } from '../../utils/options'
 
 export default  (buildRoute) => {
 
   const alterRequest = options => (req, resolve, reject) => {
 
-    req.data = {
-      ...req.body,
-      ...req.defaults,
-      ...req.query
-    }
+    req.data = _.assign(req.body, req.defaults, req.query)
 
     resolve(req)
 
@@ -18,13 +15,7 @@ export default  (buildRoute) => {
 
   const beforeHooks = options => (req, resolve, reject) => {
 
-    const unpermitted = Object.keys(req.data).filter(key => {
-      return !_.includes(coerceArray(options.allowedParams), key)
-    })
-
-    if(unpermitted.length > 0 && process.env.NODE_ENV == 'development') {
-      return reject({ code: 412, message: `Unable to create record with the values ${toList(unpermitted)}. Please add it to 'allowedParams'` })
-    }
+    checkPermitted(req.data, options.allowedParams, reject, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams')
 
     resolve()
 
