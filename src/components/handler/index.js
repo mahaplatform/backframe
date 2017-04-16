@@ -60,7 +60,7 @@ export const buildHandler = (components) => {
 
   const { beginHooks, alterRequest, beforeHooks, processor, afterHooks, renderer, alterResult, responder, commitHooks } = components
 
-  return (req, res, recordTick) => {
+  return (req, res, recordTick = () => Promise.resolve()) => {
 
     return new Promise.resolve(req)
 
