@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "setup": "knex migrate:rollback && knex migrate:latest && knex seed:run",
+    "routes": "NODE_PATH=./src babel-node ./src/routes.js",
     "start": "NODE_PATH=./src babel-node ./src/server.js"
   },
   "author": "",
