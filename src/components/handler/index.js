@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import Promise from 'bluebird'
 import { defaultProcessor, defaultResponder } from '../../utils'
 import { validateOptions, defaultOptions } from '../../utils/options'
@@ -16,9 +17,14 @@ export default (backframeOptions = {}) => {
       beforeHooks: { type: ['function','function[]'], required: false },
       beginHooks: { type: ['function','function[]'], required: false },
       commitHooks: { type: ['function','function[]'], required: false },
-      processor: { type: 'function', required: true, default: defaultProcessor },
+      csvResponder: { type: ['function'], required: false },
+      jsonResponder: { type: ['function'], required: false},
+      processor: { type: 'function', required: true },
       renderer: { type: 'function', required: false },
-      responder: { type: 'function', required: false, default: defaultResponder(200, 'Success') }
+      responder: { type: 'function', required: false },
+      tsvResponder: { type: ['function'], required: false },
+      xlsxResponder: { type: ['function'], required: false },
+      xmlResponder: { type: ['function'], required: false }
     }
 
     validateOptions('handler', userOptions, TYPES)
@@ -33,11 +39,10 @@ export default (backframeOptions = {}) => {
 
 export const normalizeOptions = (userOptions, types) => {
 
-  return {
+  return expandLifecycle({
     ...defaultOptions(types),
     ...userOptions,
-    ...expandLifecycle(userOptions)
-  }
+  })
 
 }
 
@@ -46,7 +51,7 @@ export const expandLifecycle = (userOptions) => {
   return constants.BACKFRAME_HOOKS.reduce((options, hook) => ({
     ...options,
     [hook]: coerceArray(userOptions[hook])
-  }), {})
+  }), userOptions)
 
 }
 
@@ -72,7 +77,7 @@ export const buildHandler = (components) => {
 
     .then(([req, result]) => runAlterResult(req, alterResult, result).then(result => ([req, result])))
 
-    .then(([req, result]) => responder ? new Promise((resolve, reject) => responder(req, res, result, resolve, reject)).then(() => ([req, result])) : [req, result])
+    .then(([req, result]) => new Promise((resolve, reject) => responder(req, res, result, resolve, reject)).then(() => ([req, result])))
 
     .then(([req, result]) => runHooks(req, commitHooks, result).then(() => result))
 
@@ -120,7 +125,7 @@ export const runHooks = (req, hooks, result = null) => {
 
 export const renderError = (res, err) => {
 
-  if(process.env.NODE_ENV === 'development') console.log(err)
+  if(_.includes(['development'], process.env.NODE_ENV)) console.log(err)
 
   if(err.code) return fail(res, err.code, err.message, { errors: err.errors })
 

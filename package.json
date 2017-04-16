@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf ./dist && babel ./src --out-dir ./dist",
+    "routes": "NODE_PATH=. babel-node app/routes.js",
     "test": "NODE_ENV=test NODE_PATH=. mocha --recursive --require babel-core/register ./src/**/*test.js"
   },
   "repository": {

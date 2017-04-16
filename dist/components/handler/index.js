@@ -9,6 +9,10 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
 var _bluebird = require('bluebird');
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
@@ -46,9 +50,14 @@ exports.default = function () {
       beforeHooks: { type: ['function', 'function[]'], required: false },
       beginHooks: { type: ['function', 'function[]'], required: false },
       commitHooks: { type: ['function', 'function[]'], required: false },
-      processor: { type: 'function', required: true, default: _utils.defaultProcessor },
+      csvResponder: { type: ['function'], required: false },
+      jsonResponder: { type: ['function'], required: false },
+      processor: { type: 'function', required: true },
       renderer: { type: 'function', required: false },
-      responder: { type: 'function', required: false, default: (0, _utils.defaultResponder)(200, 'Success') }
+      responder: { type: 'function', required: false },
+      tsvResponder: { type: ['function'], required: false },
+      xlsxResponder: { type: ['function'], required: false },
+      xmlResponder: { type: ['function'], required: false }
     };
 
     (0, _options.validateOptions)('handler', userOptions, TYPES);
@@ -61,14 +70,14 @@ exports.default = function () {
 
 var normalizeOptions = exports.normalizeOptions = function normalizeOptions(userOptions, types) {
 
-  return _extends({}, (0, _options.defaultOptions)(types), userOptions, expandLifecycle(userOptions));
+  return expandLifecycle(_extends({}, (0, _options.defaultOptions)(types), userOptions));
 };
 
 var expandLifecycle = exports.expandLifecycle = function expandLifecycle(userOptions) {
 
   return constants.BACKFRAME_HOOKS.reduce(function (options, hook) {
     return _extends({}, options, _defineProperty({}, hook, (0, _core.coerceArray)(userOptions[hook])));
-  }, {});
+  }, userOptions);
 };
 
 var buildHandler = exports.buildHandler = function buildHandler(components) {
@@ -132,11 +141,11 @@ var buildHandler = exports.buildHandler = function buildHandler(components) {
           req = _ref8[0],
           result = _ref8[1];
 
-      return responder ? new _bluebird2.default(function (resolve, reject) {
+      return new _bluebird2.default(function (resolve, reject) {
         return responder(req, res, result, resolve, reject);
       }).then(function () {
         return [req, result];
-      }) : [req, result];
+      });
     }).then(function (_ref9) {
       var _ref10 = _slicedToArray(_ref9, 2),
           req = _ref10[0],
@@ -202,7 +211,7 @@ var runHooks = exports.runHooks = function runHooks(req, hooks) {
 
 var renderError = exports.renderError = function renderError(res, err) {
 
-  if (process.env.NODE_ENV === 'development') console.log(err);
+  if (_lodash2.default.includes(['development'], process.env.NODE_ENV)) console.log(err);
 
   if (err.code) return (0, _response.fail)(res, err.code, err.message, { errors: err.errors });
 

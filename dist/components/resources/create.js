@@ -56,21 +56,13 @@ exports.default = function (buildRoute) {
     };
   };
 
-  var renderer = function renderer(options) {
-    return (0, _utils.defaultRenderer)(options);
-  };
-
-  var responder = function responder(options) {
-    return (0, _utils.defaultResponder)(200, 'Successfully created record');
-  };
-
   return buildRoute({
     method: 'post',
     path: '',
     alterRequest: alterRequest,
     beforeHooks: beforeHooks,
     processor: processor,
-    renderer: renderer,
-    responder: responder
+    renderer: _utils.defaultRenderer,
+    responder: (0, _utils.defaultResponder)('Successfully created record')
   });
 };

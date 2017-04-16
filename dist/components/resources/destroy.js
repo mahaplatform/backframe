@@ -12,6 +12,8 @@ var _load = require('../../utils/load');
 
 var _load2 = _interopRequireDefault(_load);
 
+var _utils = require('../../utils');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -67,6 +69,7 @@ exports.default = function (buildRoute) {
   return buildRoute({
     method: 'delete',
     path: '/:id',
-    processor: processor
+    processor: processor,
+    responder: (0, _utils.defaultResponder)('Successfully deleted record')
   });
 };

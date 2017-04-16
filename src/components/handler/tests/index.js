@@ -23,7 +23,7 @@ export default () => {
   it('executes with only a processor', (done) => {
 
     const handler = buildHandler({
-      processor: (req, resolve, reject) => resolve('foo')
+      processor: (req, resolve, reject) => { resolve('foo')}
     })
 
     handler({}, res).then(result => {
@@ -38,28 +38,10 @@ export default () => {
 
   it('fails with a failed beginHooks hook', (done) => testFailedHookBeforeProcessor('beginHooks', done))
 
-  it('succeeds with a single before hook', (done) => testSingleHookBeforeProcessor('beforeHooks', done))
-
-  it('succeeds with multiple before hooks', (done) => testMultipleHooksBeforeProcessor('beforeHooks', done))
-
-  it('fails with a failed before hook', (done) => testFailedHookBeforeProcessor('beforeHooks', done))
-
-  it('succeeds with a single after hook', (done) => testSingleHookAfterProcessor('afterHooks', done))
-
-  it('succeeds with multiple after hooks', (done) => testMultipleHooksAfterProcessor('afterHooks', done))
-
-  it('fails with a failed after hook', (done) => testFailedHookAfterProcessor('afterHooks', done))
-
-  it('succeeds with a single commit hook', (done) => testSingleHookAfterProcessor('commitHooks', done))
-
-  it('succeeds with multiple commit hooks', (done) => testMultipleHooksAfterProcessor('commitHooks', done))
-
-  it('fails with a failed commit hook', (done) => testFailedHookAfterProcessor('commitHooks', done))
-
   it('succeeds with a single alterRequest hook', (done) => {
 
     const handler = buildHandler({
-      alterRequest: (req, resolve, reject) => resolve(done()),
+      alterRequest: (req, resolve, reject) => { resolve(req); done() },
       processor: (req, resolve, reject) => resolve()
     })
 
@@ -72,7 +54,7 @@ export default () => {
     const handler = buildHandler({
       alterRequest: [
         (req, resolve, reject) => resolve(),
-        (req, resolve, reject) => resolve(done())
+        (req, resolve, reject) => { resolve(req); done() }
       ],
       processor: (req, resolve, reject) => resolve()
     })
@@ -91,6 +73,48 @@ export default () => {
     handler({}, res).catch(err => done())
 
   })
+
+  it('alters the request with alterRequest hook', (done) => {
+
+    const handler = buildHandler({
+      alterRequest: [
+        (req, resolve, reject) => {
+          resolve({
+            ...req,
+            bar: 2
+          })
+        }, (req, resolve, reject) => {
+          resolve({
+            ...req,
+            baz: 3
+          })
+        }
+      ],
+      processor: (req, resolve, reject) => {
+        expect(req).to.eql({
+          foo: 1,
+          bar: 2,
+          baz: 3
+        })
+        resolve(done())
+      }
+    })
+
+    handler({ foo: 1 }, res)
+
+  })
+
+  it('succeeds with a single before hook', (done) => testSingleHookBeforeProcessor('beforeHooks', done))
+
+  it('succeeds with multiple before hooks', (done) => testMultipleHooksBeforeProcessor('beforeHooks', done))
+
+  it('fails with a failed before hook', (done) => testFailedHookBeforeProcessor('beforeHooks', done))
+
+  it('succeeds with a single after hook', (done) => testSingleHookAfterProcessor('afterHooks', done))
+
+  it('succeeds with multiple after hooks', (done) => testMultipleHooksAfterProcessor('afterHooks', done))
+
+  it('fails with a failed after hook', (done) => testFailedHookAfterProcessor('afterHooks', done))
 
   it('succeeds with a single alterResult hook', (done) => {
 
@@ -128,35 +152,11 @@ export default () => {
 
   })
 
-  it('alters the request with alterRequest hook', (done) => {
+  it('succeeds with a single commit hook', (done) => testSingleHookAfterProcessor('commitHooks', done))
 
-    const handler = buildHandler({
-      alterRequest: [
-        (req, resolve, reject) => {
-          resolve({
-            ...req,
-            bar: 2
-          })
-        }, (req, resolve, reject) => {
-          resolve({
-            ...req,
-            baz: 3
-          })
-        }
-      ],
-      processor: (req, resolve, reject) => {
-        expect(req).to.eql({
-          foo: 1,
-          bar: 2,
-          baz: 3
-        })
-        resolve(done())
-      }
-    })
+  it('succeeds with multiple commit hooks', (done) => testMultipleHooksAfterProcessor('commitHooks', done))
 
-    handler({ foo: 1 }, res)
-
-  })
+  it('fails with a failed commit hook', (done) => testFailedHookAfterProcessor('commitHooks', done))
 
 }
 

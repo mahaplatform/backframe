@@ -1,6 +1,11 @@
+import _ from 'lodash'
 import render from './render'
 import { succeed } from './response'
 import { applyToRecords, selectFields } from './core'
+import csvResponder from '../responders/csv_responder'
+import jsonResponder from '../responders/json_responder'
+import xlsxResponder from '../responders/xlsx_responder'
+import xmlResponder from '../responders/xml_responder'
 
 export const defaultQuery = (req, options, qb, filters) => {
 
@@ -22,54 +27,56 @@ export const defaultQuery = (req, options, qb, filters) => {
 
 }
 
-export const defaultProcessor = (req, resolve, reject) => resolve(null)
+export const defaultProcessor = options => (req, resolve, reject) => resolve(null)
 
-export const defaultRenderer = (options) => {
+export const defaultRenderer = options => (req, result, resolve, reject) => {
 
-  return (req, result, resolve, reject) => {
+  if(!result) return null
 
-    if(!result) return null
+  const renderer = render(options)
 
-    const renderer = render(options)
+  const selector = selectFields(req.query.$select)
 
-    const selector = selectFields(req.query.$select)
+  const transform = () => {
 
-    const transform = () => {
+    if(result.records) return applyToRecords(req, result, [renderer, selector])
 
-      if(result.records) return applyToRecords(req, result, [renderer, selector])
+    return new Promise((resolve, reject) => renderer(req, result, resolve, reject)).then(result => {
 
-      return new Promise((resolve, reject) => renderer(req, result, resolve, reject)).then(result => {
-
-        return new Promise((resolve, reject) => selector(req, result, resolve, reject))
-
-      })
-
-    }
-
-    return transform().then(result => {
-
-      resolve(result)
-
-    }).catch(err => {
-
-      throw err
+      return new Promise((resolve, reject) => selector(req, result, resolve, reject))
 
     })
 
   }
 
+  return transform().then(result => {
+
+    resolve(result)
+
+  }).catch(err => {
+
+    throw err
+
+  })
+
 }
 
-export const defaultResponder = (status, message) => {
+export const defaultResponder = message => options => (req, res, result, resolve, reject) => {
 
-  return (req, res, data, resolve, reject) => {
+  const format = req.params && req.params.format ? req.params.format : 'json'
 
-    const extra = data ? { data } : null
-
-    succeed(res, status, message, extra)
-
-    resolve()
-
+  if(!_.includes(['csv','tsv','xlsx','xml','json'], format)) {
+    return reject({ code: 415, message: 'We dont currently support this media type' })
   }
+
+  const pagination = _.pick(result, ['all','total','limit','skip'])
+
+  const data = _.get(result, 'records') ? result.records : result
+
+  const responders = { csvResponder, jsonResponder, tsvResponder: csvResponder, xlsxResponder, xmlResponder }
+
+  const responder = options[`${format}Responder`] || responders[`${format}Responder`]
+
+  return responder(message, pagination, data, req, res, resolve, reject)
 
 }

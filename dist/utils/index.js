@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.defaultResponder = exports.defaultRenderer = exports.defaultProcessor = exports.defaultQuery = undefined;
 
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
 var _render = require('./render');
 
 var _render2 = _interopRequireDefault(_render);
@@ -12,6 +16,22 @@ var _render2 = _interopRequireDefault(_render);
 var _response = require('./response');
 
 var _core = require('./core');
+
+var _csv_responder = require('../responders/csv_responder');
+
+var _csv_responder2 = _interopRequireDefault(_csv_responder);
+
+var _json_responder = require('../responders/json_responder');
+
+var _json_responder2 = _interopRequireDefault(_json_responder);
+
+var _xlsx_responder = require('../responders/xlsx_responder');
+
+var _xlsx_responder2 = _interopRequireDefault(_xlsx_responder);
+
+var _xml_responder = require('../responders/xml_responder');
+
+var _xml_responder2 = _interopRequireDefault(_xml_responder);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34,12 +54,13 @@ var defaultQuery = exports.defaultQuery = function defaultQuery(req, options, qb
   return qb;
 };
 
-var defaultProcessor = exports.defaultProcessor = function defaultProcessor(req, resolve, reject) {
-  return resolve(null);
+var defaultProcessor = exports.defaultProcessor = function defaultProcessor(options) {
+  return function (req, resolve, reject) {
+    return resolve(null);
+  };
 };
 
 var defaultRenderer = exports.defaultRenderer = function defaultRenderer(options) {
-
   return function (req, result, resolve, reject) {
 
     if (!result) return null;
@@ -72,14 +93,25 @@ var defaultRenderer = exports.defaultRenderer = function defaultRenderer(options
   };
 };
 
-var defaultResponder = exports.defaultResponder = function defaultResponder(status, message) {
+var defaultResponder = exports.defaultResponder = function defaultResponder(message) {
+  return function (options) {
+    return function (req, res, result, resolve, reject) {
 
-  return function (req, res, data, resolve, reject) {
+      var format = req.params && req.params.format ? req.params.format : 'json';
 
-    var extra = data ? { data: data } : null;
+      if (!_lodash2.default.includes(['csv', 'tsv', 'xlsx', 'xml', 'json'], format)) {
+        return reject({ code: 415, message: 'We dont currently support this media type' });
+      }
 
-    (0, _response.succeed)(res, status, message, extra);
+      var pagination = _lodash2.default.pick(result, ['all', 'total', 'limit', 'skip']);
 
-    resolve();
+      var data = _lodash2.default.get(result, 'records') ? result.records : result;
+
+      var responders = { csvResponder: _csv_responder2.default, jsonResponder: _json_responder2.default, tsvResponder: _csv_responder2.default, xlsxResponder: _xlsx_responder2.default, xmlResponder: _xml_responder2.default };
+
+      var responder = options[format + 'Responder'] || responders[format + 'Responder'];
+
+      return responder(message, pagination, data, req, res, resolve, reject);
+    };
   };
 };

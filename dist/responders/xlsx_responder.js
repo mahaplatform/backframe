@@ -24,7 +24,7 @@ var _core = require('../utils/core');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (pagination, result, req, res, resolve, reject) {
+exports.default = function (message, pagination, result, req, res, resolve, reject) {
 
   var records = (0, _core.coerceArray)(result);
 

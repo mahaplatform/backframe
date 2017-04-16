@@ -1,5 +1,6 @@
 import Promise from 'bluebird'
 import load from '../../utils/load'
+import { defaultResponder } from '../../utils'
 
 export default  (buildRoute) => {
 
@@ -56,7 +57,8 @@ export default  (buildRoute) => {
   return buildRoute({
     method: 'delete',
     path: '/:id',
-    processor
+    processor,
+    responder: defaultResponder('Successfully deleted record')
   })
 
 }

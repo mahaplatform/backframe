@@ -35,7 +35,7 @@ exports.default = function () {
 
     var handler = buildHandler({
       processor: function processor(req, resolve, reject) {
-        return resolve('foo');
+        resolve('foo');
       }
     });
 
@@ -54,6 +54,77 @@ exports.default = function () {
 
   it('fails with a failed beginHooks hook', function (done) {
     return testFailedHookBeforeProcessor('beginHooks', done);
+  });
+
+  it('succeeds with a single alterRequest hook', function (done) {
+
+    var handler = buildHandler({
+      alterRequest: function alterRequest(req, resolve, reject) {
+        resolve(req);done();
+      },
+      processor: function processor(req, resolve, reject) {
+        return resolve();
+      }
+    });
+
+    handler({}, res);
+  });
+
+  it('succeeds with multiple alterRequest hooks', function (done) {
+
+    var handler = buildHandler({
+      alterRequest: [function (req, resolve, reject) {
+        return resolve();
+      }, function (req, resolve, reject) {
+        resolve(req);done();
+      }],
+      processor: function processor(req, resolve, reject) {
+        return resolve();
+      }
+    });
+
+    handler({}, res);
+  });
+
+  it('fails with a failed alterRequest hook', function (done) {
+
+    var handler = buildHandler({
+      alterRequest: function alterRequest(req, resolve, reject) {
+        return reject();
+      },
+      processor: function processor(req, resolve, reject) {
+        return resolve();
+      }
+    });
+
+    handler({}, res).catch(function (err) {
+      return done();
+    });
+  });
+
+  it('alters the request with alterRequest hook', function (done) {
+
+    var handler = buildHandler({
+      alterRequest: [function (req, resolve, reject) {
+        resolve(_extends({}, req, {
+          bar: 2
+        }));
+      }, function (req, resolve, reject) {
+        resolve(_extends({}, req, {
+          baz: 3
+        }));
+      }],
+      processor: function processor(req, resolve, reject) {
+        (0, _chai.expect)(req).to.eql({
+          foo: 1,
+          bar: 2,
+          baz: 3
+        });
+        resolve(done());
+      }
+    });
+
+    handler({ foo: 1 }, res);
   });
 
   it('succeeds with a single before hook', function (done) {
@@ -78,64 +149,6 @@ exports.default = function () {
 
   it('fails with a failed after hook', function (done) {
     return testFailedHookAfterProcessor('afterHooks', done);
-  });
-
-  it('succeeds with a single commit hook', function (done) {
-    return testSingleHookAfterProcessor('commitHooks', done);
-  });
-
-  it('succeeds with multiple commit hooks', function (done) {
-    return testMultipleHooksAfterProcessor('commitHooks', done);
-  });
-
-  it('fails with a failed commit hook', function (done) {
-    return testFailedHookAfterProcessor('commitHooks', done);
-  });
-
-  it('succeeds with a single alterRequest hook', function (done) {
-
-    var handler = buildHandler({
-      alterRequest: function alterRequest(req, resolve, reject) {
-        return resolve(done());
-      },
-      processor: function processor(req, resolve, reject) {
-        return resolve();
-      }
-    });
-
-    handler({}, res);
-  });
-
-  it('succeeds with multiple alterRequest hooks', function (done) {
-
-    var handler = buildHandler({
-      alterRequest: [function (req, resolve, reject) {
-        return resolve();
-      }, function (req, resolve, reject) {
-        return resolve(done());
-      }],
-      processor: function processor(req, resolve, reject) {
-        return resolve();
-      }
-    });
-
-    handler({}, res);
-  });
-
-  it('fails with a failed alterRequest hook', function (done) {
-
-    var handler = buildHandler({
-      alterRequest: function alterRequest(req, resolve, reject) {
-        return reject();
-      },
-      processor: function processor(req, resolve, reject) {
-        return resolve();
-      }
-    });
-
-    handler({}, res).catch(function (err) {
-      return done();
-    });
   });
 
   it('succeeds with a single alterResult hook', function (done) {
@@ -184,29 +197,16 @@ exports.default = function () {
     });
   });
 
-  it('alters the request with alterRequest hook', function (done) {
+  it('succeeds with a single commit hook', function (done) {
+    return testSingleHookAfterProcessor('commitHooks', done);
+  });
 
-    var handler = buildHandler({
-      alterRequest: [function (req, resolve, reject) {
-        resolve(_extends({}, req, {
-          bar: 2
-        }));
-      }, function (req, resolve, reject) {
-        resolve(_extends({}, req, {
-          baz: 3
-        }));
-      }],
-      processor: function processor(req, resolve, reject) {
-        (0, _chai.expect)(req).to.eql({
-          foo: 1,
-          bar: 2,
-          baz: 3
-        });
-        resolve(done());
-      }
-    });
+  it('succeeds with multiple commit hooks', function (done) {
+    return testMultipleHooksAfterProcessor('commitHooks', done);
+  });
 
-    handler({ foo: 1 }, res);
+  it('fails with a failed commit hook', function (done) {
+    return testFailedHookAfterProcessor('commitHooks', done);
   });
 };
 

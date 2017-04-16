@@ -74,7 +74,7 @@ export const buildRouter = (backframeOptions, options, buildHandler) => {
 
     const wrappedHandler = (req, res) => logger(options)(req, res, handler)
 
-    router[route.method](path, wrappedHandler)
+    router[route.method](`${path.replace(':id',':id(\\d+)')}\.:format?`, wrappedHandler)
 
   })
 

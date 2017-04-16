@@ -2,7 +2,9 @@ import _ from 'lodash'
 import moment from 'moment'
 import { coerceArray, selectedLabels, selectedKeys } from '../utils/core'
 
-export default (separator) => (pagination, result, req, res, resolve, reject) => {
+export default (message, pagination, result, req, res, resolve, reject) => {
+
+  const separator = (req.params.format === 'tsv') ? '\t' : ','
 
   const records = coerceArray(result)
 

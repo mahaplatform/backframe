@@ -1,12 +1,8 @@
 import Promise from 'bluebird'
 import _ from 'lodash'
-import { defaultQuery, defaultRenderer } from '../../utils'
+import { defaultQuery, defaultRenderer, defaultResponder } from '../../utils'
 import { coerceArray, toList } from '../../utils/core'
 import { extractSort, filter } from '../../utils/list'
-import CSVRenderer from '../../renderers/csv'
-import JSONRenderer from '../../renderers/json'
-import XLSXRenderer from '../../renderers/xlsx'
-import XMLRenderer from '../../renderers/xml'
 
 export default (buildRoute) => {
 
@@ -144,39 +140,13 @@ export default (buildRoute) => {
 
   }
 
-  const renderer = defaultRenderer
-
-  const responder = options => (req, res, result, resolve, reject) => {
-
-    const pagination = _.pick(result, ['all','total','limit','skip'])
-
-    const format = req.params.format || 'json'
-
-    switch(format) {
-
-      case 'csv': return CSVRenderer(',')(pagination, result.records, req, res, resolve, reject)
-
-      case 'tsv': return CSVRenderer('\t')(pagination, result.records, req, res, resolve, reject)
-
-      case 'xlsx': return XLSXRenderer(pagination, result.records, req, res, resolve, reject)
-
-      case 'xml': return XMLRenderer(pagination, result.records, req, res, resolve, reject)
-
-      case 'json': return JSONRenderer(pagination, result.records, req, res, resolve, reject)
-
-      default: return reject({ code: 415, message: 'We dont currently support this media type' })
-
-    }
-
-  }
-
   return buildRoute({
     method: 'get',
-    path: '(\.:format)?',
+    path: '',
     beforeHooks,
     processor,
-    renderer,
-    responder
+    renderer: defaultRenderer,
+    responder: defaultResponder('Successfully found records')
   })
 
 }

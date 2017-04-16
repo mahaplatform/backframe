@@ -48,18 +48,14 @@ export default (buildRoute) => {
 
   }
 
-  const renderer = options => defaultRenderer(options)
-
-  const responder = options => defaultResponder(200, 'Successfully updated record')
-
   return buildRoute({
     method: 'patch',
     path: '/:id',
     alterRequest,
     beforeHooks,
     processor,
-    renderer,
-    responder
+    renderer: defaultRenderer,
+    responder: defaultResponder('Successfully updated record')
   })
 
 }

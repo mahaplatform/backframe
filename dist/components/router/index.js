@@ -107,7 +107,7 @@ var buildRouter = exports.buildRouter = function buildRouter(backframeOptions, o
       return (0, _logger2.default)(options)(req, res, handler);
     };
 
-    router[route.method](path, wrappedHandler);
+    router[route.method](path.replace(':id', ':id(\\d+)') + '.:format?', wrappedHandler);
   });
 
   if (options.notFound) router.use(function (req, res) {

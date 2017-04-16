@@ -18,22 +18,6 @@ var _core = require('../../utils/core');
 
 var _list = require('../../utils/list');
 
-var _csv = require('../../renderers/csv');
-
-var _csv2 = _interopRequireDefault(_csv);
-
-var _json = require('../../renderers/json');
-
-var _json2 = _interopRequireDefault(_json);
-
-var _xlsx = require('../../renderers/xlsx');
-
-var _xlsx2 = _interopRequireDefault(_xlsx);
-
-var _xml = require('../../renderers/xml');
-
-var _xml2 = _interopRequireDefault(_xml);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (buildRoute) {
@@ -179,45 +163,12 @@ exports.default = function (buildRoute) {
     };
   };
 
-  var renderer = _utils.defaultRenderer;
-
-  var responder = function responder(options) {
-    return function (req, res, result, resolve, reject) {
-
-      var pagination = _lodash2.default.pick(result, ['all', 'total', 'limit', 'skip']);
-
-      var format = req.params.format || 'json';
-
-      switch (format) {
-
-        case 'csv':
-          return (0, _csv2.default)(',')(pagination, result.records, req, res, resolve, reject);
-
-        case 'tsv':
-          return (0, _csv2.default)('\t')(pagination, result.records, req, res, resolve, reject);
-
-        case 'xlsx':
-          return (0, _xlsx2.default)(pagination, result.records, req, res, resolve, reject);
-
-        case 'xml':
-          return (0, _xml2.default)(pagination, result.records, req, res, resolve, reject);
-
-        case 'json':
-          return (0, _json2.default)(pagination, result.records, req, res, resolve, reject);
-
-        default:
-          return reject({ code: 415, message: 'We dont currently support this media type' });
-
-      }
-    };
-  };
-
   return buildRoute({
     method: 'get',
-    path: '(\.:format)?',
+    path: '',
     beforeHooks: beforeHooks,
     processor: processor,
-    renderer: renderer,
-    responder: responder
+    renderer: _utils.defaultRenderer,
+    responder: (0, _utils.defaultResponder)('Successfully found records')
   });
 };

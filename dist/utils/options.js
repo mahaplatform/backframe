@@ -130,7 +130,7 @@ var defaultOptions = exports.defaultOptions = function defaultOptions(types) {
 
   return Object.keys(types).reduce(function (defaults, type) {
     return _extends({}, defaults, types[type].default ? _defineProperty({}, type, types[type].default) : {});
-  });
+  }, {});
 };
 
 var printOptionErrors = exports.printOptionErrors = function printOptionErrors(type, name, issues) {

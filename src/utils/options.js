@@ -132,7 +132,7 @@ export const defaultOptions = (types) => {
   return Object.keys(types).reduce((defaults, type) => ({
     ...defaults,
     ...types[type].default ? { [type]: types[type].default } : {}
-  }))
+  }), {})
 
 }
 

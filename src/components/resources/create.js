@@ -47,18 +47,14 @@ export default  (buildRoute) => {
 
   }
 
-  const renderer = options => defaultRenderer(options)
-
-  const responder = options => defaultResponder(200, 'Successfully created record')
-
   return buildRoute({
     method: 'post',
     path: '',
     alterRequest,
     beforeHooks,
     processor,
-    renderer,
-    responder
+    renderer: defaultRenderer,
+    responder: defaultResponder('Successfully created record')
   })
 
 }

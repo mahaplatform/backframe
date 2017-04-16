@@ -18,7 +18,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-exports.default = function (pagination, result, req, res, resolve, reject) {
+exports.default = function (message, pagination, result, req, res, resolve, reject) {
 
   var toXML = function toXML(hash) {
 

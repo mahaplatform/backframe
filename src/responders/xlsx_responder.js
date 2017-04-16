@@ -4,7 +4,7 @@ import tempfile from 'tempfile'
 import Excel from 'exceljs'
 import { coerceArray, selectedLabels, selectedKeys } from '../utils/core'
 
-export default (pagination, result, req, res, resolve, reject) => {
+export default (message, pagination, result, req, res, resolve, reject) => {
 
   const records = coerceArray(result)
 

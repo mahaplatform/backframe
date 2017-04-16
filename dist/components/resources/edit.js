@@ -22,12 +22,8 @@ exports.default = function (buildRoute) {
 
   var renderer = function renderer(options) {
     return function (req, result, resolve, reject) {
-      return resolve(result);
+      return resolve(result.toJSON());
     };
-  };
-
-  var responder = function responder(options) {
-    return (0, _utils.defaultResponder)(200, 'Successfully found record');
   };
 
   return buildRoute({
@@ -35,6 +31,6 @@ exports.default = function (buildRoute) {
     path: '/:id/edit',
     processor: processor,
     renderer: renderer,
-    responder: responder
+    responder: (0, _utils.defaultResponder)('Successfully found record')
   });
 };

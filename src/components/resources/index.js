@@ -44,7 +44,7 @@ export default (backframeOptions = {}) => {
       serializer: { type: ['function','function{}'], required: false },
       softDelete: { type: 'boolean', required: false, default: false },
       sortParams: { type: ['string','string[]'], required: false },
-      withRelated: { type: ['string','string[]','string[]{}'], required: false }
+      withRelated: { type: ['string','string[]','string[]{}'], required: false },
     }, backframeOptions.plugins)
 
     validateOptions('resources', userOptions, TYPES)
