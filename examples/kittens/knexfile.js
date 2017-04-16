@@ -7,7 +7,7 @@ module.exports = {
     directory: './src/db'
   },
   client: 'sqlite3',
-  connection: { filename: 'data.sqllite3' },
+  connection: { filename: 'data.sqlite3' },
   pool: {
     min: 1,
     max: 1

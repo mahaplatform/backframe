@@ -1,4 +1,4 @@
 /node_modules
-data.sqllite3
+data.sqlite3
 npm-debug.log
 .env
