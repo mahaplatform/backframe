@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.printLogger = exports.endLogger = exports.beginLogger = exports.captureQueries = undefined;
+exports.printLogger = exports.expandBenchmark = exports.recordTick = exports.endLogger = exports.beginLogger = exports.captureQueries = undefined;
 
 var _bluebird = require('bluebird');
 
@@ -26,6 +26,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var queries = [];
 
 var started = null;
+
+var ticks = [];
 
 var captureQueries = exports.captureQueries = function captureQueries(builder) {
 
@@ -51,6 +53,8 @@ var beginLogger = exports.beginLogger = function beginLogger(options) {
 
     queries = [];
 
+    ticks = [];
+
     started = (0, _moment2.default)();
 
     options.knex.client.on('start', captureQueries);
@@ -66,6 +70,31 @@ var endLogger = exports.endLogger = function endLogger(options) {
 
     return _bluebird2.default.resolve();
   };
+};
+
+var recordTick = exports.recordTick = function recordTick(event) {
+
+  if (process.env.NODE_ENV === 'development') return _bluebird2.default.resolve();
+
+  var timestamp = (0, _moment2.default)();
+
+  ticks.push({ event: event, timestamp: timestamp });
+
+  return _bluebird2.default.resolve();
+};
+
+var expandBenchmark = exports.expandBenchmark = function expandBenchmark(ticks) {
+
+  var pointer = started;
+
+  return ticks.map(function (tick) {
+
+    var duration = tick.timestamp.diff(pointer, 'milliseconds');
+
+    pointer = tick.timestamp;
+
+    return tick.event + ': ' + duration + 'ms';
+  }).join(', ');
 };
 
 var printLogger = exports.printLogger = function printLogger(options) {
@@ -86,6 +115,7 @@ var printLogger = exports.printLogger = function printLogger(options) {
       console.log('%s %s %s %s', _chalk2.default.green('SQL:'), query.sql, _chalk2.default.magenta('{' + query.bindings.join(', ') + '}'), _chalk2.default.grey(query.duration + 'ms'));
     });
     if (result && result.errors) console.log('%s %s', _chalk2.default.red('ERRORS:'), JSON.stringify(result.errors));
+    if (!_lodash2.default.isEmpty(ticks)) console.log('%s %s', _chalk2.default.red('BENCHMERK:'), expandBenchmark(ticks));
     console.log('%s %s rendered in %sms', _chalk2.default.red('RESPONSE:'), res.statusCode, (0, _moment2.default)().diff(started, 'milliseconds'));
     console.log('=========================================================');
     console.log('');

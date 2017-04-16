@@ -37,11 +37,15 @@ export const defaultRenderer = options => (req, result, resolve, reject) => {
 
   const selector = selectFields(req.query.$select)
 
-  const transform = () => {
+  const transforms = (req.query.$select) ? [renderer, selector] : [renderer]
 
-    if(result.records) return applyToRecords(req, result, [renderer, selector])
+  const transform = (req, result, transforms) => {
+
+    if(result.records) return applyToRecords(req, result, transforms)
 
     return new Promise((resolve, reject) => renderer(req, result, resolve, reject)).then(result => {
+
+      if(!req.query.$select) Promise.resolve(result)
 
       return new Promise((resolve, reject) => selector(req, result, resolve, reject))
 
@@ -49,7 +53,7 @@ export const defaultRenderer = options => (req, result, resolve, reject) => {
 
   }
 
-  return transform().then(result => {
+  return transform(req, result, transforms).then(result => {
 
     resolve(result)
 

@@ -7,7 +7,7 @@ import { mergeEvents, mergeHooks } from '../../utils/core'
 import buildHandler from '../handler'
 import notFound from './not_found'
 import * as constants from '../../constants'
-import { beginLogger, endLogger, printLogger } from '../../utils/logger'
+import { beginLogger, endLogger, recordTick, printLogger } from '../../utils/logger'
 
 export default (backframeOptions = {}) => {
 
@@ -90,11 +90,11 @@ const buildRoute = (options, handler) => {
 
     return Promise.resolve().then(() => {
 
-      return beginLogger(options)
+      return beginLogger(options)()
 
     }).then(() => {
 
-      return handler(req, res)
+      return handler(req, res, recordTick)
 
     }).then(result => {
 

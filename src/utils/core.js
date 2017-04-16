@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import Promise from 'bluebird'
 import * as constants from '../constants'
+import moment from 'moment'
 
 export const coerceArray = value => {
 
@@ -35,13 +36,17 @@ export const toList = (arr) => {
 
 export const applyToRecords = (req, result, operations) => {
 
+  if(!operations) return Promise.resolve(result)
+
+  const arrayOfOptions = coerceArray(operations)
+
   return Promise.map(result.records, (record) => {
 
-    return Promise.reduce(coerceArray(operations), (record, operation) => {
+    return operations.reduce((promise, operation) => {
 
-      return new Promise((resolve, request) => operation(req, record, resolve, request))
+      return promise.then(record => new Promise((resolve, request) => operation(req, record, resolve, request)))
 
-    }, record)
+    }, Promise.resolve(record))
 
   }).then(records => {
 

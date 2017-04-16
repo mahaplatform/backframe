@@ -136,11 +136,13 @@ export const defaultOptions = (types) => {
 
 export const checkPermitted = (keys, permitted, reject, message) => {
 
+  if(process.env.NODE_ENV != 'development') return true
+
   const unpermitted = Object.keys(keys).filter(key => {
     return !_.includes(coerceArray(permitted), key)
   })
 
-  if(unpermitted.length > 0 && process.env.NODE_ENV == 'development') {
+  if(unpermitted.length > 0) {
     return reject({ code: 412, message: message.replace('{unpermitted}', toList(unpermitted)) })
   }
 

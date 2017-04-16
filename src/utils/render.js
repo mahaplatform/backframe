@@ -6,15 +6,9 @@ export default (options) => {
 
   return (req, result, resolve, reject) => {
 
-    const serialize = () => {
+    const useSerializer = !_.isPlainObject(result) && !_.isNil(options.serializer)
 
-      if(!options.serializer) {
-        return Promise.resolve(result)
-      }
-
-      return new Promise((resolve, reject) => _.isPlainObject(result) ? resolve(result.toJSON()) : options.serializer(req, result, resolve, reject))
-
-    }
+    const serialize = () => useSerializer ? new Promise((resolve, reject) => options.serializer(req, result, resolve, reject)) : Promise.resolve(result.toJSON())
 
     if(options.cacheFor) {
 
@@ -24,7 +18,7 @@ export default (options) => {
 
       const key = `${options.name}-${result.get('id')}-${Math.floor(result.get('updated_at').getTime() / 1000)}`
 
-      return cache(options)(key, options.cacheFor, serialize).then(resolve)
+      return cache(options)(key, options.cacheFor, serialize)
 
     }
 

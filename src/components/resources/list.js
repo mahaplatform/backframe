@@ -76,7 +76,7 @@ export default (buildRoute) => {
         qb = qb.whereNull('deleted_at')
       }
 
-      qb.count('*')
+      qb.count('* as count')
 
     }).fetchAll()
 

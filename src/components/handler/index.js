@@ -60,27 +60,47 @@ export const buildHandler = (components) => {
 
   const { beginHooks, alterRequest, beforeHooks, processor, afterHooks, renderer, alterResult, responder, commitHooks } = components
 
-  return (req, res) => {
+  return (req, res, recordTick) => {
 
     return new Promise.resolve(req)
 
     .then((req) => runHooks(req, beginHooks).then(() => req))
 
+    .then((req) => recordTick('beginHooks').then(() => req))
+
     .then((req) => runAlterRequest(req, alterRequest))
+
+    .then((req) => recordTick('alterRequest').then(() => req))
 
     .then((req) => runHooks(req, beforeHooks).then(() => req))
 
+    .then((req) => recordTick('beforeHooks').then(() => req))
+
     .then((req) => new Promise((resolve, reject) => processor(req, resolve, reject)).then(result => ([req, result])))
+
+    .then(([req, result]) => recordTick('processor').then(() => ([req, result])))
 
     .then(([req, result]) => runHooks(req, afterHooks, result).then(() => [req, result]))
 
+    .then(([req, result]) => recordTick('afterHooks').then(() => ([req, result])))
+
     .then(([req, result]) => renderer ? new Promise((resolve, reject) => renderer(req, result, resolve, reject)).then(result => ([req, result])) : [req, result])
+
+    .then(([req, result]) => recordTick('renderer').then(() => ([req, result])))
 
     .then(([req, result]) => runAlterResult(req, alterResult, result).then(result => ([req, result])))
 
+    .then(([req, result]) => recordTick('alterResult').then(() => ([req, result])))
+
     .then(([req, result]) => new Promise((resolve, reject) => responder(req, res, result, resolve, reject)).then(() => ([req, result])))
 
-    .then(([req, result]) => runHooks(req, commitHooks, result).then(() => result))
+    .then(([req, result]) => recordTick('responder').then(() => req).then(() => ([req, result])))
+
+    .then(([req, result]) => runHooks(req, commitHooks, result).then(() => ([req, result])))
+
+    .then(([req, result]) => recordTick('commitHooks').then(() => req).then(() => ([req, result])))
+
+    .then(([req, result]) => result)
 
     .catch(err => renderError(res, err))
 

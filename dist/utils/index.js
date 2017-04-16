@@ -69,13 +69,17 @@ var defaultRenderer = exports.defaultRenderer = function defaultRenderer(options
 
     var selector = (0, _core.selectFields)(req.query.$select);
 
-    var transform = function transform() {
+    var transforms = req.query.$select ? [renderer, selector] : [renderer];
 
-      if (result.records) return (0, _core.applyToRecords)(req, result, [renderer, selector]);
+    var transform = function transform(req, result, transforms) {
+
+      if (result.records) return (0, _core.applyToRecords)(req, result, transforms);
 
       return new Promise(function (resolve, reject) {
         return renderer(req, result, resolve, reject);
       }).then(function (result) {
+
+        if (!req.query.$select) Promise.resolve(result);
 
         return new Promise(function (resolve, reject) {
           return selector(req, result, resolve, reject);
@@ -83,7 +87,7 @@ var defaultRenderer = exports.defaultRenderer = function defaultRenderer(options
       });
     };
 
-    return transform().then(function (result) {
+    return transform(req, result, transforms).then(function (result) {
 
       resolve(result);
     }).catch(function (err) {

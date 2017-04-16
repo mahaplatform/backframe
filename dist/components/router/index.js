@@ -119,10 +119,10 @@ var buildRoute = function buildRoute(options, handler) {
 
     return Promise.resolve().then(function () {
 
-      return (0, _logger.beginLogger)(options);
+      return (0, _logger.beginLogger)(options)();
     }).then(function () {
 
-      return handler(req, res);
+      return handler(req, res, _logger.recordTick);
     }).then(function (result) {
 
       return (0, _logger.endLogger)(options)().then(function () {

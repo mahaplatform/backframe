@@ -94,16 +94,28 @@ var buildHandler = exports.buildHandler = function buildHandler(components) {
       commitHooks = components.commitHooks;
 
 
-  return function (req, res) {
+  return function (req, res, recordTick) {
 
     return new _bluebird2.default.resolve(req).then(function (req) {
       return runHooks(req, beginHooks).then(function () {
         return req;
       });
     }).then(function (req) {
+      return recordTick('beginHooks').then(function () {
+        return req;
+      });
+    }).then(function (req) {
       return runAlterRequest(req, alterRequest);
     }).then(function (req) {
+      return recordTick('alterRequest').then(function () {
+        return req;
+      });
+    }).then(function (req) {
       return runHooks(req, beforeHooks).then(function () {
+        return req;
+      });
+    }).then(function (req) {
+      return recordTick('beforeHooks').then(function () {
         return req;
       });
     }).then(function (req) {
@@ -117,7 +129,7 @@ var buildHandler = exports.buildHandler = function buildHandler(components) {
           req = _ref2[0],
           result = _ref2[1];
 
-      return runHooks(req, afterHooks, result).then(function () {
+      return recordTick('processor').then(function () {
         return [req, result];
       });
     }).then(function (_ref3) {
@@ -125,17 +137,15 @@ var buildHandler = exports.buildHandler = function buildHandler(components) {
           req = _ref4[0],
           result = _ref4[1];
 
-      return renderer ? new _bluebird2.default(function (resolve, reject) {
-        return renderer(req, result, resolve, reject);
-      }).then(function (result) {
+      return runHooks(req, afterHooks, result).then(function () {
         return [req, result];
-      }) : [req, result];
+      });
     }).then(function (_ref5) {
       var _ref6 = _slicedToArray(_ref5, 2),
           req = _ref6[0],
           result = _ref6[1];
 
-      return runAlterResult(req, alterResult, result).then(function (result) {
+      return recordTick('afterHooks').then(function () {
         return [req, result];
       });
     }).then(function (_ref7) {
@@ -143,19 +153,79 @@ var buildHandler = exports.buildHandler = function buildHandler(components) {
           req = _ref8[0],
           result = _ref8[1];
 
-      return new _bluebird2.default(function (resolve, reject) {
-        return responder(req, res, result, resolve, reject);
-      }).then(function () {
+      return renderer ? new _bluebird2.default(function (resolve, reject) {
+        return renderer(req, result, resolve, reject);
+      }).then(function (result) {
         return [req, result];
-      });
+      }) : [req, result];
     }).then(function (_ref9) {
       var _ref10 = _slicedToArray(_ref9, 2),
           req = _ref10[0],
           result = _ref10[1];
 
-      return runHooks(req, commitHooks, result).then(function () {
-        return result;
+      return recordTick('renderer').then(function () {
+        return [req, result];
       });
+    }).then(function (_ref11) {
+      var _ref12 = _slicedToArray(_ref11, 2),
+          req = _ref12[0],
+          result = _ref12[1];
+
+      return runAlterResult(req, alterResult, result).then(function (result) {
+        return [req, result];
+      });
+    }).then(function (_ref13) {
+      var _ref14 = _slicedToArray(_ref13, 2),
+          req = _ref14[0],
+          result = _ref14[1];
+
+      return recordTick('alterResult').then(function () {
+        return [req, result];
+      });
+    }).then(function (_ref15) {
+      var _ref16 = _slicedToArray(_ref15, 2),
+          req = _ref16[0],
+          result = _ref16[1];
+
+      return new _bluebird2.default(function (resolve, reject) {
+        return responder(req, res, result, resolve, reject);
+      }).then(function () {
+        return [req, result];
+      });
+    }).then(function (_ref17) {
+      var _ref18 = _slicedToArray(_ref17, 2),
+          req = _ref18[0],
+          result = _ref18[1];
+
+      return recordTick('responder').then(function () {
+        return req;
+      }).then(function () {
+        return [req, result];
+      });
+    }).then(function (_ref19) {
+      var _ref20 = _slicedToArray(_ref19, 2),
+          req = _ref20[0],
+          result = _ref20[1];
+
+      return runHooks(req, commitHooks, result).then(function () {
+        return [req, result];
+      });
+    }).then(function (_ref21) {
+      var _ref22 = _slicedToArray(_ref21, 2),
+          req = _ref22[0],
+          result = _ref22[1];
+
+      return recordTick('commitHooks').then(function () {
+        return req;
+      }).then(function () {
+        return [req, result];
+      });
+    }).then(function (_ref23) {
+      var _ref24 = _slicedToArray(_ref23, 2),
+          req = _ref24[0],
+          result = _ref24[1];
+
+      return result;
     }).catch(function (err) {
       return renderError(res, err);
     });

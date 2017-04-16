@@ -22,15 +22,12 @@ exports.default = function (options) {
 
   return function (req, result, resolve, reject) {
 
+    var useSerializer = !_lodash2.default.isPlainObject(result) && !_lodash2.default.isNil(options.serializer);
+
     var serialize = function serialize() {
-
-      if (!options.serializer) {
-        return _bluebird2.default.resolve(result);
-      }
-
-      return new _bluebird2.default(function (resolve, reject) {
-        return _lodash2.default.isPlainObject(result) ? resolve(result.toJSON()) : options.serializer(req, result, resolve, reject);
-      });
+      return useSerializer ? new _bluebird2.default(function (resolve, reject) {
+        return options.serializer(req, result, resolve, reject);
+      }) : _bluebird2.default.resolve(result.toJSON());
     };
 
     if (options.cacheFor) {
@@ -41,7 +38,7 @@ exports.default = function (options) {
 
       var key = options.name + '-' + result.get('id') + '-' + Math.floor(result.get('updated_at').getTime() / 1000);
 
-      return (0, _cache2.default)(options)(key, options.cacheFor, serialize).then(resolve);
+      return (0, _cache2.default)(options)(key, options.cacheFor, serialize);
     }
 
     return serialize().then(resolve);

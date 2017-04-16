@@ -133,11 +133,13 @@ var defaultOptions = exports.defaultOptions = function defaultOptions(types) {
 
 var checkPermitted = exports.checkPermitted = function checkPermitted(keys, permitted, reject, message) {
 
+  if (process.env.NODE_ENV != 'development') return true;
+
   var unpermitted = Object.keys(keys).filter(function (key) {
     return !_lodash2.default.includes((0, _core.coerceArray)(permitted), key);
   });
 
-  if (unpermitted.length > 0 && process.env.NODE_ENV == 'development') {
+  if (unpermitted.length > 0) {
     return reject({ code: 412, message: message.replace('{unpermitted}', (0, _core.toList)(unpermitted)) });
   }
 };

@@ -19,6 +19,10 @@ var _constants = require('../constants');
 
 var constants = _interopRequireWildcard(_constants);
 
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -58,14 +62,20 @@ var toList = exports.toList = function toList(arr) {
 
 var applyToRecords = exports.applyToRecords = function applyToRecords(req, result, operations) {
 
+  if (!operations) return _bluebird2.default.resolve(result);
+
+  var arrayOfOptions = coerceArray(operations);
+
   return _bluebird2.default.map(result.records, function (record) {
 
-    return _bluebird2.default.reduce(coerceArray(operations), function (record, operation) {
+    return operations.reduce(function (promise, operation) {
 
-      return new _bluebird2.default(function (resolve, request) {
-        return operation(req, record, resolve, request);
+      return promise.then(function (record) {
+        return new _bluebird2.default(function (resolve, request) {
+          return operation(req, record, resolve, request);
+        });
       });
-    }, record);
+    }, _bluebird2.default.resolve(record));
   }).then(function (records) {
 
     return _extends({}, result, {
