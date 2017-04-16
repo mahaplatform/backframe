@@ -41,6 +41,7 @@ export const normalizeOptions = (userOptions, types) => {
 
   return expandLifecycle({
     ...defaultOptions(types),
+    responder: defaultResponder('Success')(userOptions),
     ...userOptions,
   })
 

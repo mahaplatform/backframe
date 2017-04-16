@@ -71,7 +71,7 @@ export default () => {
 
       expect(list).to.include.keys(['method','path','handler','options'])
       expect(list.method).to.equal('get')
-      expect(list.path).to.equal('/users(\.:format)?')
+      expect(list.path).to.equal('/users')
       expect(list.handler).to.include.keys(constants.BACKFRAME_LIFECYCLE)
       expect(list.handler.beginHooks).to.be.empty
       expect(list.handler.alterRequest).to.be.empty

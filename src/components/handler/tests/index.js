@@ -27,6 +27,7 @@ export default () => {
     })
 
     handler({}, res).then(result => {
+      console.log(result)
       expect(result).to.equal('foo')
       done()
     })
