@@ -276,7 +276,7 @@ babel-helper-explode-class@^6.24.1:
     babel-traverse "^6.24.1"
     babel-types "^6.24.1"
 
-babel-helper-function-name@^6.24.1, babel-helper-function-name@^6.8.0:
+babel-helper-function-name@^6.24.1:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-helper-function-name/-/babel-helper-function-name-6.24.1.tgz#d3475b8c03ed98242a25b48351ab18399d3580a9"
   dependencies:
@@ -410,15 +410,6 @@ babel-plugin-transform-async-generator-functions@^6.24.1:
     babel-helper-remap-async-to-generator "^6.24.1"
     babel-plugin-syntax-async-generators "^6.5.0"
     babel-runtime "^6.22.0"
-
-babel-plugin-transform-async-to-bluebird@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/babel-plugin-transform-async-to-bluebird/-/babel-plugin-transform-async-to-bluebird-1.0.1.tgz#fdd012eb69fc0e118190b27da45b1e77a4568906"
-  dependencies:
-    babel-helper-function-name "^6.8.0"
-    babel-plugin-syntax-async-functions "^6.8.0"
-    babel-template "^6.9.0"
-    babel-traverse "^6.10.4"
 
 babel-plugin-transform-async-to-generator@^6.24.1:
   version "6.24.1"
@@ -659,7 +650,7 @@ babel-plugin-transform-object-rest-spread@^6.22.0:
     babel-plugin-syntax-object-rest-spread "^6.8.0"
     babel-runtime "^6.22.0"
 
-babel-plugin-transform-promise-to-bluebird@^1.1.0:
+babel-plugin-transform-promise-to-bluebird@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-promise-to-bluebird/-/babel-plugin-transform-promise-to-bluebird-1.1.1.tgz#dbb0882086ba3da6e1dfc2eeb58d1293acfee8f6"
 
@@ -683,13 +674,6 @@ babel-polyfill@^6.23.0:
     babel-runtime "^6.22.0"
     core-js "^2.4.0"
     regenerator-runtime "^0.10.0"
-
-babel-preset-bluebird@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/babel-preset-bluebird/-/babel-preset-bluebird-1.0.1.tgz#353b92436ef0ba38136dc3292f419748b0516356"
-  dependencies:
-    babel-plugin-transform-async-to-bluebird "^1.0.0"
-    babel-plugin-transform-promise-to-bluebird "^1.1.0"
 
 babel-preset-es2015@^6.24.1:
   version "6.24.1"
@@ -774,7 +758,7 @@ babel-runtime@^6.11.6, babel-runtime@^6.18.0, babel-runtime@^6.22.0, babel-runti
     core-js "^2.4.0"
     regenerator-runtime "^0.10.0"
 
-babel-template@^6.24.1, babel-template@^6.9.0:
+babel-template@^6.24.1:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-template/-/babel-template-6.24.1.tgz#04ae514f1f93b3a2537f2a0f60a5a45fb8308333"
   dependencies:
@@ -784,7 +768,7 @@ babel-template@^6.24.1, babel-template@^6.9.0:
     babylon "^6.11.0"
     lodash "^4.2.0"
 
-babel-traverse@^6.10.4, babel-traverse@^6.23.1, babel-traverse@^6.24.1:
+babel-traverse@^6.23.1, babel-traverse@^6.24.1:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-traverse/-/babel-traverse-6.24.1.tgz#ab36673fd356f9a0948659e7b338d5feadb31695"
   dependencies:

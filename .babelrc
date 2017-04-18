@@ -1,7 +1,9 @@
 {
   "presets": [
     "es2015",
-    "bluebird",
     "stage-0"
+  ],
+  "plugins": [
+    "transform-promise-to-bluebird"    
   ]
 }
