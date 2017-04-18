@@ -7,8 +7,6 @@ exports.printLogger = exports.expandBenchmark = exports.recordTick = exports.end
 
 var _bluebird = require('bluebird');
 
-var _bluebird2 = _interopRequireDefault(_bluebird);
-
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -59,7 +57,7 @@ var beginLogger = exports.beginLogger = function beginLogger(options) {
 
     options.knex.client.on('start', captureQueries);
 
-    return _bluebird2.default.resolve();
+    return (0, _bluebird.resolve)();
   };
 };
 
@@ -68,19 +66,19 @@ var endLogger = exports.endLogger = function endLogger(options) {
 
     options.knex.client.removeListener('start', captureQueries);
 
-    return _bluebird2.default.resolve();
+    return (0, _bluebird.resolve)();
   };
 };
 
 var recordTick = exports.recordTick = function recordTick(event) {
 
-  if (process.env.NODE_ENV === 'development') return _bluebird2.default.resolve();
+  if (process.env.NODE_ENV !== 'development') return (0, _bluebird.resolve)();
 
   var timestamp = (0, _moment2.default)();
 
   ticks.push({ event: event, timestamp: timestamp });
 
-  return _bluebird2.default.resolve();
+  return (0, _bluebird.resolve)();
 };
 
 var expandBenchmark = exports.expandBenchmark = function expandBenchmark(ticks) {

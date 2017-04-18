@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.renderError = exports.runHooks = exports.runAlterResult = exports.runAlterRequest = exports.buildHandler = exports.expandLifecycle = exports.normalizeOptions = undefined;
 
+var _bluebird = require('bluebird');
+
+var _bluebird2 = _interopRequireDefault(_bluebird);
+
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -12,10 +16,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
-
-var _bluebird = require('bluebird');
-
-var _bluebird2 = _interopRequireDefault(_bluebird);
 
 var _utils = require('../../utils');
 
@@ -94,9 +94,13 @@ var buildHandler = exports.buildHandler = function buildHandler(components) {
       commitHooks = components.commitHooks;
 
 
-  return function (req, res, recordTick) {
+  return function (req, res) {
+    var recordTick = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {
+      return (0, _bluebird.resolve)();
+    };
 
-    return new _bluebird2.default.resolve(req).then(function (req) {
+
+    return new _bluebird.resolve(req).then(function (req) {
       return runHooks(req, beginHooks).then(function () {
         return req;
       });
@@ -240,11 +244,11 @@ var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, al
     });
   };
 
-  if (alterRequest.length === 0) return _bluebird2.default.resolve(req);
+  if (alterRequest.length === 0) return (0, _bluebird.resolve)(req);
 
   if (alterRequest.length === 1) return alterer(req, alterRequest[0]);
 
-  return _bluebird2.default.reduce(alterRequest, alterer, req);
+  return (0, _bluebird.reduce)(alterRequest, alterer, req);
 };
 
 var runAlterResult = exports.runAlterResult = function runAlterResult(req, alterResult, result) {
@@ -255,11 +259,11 @@ var runAlterResult = exports.runAlterResult = function runAlterResult(req, alter
     });
   };
 
-  if (alterResult.length === 0) return _bluebird2.default.resolve(result);
+  if (alterResult.length === 0) return (0, _bluebird.resolve)(result);
 
   if (alterResult.length === 1) return alterer(result, alterResult[0]);
 
-  return _bluebird2.default.reduce(alterResult, alterer, result);
+  return (0, _bluebird.reduce)(alterResult, alterer, result);
 };
 
 var runHooks = exports.runHooks = function runHooks(req, hooks) {
@@ -272,11 +276,11 @@ var runHooks = exports.runHooks = function runHooks(req, hooks) {
     });
   };
 
-  if (hooks.length === 0) return _bluebird2.default.resolve(null);
+  if (hooks.length === 0) return (0, _bluebird.resolve)(null);
 
   if (hooks.length === 1) return runner(req, result, hooks[0]);
 
-  return _bluebird2.default.map(hooks, function (hook) {
+  return (0, _bluebird.map)(hooks, function (hook) {
     return runner(req, result, hook);
   });
 };

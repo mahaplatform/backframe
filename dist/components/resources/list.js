@@ -6,8 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _bluebird = require('bluebird');
 
-var _bluebird2 = _interopRequireDefault(_bluebird);
-
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -134,7 +132,7 @@ exports.default = function (buildRoute) {
         });
       };
 
-      return _bluebird2.default.all([all(), count(), paged()]).then(function (responses) {
+      return (0, _bluebird.all)([all(), count(), paged()]).then(function (responses) {
 
         var all = parseInt(responses[0].toJSON()[0].count);
 

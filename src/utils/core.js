@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import Promise from 'bluebird'
 import * as constants from '../constants'
 import moment from 'moment'
 

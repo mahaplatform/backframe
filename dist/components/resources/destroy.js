@@ -24,7 +24,7 @@ exports.default = function (buildRoute) {
 
     if (!options.dependents) return resolve(resource);
 
-    return _bluebird2.default.each(options.dependents, function (dependent, index, length) {
+    return (0, _bluebird.each)(options.dependents, function (dependent, index, length) {
 
       return dependent.model.where(_defineProperty({}, dependent.foreignKey, resource.get('id'))).fetchAll().then(function (results) {
 
@@ -32,7 +32,7 @@ exports.default = function (buildRoute) {
           return result;
         });
 
-        return _bluebird2.default.each(records, function (record, index, length) {
+        return (0, _bluebird.each)(records, function (record, index, length) {
 
           return dependent.strategy === 'destroy' ? record.destroy() : record.save(_defineProperty({}, dependent.foreignKey, null), { patch: true });
         });

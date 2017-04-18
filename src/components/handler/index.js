@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import Promise from 'bluebird'
 import { defaultProcessor, defaultResponder } from '../../utils'
 import { validateOptions, defaultOptions } from '../../utils/options'
 import { coerceArray, applyToRecords } from '../../utils/core'

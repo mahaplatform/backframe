@@ -1,4 +1,3 @@
-import Promise from 'bluebird'
 import load from '../../utils/load'
 import { defaultResponder } from '../../utils'
 

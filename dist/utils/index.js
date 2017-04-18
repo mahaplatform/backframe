@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.defaultResponder = exports.defaultRenderer = exports.defaultProcessor = exports.defaultQuery = undefined;
 
+var _bluebird = require('bluebird');
+
+var _bluebird2 = _interopRequireDefault(_bluebird);
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -75,13 +79,13 @@ var defaultRenderer = exports.defaultRenderer = function defaultRenderer(options
 
       if (result.records) return (0, _core.applyToRecords)(req, result, transforms);
 
-      return new Promise(function (resolve, reject) {
+      return new _bluebird2.default(function (resolve, reject) {
         return renderer(req, result, resolve, reject);
       }).then(function (result) {
 
-        if (!req.query.$select) Promise.resolve(result);
+        if (!req.query.$select) (0, _bluebird.resolve)(result);
 
-        return new Promise(function (resolve, reject) {
+        return new _bluebird2.default(function (resolve, reject) {
           return selector(req, result, resolve, reject);
         });
       });

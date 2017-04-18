@@ -1,4 +1,3 @@
-import Promise from 'bluebird'
 import _ from 'lodash'
 import { defaultQuery, defaultRenderer, defaultResponder } from '../../utils'
 import { coerceArray } from '../../utils/core'

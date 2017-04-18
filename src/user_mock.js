@@ -1,5 +1,3 @@
-import Promise from 'bluebird'
-
 export default (results) => ({
 
   extend: () => ({

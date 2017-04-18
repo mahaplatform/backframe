@@ -5,15 +5,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.pluginOptionDefaults = exports.mergeTypes = exports.mergeEvents = exports.mergeHooks = exports.selectedKeys = exports.selectedLabels = exports.selectFields = exports.includeAction = exports.applyToRecords = exports.toList = exports.flattenKeys = exports.mergeParams = exports.coerceArray = undefined;
 
+var _bluebird = require('bluebird');
+
+var _bluebird2 = _interopRequireDefault(_bluebird);
+
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
-
-var _bluebird = require('bluebird');
-
-var _bluebird2 = _interopRequireDefault(_bluebird);
 
 var _constants = require('../constants');
 
@@ -62,11 +62,11 @@ var toList = exports.toList = function toList(arr) {
 
 var applyToRecords = exports.applyToRecords = function applyToRecords(req, result, operations) {
 
-  if (!operations) return _bluebird2.default.resolve(result);
+  if (!operations) return (0, _bluebird.resolve)(result);
 
   var arrayOfOptions = coerceArray(operations);
 
-  return _bluebird2.default.map(result.records, function (record) {
+  return (0, _bluebird.map)(result.records, function (record) {
 
     return operations.reduce(function (promise, operation) {
 
@@ -75,7 +75,7 @@ var applyToRecords = exports.applyToRecords = function applyToRecords(req, resul
           return operation(req, record, resolve, request);
         });
       });
-    }, _bluebird2.default.resolve(record));
+    }, (0, _bluebird.resolve)(record));
   }).then(function (records) {
 
     return _extends({}, result, {

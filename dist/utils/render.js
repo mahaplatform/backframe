@@ -27,7 +27,7 @@ exports.default = function (options) {
     var serialize = function serialize() {
       return useSerializer ? new _bluebird2.default(function (resolve, reject) {
         return options.serializer(req, result, resolve, reject);
-      }) : _bluebird2.default.resolve(result.toJSON());
+      }) : (0, _bluebird.resolve)(result.toJSON());
     };
 
     if (options.cacheFor) {

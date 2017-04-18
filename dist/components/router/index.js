@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.buildRouter = exports.normalizeOptions = undefined;
 
+var _bluebird = require('bluebird');
+
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _express = require('express');
@@ -117,7 +119,7 @@ var buildRoute = function buildRoute(options, handler) {
 
   return function (req, res) {
 
-    return Promise.resolve().then(function () {
+    return (0, _bluebird.resolve)().then(function () {
 
       return (0, _logger.beginLogger)(options)();
     }).then(function () {

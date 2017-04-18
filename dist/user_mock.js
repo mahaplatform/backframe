@@ -6,10 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _bluebird = require('bluebird');
 
-var _bluebird2 = _interopRequireDefault(_bluebird);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 exports.default = function (results) {
   return {
 
@@ -26,7 +22,7 @@ exports.default = function (results) {
 
         fetch: function fetch(options) {
 
-          return _bluebird2.default.resolve(results);
+          return (0, _bluebird.resolve)(results);
         }
 
       };
