@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('kittens', function (table) {
       table.increments('id').primary()
       table.string('name')
-      table.string('age')
+      table.integer('age')
       table.timestamps()
     })
   ])
