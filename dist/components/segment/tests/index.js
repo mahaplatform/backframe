@@ -38,7 +38,7 @@ exports.default = function () {
         alterRequest: 1,
         beforeHooks: 1,
         afterHooks: 1,
-        alterResult: 1
+        alterRecord: 1
       }]
     };
 
@@ -47,7 +47,7 @@ exports.default = function () {
       beforeHooks: [2, 3],
       processor: 'foo',
       afterHooks: [2, 3],
-      alterResult: [2, 3],
+      alterRecord: [2, 3],
       responder: 'bar',
       method: 'get',
       path: '/foo'
@@ -61,7 +61,7 @@ exports.default = function () {
         beforeHooks: [1, 2, 3],
         processor: 'foo',
         afterHooks: [1, 2, 3],
-        alterResult: [1, 2, 3],
+        alterRecord: [1, 2, 3],
         responder: 'bar'
       }
     };

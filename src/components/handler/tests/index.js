@@ -111,22 +111,22 @@ export default () => {
 
   it('fails with a failed after hook', (done) => testFailedHookAfterProcessor('afterHooks', done))
 
-  it('succeeds with a single alterResult hook', (done) => {
+  it('succeeds with a single alterRecord hook', (done) => {
 
     const handler = buildHandler({
       processor: (req, resolve, reject) => resolve(),
-      alterResult: (req, result, resolve, reject) => resolve(done())
+      alterRecord: (req, result, resolve, reject) => resolve(done())
     })
 
     handler({}, res)
 
   })
 
-  it('succeeds with multiple alterResult hooks', (done) => {
+  it('succeeds with multiple alterRecord hooks', (done) => {
 
     const handler = buildHandler({
       processor: (req, resolve, reject) => resolve(),
-      alterResult: [
+      alterRecord: [
         (req, result, resolve, reject) => resolve(),
         (req, result, resolve, reject) => resolve(done())
       ]
@@ -136,11 +136,11 @@ export default () => {
 
   })
 
-  it('fails with a failed alterResult hook', (done) => {
+  it('fails with a failed alterRecord hook', (done) => {
 
     const handler = buildHandler({
       processor: (req, result, resolve, reject) => resolve(),
-      alterResult: (req, result, resolve, reject) => reject()
+      alterRecord: (req, result, resolve, reject) => reject()
     })
 
     handler({}, res).catch(err => done())

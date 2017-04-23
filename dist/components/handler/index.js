@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.renderError = exports.runHooks = exports.runAlterResult = exports.runAlterRequest = exports.buildHandler = exports.expandLifecycle = exports.normalizeOptions = undefined;
+exports.renderError = exports.runHooks = exports.runAlterRecord = exports.runAlterRequest = exports.buildHandler = exports.expandLifecycle = exports.normalizeOptions = undefined;
 
 var _bluebird = require('bluebird');
 
@@ -46,7 +46,7 @@ exports.default = function () {
     var TYPES = {
       afterHooks: { type: ['function', 'function[]'], required: false },
       alterRequest: { type: ['function', 'function[]'], required: false },
-      alterResult: { type: ['function', 'function[]'], required: false },
+      alterRecord: { type: ['function', 'function[]'], required: false },
       beforeHooks: { type: ['function', 'function[]'], required: false },
       csvResponder: { type: ['function'], required: false },
       jsonResponder: { type: ['function'], required: false },
@@ -86,7 +86,7 @@ var buildHandler = exports.buildHandler = function buildHandler(components) {
       processor = components.processor,
       afterHooks = components.afterHooks,
       renderer = components.renderer,
-      alterResult = components.alterResult,
+      alterRecord = components.alterRecord,
       responder = components.responder;
 
 
@@ -163,7 +163,7 @@ var buildHandler = exports.buildHandler = function buildHandler(components) {
           req = _ref12[0],
           result = _ref12[1];
 
-      return runAlterResult(req, alterResult, result).then(function (result) {
+      return runAlterRecord(req, alterRecord, result).then(function (result) {
         return [req, result];
       });
     }).then(function (_ref13) {
@@ -171,7 +171,7 @@ var buildHandler = exports.buildHandler = function buildHandler(components) {
           req = _ref14[0],
           result = _ref14[1];
 
-      return recordTick('alterResult').then(function () {
+      return recordTick('alterRecord').then(function () {
         return [req, result];
       });
     }).then(function (_ref15) {
@@ -208,7 +208,7 @@ var buildHandler = exports.buildHandler = function buildHandler(components) {
 
 var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, alterRequest) {
 
-  var alterer = function alterer(req, operation) {
+  var runner = function runner(req, operation) {
     return new _bluebird2.default(function (resolve, reject) {
       return operation(req, resolve, reject);
     });
@@ -216,24 +216,24 @@ var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, al
 
   if (alterRequest.length === 0) return (0, _bluebird.resolve)(req);
 
-  if (alterRequest.length === 1) return alterer(req, alterRequest[0]);
+  if (alterRequest.length === 1) return runner(req, alterRequest[0]);
 
-  return (0, _bluebird.reduce)(alterRequest, alterer, req);
+  return (0, _bluebird.reduce)(alterRequest, runner, req);
 };
 
-var runAlterResult = exports.runAlterResult = function runAlterResult(req, alterResult, result) {
+var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, alterRecord, result) {
 
-  var alterer = function alterer(result, operation) {
+  var runner = function runner(result, operation) {
     return result && result.records ? (0, _core.applyToRecords)(req, result, operation) : new _bluebird2.default(function (resolve, reject) {
       return operation(req, result, resolve, reject);
     });
   };
 
-  if (alterResult.length === 0) return (0, _bluebird.resolve)(result);
+  if (alterRecord.length === 0) return (0, _bluebird.resolve)(result);
 
-  if (alterResult.length === 1) return alterer(result, alterResult[0]);
+  if (alterRecord.length === 1) return runner(result, alterRecord[0]);
 
-  return (0, _bluebird.reduce)(alterResult, alterer, result);
+  return (0, _bluebird.reduce)(alterRecord, runner, result);
 };
 
 var runHooks = exports.runHooks = function runHooks(req, hooks) {

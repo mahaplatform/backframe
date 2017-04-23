@@ -140,13 +140,13 @@ exports.default = function () {
     return testFailedHookAfterProcessor('afterHooks', done);
   });
 
-  it('succeeds with a single alterResult hook', function (done) {
+  it('succeeds with a single alterRecord hook', function (done) {
 
     var handler = buildHandler({
       processor: function processor(req, resolve, reject) {
         return resolve();
       },
-      alterResult: function alterResult(req, result, resolve, reject) {
+      alterRecord: function alterRecord(req, result, resolve, reject) {
         return resolve(done());
       }
     });
@@ -154,13 +154,13 @@ exports.default = function () {
     handler({}, res);
   });
 
-  it('succeeds with multiple alterResult hooks', function (done) {
+  it('succeeds with multiple alterRecord hooks', function (done) {
 
     var handler = buildHandler({
       processor: function processor(req, resolve, reject) {
         return resolve();
       },
-      alterResult: [function (req, result, resolve, reject) {
+      alterRecord: [function (req, result, resolve, reject) {
         return resolve();
       }, function (req, result, resolve, reject) {
         return resolve(done());
@@ -170,13 +170,13 @@ exports.default = function () {
     handler({}, res);
   });
 
-  it('fails with a failed alterResult hook', function (done) {
+  it('fails with a failed alterRecord hook', function (done) {
 
     var handler = buildHandler({
       processor: function processor(req, result, resolve, reject) {
         return resolve();
       },
-      alterResult: function alterResult(req, result, resolve, reject) {
+      alterRecord: function alterRecord(req, result, resolve, reject) {
         return reject();
       }
     });

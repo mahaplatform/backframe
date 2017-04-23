@@ -12,7 +12,7 @@ export default (backframeOptions = {}) => {
     const TYPES = {
       afterHooks: { type: ['function','function[]'], required: false },
       alterRequest: { type: ['function','function[]'], required: false },
-      alterResult: { type: ['function','function[]'], required: false },
+      alterRecord: { type: ['function','function[]'], required: false },
       beforeHooks: { type: ['function','function[]'], required: false },
       csvResponder: { type: ['function'], required: false },
       jsonResponder: { type: ['function'], required: false},
@@ -55,7 +55,7 @@ export const expandLifecycle = (userOptions) => {
 
 export const buildHandler = (components) => {
 
-  const { alterRequest, beforeHooks, processor, afterHooks, renderer, alterResult, responder } = components
+  const { alterRequest, beforeHooks, processor, afterHooks, renderer, alterRecord, responder } = components
 
   return (req, res, recordTick = () => Promise.resolve()) => {
 
@@ -81,9 +81,9 @@ export const buildHandler = (components) => {
 
     .then(([req, result]) => recordTick('renderer').then(() => ([req, result])))
 
-    .then(([req, result]) => runAlterResult(req, alterResult, result).then(result => ([req, result])))
+    .then(([req, result]) => runAlterRecord(req, alterRecord, result).then(result => ([req, result])))
 
-    .then(([req, result]) => recordTick('alterResult').then(() => ([req, result])))
+    .then(([req, result]) => recordTick('alterRecord').then(() => ([req, result])))
 
     .then(([req, result]) => new Promise((resolve, reject) => responder(req, res, result, resolve, reject)).then(() => ([req, result])))
 
@@ -99,25 +99,25 @@ export const buildHandler = (components) => {
 
 export const runAlterRequest = (req, alterRequest) => {
 
-  const alterer = (req, operation) => new Promise((resolve, reject) => operation(req, resolve, reject))
+  const runner = (req, operation) => new Promise((resolve, reject) => operation(req, resolve, reject))
 
   if(alterRequest.length === 0) return Promise.resolve(req)
 
-  if(alterRequest.length === 1) return alterer(req, alterRequest[0])
+  if(alterRequest.length === 1) return runner(req, alterRequest[0])
 
-  return Promise.reduce(alterRequest, alterer, req)
+  return Promise.reduce(alterRequest, runner, req)
 
 }
 
-export const runAlterResult = (req, alterResult, result) => {
+export const runAlterRecord = (req, alterRecord, result) => {
 
-  const alterer = (result, operation) => (result && result.records) ? applyToRecords(req, result, operation) : new Promise((resolve, reject) => operation(req, result, resolve, reject))
+  const runner = (result, operation) => (result && result.records) ? applyToRecords(req, result, operation) : new Promise((resolve, reject) => operation(req, result, resolve, reject))
 
-  if(alterResult.length === 0) return Promise.resolve(result)
+  if(alterRecord.length === 0) return Promise.resolve(result)
 
-  if(alterResult.length === 1) return alterer(result, alterResult[0])
+  if(alterRecord.length === 1) return runner(result, alterRecord[0])
 
-  return Promise.reduce(alterResult, alterer, result)
+  return Promise.reduce(alterRecord, runner, result)
 
 }
 

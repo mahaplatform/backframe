@@ -76,7 +76,7 @@ exports.default = function () {
       afterHooks: { type: ['function', 'function{}'], required: false },
       allowedParams: { type: ['string[]', 'string[]{}'], required: false },
       alterRequest: { type: ['function', 'function{}'], required: false },
-      alterResult: { type: ['function', 'function{}'], required: false },
+      alterRecord: { type: ['function', 'function{}'], required: false },
       beforeHooks: { type: ['function', 'function{}'], required: false },
       cacheFor: { type: 'integer', required: false },
       defaultParams: { type: 'function', required: false },
