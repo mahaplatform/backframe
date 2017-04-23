@@ -76,7 +76,7 @@ export default () => {
       expect(list.handler.alterRequest).to.be.empty
       expect(list.handler.beforeHooks.length).to.equal(1)
       expect(list.handler.afterHooks).to.be.empty
-      expect(list.handler.alterResult).to.be.empty
+      expect(list.handler.alterRecord).to.be.empty
       expect(list.handler.processor).to.be.a('function')
       expect(list.handler.renderer).to.be.a('function')
       expect(list.handler.responder).to.be.a('function')

@@ -14,7 +14,7 @@ exports.default = function () {
     name: { type: 'string', required: true },
     options: { type: 'object', required: false },
     alterRequest: { type: ['function', 'function[]'], required: false },
-    alterResult: { type: ['function', 'function[]'], required: false },
+    alterRecord: { type: ['function', 'function[]'], required: false },
     beforeHooks: { type: ['function', 'function[]'], required: false },
     processor: { type: 'function', required: false },
     renderer: { type: 'function', required: false },

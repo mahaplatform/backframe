@@ -32,7 +32,7 @@ export default () => {
             alterRequest: 1,
             beforeHooks: 1,
             afterHooks: 1,
-            alterResult: 1
+            alterRecord: 1
           }
         ]
       }
@@ -42,7 +42,7 @@ export default () => {
         beforeHooks: [2,3],
         processor: 'foo',
         afterHooks: [2,3],
-        alterResult: [2,3],
+        alterRecord: [2,3],
         responder: 'bar',
         method: 'get',
         path: '/foo'
@@ -56,7 +56,7 @@ export default () => {
           beforeHooks: [1,2,3],
           processor: 'foo',
           afterHooks: [1,2,3],
-          alterResult: [1,2,3],
+          alterRecord: [1,2,3],
           responder: 'bar'
         }
       }
