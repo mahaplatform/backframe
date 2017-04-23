@@ -828,7 +828,7 @@ block-stream@*:
   dependencies:
     inherits "~2.0.0"
 
-bluebird@^3.4.3, bluebird@^3.4.6, bluebird@^3.5.0:
+bluebird@^3.3.3, bluebird@^3.3.4, bluebird@^3.4.3, bluebird@^3.4.6, bluebird@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
 
@@ -896,6 +896,25 @@ buffers@~0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/buffers/-/buffers-0.1.1.tgz#b24579c3bed4d6d396aeee6d9a8ae7f5482ab7bb"
 
+bull-redlock@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/bull-redlock/-/bull-redlock-2.2.1.tgz#98aa093d2d069cc54039526c8756a864b8785be9"
+  dependencies:
+    bluebird "^3.3.3"
+
+bull@^3.0.0-alpha.2:
+  version "3.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/bull/-/bull-3.0.0-alpha.2.tgz#efff346b5ef6e967a54ecace3bd273273d2e1878"
+  dependencies:
+    bluebird "^3.5.0"
+    bull-redlock "^2.2.1"
+    debuglog "^1.0.0"
+    disturbed "^1.0.6"
+    ioredis "^3.0.0-1"
+    lodash "^4.17.4"
+    semver "^5.3.0"
+    uuid "^3.0.1"
+
 bytes@2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-2.4.0.tgz#7d97196f9d5baf7f6935e25985549edd2a6c2339"
@@ -946,6 +965,10 @@ chokidar@^1.6.1:
     readdirp "^2.0.0"
   optionalDependencies:
     fsevents "^1.0.0"
+
+cluster-key-slot@^1.0.6:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/cluster-key-slot/-/cluster-key-slot-1.0.8.tgz#7654556085a65330932a2e8b5976f8e2d0b3e414"
 
 co@^4.6.0:
   version "4.6.0"
@@ -1089,6 +1112,10 @@ debug@2.6.3, debug@^2.2.0:
   dependencies:
     ms "0.7.2"
 
+debuglog@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/debuglog/-/debuglog-1.0.1.tgz#aa24ffb9ac3df9a2351837cfb2d279360cd78492"
+
 declare.js@~0.0.4:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/declare.js/-/declare.js-0.0.8.tgz#0478adff9564c004f51df73d8bc134019d28dcde"
@@ -1110,6 +1137,10 @@ delayed-stream@~1.0.0:
 delegates@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
+
+denque@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/denque/-/denque-1.1.1.tgz#10229c2b88eec1bd15ff82c5fde356e7beb6db9e"
 
 depd@1.1.0, depd@~1.1.0:
   version "1.1.0"
@@ -1134,6 +1165,12 @@ detect-indent@^4.0.0:
 diff@1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-1.4.0.tgz#7f28d2eb9ee7b15a97efd89ce63dcfdaa3ccbabf"
+
+disturbed@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/disturbed/-/disturbed-1.0.6.tgz#a3d7524ef7885973e3c89768aa1f5d4e726c72e8"
+  dependencies:
+    node-uuid "^1.4.7"
 
 double-ended-queue@^2.1.0-0:
   version "2.1.0-0"
@@ -1315,6 +1352,10 @@ findup-sync@^0.4.2:
 flagged-respawn@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/flagged-respawn/-/flagged-respawn-0.3.2.tgz#ff191eddcd7088a675b2610fffc976be9b8074b5"
+
+flexbuffer@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/flexbuffer/-/flexbuffer-0.0.6.tgz#039fdf23f8823e440c38f3277e6fef1174215b30"
 
 for-in@^1.0.1:
   version "1.0.2"
@@ -1619,6 +1660,19 @@ invariant@^2.2.0:
   dependencies:
     loose-envify "^1.0.0"
 
+ioredis@^3.0.0-1:
+  version "3.0.0-1"
+  resolved "https://registry.yarnpkg.com/ioredis/-/ioredis-3.0.0-1.tgz#a09a9fb0deb092f2603dbd9bd43e615a6b2eeb22"
+  dependencies:
+    bluebird "^3.3.4"
+    cluster-key-slot "^1.0.6"
+    debug "^2.2.0"
+    denque "^1.1.0"
+    flexbuffer "0.0.6"
+    lodash "^4.8.2"
+    redis-commands "^1.2.0"
+    redis-parser "^2.4.0"
+
 ipaddr.js@1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.3.0.tgz#1e03a52fdad83a8bbb2b25cbf4998b4cffcd3dec"
@@ -1905,7 +1959,7 @@ lodash.keys@^3.0.0:
     lodash.isarguments "^3.0.0"
     lodash.isarray "^3.0.0"
 
-lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.6.0, lodash@^4.8.0:
+lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.6.0, lodash@^4.8.0, lodash@^4.8.2:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -2044,7 +2098,7 @@ node-pre-gyp@^0.6.29:
     tar "^2.2.1"
     tar-pack "^3.4.0"
 
-node-uuid@~1.4.7:
+node-uuid@^1.4.7, node-uuid@~1.4.7:
   version "1.4.8"
   resolved "https://registry.yarnpkg.com/node-uuid/-/node-uuid-1.4.8.tgz#b040eb0923968afabf8d32fb1f17f1167fdab907"
 
@@ -2325,7 +2379,7 @@ redis-commands@^1.2.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/redis-commands/-/redis-commands-1.3.1.tgz#81d826f45fa9c8b2011f4cd7a0fe597d241d442b"
 
-redis-parser@^2.5.0:
+redis-parser@^2.4.0, redis-parser@^2.5.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/redis-parser/-/redis-parser-2.6.0.tgz#52ed09dacac108f1a631c07e9b69941e7a19504b"
 

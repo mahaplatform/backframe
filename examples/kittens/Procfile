@@ -1,0 +1,2 @@
+server: NODE_PATH=./dist node ./dist/server.js
+worker: NODE_PATH=./dist node ./dist/worker.js

@@ -1,10 +1,12 @@
 import { validateOptions } from '../../utils/options'
 import handler from '../handler'
+import queue from '../queue'
 import route from '../route'
 import resources from '../resources'
 import router from '../router'
 import segment from '../segment'
 import table from '../table'
+import worker from '../worker'
 
 export default (userOptions = {}) => {
 
@@ -18,11 +20,13 @@ export default (userOptions = {}) => {
 
   return {
     handler: handler(userOptions),
+    queue: queue(userOptions),
     route: route(userOptions),
     resources: resources(userOptions),
     router: router(userOptions),
     segment: segment(userOptions),
-    table: table(userOptions)
+    table: table(userOptions),
+    worker: worker(userOptions)
   }
 
 }
