@@ -88,12 +88,10 @@ exports.default = function () {
       (0, _chai.expect)(list.method).to.equal('get');
       (0, _chai.expect)(list.path).to.equal('/users');
       (0, _chai.expect)(list.handler).to.include.keys(constants.BACKFRAME_LIFECYCLE);
-      (0, _chai.expect)(list.handler.beginHooks).to.be.empty;
       (0, _chai.expect)(list.handler.alterRequest).to.be.empty;
       (0, _chai.expect)(list.handler.beforeHooks.length).to.equal(1);
       (0, _chai.expect)(list.handler.afterHooks).to.be.empty;
       (0, _chai.expect)(list.handler.alterResult).to.be.empty;
-      (0, _chai.expect)(list.handler.commitHooks).to.be.empty;
       (0, _chai.expect)(list.handler.processor).to.be.a('function');
       (0, _chai.expect)(list.handler.renderer).to.be.a('function');
       (0, _chai.expect)(list.handler.responder).to.be.a('function');

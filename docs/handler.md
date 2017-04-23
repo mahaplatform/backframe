@@ -9,7 +9,6 @@ A Backframe handler observes the following sequence of lifecyle events:
 
 | EVENT          | DESCRIPTION
 |----------------|--------------------------------------------------------------------|
-| beginHooks[]   | An array of functions to be executed at the beginning of a handler |
 | alterRequest[] | An array of functions to mutate or add to the request object       |
 | beforeHooks[]  | An array of functions to be executed before the processor          |
 | processor      | A function that performs the work and returns a result             |
@@ -17,7 +16,6 @@ A Backframe handler observes the following sequence of lifecyle events:
 | renderer       | A function to render the result                                    |
 | alterResult[]  | An array of functions to alter the result                          |
 | responder      | A function to convert the result into a response object            |
-| commitHooks[]  | An array of functions to be executed at the end of a handler       |
 
 All functions are promise based and either resolve successfully or reject with
 an error code and message that can be displayed to the user or written to a log

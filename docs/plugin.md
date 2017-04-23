@@ -7,11 +7,6 @@ options to be invoked when constructing Backframe objects.
 ```Javascript
 import { plugin } from 'backframe'
 
-const beginHooks = options => (req, resolve, reject) => {
-  console.log('beginning handler')
-  resolve()
-}
-
 const alterRequest = options => (req, resolve, reject) => {
   console.log('altering request')
   resolve(req)
@@ -32,11 +27,6 @@ const alterResult = options => (req, result, resolve, reject) => {
   resolve(result)
 }
 
-const commitHooks = options => (req, result, resolve, reject) => {
-  console.log('finishing handler')
-  resolve()
-}
-
 export default plugin({
   options: {
     option1: {
@@ -50,11 +40,9 @@ export default plugin({
       required: false
     }
   },
-  beginHooks,
   alterRequest,
   beforeHooks,
   afterHooks,
-  alterRequest,
-  commitHooks
+  alterRequest
 })
 ```

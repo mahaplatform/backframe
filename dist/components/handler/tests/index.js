@@ -44,17 +44,6 @@ exports.default = function () {
       done();
     });
   });
-  it('succeeds with a single begin hook', function (done) {
-    return testSingleHookBeforeProcessor('beginHooks', done);
-  });
-
-  it('succeeds with multiple beginHooks hooks', function (done) {
-    return testMultipleHooksBeforeProcessor('beginHooks', done);
-  });
-
-  it('fails with a failed beginHooks hook', function (done) {
-    return testFailedHookBeforeProcessor('beginHooks', done);
-  });
 
   it('succeeds with a single alterRequest hook', function (done) {
 
@@ -195,18 +184,6 @@ exports.default = function () {
     handler({}, res).catch(function (err) {
       return done();
     });
-  });
-
-  it('succeeds with a single commit hook', function (done) {
-    return testSingleHookAfterProcessor('commitHooks', done);
-  });
-
-  it('succeeds with multiple commit hooks', function (done) {
-    return testMultipleHooksAfterProcessor('commitHooks', done);
-  });
-
-  it('fails with a failed commit hook', function (done) {
-    return testFailedHookAfterProcessor('commitHooks', done);
   });
 };
 

@@ -34,8 +34,6 @@ exports.default = function () {
     alterRequest: { type: ['function', 'function[]'], required: false },
     alterResult: { type: ['function', 'function[]'], required: false },
     beforeHooks: { type: ['function', 'function[]'], required: false },
-    beginHooks: { type: ['function', 'function[]'], required: false },
-    commitHooks: { type: ['function', 'function[]'], required: false },
     pathPrefix: { type: 'string', required: false },
     processor: { type: 'function', required: false },
     renderer: { type: 'function', required: false },

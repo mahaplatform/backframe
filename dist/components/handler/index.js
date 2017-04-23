@@ -48,8 +48,6 @@ exports.default = function () {
       alterRequest: { type: ['function', 'function[]'], required: false },
       alterResult: { type: ['function', 'function[]'], required: false },
       beforeHooks: { type: ['function', 'function[]'], required: false },
-      beginHooks: { type: ['function', 'function[]'], required: false },
-      commitHooks: { type: ['function', 'function[]'], required: false },
       csvResponder: { type: ['function'], required: false },
       jsonResponder: { type: ['function'], required: false },
       processor: { type: 'function', required: true },
@@ -83,15 +81,13 @@ var expandLifecycle = exports.expandLifecycle = function expandLifecycle(userOpt
 };
 
 var buildHandler = exports.buildHandler = function buildHandler(components) {
-  var beginHooks = components.beginHooks,
-      alterRequest = components.alterRequest,
+  var alterRequest = components.alterRequest,
       beforeHooks = components.beforeHooks,
       processor = components.processor,
       afterHooks = components.afterHooks,
       renderer = components.renderer,
       alterResult = components.alterResult,
-      responder = components.responder,
-      commitHooks = components.commitHooks;
+      responder = components.responder;
 
 
   return function (req, res) {
@@ -101,14 +97,6 @@ var buildHandler = exports.buildHandler = function buildHandler(components) {
 
 
     return new _bluebird.resolve(req).then(function (req) {
-      return runHooks(req, beginHooks).then(function () {
-        return req;
-      });
-    }).then(function (req) {
-      return recordTick('beginHooks').then(function () {
-        return req;
-      });
-    }).then(function (req) {
       return runAlterRequest(req, alterRequest);
     }).then(function (req) {
       return recordTick('alterRequest').then(function () {
@@ -210,24 +198,6 @@ var buildHandler = exports.buildHandler = function buildHandler(components) {
       var _ref20 = _slicedToArray(_ref19, 2),
           req = _ref20[0],
           result = _ref20[1];
-
-      return runHooks(req, commitHooks, result).then(function () {
-        return [req, result];
-      });
-    }).then(function (_ref21) {
-      var _ref22 = _slicedToArray(_ref21, 2),
-          req = _ref22[0],
-          result = _ref22[1];
-
-      return recordTick('commitHooks').then(function () {
-        return req;
-      }).then(function () {
-        return [req, result];
-      });
-    }).then(function (_ref23) {
-      var _ref24 = _slicedToArray(_ref23, 2),
-          req = _ref24[0],
-          result = _ref24[1];
 
       return result;
     }).catch(function (err) {

@@ -14,8 +14,6 @@ export default (backframeOptions = {}) => {
       alterRequest: { type: ['function','function[]'], required: false },
       alterResult: { type: ['function','function[]'], required: false },
       beforeHooks: { type: ['function','function[]'], required: false },
-      beginHooks: { type: ['function','function[]'], required: false },
-      commitHooks: { type: ['function','function[]'], required: false },
       csvResponder: { type: ['function'], required: false },
       jsonResponder: { type: ['function'], required: false},
       processor: { type: 'function', required: true },
@@ -57,15 +55,11 @@ export const expandLifecycle = (userOptions) => {
 
 export const buildHandler = (components) => {
 
-  const { beginHooks, alterRequest, beforeHooks, processor, afterHooks, renderer, alterResult, responder, commitHooks } = components
+  const { alterRequest, beforeHooks, processor, afterHooks, renderer, alterResult, responder } = components
 
   return (req, res, recordTick = () => Promise.resolve()) => {
 
     return new Promise.resolve(req)
-
-    .then((req) => runHooks(req, beginHooks).then(() => req))
-
-    .then((req) => recordTick('beginHooks').then(() => req))
 
     .then((req) => runAlterRequest(req, alterRequest))
 
@@ -94,10 +88,6 @@ export const buildHandler = (components) => {
     .then(([req, result]) => new Promise((resolve, reject) => responder(req, res, result, resolve, reject)).then(() => ([req, result])))
 
     .then(([req, result]) => recordTick('responder').then(() => req).then(() => ([req, result])))
-
-    .then(([req, result]) => runHooks(req, commitHooks, result).then(() => ([req, result])))
-
-    .then(([req, result]) => recordTick('commitHooks').then(() => req).then(() => ([req, result])))
 
     .then(([req, result]) => result)
 

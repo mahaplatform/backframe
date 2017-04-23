@@ -32,11 +32,6 @@ export default () => {
     })
 
   })
-  it('succeeds with a single begin hook', (done) => testSingleHookBeforeProcessor('beginHooks', done))
-
-  it('succeeds with multiple beginHooks hooks', (done) => testMultipleHooksBeforeProcessor('beginHooks', done))
-
-  it('fails with a failed beginHooks hook', (done) => testFailedHookBeforeProcessor('beginHooks', done))
 
   it('succeeds with a single alterRequest hook', (done) => {
 
@@ -151,12 +146,6 @@ export default () => {
     handler({}, res).catch(err => done())
 
   })
-
-  it('succeeds with a single commit hook', (done) => testSingleHookAfterProcessor('commitHooks', done))
-
-  it('succeeds with multiple commit hooks', (done) => testMultipleHooksAfterProcessor('commitHooks', done))
-
-  it('fails with a failed commit hook', (done) => testFailedHookAfterProcessor('commitHooks', done))
 
 }
 
