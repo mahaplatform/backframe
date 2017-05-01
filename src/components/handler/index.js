@@ -26,7 +26,7 @@ export default (backframeOptions = {}) => {
 
     validateOptions('handler', userOptions, TYPES)
 
-    const options = normalizeOptions(userOptions, TYPES)
+    const options = normalizeOptions(userOptions, backframeOptions, TYPES)
 
     return buildHandler(options)
 
@@ -34,11 +34,12 @@ export default (backframeOptions = {}) => {
 
 }
 
-export const normalizeOptions = (userOptions, types) => {
+export const normalizeOptions = (userOptions, backframeOptions, types) => {
 
   return expandLifecycle({
     ...defaultOptions(types),
     responder: defaultResponder('Success')(userOptions),
+    ...backframeOptions,
     ...userOptions,
   })
 
@@ -53,9 +54,9 @@ export const expandLifecycle = (userOptions) => {
 
 }
 
-export const buildHandler = (components) => {
+export const buildHandler = (options) => {
 
-  const { alterRequest, beforeHooks, processor, afterHooks, renderer, alterRecord, responder } = components
+  const { alterRequest, beforeHooks, processor, afterHooks, renderer, alterRecord, responder } = options
 
   return async (req, res, recordTick = () => Promise.resolve()) => {
 
@@ -85,7 +86,7 @@ export const buildHandler = (components) => {
 
       recordTick('alterRecord')
 
-      result = new Promise((resolve, reject) => responder(req, res, result, resolve, reject))
+      result = await new Promise((resolve, reject) => responder(req, res, result, resolve, reject))
 
       recordTick('responder')
 
@@ -141,7 +142,7 @@ export const renderError = (res, err) => {
 
   if(_.includes(['development'], process.env.NODE_ENV)) console.log(err)
 
-  if(err.code) return fail(res, err.code, err.message, { errors: err.errors })
+  if(err.name == 'BackframeError') return fail(res, err.code, err.message, { errors: err.errors })
 
   return fail(res, 500, err.message)
 

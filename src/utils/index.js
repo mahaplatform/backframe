@@ -2,6 +2,7 @@ import _ from 'lodash'
 import render from './render'
 import { succeed } from './response'
 import { applyToRecords, selectFields } from './core'
+import BackframeError from './error'
 import csvResponder from '../responders/csv_responder'
 import jsonResponder from '../responders/json_responder'
 import xlsxResponder from '../responders/xlsx_responder'
@@ -70,7 +71,7 @@ export const defaultResponder = message => options => (req, res, result, resolve
   const format = req.params && req.params.format ? req.params.format : 'json'
 
   if(!_.includes(['csv','tsv','xlsx','xml','json'], format)) {
-    return reject({ code: 415, message: 'We dont currently support this media type' })
+    throw new BackframeError({ code: 415, message: 'We dont currently support this media type' })
   }
 
   const pagination = _.pick(result, ['all','total','limit','skip'])

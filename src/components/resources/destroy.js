@@ -1,5 +1,6 @@
 import load from '../../utils/load'
 import { defaultResponder } from '../../utils'
+import BackframeError from '../../utils/error'
 
 export default (buildRoute) => {
 
@@ -47,7 +48,7 @@ export default (buildRoute) => {
 
     }).catch(err => {
 
-      if(err.errors) return reject({ code: 422, message: `Unable to delete ${options.name}`, errors: err.toJSON() })
+      if(err.errors) throw new BackframeError({ code: 422, message: `Unable to delete ${options.name}`, errors: err.toJSON() })
 
       throw err
 

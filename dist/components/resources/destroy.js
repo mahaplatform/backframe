@@ -18,6 +18,10 @@ var _load2 = _interopRequireDefault(_load);
 
 var _utils = require('../../utils');
 
+var _error = require('../../utils/error');
+
+var _error2 = _interopRequireDefault(_error);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (buildRoute) {
@@ -63,7 +67,7 @@ exports.default = function (buildRoute) {
         resolve();
       }).catch(function (err) {
 
-        if (err.errors) return reject({ code: 422, message: 'Unable to delete ' + options.name, errors: err.toJSON() });
+        if (err.errors) throw new _error2.default({ code: 422, message: 'Unable to delete ' + options.name, errors: err.toJSON() });
 
         throw err;
       });

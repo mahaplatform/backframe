@@ -31,6 +31,10 @@ var _lodash2 = _interopRequireDefault(_lodash);
 
 var _core = require('./core');
 
+var _error = require('./error');
+
+var _error2 = _interopRequireDefault(_error);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var validateOptions = exports.validateOptions = function validateOptions(type, options, definitions) {
@@ -148,7 +152,7 @@ var checkPermitted = exports.checkPermitted = function checkPermitted(keys, perm
   });
 
   if (unpermitted.length > 0) {
-    return reject({ code: 412, message: message.replace('{unpermitted}', (0, _core.toList)(unpermitted)) });
+    throw new _error2.default({ code: 412, message: message.replace('{unpermitted}', (0, _core.toList)(unpermitted)) });
   }
 };
 

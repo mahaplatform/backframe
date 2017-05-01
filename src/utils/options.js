@@ -1,6 +1,7 @@
 import chalk from 'chalk'
 import _ from 'lodash'
 import { coerceArray, toList } from './core'
+import BackframeError from './error'
 
 export const validateOptions = (type, options, definitions) => {
 
@@ -141,7 +142,7 @@ export const checkPermitted = (keys, permitted, reject, message) => {
   })
 
   if(unpermitted.length > 0) {
-    return reject({ code: 412, message: message.replace('{unpermitted}', toList(unpermitted)) })
+    throw new BackframeError({ code: 412, message: message.replace('{unpermitted}', toList(unpermitted)) })
   }
 
 }

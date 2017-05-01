@@ -70,17 +70,17 @@ exports.default = function () {
 
     (0, _options.validateOptions)('handler', userOptions, TYPES);
 
-    var options = normalizeOptions(userOptions, TYPES);
+    var options = normalizeOptions(userOptions, backframeOptions, TYPES);
 
     return buildHandler(options);
   };
 };
 
-var normalizeOptions = exports.normalizeOptions = function normalizeOptions(userOptions, types) {
+var normalizeOptions = exports.normalizeOptions = function normalizeOptions(userOptions, backframeOptions, types) {
 
   return expandLifecycle((0, _extends4.default)({}, (0, _options.defaultOptions)(types), {
     responder: (0, _utils.defaultResponder)('Success')(userOptions)
-  }, userOptions));
+  }, backframeOptions, userOptions));
 };
 
 var expandLifecycle = exports.expandLifecycle = function expandLifecycle(userOptions) {
@@ -90,14 +90,14 @@ var expandLifecycle = exports.expandLifecycle = function expandLifecycle(userOpt
   }, userOptions);
 };
 
-var buildHandler = exports.buildHandler = function buildHandler(components) {
-  var alterRequest = components.alterRequest,
-      beforeHooks = components.beforeHooks,
-      processor = components.processor,
-      afterHooks = components.afterHooks,
-      renderer = components.renderer,
-      alterRecord = components.alterRecord,
-      responder = components.responder;
+var buildHandler = exports.buildHandler = function buildHandler(options) {
+  var alterRequest = options.alterRequest,
+      beforeHooks = options.beforeHooks,
+      processor = options.processor,
+      afterHooks = options.afterHooks,
+      renderer = options.renderer,
+      alterRecord = options.alterRecord,
+      responder = options.responder;
 
 
   return function () {
@@ -165,27 +165,32 @@ var buildHandler = exports.buildHandler = function buildHandler(components) {
 
               recordTick('alterRecord');
 
-              result = new _bluebird2.default(function (resolve, reject) {
+              _context.next = 25;
+              return new _bluebird2.default(function (resolve, reject) {
                 return responder(req, res, result, resolve, reject);
               });
+
+            case 25:
+              result = _context.sent;
+
 
               recordTick('responder');
 
               return _context.abrupt('return', result);
 
-            case 28:
-              _context.prev = 28;
+            case 30:
+              _context.prev = 30;
               _context.t0 = _context['catch'](0);
 
 
               renderError(res, _context.t0);
 
-            case 31:
+            case 33:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, undefined, [[0, 28]]);
+      }, _callee, undefined, [[0, 30]]);
     }));
 
     return function (_x3, _x4) {
@@ -323,7 +328,7 @@ var renderError = exports.renderError = function renderError(res, err) {
 
   if (_lodash2.default.includes(['development'], process.env.NODE_ENV)) console.log(err);
 
-  if (err.code) return (0, _response.fail)(res, err.code, err.message, { errors: err.errors });
+  if (err.name == 'BackframeError') return (0, _response.fail)(res, err.code, err.message, { errors: err.errors });
 
   return (0, _response.fail)(res, 500, err.message);
 };

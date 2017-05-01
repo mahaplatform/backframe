@@ -3,6 +3,7 @@ import { defaultQuery, defaultRenderer, defaultResponder } from '../../utils'
 import { coerceArray } from '../../utils/core'
 import { extractSort, filter } from '../../utils/list'
 import { checkPermitted } from '../../utils/options'
+import BackframeError from '../../utils/error'
 
 export default (buildRoute) => {
 
@@ -13,7 +14,7 @@ export default (buildRoute) => {
       checkPermitted(req.query.$filter, [...options.filterParams, 'q'], reject, 'Unable to filter on the keys {unpermitted}. Please add it to filterParams')
 
       if(req.query.$filter.q && !options.searchParams && process.env.NODE_ENV == 'development') {
-        return reject({ code: 412, message: 'Unable to search on q without searchParams' })
+        throw new BackframeError({ code: 412, message: 'Unable to search on q without searchParams' })
       }
 
     }
@@ -118,7 +119,7 @@ export default (buildRoute) => {
 
     }).catch(err => {
 
-      if(err.errors) return reject({ code: 422, message: `Unable to create ${options.name}`, errors: err.toJSON() })
+      if(err.errors) throw new BackframeError({ code: 422, message: `Unable to create ${options.name}`, errors: err.toJSON() })
 
       throw err
 

@@ -16,6 +16,10 @@ var _cache = require('./cache');
 
 var _cache2 = _interopRequireDefault(_cache);
 
+var _error = require('./error');
+
+var _error2 = _interopRequireDefault(_error);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (options) {
@@ -33,7 +37,7 @@ exports.default = function (options) {
     if (options.cacheFor) {
 
       if (!options.redis && process.env.NODE_ENV == 'development') {
-        return reject({ code: 412, message: 'you must include a redis configuration' });
+        throw new _error2.default({ code: 412, message: 'you must include a redis configuration' });
       }
 
       var key = options.name + '-' + result.get('id') + '-' + Math.floor(result.get('updated_at').getTime() / 1000);

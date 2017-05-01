@@ -21,6 +21,10 @@ var _response = require('./response');
 
 var _core = require('./core');
 
+var _error = require('./error');
+
+var _error2 = _interopRequireDefault(_error);
+
 var _csv_responder = require('../responders/csv_responder');
 
 var _csv_responder2 = _interopRequireDefault(_csv_responder);
@@ -108,7 +112,7 @@ var defaultResponder = exports.defaultResponder = function defaultResponder(mess
       var format = req.params && req.params.format ? req.params.format : 'json';
 
       if (!_lodash2.default.includes(['csv', 'tsv', 'xlsx', 'xml', 'json'], format)) {
-        return reject({ code: 415, message: 'We dont currently support this media type' });
+        throw new _error2.default({ code: 415, message: 'We dont currently support this media type' });
       }
 
       var pagination = _lodash2.default.pick(result, ['all', 'total', 'limit', 'skip']);

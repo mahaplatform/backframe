@@ -22,6 +22,10 @@ var _list = require('../../utils/list');
 
 var _options = require('../../utils/options');
 
+var _error = require('../../utils/error');
+
+var _error2 = _interopRequireDefault(_error);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (buildRoute) {
@@ -34,7 +38,7 @@ exports.default = function (buildRoute) {
         (0, _options.checkPermitted)(req.query.$filter, [].concat((0, _toConsumableArray3.default)(options.filterParams), ['q']), reject, 'Unable to filter on the keys {unpermitted}. Please add it to filterParams');
 
         if (req.query.$filter.q && !options.searchParams && process.env.NODE_ENV == 'development') {
-          return reject({ code: 412, message: 'Unable to search on q without searchParams' });
+          throw new _error2.default({ code: 412, message: 'Unable to search on q without searchParams' });
         }
       }
 
@@ -147,7 +151,7 @@ exports.default = function (buildRoute) {
         resolve({ all: all, total: total, records: records, limit: limit, skip: skip });
       }).catch(function (err) {
 
-        if (err.errors) return reject({ code: 422, message: 'Unable to create ' + options.name, errors: err.toJSON() });
+        if (err.errors) throw new _error2.default({ code: 422, message: 'Unable to create ' + options.name, errors: err.toJSON() });
 
         throw err;
       });

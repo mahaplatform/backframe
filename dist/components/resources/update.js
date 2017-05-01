@@ -18,6 +18,10 @@ var _load2 = _interopRequireDefault(_load);
 
 var _options = require('../../utils/options');
 
+var _error = require('../../utils/error');
+
+var _error2 = _interopRequireDefault(_error);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (buildRoute) {
@@ -50,7 +54,7 @@ exports.default = function (buildRoute) {
         return resource.save(data, { patch: true }).then(resolve);
       }).catch(function (err) {
 
-        if (err.errors) return reject({ code: 422, message: 'Unable to update record', errors: err.toJSON() });
+        if (err.errors) throw new _error2.default({ code: 422, message: 'Unable to update record', errors: err.toJSON() });
 
         throw err;
       });

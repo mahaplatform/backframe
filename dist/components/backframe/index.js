@@ -37,6 +37,7 @@ exports.default = function () {
 
 
   var TYPES = {
+    bookshelf: { type: 'object', required: true },
     knex: { type: 'object', required: true },
     redis: { type: 'object', required: false },
     plugins: { type: 'object[]', required: false, default: [] }

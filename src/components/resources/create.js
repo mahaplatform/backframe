@@ -2,6 +2,7 @@ import _ from 'lodash'
 import { coerceArray } from '../../utils/core'
 import { defaultRenderer, defaultResponder } from '../../utils'
 import { checkPermitted } from '../../utils/options'
+import BackframeError from '../../utils/error'
 
 export default  (buildRoute) => {
 
@@ -30,7 +31,7 @@ export default  (buildRoute) => {
 
     return options.model.forge(data).save().then(resolve).catch(err => {
 
-      if(err.errors) return reject({ code: 422, message: `Unable to create record`, errors: err.toJSON() })
+      if(err.errors) throw new BackframeError({ code: 422, message: `Unable to create record`, errors: err.toJSON() })
 
       throw err
 

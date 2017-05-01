@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import cache from './cache'
+import BackframeError from './error'
 
 export default (options) => {
 
@@ -12,7 +13,7 @@ export default (options) => {
     if(options.cacheFor) {
 
       if(!options.redis && process.env.NODE_ENV == 'development') {
-        return reject({ code: 412, message: `you must include a redis configuration` })
+        throw new BackframeError({ code: 412, message: `you must include a redis configuration` })
       }
 
       const key = `${options.name}-${result.get('id')}-${Math.floor(result.get('updated_at').getTime() / 1000)}`
