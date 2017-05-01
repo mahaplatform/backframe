@@ -49,13 +49,13 @@ exports.default = function (buildRoute) {
   };
 
   var processor = function processor(options) {
-    return function (req) {
+    return function (req, trx) {
 
       var tableName = options.model.extend().__super__.tableName;
 
       req.query.$filter = _lodash2.default.pick(req.query.$filter, options.filterParams);
 
-      var fetchOptions = options.withRelated ? { withRelated: (0, _core.coerceArray)(options.withRelated) } : {};
+      var fetchOptions = options.withRelated ? { withRelated: (0, _core.coerceArray)(options.withRelated), transacting: trx } : { transacting: trx };
 
       var limit = parseInt(_lodash2.default.get(req.query, '$page.limit')) || 50;
 
@@ -103,13 +103,13 @@ exports.default = function (buildRoute) {
           }
 
           qb.count('* as count');
-        }).fetchAll();
+        }).fetchAll({ transacting: transacting });
       };
 
       var queryObject = query(options.knex(tableName)).toSQL();
 
       var count = function count() {
-        return options.knex.raw('select count(*) as count from (' + queryObject.sql + ') as temp', queryObject.bindings);
+        return options.knex.raw('select count(*) as count from (' + queryObject.sql + ') as temp', queryObject.bindings).transacting(transacting);
       };
 
       var paged = function paged() {

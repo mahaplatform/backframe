@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.printLogger = exports.expandBenchmark = exports.recordTick = exports.endLogger = exports.beginLogger = exports.captureQueries = undefined;
+exports.printLogger = exports.expandBenchmark = exports.recordTick = exports.endLogger = exports.beginLogger = undefined;
 
 var _keys = require('babel-runtime/core-js/object/keys');
 
@@ -12,8 +12,6 @@ var _keys2 = _interopRequireDefault(_keys);
 var _stringify = require('babel-runtime/core-js/json/stringify');
 
 var _stringify2 = _interopRequireDefault(_stringify);
-
-var _bluebird = require('bluebird');
 
 var _lodash = require('lodash');
 
@@ -35,22 +33,21 @@ var started = null;
 
 var ticks = [];
 
-var captureQueries = exports.captureQueries = function captureQueries(builder) {
+var startTime = null;
 
-  var startTime = process.hrtime();
-  var group = [];
+var group = [];
 
-  builder.on('query', function (query) {
-    group.push(query);
-    queries.push(query);
-  });
+var startQuery = function startQuery(query) {
+  startTime = process.hrtime();
+  group.push(query);
+  queries.push(query);
+};
 
-  builder.on('end', function () {
-    var diff = process.hrtime(startTime);
-    var ms = diff[0] * 1e3 + diff[1] * 1e-6;
-    group.forEach(function (query) {
-      query.duration = ms.toFixed(3);
-    });
+var endQuery = function endQuery(response, query) {
+  var diff = process.hrtime(startTime);
+  var ms = diff[0] * 1e3 + diff[1] * 1e-6;
+  group.forEach(function (query) {
+    query.duration = ms.toFixed(3);
   });
 };
 
@@ -63,18 +60,14 @@ var beginLogger = exports.beginLogger = function beginLogger(options) {
 
     started = (0, _moment2.default)();
 
-    options.knex.client.on('start', captureQueries);
-
-    return (0, _bluebird.resolve)();
+    options.knex.client.on('query', startQuery).on('query-response', endQuery);
   };
 };
 
 var endLogger = exports.endLogger = function endLogger(options) {
   return function () {
 
-    options.knex.client.removeListener('start', captureQueries);
-
-    return (0, _bluebird.resolve)();
+    options.knex.client.removeListener('query', startQuery).removeListener('query-response', endQuery);
   };
 };
 
@@ -116,7 +109,7 @@ var printLogger = exports.printLogger = function printLogger(options) {
       console.log('%s %s', _chalk2.default.red(key.toUpperCase() + ':'), (0, _stringify2.default)(extra[key]));
     });
     queries.forEach(function (query) {
-      console.log('%s %s %s %s', _chalk2.default.green('SQL:'), query.sql, _chalk2.default.magenta('{' + query.bindings.join(', ') + '}'), _chalk2.default.grey(query.duration + 'ms'));
+      console.log('%s %s %s %s', _chalk2.default.green('SQL:'), query.sql, query.bindings ? _chalk2.default.magenta('{' + query.bindings.join(', ') + '}') : '', _chalk2.default.grey(query.duration + 'ms'));
     });
     if (result && result.errors) console.log('%s %s', _chalk2.default.red('ERRORS:'), (0, _stringify2.default)(result.errors));
     if (!_lodash2.default.isEmpty(ticks)) console.log('%s %s', _chalk2.default.red('BENCHMERK:'), expandBenchmark(ticks));

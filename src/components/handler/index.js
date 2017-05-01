@@ -57,37 +57,41 @@ export const buildHandler = (options) => {
 
   const { alterRequest, beforeHooks, processor, afterHooks, renderer, alterRecord, responder } = options
 
-  return async (req, res, recordTick = () => Promise.resolve()) => {
+  return (req, res, recordTick = () => {}) => {
 
-    req = await runAlterRequest(req, alterRequest)
+    return options.bookshelf.transaction(async transacting => {
 
-    recordTick('alterRequest')
+      req = await runAlterRequest(req, alterRequest)
 
-    await runHooks(req, beforeHooks)
+      recordTick('alterRequest')
 
-    recordTick('beforeHooks')
+      await runHooks(req, beforeHooks)
 
-    let result = await processor(req)
+      recordTick('beforeHooks')
 
-    recordTick('processor')
+      let result = await processor(req, transacting)
 
-    await runHooks(req, afterHooks, result)
+      recordTick('processor')
 
-    recordTick('afterHooks')
+      await runHooks(req, afterHooks, result)
 
-    result = renderer ? await renderer(req, result) : result
+      recordTick('afterHooks')
 
-    recordTick('renderer')
+      result = renderer ? await renderer(req, result) : result
 
-    result = await runAlterRecord(req, alterRecord, result)
+      recordTick('renderer')
 
-    recordTick('alterRecord')
+      result = await runAlterRecord(req, alterRecord, result)
 
-    await responder(req, res, result)
+      recordTick('alterRecord')
 
-    recordTick('responder')
+      await responder(req, res, result)
 
-    return result
+      recordTick('responder')
+
+      return result
+
+    })
 
   }
 

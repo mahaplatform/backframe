@@ -4,51 +4,53 @@ import BackframeError from '../../utils/error'
 
 export default (buildRoute) => {
 
-  const destroyRelated = (options, resource, resolve, reject) => {
+  const destroyRelated = (options, resource, trx) => {
 
-    if(!options.dependents) return resolve(resource)
+    if(!options.dependents) return resource
 
-    return Promise.each(options.dependents, (dependent, index, length) => {
+    return Promise.each(options.dependents, async (dependent, index, length) => {
 
-      return dependent.model.where({ [dependent.foreignKey]: resource.get('id') }).fetchAll().then(results => {
+      const results = await dependent.model.where({ [dependent.foreignKey]: resource.get('id') }).fetchAll({ transacting: trx })
 
-        const records = results.map(result => result)
+      const records = results.map(result => result)
 
-        return Promise.each(records, (record, index, length) => {
+      return Promise.each(records, (record, index, length) => {
 
-          return (dependent.strategy === 'destroy') ? record.destroy() : record.save({ [dependent.foreignKey]: null }, { patch: true })
+        if(dependent.strategy === 'destroy') return record.destroy({ transacting: trx })
 
-        })
+        return record.save({ [dependent.foreignKey]: null }, { patch: true, transacting: trx })
 
       })
 
-    }).then(resolve(resource))
+    })
 
   }
 
-  const destroyResource = (options, resource) => {
+  const destroyResource = (options, resource, trx) => {
 
-    return options.softDelete ? resource.save({ deleted_at: new Date() }, { patch: true }) : resource.destroy()
+    if(options.softDelete) return resource.save({ deleted_at: new Date() }, { patch: true, transacting: trx })
+
+    return resource.destroy({ transacting: trx })
 
   }
 
-  const processor = options => req => {
+  const processor = options => async (req, trx) => {
 
-    return load(options)(req).then(resource => {
+    try {
 
-      return new Promise((resolve, reject) => destroyRelated(options, resource, resolve, reject))
+      const resource = await load(options)(req, trx)
 
-    }).then(resource => {
+      await destroyRelated(options, resource, trx)
 
-      return destroyResource(options, resource)
+      return destroyResource(options, resource, trx)
 
-    }).catch(err => {
+    } catch(err) {
 
       if(err.errors) throw new BackframeError({ code: 422, message: `Unable to delete ${options.name}`, errors: err.toJSON() })
 
       throw err
 
-    })
+    }
 
   }
 

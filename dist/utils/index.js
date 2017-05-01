@@ -111,17 +111,26 @@ var defaultRenderer = exports.defaultRenderer = function defaultRenderer(options
 
                         case 4:
                           _context.next = 6;
-                          return renderer(req, result).then(function (result) {
-
-                            if (!req.query.$select) return result;
-
-                            return selector(req, result);
-                          });
+                          return renderer(req, result);
 
                         case 6:
+                          result = _context.sent;
+
+                          if (req.query.$select) {
+                            _context.next = 9;
+                            break;
+                          }
+
+                          return _context.abrupt('return', result);
+
+                        case 9:
+                          _context.next = 11;
+                          return selector(req, result);
+
+                        case 11:
                           return _context.abrupt('return', _context.sent);
 
-                        case 7:
+                        case 12:
                         case 'end':
                           return _context.stop();
                       }
@@ -167,9 +176,7 @@ var defaultResponder = exports.defaultResponder = function defaultResponder(mess
         throw new _error2.default({ code: 415, message: 'We dont currently support this media type' });
       }
 
-      var pagination = req.query.$page ? _lodash2.default.pick(result, ['all', 'total', 'limit', 'skip']) : null;
-
-      console.log(req.$page);
+      var pagination = _lodash2.default.get(req, 'query.$page') ? _lodash2.default.pick(result, ['all', 'total', 'limit', 'skip']) : null;
 
       var data = _lodash2.default.get(result, 'records') ? result.records : result;
 

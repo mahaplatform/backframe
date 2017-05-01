@@ -16,7 +16,13 @@ var _chai = require('chai');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var buildHandler = require('../index').default();
+var buildHandler = require('../index').default({
+  bookshelf: {
+    transaction: function transaction(cb) {
+      return cb(null);
+    }
+  }
+});
 
 var res = {
   status: function status(code) {

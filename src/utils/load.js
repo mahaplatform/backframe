@@ -1,12 +1,13 @@
 import { coerceArray, defaultQuery } from '../utils'
+import BackframeError from '../utils/error'
 
 export default (options) => {
 
-  const fetchOptions = options.withRelated ? { withRelated: coerceArray(options.withRelated) } : {}
-
   const tableName = options.model.extend().__super__.tableName
 
-  return req => {
+  return (req, trx) => {
+
+    const fetchOptions = options.withRelated ? { withRelated: coerceArray(options.withRelated), transacting: trx } : { transacting: trx }
 
     return options.model.query(qb => {
 
@@ -17,7 +18,7 @@ export default (options) => {
     }).fetch(fetchOptions).then(record => {
 
       if(!record) {
-        throw({ code: 404, message: `Unable to find ${options.name}` })
+        throw new BackframeError({ code: 404, message: `Unable to find ${options.name}` })
       }
 
       return record

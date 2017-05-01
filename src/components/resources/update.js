@@ -21,13 +21,13 @@ export default (buildRoute) => {
 
   }
 
-  const processor = options => req => {
+  const processor = options => (req, trx) => {
 
-    return load(options)(req).then(resource => {
+    return load(options)(req, trx).then(resource => {
 
       const data = _.pick(req.data, options.allowedParams)
 
-      return resource.save(data, { patch: true })
+      return resource.save(data, { patch: true, transacting: trx })
 
     }).catch(err => {
 

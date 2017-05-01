@@ -8,24 +8,22 @@ let started = null
 
 let ticks = []
 
-export const captureQueries = builder => {
+let startTime = null
 
-  var startTime = process.hrtime()
-  var group = []
+let group = []
 
-  builder.on('query', query => {
-    group.push(query)
-    queries.push(query)
+const startQuery = query => {
+  startTime = process.hrtime()
+  group.push(query)
+  queries.push(query)
+}
+
+const endQuery = (response, query) => {
+  const diff = process.hrtime(startTime)
+  const ms = diff[0] * 1e3 + diff[1] * 1e-6
+  group.forEach(query => {
+    query.duration = ms.toFixed(3)
   })
-
-  builder.on('end', () => {
-    const diff = process.hrtime(startTime)
-    const ms = diff[0] * 1e3 + diff[1] * 1e-6
-    group.forEach(query => {
-      query.duration = ms.toFixed(3)
-    })
-  })
-
 }
 
 export const beginLogger = options => () => {
@@ -36,17 +34,13 @@ export const beginLogger = options => () => {
 
   started = moment()
 
-  options.knex.client.on('start', captureQueries)
-
-  return Promise.resolve()
+  options.knex.client.on('query', startQuery).on('query-response', endQuery)
 
 }
 
 export const endLogger = options => () => {
 
-  options.knex.client.removeListener('start', captureQueries)
-
-  return Promise.resolve()
+  options.knex.client.removeListener('query', startQuery).removeListener('query-response', endQuery)
 
 }
 
@@ -90,7 +84,7 @@ export const printLogger = options => (req, res, result) => {
     console.log('%s %s', chalk.red(`${key.toUpperCase()}:`), JSON.stringify(extra[key]))
   })
   queries.forEach(query => {
-    console.log('%s %s %s %s', chalk.green('SQL:'), query.sql, chalk.magenta(`{${query.bindings.join(', ')}}`), chalk.grey(`${query.duration}ms`))
+    console.log('%s %s %s %s', chalk.green('SQL:'), query.sql, query.bindings ? chalk.magenta(`{${query.bindings.join(', ')}}`) : '', chalk.grey(`${query.duration}ms`))
   })
   if(result && result.errors) console.log('%s %s', chalk.red('ERRORS:'), JSON.stringify(result.errors))
   if(!_.isEmpty(ticks)) console.log('%s %s', chalk.red(`BENCHMERK:`), expandBenchmark(ticks))

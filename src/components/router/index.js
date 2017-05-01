@@ -87,29 +87,23 @@ export const buildRouter = (backframeOptions, options, buildHandler) => {
 
 const buildRoute = (options, handler) => {
 
-  return (req, res) => {
+  return async (req, res) => {
 
-    return Promise.resolve().then(() => {
+    try {
 
-      return beginLogger(options)()
+      beginLogger(options)()
 
-    }).then(() => {
+      const result = await handler(req, res, recordTick)
 
-      return handler(req, res, recordTick)
-
-    }).then(result => {
-
-      return endLogger(options)().then(() => result)
-
-    }).then(result => {
+      endLogger(options)()
 
       printLogger(options)(req, res, result)
 
-    }).catch(err => {
+    } catch(err) {
 
       renderError(res, err)
 
-    })
+    }
 
   }
 

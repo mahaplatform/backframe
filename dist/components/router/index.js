@@ -5,7 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.renderError = exports.buildRouter = exports.normalizeOptions = undefined;
 
-var _bluebird = require('bluebird');
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
@@ -123,27 +129,51 @@ var buildRouter = exports.buildRouter = function buildRouter(backframeOptions, o
 
 var buildRoute = function buildRoute(options, handler) {
 
-  return function (req, res) {
+  return function () {
+    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, res) {
+      var result;
+      return _regenerator2.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
 
-    return (0, _bluebird.resolve)().then(function () {
 
-      return (0, _logger.beginLogger)(options)();
-    }).then(function () {
+              (0, _logger.beginLogger)(options)();
 
-      return handler(req, res, _logger.recordTick);
-    }).then(function (result) {
+              _context.next = 4;
+              return handler(req, res, _logger.recordTick);
 
-      return (0, _logger.endLogger)(options)().then(function () {
-        return result;
-      });
-    }).then(function (result) {
+            case 4:
+              result = _context.sent;
 
-      (0, _logger.printLogger)(options)(req, res, result);
-    }).catch(function (err) {
 
-      renderError(res, err);
-    });
-  };
+              (0, _logger.endLogger)(options)();
+
+              (0, _logger.printLogger)(options)(req, res, result);
+
+              _context.next = 12;
+              break;
+
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context['catch'](0);
+
+
+              renderError(res, _context.t0);
+
+            case 12:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined, [[0, 9]]);
+    }));
+
+    return function (_x3, _x4) {
+      return _ref.apply(this, arguments);
+    };
+  }();
 };
 
 var renderError = exports.renderError = function renderError(res, err) {

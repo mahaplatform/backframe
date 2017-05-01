@@ -43,11 +43,11 @@ exports.default = function (buildRoute) {
   };
 
   var processor = function processor(options) {
-    return function (req) {
+    return function (req, trx) {
 
       var data = (0, _extends3.default)({}, options.defaultParams ? options.defaultParams(req) : {}, _lodash2.default.pick(req.data, options.allowedParams));
 
-      return options.model.forge(data).save().catch(function (err) {
+      return options.model.forge(data).save(null, { transacting: trx }).catch(function (err) {
 
         if (err.errors) throw new _error2.default({ code: 422, message: 'Unable to create record', errors: err.toJSON() });
 

@@ -25,13 +25,13 @@ export default (buildRoute) => {
 
   }
 
-  const processor = options => req => {
+  const processor = options => (req, trx) => {
 
     const tableName = options.model.extend().__super__.tableName
 
     req.query.$filter = _.pick(req.query.$filter, options.filterParams)
 
-    const fetchOptions = options.withRelated ? { withRelated: coerceArray(options.withRelated) } : {}
+    const fetchOptions = options.withRelated ? { withRelated: coerceArray(options.withRelated), transacting: trx } : { transacting: trx }
 
     const limit = parseInt(_.get(req.query, '$page.limit')) || 50
 
@@ -76,12 +76,12 @@ export default (buildRoute) => {
 
       qb.count('* as count')
 
-    }).fetchAll()
+    }).fetchAll({ transacting })
 
 
     const queryObject = query(options.knex(tableName)).toSQL()
 
-    const count = () => options.knex.raw(`select count(*) as count from (${queryObject.sql}) as temp`, queryObject.bindings)
+    const count = () => options.knex.raw(`select count(*) as count from (${queryObject.sql}) as temp`, queryObject.bindings).transacting(transacting)
 
     const paged = () => options.model.query(qb => {
 

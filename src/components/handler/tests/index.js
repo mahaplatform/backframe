@@ -1,6 +1,10 @@
 import { expect } from 'chai'
 
-const buildHandler = require('../index').default()
+const buildHandler = require('../index').default({
+  bookshelf: {
+    transaction: (cb) => cb(null) 
+  }
+})
 
 const res = {
   status: code => ({

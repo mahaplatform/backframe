@@ -43,13 +43,13 @@ exports.default = function (buildRoute) {
   };
 
   var processor = function processor(options) {
-    return function (req) {
+    return function (req, trx) {
 
-      return (0, _load2.default)(options)(req).then(function (resource) {
+      return (0, _load2.default)(options)(req, trx).then(function (resource) {
 
         var data = _lodash2.default.pick(req.data, options.allowedParams);
 
-        return resource.save(data, { patch: true });
+        return resource.save(data, { patch: true, transacting: trx });
       }).catch(function (err) {
 
         if (err.errors) throw new _error2.default({ code: 422, message: 'Unable to update record', errors: err.toJSON() });

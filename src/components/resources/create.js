@@ -20,14 +20,14 @@ export default  (buildRoute) => {
 
   }
 
-  const processor = options => req => {
+  const processor = options => (req, trx) => {
 
     const data = {
       ...options.defaultParams ? options.defaultParams(req) : {},
       ..._.pick(req.data, options.allowedParams)
     }
 
-    return options.model.forge(data).save().catch(err => {
+    return options.model.forge(data).save(null, { transacting: trx }).catch(err => {
 
       if(err.errors) throw new BackframeError({ code: 422, message: `Unable to create record`, errors: err.toJSON() })
 

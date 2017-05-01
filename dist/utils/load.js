@@ -6,13 +6,19 @@ Object.defineProperty(exports, "__esModule", {
 
 var _utils = require('../utils');
 
-exports.default = function (options) {
+var _error = require('../utils/error');
 
-  var fetchOptions = options.withRelated ? { withRelated: (0, _utils.coerceArray)(options.withRelated) } : {};
+var _error2 = _interopRequireDefault(_error);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (options) {
 
   var tableName = options.model.extend().__super__.tableName;
 
-  return function (req) {
+  return function (req, trx) {
+
+    var fetchOptions = options.withRelated ? { withRelated: (0, _utils.coerceArray)(options.withRelated), transacting: trx } : { transacting: trx };
 
     return options.model.query(function (qb) {
 
@@ -22,7 +28,7 @@ exports.default = function (options) {
     }).fetch(fetchOptions).then(function (record) {
 
       if (!record) {
-        throw { code: 404, message: 'Unable to find ' + options.name };
+        throw new _error2.default({ code: 404, message: 'Unable to find ' + options.name });
       }
 
       return record;

@@ -44,14 +44,11 @@ export const defaultRenderer = options => async (req, result) => {
 
     if(result.records) return await applyToRecords(req, result, transforms)
 
+    result = await renderer(req, result)
 
-    return await renderer(req, result).then(result => {
+    if(!req.query.$select) return result
 
-      if(!req.query.$select) return result
-
-      return selector(req, result)
-
-    })
+    return await selector(req, result)
 
   }
 
@@ -71,7 +68,7 @@ export const defaultResponder = message => options => (req, res, result) => {
     throw new BackframeError({ code: 415, message: 'We dont currently support this media type' })
   }
 
-  const pagination = (req.query.$page) ? _.pick(result, ['all','total','limit','skip']) : null
+  const pagination = (_.get(req, 'query.$page')) ? _.pick(result, ['all','total','limit','skip']) : null
 
   const data = _.get(result, 'records') ? result.records : result
 

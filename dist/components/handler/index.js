@@ -96,100 +96,102 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
       responder = options.responder;
 
 
-  return function () {
-    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, res) {
-      var recordTick = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {
-        return (0, _bluebird.resolve)();
-      };
-      var result;
-      return _regenerator2.default.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return runAlterRequest(req, alterRequest);
-
-            case 2:
-              req = _context.sent;
+  return function (req, res) {
+    var recordTick = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
 
 
-              recordTick('alterRequest');
+    return options.bookshelf.transaction(function () {
+      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(transacting) {
+        var result;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return runAlterRequest(req, alterRequest);
 
-              _context.next = 6;
-              return runHooks(req, beforeHooks);
-
-            case 6:
-
-              recordTick('beforeHooks');
-
-              _context.next = 9;
-              return processor(req);
-
-            case 9:
-              result = _context.sent;
+              case 2:
+                req = _context.sent;
 
 
-              recordTick('processor');
+                recordTick('alterRequest');
 
-              _context.next = 13;
-              return runHooks(req, afterHooks, result);
+                _context.next = 6;
+                return runHooks(req, beforeHooks);
 
-            case 13:
+              case 6:
 
-              recordTick('afterHooks');
+                recordTick('beforeHooks');
 
-              if (!renderer) {
-                _context.next = 20;
+                _context.next = 9;
+                return processor(req, transacting);
+
+              case 9:
+                result = _context.sent;
+
+
+                recordTick('processor');
+
+                _context.next = 13;
+                return runHooks(req, afterHooks, result);
+
+              case 13:
+
+                recordTick('afterHooks');
+
+                if (!renderer) {
+                  _context.next = 20;
+                  break;
+                }
+
+                _context.next = 17;
+                return renderer(req, result);
+
+              case 17:
+                _context.t0 = _context.sent;
+                _context.next = 21;
                 break;
-              }
 
-              _context.next = 17;
-              return renderer(req, result);
+              case 20:
+                _context.t0 = result;
 
-            case 17:
-              _context.t0 = _context.sent;
-              _context.next = 21;
-              break;
-
-            case 20:
-              _context.t0 = result;
-
-            case 21:
-              result = _context.t0;
+              case 21:
+                result = _context.t0;
 
 
-              recordTick('renderer');
+                recordTick('renderer');
 
-              _context.next = 25;
-              return runAlterRecord(req, alterRecord, result);
+                _context.next = 25;
+                return runAlterRecord(req, alterRecord, result);
 
-            case 25:
-              result = _context.sent;
+              case 25:
+                result = _context.sent;
 
 
-              recordTick('alterRecord');
+                recordTick('alterRecord');
 
-              _context.next = 29;
-              return responder(req, res, result);
+                _context.next = 29;
+                return responder(req, res, result);
 
-            case 29:
+              case 29:
 
-              recordTick('responder');
+                recordTick('responder');
 
-              return _context.abrupt('return', result);
+                return _context.abrupt('return', result);
 
-            case 31:
-            case 'end':
-              return _context.stop();
+              case 31:
+              case 'end':
+                return _context.stop();
+            }
           }
-        }
-      }, _callee, undefined);
-    }));
+        }, _callee, undefined);
+      }));
 
-    return function (_x3, _x4) {
-      return _ref.apply(this, arguments);
-    };
-  }();
+      return function (_x4) {
+        return _ref.apply(this, arguments);
+      };
+    }());
+  };
 };
 
 var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, alterRequest) {
@@ -214,7 +216,7 @@ var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, al
       }, _callee2, undefined);
     }));
 
-    return function runner(_x6, _x7) {
+    return function runner(_x5, _x6) {
       return _ref2.apply(this, arguments);
     };
   }();
@@ -261,7 +263,7 @@ var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, alter
       }, _callee3, undefined);
     }));
 
-    return function runner(_x8, _x9) {
+    return function runner(_x7, _x8) {
       return _ref3.apply(this, arguments);
     };
   }();
@@ -310,7 +312,7 @@ var runHooks = exports.runHooks = function runHooks(req, hooks) {
       }, _callee4, undefined);
     }));
 
-    return function runner(_x11, _x12, _x13) {
+    return function runner(_x10, _x11, _x12) {
       return _ref4.apply(this, arguments);
     };
   }();
