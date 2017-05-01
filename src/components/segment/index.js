@@ -6,10 +6,10 @@ import * as constants from '../../constants'
 export default (backframeOptions = {}) => {
 
   const TYPES = mergeTypes({
-    afterHooks: { type: ['function','function[]'], required: false },
+    after: { type: ['function','function[]'], required: false },
     alterRequest: { type: ['function','function[]'], required: false },
     alterRecord: { type: ['function','function[]'], required: false },
-    beforeHooks: { type: ['function','function[]'], required: false },
+    before: { type: ['function','function[]'], required: false },
     pathPrefix: { type: 'string', required: false },
     processor: { type: 'function', required: false },
     renderer: { type: 'function', required: false },

@@ -83,11 +83,11 @@ exports.default = function () {
 
     var TYPES = (0, _core.mergeTypes)({
       actions: { type: 'object', required: false },
-      afterHooks: { type: ['function', 'function{}'], required: false },
+      after: { type: ['function', 'function{}'], required: false },
       allowedParams: { type: ['string[]', 'string[]{}'], required: false },
       alterRequest: { type: ['function', 'function{}'], required: false },
       alterRecord: { type: ['function', 'function{}'], required: false },
-      beforeHooks: { type: ['function', 'function{}'], required: false },
+      before: { type: ['function', 'function{}'], required: false },
       cacheFor: { type: 'integer', required: false },
       defaultParams: { type: 'function', required: false },
       defaultSort: { type: ['string', 'string[]'], required: false, default: '-created_at' },
@@ -95,7 +95,7 @@ exports.default = function () {
       except: { type: 'string[]', required: false },
       filterParams: { type: 'string[]', required: false },
       model: { type: 'object', required: true },
-      name: { type: 'string', required: true },
+      name: { type: 'string', required: false },
       only: { type: 'string[]', required: false },
       path: { type: 'string', required: false },
       pathPrefix: { type: 'string', required: false },
@@ -122,8 +122,11 @@ exports.default = function () {
 
 var normalizeOptions = exports.normalizeOptions = function normalizeOptions(userOptions, types) {
 
+  var name = userOptions.name || _pluralize2.default.singular(userOptions.model.extend().__super__.tableName);
+
   var derivedOptions = {
-    path: (0, _pluralize2.default)(userOptions.name)
+    name: name,
+    path: _pluralize2.default.plural(name)
   };
 
   return (0, _extends6.default)({}, (0, _options.defaultOptions)(types), derivedOptions, userOptions, mapOptionsToActions(userOptions, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_LIFECYCLE), ['allowedParams', 'query', 'serializer', 'withRelated'])));

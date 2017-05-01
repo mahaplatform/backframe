@@ -50,10 +50,10 @@ exports.default = function () {
 
 
     var TYPES = {
-      afterHooks: { type: ['function', 'function[]'], required: false },
+      after: { type: ['function', 'function[]'], required: false },
       alterRequest: { type: ['function', 'function[]'], required: false },
       alterRecord: { type: ['function', 'function[]'], required: false },
-      beforeHooks: { type: ['function', 'function[]'], required: false },
+      before: { type: ['function', 'function[]'], required: false },
       csvResponder: { type: ['function'], required: false },
       jsonResponder: { type: ['function'], required: false },
       processor: { type: 'function', required: true },
@@ -88,9 +88,9 @@ var expandLifecycle = exports.expandLifecycle = function expandLifecycle(userOpt
 
 var buildHandler = exports.buildHandler = function buildHandler(options) {
   var alterRequest = options.alterRequest,
-      beforeHooks = options.beforeHooks,
+      before = options.before,
       processor = options.processor,
-      afterHooks = options.afterHooks,
+      after = options.after,
       renderer = options.renderer,
       alterRecord = options.alterRecord,
       responder = options.responder;
@@ -101,14 +101,14 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
 
 
     return options.bookshelf.transaction(function () {
-      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(transacting) {
+      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(trx) {
         var result;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return runAlterRequest(req, alterRequest);
+                return runAlterRequest(req, trx, alterRequest);
 
               case 2:
                 req = _context.sent;
@@ -117,14 +117,14 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
                 recordTick('alterRequest');
 
                 _context.next = 6;
-                return runHooks(req, beforeHooks);
+                return runHooks(req, trx, before);
 
               case 6:
 
-                recordTick('beforeHooks');
+                recordTick('before');
 
                 _context.next = 9;
-                return processor(req, transacting);
+                return processor(req, trx);
 
               case 9:
                 result = _context.sent;
@@ -133,11 +133,11 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
                 recordTick('processor');
 
                 _context.next = 13;
-                return runHooks(req, afterHooks, result);
+                return runHooks(req, trx, after, result);
 
               case 13:
 
-                recordTick('afterHooks');
+                recordTick('after');
 
                 if (!renderer) {
                   _context.next = 20;
@@ -145,7 +145,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
                 }
 
                 _context.next = 17;
-                return renderer(req, result);
+                return renderer(req, trx, result);
 
               case 17:
                 _context.t0 = _context.sent;
@@ -162,7 +162,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
                 recordTick('renderer');
 
                 _context.next = 25;
-                return runAlterRecord(req, alterRecord, result);
+                return runAlterRecord(req, trx, alterRecord, result);
 
               case 25:
                 result = _context.sent;
@@ -194,7 +194,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
   };
 };
 
-var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, alterRequest) {
+var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, trx, alterRequest) {
 
   var runner = function () {
     var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, operation) {
@@ -203,7 +203,7 @@ var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, al
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return operation(req);
+              return operation(req, trx);
 
             case 2:
               return _context2.abrupt('return', _context2.sent);
@@ -228,7 +228,7 @@ var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, al
   return (0, _bluebird.reduce)(alterRequest, runner, req);
 };
 
-var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, alterRecord, result) {
+var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, trx, alterRecord, result) {
 
   var runner = function () {
     var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(result, operation) {
@@ -245,12 +245,12 @@ var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, alter
                 break;
               }
 
-              _context3.t0 = (0, _core.applyToRecords)(req, result, operation);
+              _context3.t0 = (0, _core.applyToRecords)(req, trx, result, operation);
               _context3.next = 7;
               break;
 
             case 6:
-              _context3.t0 = operation(req, result);
+              _context3.t0 = operation(req, trx, result);
 
             case 7:
               return _context3.abrupt('return', _context3.t0);
@@ -275,12 +275,12 @@ var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, alter
   return (0, _bluebird.reduce)(alterRecord, runner, result);
 };
 
-var runHooks = exports.runHooks = function runHooks(req, hooks) {
-  var result = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+var runHooks = exports.runHooks = function runHooks(req, trx, hooks) {
+  var result = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
 
   var runner = function () {
-    var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(req, result, hook) {
+    var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(hook) {
       return _regenerator2.default.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -294,12 +294,12 @@ var runHooks = exports.runHooks = function runHooks(req, hooks) {
                 break;
               }
 
-              _context4.t0 = hook(req, result);
+              _context4.t0 = hook(req, trx, result);
               _context4.next = 7;
               break;
 
             case 6:
-              _context4.t0 = hook(req);
+              _context4.t0 = hook(req, trx);
 
             case 7:
               return _context4.abrupt('return', _context4.t0);
@@ -312,16 +312,16 @@ var runHooks = exports.runHooks = function runHooks(req, hooks) {
       }, _callee4, undefined);
     }));
 
-    return function runner(_x10, _x11, _x12) {
+    return function runner(_x10) {
       return _ref4.apply(this, arguments);
     };
   }();
 
   if (hooks.length === 0) return null;
 
-  if (hooks.length === 1) return runner(req, result, hooks[0]);
+  if (hooks.length === 1) return runner(hooks[0]);
 
   return (0, _bluebird.map)(hooks, function (hook) {
-    return runner(req, result, hook);
+    return runner(hook);
   });
 };

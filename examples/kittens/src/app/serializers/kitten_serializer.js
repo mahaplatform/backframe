@@ -1,4 +1,4 @@
-export default (req, kitten) => {
+export default (req, trx, kitten) => {
 
   return {
     id: kitten.get('id'),

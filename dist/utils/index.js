@@ -74,7 +74,7 @@ var defaultProcessor = exports.defaultProcessor = function defaultProcessor(opti
 
 var defaultRenderer = exports.defaultRenderer = function defaultRenderer(options) {
   return function () {
-    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, result) {
+    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, trx, result) {
       var renderer, selector, transforms, transform;
       return _regenerator2.default.wrap(function _callee2$(_context2) {
         while (1) {
@@ -93,7 +93,7 @@ var defaultRenderer = exports.defaultRenderer = function defaultRenderer(options
               transforms = req.query.$select ? [renderer, selector] : [renderer];
 
               transform = function () {
-                var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, result, transforms) {
+                var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, trx, result, transforms) {
                   return _regenerator2.default.wrap(function _callee$(_context) {
                     while (1) {
                       switch (_context.prev = _context.next) {
@@ -104,14 +104,14 @@ var defaultRenderer = exports.defaultRenderer = function defaultRenderer(options
                           }
 
                           _context.next = 3;
-                          return (0, _core.applyToRecords)(req, result, transforms);
+                          return (0, _core.applyToRecords)(req, trx, result, transforms);
 
                         case 3:
                           return _context.abrupt('return', _context.sent);
 
                         case 4:
                           _context.next = 6;
-                          return renderer(req, result);
+                          return renderer(req, trx, result);
 
                         case 6:
                           result = _context.sent;
@@ -125,7 +125,7 @@ var defaultRenderer = exports.defaultRenderer = function defaultRenderer(options
 
                         case 9:
                           _context.next = 11;
-                          return selector(req, result);
+                          return selector(req, trx, result);
 
                         case 11:
                           return _context.abrupt('return', _context.sent);
@@ -138,13 +138,13 @@ var defaultRenderer = exports.defaultRenderer = function defaultRenderer(options
                   }, _callee, undefined);
                 }));
 
-                return function transform(_x3, _x4, _x5) {
+                return function transform(_x4, _x5, _x6, _x7) {
                   return _ref2.apply(this, arguments);
                 };
               }();
 
               _context2.next = 8;
-              return transform(req, result, transforms).catch(function (err) {
+              return transform(req, trx, result, transforms).catch(function (err) {
 
                 throw err;
               });
@@ -160,7 +160,7 @@ var defaultRenderer = exports.defaultRenderer = function defaultRenderer(options
       }, _callee2, undefined);
     }));
 
-    return function (_x, _x2) {
+    return function (_x, _x2, _x3) {
       return _ref.apply(this, arguments);
     };
   }();

@@ -9,10 +9,10 @@ export default (backframeOptions = {}) => {
   return (userOptions = {}) => {
 
     const TYPES = {
-      afterHooks: { type: ['function','function[]'], required: false },
+      after: { type: ['function','function[]'], required: false },
       alterRequest: { type: ['function','function[]'], required: false },
       alterRecord: { type: ['function','function[]'], required: false },
-      beforeHooks: { type: ['function','function[]'], required: false },
+      before: { type: ['function','function[]'], required: false },
       csvResponder: { type: ['function'], required: false },
       jsonResponder: { type: ['function'], required: false},
       processor: { type: 'function', required: true },
@@ -55,33 +55,33 @@ export const expandLifecycle = (userOptions) => {
 
 export const buildHandler = (options) => {
 
-  const { alterRequest, beforeHooks, processor, afterHooks, renderer, alterRecord, responder } = options
+  const { alterRequest, before, processor, after, renderer, alterRecord, responder } = options
 
   return (req, res, recordTick = () => {}) => {
 
-    return options.bookshelf.transaction(async transacting => {
+    return options.bookshelf.transaction(async trx => {
 
-      req = await runAlterRequest(req, alterRequest)
+      req = await runAlterRequest(req, trx, alterRequest)
 
       recordTick('alterRequest')
 
-      await runHooks(req, beforeHooks)
+      await runHooks(req, trx, before)
 
-      recordTick('beforeHooks')
+      recordTick('before')
 
-      let result = await processor(req, transacting)
+      let result = await processor(req, trx)
 
       recordTick('processor')
 
-      await runHooks(req, afterHooks, result)
+      await runHooks(req, trx, after, result)
 
-      recordTick('afterHooks')
+      recordTick('after')
 
-      result = renderer ? await renderer(req, result) : result
+      result = renderer ? await renderer(req, trx, result) : result
 
       recordTick('renderer')
 
-      result = await runAlterRecord(req, alterRecord, result)
+      result = await runAlterRecord(req, trx, alterRecord, result)
 
       recordTick('alterRecord')
 
@@ -97,9 +97,9 @@ export const buildHandler = (options) => {
 
 }
 
-export const runAlterRequest = (req, alterRequest) => {
+export const runAlterRequest = (req, trx, alterRequest) => {
 
-  const runner = async (req, operation) => await operation(req)
+  const runner = async (req, operation) => await operation(req, trx)
 
   if(alterRequest.length === 0) req
 
@@ -109,9 +109,9 @@ export const runAlterRequest = (req, alterRequest) => {
 
 }
 
-export const runAlterRecord = (req, alterRecord, result) => {
+export const runAlterRecord = (req, trx, alterRecord, result) => {
 
-  const runner = async (result, operation) => await (result && result.records) ? applyToRecords(req, result, operation) : operation(req, result)
+  const runner = async (result, operation) => await (result && result.records) ? applyToRecords(req, trx, result, operation) : operation(req, trx, result)
 
   if(alterRecord.length === 0) return result
 
@@ -121,14 +121,14 @@ export const runAlterRecord = (req, alterRecord, result) => {
 
 }
 
-export const runHooks = (req, hooks, result = null) => {
+export const runHooks = (req, trx, hooks, result = null) => {
 
-  const runner = async (req, result, hook) => await result ? hook(req, result) : hook(req)
+  const runner = async (hook) => await result ? hook(req, trx, result) : hook(req, trx)
 
   if(hooks.length === 0) return null
 
-  if(hooks.length === 1) return runner(req, result, hooks[0])
+  if(hooks.length === 1) return runner(hooks[0])
 
-  return Promise.map(hooks, hook => runner(req, result, hook))
+  return Promise.map(hooks, hook => runner(hook))
 
 }

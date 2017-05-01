@@ -14,7 +14,7 @@ export default  (buildRoute) => {
 
   }
 
-  const beforeHooks = options => req => {
+  const before = options => req => {
 
     checkPermitted(req.data, options.allowedParams, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams')
 
@@ -41,7 +41,7 @@ export default  (buildRoute) => {
     method: 'post',
     path: '',
     alterRequest,
-    beforeHooks,
+    before,
     processor,
     renderer: defaultRenderer,
     responder: defaultResponder('Successfully created record')

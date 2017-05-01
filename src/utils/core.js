@@ -33,7 +33,7 @@ export const toList = (arr) => {
 
 }
 
-export const applyToRecords = (req, result, operations) => {
+export const applyToRecords = (req, trx, result, operations) => {
 
   if(!operations) return result
 
@@ -43,7 +43,7 @@ export const applyToRecords = (req, result, operations) => {
 
     return Promise.reduce(arrayOfOptions, (record, operation) => {
 
-      return operation(req, record)
+      return operation(req, trx, record)
 
     }, record)
 
@@ -79,7 +79,7 @@ export const includeAction = (action, only, except) => {
 // cherry pick fields from a serialized record
 export const selectFields = (select) => {
 
-  return (req, record) => {
+  return (req, trx, record) => {
 
     const fields = selectedKeys(select, record)
 

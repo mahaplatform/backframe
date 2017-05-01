@@ -35,7 +35,7 @@ exports.default = function (buildRoute) {
     };
   };
 
-  var beforeHooks = function beforeHooks(options) {
+  var before = function before(options) {
     return function (req) {
 
       (0, _options.checkPermitted)(req.data, options.allowedParams, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams');
@@ -60,7 +60,7 @@ exports.default = function (buildRoute) {
     method: 'post',
     path: '',
     alterRequest: alterRequest,
-    beforeHooks: beforeHooks,
+    before: before,
     processor: processor,
     renderer: _utils.defaultRenderer,
     responder: (0, _utils.defaultResponder)('Successfully created record')

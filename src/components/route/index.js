@@ -8,9 +8,9 @@ export default (backframeOptions = {}) => {
   return (userOptions = {}) => {
 
     const TYPES = mergeTypes({
-      afterHooks: { type: ['function','function[]'], required: false },
+      after: { type: ['function','function[]'], required: false },
       alterRequest: { type: ['function','function[]'], required: false },
-      beforeHooks: { type: ['function','function[]'], required: false },
+      before: { type: ['function','function[]'], required: false },
       cacheFor: { type: 'integer', required: false },
       handler: { type: 'function', required: false },
       method: { type: 'string', required: true, default: 'get' },

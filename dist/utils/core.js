@@ -72,7 +72,7 @@ var toList = exports.toList = function toList(arr) {
   return arr.join(', ').replace(new RegExp(',$'), ', and');
 };
 
-var applyToRecords = exports.applyToRecords = function applyToRecords(req, result, operations) {
+var applyToRecords = exports.applyToRecords = function applyToRecords(req, trx, result, operations) {
 
   if (!operations) return result;
 
@@ -82,7 +82,7 @@ var applyToRecords = exports.applyToRecords = function applyToRecords(req, resul
 
     return (0, _bluebird.reduce)(arrayOfOptions, function (record, operation) {
 
-      return operation(req, record);
+      return operation(req, trx, record);
     }, record);
   }).then(function (records) {
 
@@ -112,7 +112,7 @@ var includeAction = exports.includeAction = function includeAction(action, only,
 // cherry pick fields from a serialized record
 var selectFields = exports.selectFields = function selectFields(select) {
 
-  return function (req, record) {
+  return function (req, trx, record) {
 
     var fields = selectedKeys(select, record);
 

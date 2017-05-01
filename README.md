@@ -35,8 +35,7 @@ import { router, resources } from 'backframe'
 import Kittens from from 'app/models/kittens'
 
 const kittens = resources({
-  model: Kittens,
-  name: 'kittens'
+  model: Kittens
 })
 
 const app = express()

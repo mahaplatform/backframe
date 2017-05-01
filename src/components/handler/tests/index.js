@@ -100,17 +100,17 @@ export default () => {
 
   })
 
-  it('succeeds with a single before hook', (done) => testSingleHookBeforeProcessor('beforeHooks', done))
+  it('succeeds with a single before hook', (done) => testSingleHookBeforeProcessor('before', done))
 
-  it('succeeds with multiple before hooks', (done) => testMultipleHooksBeforeProcessor('beforeHooks', done))
+  it('succeeds with multiple before hooks', (done) => testMultipleHooksBeforeProcessor('before', done))
 
-  it('fails with a failed before hook', (done) => testFailedHookBeforeProcessor('beforeHooks', done))
+  it('fails with a failed before hook', (done) => testFailedHookBeforeProcessor('before', done))
 
-  it('succeeds with a single after hook', (done) => testSingleHookAfterProcessor('afterHooks', done))
+  it('succeeds with a single after hook', (done) => testSingleHookAfterProcessor('after', done))
 
-  it('succeeds with multiple after hooks', (done) => testMultipleHooksAfterProcessor('afterHooks', done))
+  it('succeeds with multiple after hooks', (done) => testMultipleHooksAfterProcessor('after', done))
 
-  it('fails with a failed after hook', (done) => testFailedHookAfterProcessor('afterHooks', done))
+  it('fails with a failed after hook', (done) => testFailedHookAfterProcessor('after', done))
 
   it('succeeds with a single alterRecord hook', (done) => {
 

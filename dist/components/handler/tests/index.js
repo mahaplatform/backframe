@@ -129,27 +129,27 @@ exports.default = function () {
   });
 
   it('succeeds with a single before hook', function (done) {
-    return testSingleHookBeforeProcessor('beforeHooks', done);
+    return testSingleHookBeforeProcessor('before', done);
   });
 
   it('succeeds with multiple before hooks', function (done) {
-    return testMultipleHooksBeforeProcessor('beforeHooks', done);
+    return testMultipleHooksBeforeProcessor('before', done);
   });
 
   it('fails with a failed before hook', function (done) {
-    return testFailedHookBeforeProcessor('beforeHooks', done);
+    return testFailedHookBeforeProcessor('before', done);
   });
 
   it('succeeds with a single after hook', function (done) {
-    return testSingleHookAfterProcessor('afterHooks', done);
+    return testSingleHookAfterProcessor('after', done);
   });
 
   it('succeeds with multiple after hooks', function (done) {
-    return testMultipleHooksAfterProcessor('afterHooks', done);
+    return testMultipleHooksAfterProcessor('after', done);
   });
 
   it('fails with a failed after hook', function (done) {
-    return testFailedHookAfterProcessor('afterHooks', done);
+    return testFailedHookAfterProcessor('after', done);
   });
 
   it('succeeds with a single alterRecord hook', function (done) {

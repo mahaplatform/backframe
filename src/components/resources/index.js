@@ -18,11 +18,11 @@ export default (backframeOptions = {}) => {
 
     const TYPES = mergeTypes({
       actions: { type: 'object', required: false },
-      afterHooks: { type: ['function','function{}'], required: false },
+      after: { type: ['function','function{}'], required: false },
       allowedParams: { type: ['string[]','string[]{}'], required: false },
       alterRequest: { type: ['function','function{}'], required: false },
       alterRecord: { type: ['function','function{}'], required: false },
-      beforeHooks: { type: ['function','function{}'], required: false },
+      before: { type: ['function','function{}'], required: false },
       cacheFor: { type: 'integer', required: false },
       defaultParams: { type: 'function', required: false },
       defaultSort: { type: ['string','string[]'], required: false, default: '-created_at' },
@@ -30,7 +30,7 @@ export default (backframeOptions = {}) => {
       except: { type: 'string[]', required: false },
       filterParams: { type: 'string[]', required: false },
       model: { type: 'object', required: true },
-      name: { type: 'string', required: true },
+      name: { type: 'string', required: false },
       only: { type: 'string[]', required: false },
       path: { type: 'string', required: false },
       pathPrefix: { type: 'string', required: false },
@@ -62,8 +62,11 @@ export default (backframeOptions = {}) => {
 
 export const normalizeOptions = (userOptions, types) => {
 
+  const name = userOptions.name || pluralize.singular(userOptions.model.extend().__super__.tableName)
+
   const derivedOptions = {
-    path: pluralize(userOptions.name)
+    name,
+    path: pluralize.plural(name)
   }
 
   return {

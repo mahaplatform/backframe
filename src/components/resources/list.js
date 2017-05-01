@@ -7,7 +7,7 @@ import BackframeError from '../../utils/error'
 
 export default (buildRoute) => {
 
-  const beforeHooks = options => req => {
+  const before = options => req => {
 
     if(req.query.$filter) {
 
@@ -76,12 +76,12 @@ export default (buildRoute) => {
 
       qb.count('* as count')
 
-    }).fetchAll({ transacting })
+    }).fetchAll({ transacting: trx })
 
 
     const queryObject = query(options.knex(tableName)).toSQL()
 
-    const count = () => options.knex.raw(`select count(*) as count from (${queryObject.sql}) as temp`, queryObject.bindings).transacting(transacting)
+    const count = () => options.knex.raw(`select count(*) as count from (${queryObject.sql}) as temp`, queryObject.bindings).transacting(trx)
 
     const paged = () => options.model.query(qb => {
 
@@ -128,7 +128,7 @@ export default (buildRoute) => {
   return buildRoute({
     method: 'get',
     path: '',
-    beforeHooks,
+    before,
     processor,
     renderer: defaultRenderer,
     responder: defaultResponder('Successfully found records')

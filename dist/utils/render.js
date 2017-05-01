@@ -20,12 +20,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (options) {
 
-  return function (req, result) {
+  return function (req, trx, result) {
 
     var useSerializer = !_lodash2.default.isPlainObject(result) && !_lodash2.default.isNil(options.serializer);
 
     var serialize = function serialize() {
-      return useSerializer ? options.serializer(req, result) : result.toJSON();
+      return useSerializer ? options.serializer(req, trx, result) : result.toJSON();
     };
 
     if (options.cacheFor) {

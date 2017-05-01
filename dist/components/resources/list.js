@@ -30,7 +30,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (buildRoute) {
 
-  var beforeHooks = function beforeHooks(options) {
+  var before = function before(options) {
     return function (req) {
 
       if (req.query.$filter) {
@@ -103,13 +103,13 @@ exports.default = function (buildRoute) {
           }
 
           qb.count('* as count');
-        }).fetchAll({ transacting: transacting });
+        }).fetchAll({ transacting: trx });
       };
 
       var queryObject = query(options.knex(tableName)).toSQL();
 
       var count = function count() {
-        return options.knex.raw('select count(*) as count from (' + queryObject.sql + ') as temp', queryObject.bindings).transacting(transacting);
+        return options.knex.raw('select count(*) as count from (' + queryObject.sql + ') as temp', queryObject.bindings).transacting(trx);
       };
 
       var paged = function paged() {
@@ -159,7 +159,7 @@ exports.default = function (buildRoute) {
   return buildRoute({
     method: 'get',
     path: '',
-    beforeHooks: beforeHooks,
+    before: before,
     processor: processor,
     renderer: _utils.defaultRenderer,
     responder: (0, _utils.defaultResponder)('Successfully found records')

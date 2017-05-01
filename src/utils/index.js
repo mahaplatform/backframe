@@ -30,7 +30,7 @@ export const defaultQuery = (req, options, qb, filters) => {
 
 export const defaultProcessor = options => req => null
 
-export const defaultRenderer = options => async (req, result) => {
+export const defaultRenderer = options => async (req, trx, result) => {
 
   if(!result) return null
 
@@ -40,19 +40,19 @@ export const defaultRenderer = options => async (req, result) => {
 
   const transforms = (req.query.$select) ? [renderer, selector] : [renderer]
 
-  const transform = async (req, result, transforms) => {
+  const transform = async (req, trx, result, transforms) => {
 
-    if(result.records) return await applyToRecords(req, result, transforms)
+    if(result.records) return await applyToRecords(req, trx, result, transforms)
 
-    result = await renderer(req, result)
+    result = await renderer(req, trx, result)
 
     if(!req.query.$select) return result
 
-    return await selector(req, result)
+    return await selector(req, trx, result)
 
   }
 
-  return await transform(req, result, transforms).catch(err => {
+  return await transform(req, trx, result, transforms).catch(err => {
 
     throw err
 

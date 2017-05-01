@@ -74,8 +74,8 @@ export default () => {
       expect(list.path).to.equal('/users')
       expect(list.handler).to.include.keys(constants.BACKFRAME_LIFECYCLE)
       expect(list.handler.alterRequest).to.be.empty
-      expect(list.handler.beforeHooks.length).to.equal(1)
-      expect(list.handler.afterHooks).to.be.empty
+      expect(list.handler.before.length).to.equal(1)
+      expect(list.handler.after).to.be.empty
       expect(list.handler.alterRecord).to.be.empty
       expect(list.handler.processor).to.be.a('function')
       expect(list.handler.renderer).to.be.a('function')
