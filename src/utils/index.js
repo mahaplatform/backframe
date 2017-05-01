@@ -71,7 +71,7 @@ export const defaultResponder = message => options => (req, res, result) => {
     throw new BackframeError({ code: 415, message: 'We dont currently support this media type' })
   }
 
-  const pagination = _.pick(result, ['all','total','limit','skip'])
+  const pagination = (req.query.$page) ? _.pick(result, ['all','total','limit','skip']) : null
 
   const data = _.get(result, 'records') ? result.records : result
 

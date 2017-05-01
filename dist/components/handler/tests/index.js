@@ -58,7 +58,7 @@ exports.default = function () {
         done();return 'foo';
       },
       processor: function processor(req) {
-        return resolve();
+        return '';
       }
     });
 
@@ -224,8 +224,8 @@ var testMultipleHooksBeforeProcessor = function testMultipleHooksBeforeProcessor
 var testFailedHookBeforeProcessor = function testFailedHookBeforeProcessor(key, done) {
   var _buildHandler3;
 
-  var handler = buildHandler((_buildHandler3 = {}, (0, _defineProperty3.default)(_buildHandler3, key, function (req) {
-    return '';
+  var handler = buildHandler((_buildHandler3 = {}, (0, _defineProperty3.default)(_buildHandler3, key, function (req, result) {
+    throw new Error();
   }), (0, _defineProperty3.default)(_buildHandler3, 'processor', function processor(req) {
     return 'foo';
   }), _buildHandler3));
@@ -267,7 +267,7 @@ var testFailedHookAfterProcessor = function testFailedHookAfterProcessor(key, do
   var _buildHandler6;
 
   var handler = buildHandler((_buildHandler6 = {}, (0, _defineProperty3.default)(_buildHandler6, key, function (req, result) {
-    return '';
+    throw new Error();
   }), (0, _defineProperty3.default)(_buildHandler6, 'processor', function processor(req) {
     return 'foo';
   }), _buildHandler6));

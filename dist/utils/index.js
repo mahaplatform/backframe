@@ -167,7 +167,9 @@ var defaultResponder = exports.defaultResponder = function defaultResponder(mess
         throw new _error2.default({ code: 415, message: 'We dont currently support this media type' });
       }
 
-      var pagination = _lodash2.default.pick(result, ['all', 'total', 'limit', 'skip']);
+      var pagination = req.query.$page ? _lodash2.default.pick(result, ['all', 'total', 'limit', 'skip']) : null;
+
+      console.log(req.$page);
 
       var data = _lodash2.default.get(result, 'records') ? result.records : result;
 

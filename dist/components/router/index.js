@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.buildRouter = exports.normalizeOptions = undefined;
+exports.renderError = exports.buildRouter = exports.normalizeOptions = undefined;
 
 var _bluebird = require('bluebird');
 
@@ -46,6 +46,8 @@ var _constants = require('../../constants');
 var constants = _interopRequireWildcard(_constants);
 
 var _logger = require('../../utils/logger');
+
+var _response = require('../../utils/response');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -137,6 +139,18 @@ var buildRoute = function buildRoute(options, handler) {
     }).then(function (result) {
 
       (0, _logger.printLogger)(options)(req, res, result);
+    }).catch(function (err) {
+
+      renderError(res, err);
     });
   };
+};
+
+var renderError = exports.renderError = function renderError(res, err) {
+
+  if (_lodash2.default.includes(['development'], process.env.NODE_ENV)) console.log(err);
+
+  if (err.name == 'BackframeError') return (0, _response.fail)(res, err.code, err.message, { errors: err.errors });
+
+  return (0, _response.fail)(res, 500, err.message);
 };

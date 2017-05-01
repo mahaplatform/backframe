@@ -17,6 +17,7 @@ exports.default = function () {
   it('returns an object of functions', function () {
 
     var backframe = (0, _index2.default)({
+      bookshelf: {},
       knex: {},
       redis: {}
     });
@@ -33,6 +34,7 @@ exports.default = function () {
   it('accepts valid options', function () {
 
     var backframe = (0, _index2.default)({
+      bookshelf: {},
       knex: {},
       redis: {}
     });

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.renderError = exports.runHooks = exports.runAlterRecord = exports.runAlterRequest = exports.buildHandler = exports.expandLifecycle = exports.normalizeOptions = undefined;
+exports.runHooks = exports.runAlterRecord = exports.runAlterRequest = exports.buildHandler = exports.expandLifecycle = exports.normalizeOptions = undefined;
 
 var _bluebird = require('bluebird');
 
@@ -32,8 +32,6 @@ var _utils = require('../../utils');
 var _options = require('../../utils/options');
 
 var _core = require('../../utils/core');
-
-var _response = require('../../utils/response');
 
 var _constants = require('../../constants');
 
@@ -108,81 +106,84 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.prev = 0;
-              _context.next = 3;
+              _context.next = 2;
               return runAlterRequest(req, alterRequest);
 
-            case 3:
+            case 2:
               req = _context.sent;
 
 
               recordTick('alterRequest');
 
-              _context.next = 7;
+              _context.next = 6;
               return runHooks(req, beforeHooks);
 
-            case 7:
+            case 6:
 
               recordTick('beforeHooks');
 
-              _context.next = 10;
+              _context.next = 9;
               return processor(req);
 
-            case 10:
+            case 9:
               result = _context.sent;
 
 
               recordTick('processor');
 
-              _context.next = 14;
+              _context.next = 13;
               return runHooks(req, afterHooks, result);
 
-            case 14:
+            case 13:
 
               recordTick('afterHooks');
+
+              if (!renderer) {
+                _context.next = 20;
+                break;
+              }
 
               _context.next = 17;
               return renderer(req, result);
 
             case 17:
-              result = _context.sent;
+              _context.t0 = _context.sent;
+              _context.next = 21;
+              break;
+
+            case 20:
+              _context.t0 = result;
+
+            case 21:
+              result = _context.t0;
 
 
               recordTick('renderer');
 
-              _context.next = 21;
-              return runAlterRecord(req, alterRecord, result);
-
-            case 21:
-              result = _context.sent;
-
-
-              recordTick('alterRecord');
-
               _context.next = 25;
-              return responder(req, res, result);
+              return runAlterRecord(req, alterRecord, result);
 
             case 25:
               result = _context.sent;
 
 
+              recordTick('alterRecord');
+
+              _context.next = 29;
+              return responder(req, res, result);
+
+            case 29:
+
               recordTick('responder');
 
               return _context.abrupt('return', result);
 
-            case 30:
-              _context.prev = 30;
-              _context.t0 = _context['catch'](0);
-
-
-              renderError(res, _context.t0);
-
-            case 33:
+            case 31:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, undefined, [[0, 30]]);
+      }, _callee, undefined);
     }));
 
     return function (_x3, _x4) {
@@ -321,13 +322,4 @@ var runHooks = exports.runHooks = function runHooks(req, hooks) {
   return (0, _bluebird.map)(hooks, function (hook) {
     return runner(req, result, hook);
   });
-};
-
-var renderError = exports.renderError = function renderError(res, err) {
-
-  if (_lodash2.default.includes(['development'], process.env.NODE_ENV)) console.log(err);
-
-  if (err.name == 'BackframeError') return (0, _response.fail)(res, err.code, err.message, { errors: err.errors });
-
-  return (0, _response.fail)(res, 500, err.message);
 };
