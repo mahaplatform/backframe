@@ -4,6 +4,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
 var _xml = require('xml');
 
 var _xml2 = _interopRequireDefault(_xml);
@@ -16,17 +24,15 @@ var _core = require('../utils/core');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 exports.default = function (message, pagination, result, req, res, resolve, reject) {
 
   var toXML = function toXML(hash) {
 
-    return Object.keys(hash).map(function (key) {
+    return (0, _keys2.default)(hash).map(function (key) {
 
       var value = hash[key];
 
-      return _defineProperty({}, key, _lodash2.default.isPlainObject(value) ? toXML(value) : value);
+      return (0, _defineProperty3.default)({}, key, _lodash2.default.isPlainObject(value) ? toXML(value) : value);
     });
   };
 

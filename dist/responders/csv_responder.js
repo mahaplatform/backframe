@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -16,8 +20,6 @@ var _core = require('../utils/core');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 exports.default = function (message, pagination, result, req, res, resolve, reject) {
 
   var separator = req.params.format === 'tsv' ? '\t' : ',';
@@ -29,7 +31,7 @@ exports.default = function (message, pagination, result, req, res, resolve, reje
   var keys = (0, _core.selectedKeys)(req.query.$select, records[0]);
 
   var output = records.reduce(function (output, record) {
-    return [].concat(_toConsumableArray(output), [keys.map(function (key) {
+    return [].concat((0, _toConsumableArray3.default)(output), [keys.map(function (key) {
 
       var value = _lodash2.default.get(record, key);
 

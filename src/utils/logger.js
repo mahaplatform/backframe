@@ -52,13 +52,11 @@ export const endLogger = options => () => {
 
 export const recordTick = (event) => {
 
-  if(process.env.NODE_ENV !== 'development') return Promise.resolve()
+  if(process.env.NODE_ENV !== 'development') return true
 
   const timestamp = moment()
 
   ticks.push({ event, timestamp })
-
-  return Promise.resolve()
 
 }
 

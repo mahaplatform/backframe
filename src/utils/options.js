@@ -58,9 +58,7 @@ export const checkTypes = (option, key, types, allowedActions) => {
 
   const valid = coerceArray(types).reduce((valid, type) => {
 
-    if(valid) return true
-
-    return checkType(option, type, allowedActions)
+    return valid || checkType(option, type, allowedActions)
 
   }, false)
 

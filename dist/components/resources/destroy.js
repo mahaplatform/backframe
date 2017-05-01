@@ -8,6 +8,10 @@ var _bluebird = require('bluebird');
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
 
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
 var _load = require('../../utils/load');
 
 var _load2 = _interopRequireDefault(_load);
@@ -15,8 +19,6 @@ var _load2 = _interopRequireDefault(_load);
 var _utils = require('../../utils');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 exports.default = function (buildRoute) {
 
@@ -26,7 +28,7 @@ exports.default = function (buildRoute) {
 
     return (0, _bluebird.each)(options.dependents, function (dependent, index, length) {
 
-      return dependent.model.where(_defineProperty({}, dependent.foreignKey, resource.get('id'))).fetchAll().then(function (results) {
+      return dependent.model.where((0, _defineProperty3.default)({}, dependent.foreignKey, resource.get('id'))).fetchAll().then(function (results) {
 
         var records = results.map(function (result) {
           return result;
@@ -34,7 +36,7 @@ exports.default = function (buildRoute) {
 
         return (0, _bluebird.each)(records, function (record, index, length) {
 
-          return dependent.strategy === 'destroy' ? record.destroy() : record.save(_defineProperty({}, dependent.foreignKey, null), { patch: true });
+          return dependent.strategy === 'destroy' ? record.destroy() : record.save((0, _defineProperty3.default)({}, dependent.foreignKey, null), { patch: true });
         });
       });
     }).then(resolve(resource));

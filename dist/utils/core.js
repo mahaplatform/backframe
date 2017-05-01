@@ -5,11 +5,29 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.pluginOptionDefaults = exports.mergeTypes = exports.mergeEvents = exports.mergeHooks = exports.selectedKeys = exports.selectedLabels = exports.selectFields = exports.includeAction = exports.applyToRecords = exports.toList = exports.flattenKeys = exports.mergeParams = exports.coerceArray = undefined;
 
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _values = require('babel-runtime/core-js/object/values');
+
+var _values2 = _interopRequireDefault(_values);
+
+var _extends6 = require('babel-runtime/helpers/extends');
+
+var _extends7 = _interopRequireDefault(_extends6);
+
 var _bluebird = require('bluebird');
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
 var _lodash = require('lodash');
 
@@ -27,10 +45,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 var coerceArray = exports.coerceArray = function coerceArray(value) {
 
   return value ? !_lodash2.default.isArray(value) ? [value] : value : [];
@@ -41,7 +55,7 @@ var mergeParams = exports.mergeParams = function mergeParams() {
 
 
   return Array.apply(null, { length: arguments.length }).reduce(function (merged, value, index) {
-    return _lodash2.default.uniq([].concat(_toConsumableArray(merged), _toConsumableArray(coerceArray(_arguments[index]))));
+    return _lodash2.default.uniq([].concat((0, _toConsumableArray3.default)(merged), (0, _toConsumableArray3.default)(coerceArray(_arguments[index]))));
   }, []);
 };
 
@@ -50,8 +64,8 @@ var flattenKeys = exports.flattenKeys = function flattenKeys(hash) {
   var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
 
-  return Object.keys(hash).reduce(function (keys, key) {
-    return [].concat(_toConsumableArray(keys), _toConsumableArray(_lodash2.default.isObject(hash[key]) ? flattenKeys(hash[key], '' + prefix + key + '.') : ['' + prefix + key]));
+  return (0, _keys2.default)(hash).reduce(function (keys, key) {
+    return [].concat((0, _toConsumableArray3.default)(keys), (0, _toConsumableArray3.default)(_lodash2.default.isObject(hash[key]) ? flattenKeys(hash[key], '' + prefix + key + '.') : ['' + prefix + key]));
   }, []);
 };
 
@@ -78,7 +92,7 @@ var applyToRecords = exports.applyToRecords = function applyToRecords(req, resul
     }, (0, _bluebird.resolve)(record));
   }).then(function (records) {
 
-    return _extends({}, result, {
+    return (0, _extends7.default)({}, result, {
       records: records
     });
   });
@@ -116,7 +130,7 @@ var selectFields = exports.selectFields = function selectFields(select) {
 
 var selectedLabels = exports.selectedLabels = function selectedLabels(select, record) {
 
-  if (_lodash2.default.isPlainObject(select)) return Object.keys(select);
+  if (_lodash2.default.isPlainObject(select)) return (0, _keys2.default)(select);
 
   if (_lodash2.default.isNil(select)) return flattenKeys(record);
 
@@ -125,7 +139,7 @@ var selectedLabels = exports.selectedLabels = function selectedLabels(select, re
 
 var selectedKeys = exports.selectedKeys = function selectedKeys(select, record) {
 
-  if (_lodash2.default.isPlainObject(select)) return Object.values(select);
+  if (_lodash2.default.isPlainObject(select)) return (0, _values2.default)(select);
 
   if (_lodash2.default.isNil(select)) return flattenKeys(record);
 
@@ -142,7 +156,7 @@ var mergeHooks = exports.mergeHooks = function mergeHooks(hooks, plugins) {
 
       if (!plugin[hook]) return hooks;
 
-      return _extends({}, hooks, _defineProperty({}, hook, [].concat(_toConsumableArray(coerceArray(hooks[hook])), _toConsumableArray(coerceArray(plugin[hook]).map(function (hook) {
+      return (0, _extends7.default)({}, hooks, (0, _defineProperty3.default)({}, hook, [].concat((0, _toConsumableArray3.default)(coerceArray(hooks[hook])), (0, _toConsumableArray3.default)(coerceArray(plugin[hook]).map(function (hook) {
         return options ? hook(options) : hook;
       })))));
     }, hooks);
@@ -159,7 +173,7 @@ var mergeEvents = exports.mergeEvents = function mergeEvents(events, plugins) {
 
       if (!plugin[event]) return events;
 
-      return _extends({}, events, _defineProperty({}, event, options ? plugin[event](options) : plugin[event]));
+      return (0, _extends7.default)({}, events, (0, _defineProperty3.default)({}, event, options ? plugin[event](options) : plugin[event]));
     }, events);
   }, events);
 };
@@ -168,8 +182,8 @@ var mergeTypes = exports.mergeTypes = function mergeTypes(types, plugins) {
 
   return coerceArray(plugins).reduce(function (types, plugin) {
 
-    return Object.keys(plugin.options).reduce(function (types, key) {
-      return _extends({}, types, _defineProperty({}, key, plugin.options[key]));
+    return (0, _keys2.default)(plugin.options).reduce(function (types, key) {
+      return (0, _extends7.default)({}, types, (0, _defineProperty3.default)({}, key, plugin.options[key]));
     }, types);
   }, types);
 };
@@ -178,11 +192,11 @@ var pluginOptionDefaults = exports.pluginOptionDefaults = function pluginOptionD
 
   return coerceArray(plugins).reduce(function (defaults, plugin) {
 
-    return Object.keys(plugin.options).reduce(function (defaults, option) {
+    return (0, _keys2.default)(plugin.options).reduce(function (defaults, option) {
 
       if (!plugin.options[option]) return defaults;
 
-      return _extends({}, defaults, _defineProperty({}, option, plugin.options[option].default));
+      return (0, _extends7.default)({}, defaults, (0, _defineProperty3.default)({}, option, plugin.options[option].default));
     }, defaults);
   }, {});
 };

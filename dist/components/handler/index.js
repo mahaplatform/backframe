@@ -9,9 +9,21 @@ var _bluebird = require('bluebird');
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+var _regenerator = require('babel-runtime/regenerator');
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends3 = require('babel-runtime/helpers/extends');
+
+var _extends4 = _interopRequireDefault(_extends3);
 
 var _lodash = require('lodash');
 
@@ -32,8 +44,6 @@ var constants = _interopRequireWildcard(_constants);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 exports.default = function () {
   var backframeOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -68,7 +78,7 @@ exports.default = function () {
 
 var normalizeOptions = exports.normalizeOptions = function normalizeOptions(userOptions, types) {
 
-  return expandLifecycle(_extends({}, (0, _options.defaultOptions)(types), {
+  return expandLifecycle((0, _extends4.default)({}, (0, _options.defaultOptions)(types), {
     responder: (0, _utils.defaultResponder)('Success')(userOptions)
   }, userOptions));
 };
@@ -76,7 +86,7 @@ var normalizeOptions = exports.normalizeOptions = function normalizeOptions(user
 var expandLifecycle = exports.expandLifecycle = function expandLifecycle(userOptions) {
 
   return constants.BACKFRAME_HOOKS.reduce(function (options, hook) {
-    return _extends({}, options, _defineProperty({}, hook, (0, _core.coerceArray)(userOptions[hook])));
+    return (0, _extends4.default)({}, options, (0, _defineProperty3.default)({}, hook, (0, _core.coerceArray)(userOptions[hook])));
   }, userOptions);
 };
 
@@ -90,129 +100,128 @@ var buildHandler = exports.buildHandler = function buildHandler(components) {
       responder = components.responder;
 
 
-  return function (req, res) {
-    var recordTick = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {
-      return (0, _bluebird.resolve)();
+  return function () {
+    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, res) {
+      var recordTick = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {
+        return (0, _bluebird.resolve)();
+      };
+      var result;
+      return _regenerator2.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return runAlterRequest(req, alterRequest);
+
+            case 3:
+              req = _context.sent;
+
+
+              recordTick('alterRequest');
+
+              _context.next = 7;
+              return runHooks(req, beforeHooks);
+
+            case 7:
+
+              recordTick('beforeHooks');
+
+              _context.next = 10;
+              return new _bluebird2.default(function (resolve, reject) {
+                return processor(req, resolve, reject);
+              });
+
+            case 10:
+              result = _context.sent;
+
+
+              recordTick('processor');
+
+              _context.next = 14;
+              return runHooks(req, afterHooks, result);
+
+            case 14:
+
+              recordTick('afterHooks');
+
+              _context.next = 17;
+              return new _bluebird2.default(function (resolve, reject) {
+                return renderer(req, result, resolve, reject);
+              });
+
+            case 17:
+              result = _context.sent;
+
+
+              recordTick('renderer');
+
+              _context.next = 21;
+              return runAlterRecord(req, alterRecord, result);
+
+            case 21:
+              result = _context.sent;
+
+
+              recordTick('alterRecord');
+
+              result = new _bluebird2.default(function (resolve, reject) {
+                return responder(req, res, result, resolve, reject);
+              });
+
+              recordTick('responder');
+
+              return _context.abrupt('return', result);
+
+            case 28:
+              _context.prev = 28;
+              _context.t0 = _context['catch'](0);
+
+
+              renderError(res, _context.t0);
+
+            case 31:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined, [[0, 28]]);
+    }));
+
+    return function (_x3, _x4) {
+      return _ref.apply(this, arguments);
     };
-
-
-    return new _bluebird.resolve(req).then(function (req) {
-      return runAlterRequest(req, alterRequest);
-    }).then(function (req) {
-      return recordTick('alterRequest').then(function () {
-        return req;
-      });
-    }).then(function (req) {
-      return runHooks(req, beforeHooks).then(function () {
-        return req;
-      });
-    }).then(function (req) {
-      return recordTick('beforeHooks').then(function () {
-        return req;
-      });
-    }).then(function (req) {
-      return new _bluebird2.default(function (resolve, reject) {
-        return processor(req, resolve, reject);
-      }).then(function (result) {
-        return [req, result];
-      });
-    }).then(function (_ref) {
-      var _ref2 = _slicedToArray(_ref, 2),
-          req = _ref2[0],
-          result = _ref2[1];
-
-      return recordTick('processor').then(function () {
-        return [req, result];
-      });
-    }).then(function (_ref3) {
-      var _ref4 = _slicedToArray(_ref3, 2),
-          req = _ref4[0],
-          result = _ref4[1];
-
-      return runHooks(req, afterHooks, result).then(function () {
-        return [req, result];
-      });
-    }).then(function (_ref5) {
-      var _ref6 = _slicedToArray(_ref5, 2),
-          req = _ref6[0],
-          result = _ref6[1];
-
-      return recordTick('afterHooks').then(function () {
-        return [req, result];
-      });
-    }).then(function (_ref7) {
-      var _ref8 = _slicedToArray(_ref7, 2),
-          req = _ref8[0],
-          result = _ref8[1];
-
-      return renderer ? new _bluebird2.default(function (resolve, reject) {
-        return renderer(req, result, resolve, reject);
-      }).then(function (result) {
-        return [req, result];
-      }) : [req, result];
-    }).then(function (_ref9) {
-      var _ref10 = _slicedToArray(_ref9, 2),
-          req = _ref10[0],
-          result = _ref10[1];
-
-      return recordTick('renderer').then(function () {
-        return [req, result];
-      });
-    }).then(function (_ref11) {
-      var _ref12 = _slicedToArray(_ref11, 2),
-          req = _ref12[0],
-          result = _ref12[1];
-
-      return runAlterRecord(req, alterRecord, result).then(function (result) {
-        return [req, result];
-      });
-    }).then(function (_ref13) {
-      var _ref14 = _slicedToArray(_ref13, 2),
-          req = _ref14[0],
-          result = _ref14[1];
-
-      return recordTick('alterRecord').then(function () {
-        return [req, result];
-      });
-    }).then(function (_ref15) {
-      var _ref16 = _slicedToArray(_ref15, 2),
-          req = _ref16[0],
-          result = _ref16[1];
-
-      return new _bluebird2.default(function (resolve, reject) {
-        return responder(req, res, result, resolve, reject);
-      }).then(function () {
-        return [req, result];
-      });
-    }).then(function (_ref17) {
-      var _ref18 = _slicedToArray(_ref17, 2),
-          req = _ref18[0],
-          result = _ref18[1];
-
-      return recordTick('responder').then(function () {
-        return req;
-      }).then(function () {
-        return [req, result];
-      });
-    }).then(function (_ref19) {
-      var _ref20 = _slicedToArray(_ref19, 2),
-          req = _ref20[0],
-          result = _ref20[1];
-
-      return result;
-    }).catch(function (err) {
-      return renderError(res, err);
-    });
-  };
+  }();
 };
 
 var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, alterRequest) {
 
-  var runner = function runner(req, operation) {
-    return new _bluebird2.default(function (resolve, reject) {
-      return operation(req, resolve, reject);
-    });
-  };
+  var runner = function () {
+    var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, operation) {
+      return _regenerator2.default.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return new _bluebird2.default(function (resolve, reject) {
+                return operation(req, resolve, reject);
+              });
+
+            case 2:
+              return _context2.abrupt('return', _context2.sent);
+
+            case 3:
+            case 'end':
+              return _context2.stop();
+          }
+        }
+      }, _callee2, undefined);
+    }));
+
+    return function runner(_x6, _x7) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
 
   if (alterRequest.length === 0) return (0, _bluebird.resolve)(req);
 
@@ -223,11 +232,45 @@ var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, al
 
 var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, alterRecord, result) {
 
-  var runner = function runner(result, operation) {
-    return result && result.records ? (0, _core.applyToRecords)(req, result, operation) : new _bluebird2.default(function (resolve, reject) {
-      return operation(req, result, resolve, reject);
-    });
-  };
+  var runner = function () {
+    var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(result, operation) {
+      return _regenerator2.default.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return result && result.records;
+
+            case 2:
+              if (!_context3.sent) {
+                _context3.next = 6;
+                break;
+              }
+
+              _context3.t0 = (0, _core.applyToRecords)(req, result, operation);
+              _context3.next = 7;
+              break;
+
+            case 6:
+              _context3.t0 = new _bluebird2.default(function (resolve, reject) {
+                return operation(req, result, resolve, reject);
+              });
+
+            case 7:
+              return _context3.abrupt('return', _context3.t0);
+
+            case 8:
+            case 'end':
+              return _context3.stop();
+          }
+        }
+      }, _callee3, undefined);
+    }));
+
+    return function runner(_x8, _x9) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
 
   if (alterRecord.length === 0) return (0, _bluebird.resolve)(result);
 
@@ -240,11 +283,32 @@ var runHooks = exports.runHooks = function runHooks(req, hooks) {
   var result = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
 
-  var runner = function runner(req, result, hook) {
-    return new _bluebird2.default(function (resolve, reject) {
-      return result ? hook(req, result, resolve, reject) : hook(req, resolve, reject);
-    });
-  };
+  var runner = function () {
+    var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(req, result, hook) {
+      return _regenerator2.default.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return new _bluebird2.default(function (resolve, reject) {
+                return result ? hook(req, result, resolve, reject) : hook(req, resolve, reject);
+              });
+
+            case 2:
+              return _context4.abrupt('return', _context4.sent);
+
+            case 3:
+            case 'end':
+              return _context4.stop();
+          }
+        }
+      }, _callee4, undefined);
+    }));
+
+    return function runner(_x11, _x12, _x13) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
 
   if (hooks.length === 0) return (0, _bluebird.resolve)(null);
 

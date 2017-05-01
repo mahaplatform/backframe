@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.daterange = exports.filter = exports.extractSort = undefined;
 
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -43,7 +47,7 @@ var extractSort = exports.extractSort = function extractSort(query, defaults) {
 // map query filters to a qb object
 var filter = exports.filter = function filter(qb, filters) {
 
-  return Object.keys(filters).filter(function (key) {
+  return (0, _keys2.default)(filters).filter(function (key) {
     return filters[key];
   }).reduce(function (qb, key) {
 

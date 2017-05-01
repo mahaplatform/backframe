@@ -4,6 +4,7 @@
     "stage-0"
   ],
   "plugins": [
-    "transform-promise-to-bluebird"    
+    "transform-promise-to-bluebird",
+    "transform-runtime"
   ]
 }

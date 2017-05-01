@@ -5,7 +5,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.mapOptionToActions = exports.mergeRouteOptions = exports.buildSingleRoute = exports.buildStandardRoutes = exports.buildCustomRoutes = exports.buildResources = exports.normalizeOptions = undefined;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _extends5 = require('babel-runtime/helpers/extends');
+
+var _extends6 = _interopRequireDefault(_extends5);
 
 var _pluralize = require('pluralize');
 
@@ -59,10 +73,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 exports.default = function () {
   var backframeOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
@@ -102,7 +112,7 @@ exports.default = function () {
 
     (0, _options.validateOptions)('resources', userOptions, TYPES);
 
-    var mergedOptions = _extends({}, _lodash2.default.pick(backframeOptions, ['knex', 'redis']), userOptions);
+    var mergedOptions = (0, _extends6.default)({}, _lodash2.default.pick(backframeOptions, ['knex', 'redis']), userOptions);
 
     var options = normalizeOptions(mergedOptions, TYPES);
 
@@ -116,7 +126,7 @@ var normalizeOptions = exports.normalizeOptions = function normalizeOptions(user
     path: (0, _pluralize2.default)(userOptions.name)
   };
 
-  return _extends({}, (0, _options.defaultOptions)(types), derivedOptions, userOptions, mapOptionsToActions(userOptions, [].concat(_toConsumableArray(constants.BACKFRAME_LIFECYCLE), ['allowedParams', 'query', 'serializer', 'withRelated'])));
+  return (0, _extends6.default)({}, (0, _options.defaultOptions)(types), derivedOptions, userOptions, mapOptionsToActions(userOptions, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_LIFECYCLE), ['allowedParams', 'query', 'serializer', 'withRelated'])));
 };
 
 // build all rest and custom routes
@@ -126,7 +136,7 @@ var buildResources = exports.buildResources = function buildResources(options, b
 
   return buildSegment({
     pathPrefix: pathPrefix,
-    routes: [].concat(_toConsumableArray(buildCustomRoutes(options, buildRoute)), _toConsumableArray(buildStandardRoutes(options, buildRoute)))
+    routes: [].concat((0, _toConsumableArray3.default)(buildCustomRoutes(options, buildRoute)), (0, _toConsumableArray3.default)(buildStandardRoutes(options, buildRoute)))
   });
 };
 
@@ -135,15 +145,15 @@ var buildCustomRoutes = exports.buildCustomRoutes = function buildCustomRoutes(o
 
   if (!options.actions) return [];
 
-  return Object.keys(options.actions).reduce(function (routes, name) {
+  return (0, _keys2.default)(options.actions).reduce(function (routes, name) {
 
     var action = options.actions[name];
 
     var path = action.on === 'collection' ? '/' + action.path : '/:id/' + action.path;
 
-    var namespaced = _extends({}, action, { path: path });
+    var namespaced = (0, _extends6.default)({}, action, { path: path });
 
-    return [].concat(_toConsumableArray(routes), [buildSingleRoute(name, options, namespaced)]);
+    return [].concat((0, _toConsumableArray3.default)(routes), [buildSingleRoute(name, options, namespaced)]);
   }, []);
 };
 
@@ -152,14 +162,14 @@ var buildStandardRoutes = exports.buildStandardRoutes = function buildStandardRo
 
   var actions = { list: _list2.default, create: _create2.default, edit: _edit2.default, show: _show2.default, update: _update2.default, destroy: _destroy2.default };
 
-  return Object.keys(actions).filter(function (action) {
+  return (0, _keys2.default)(actions).filter(function (action) {
 
     return (0, _core.includeAction)(action, options.only, options.except);
   }).reduce(function (routes, action) {
 
     var route = actions[action](buildRoute);
 
-    return [].concat(_toConsumableArray(routes), [buildSingleRoute(action, options, route)]);
+    return [].concat((0, _toConsumableArray3.default)(routes), [buildSingleRoute(action, options, route)]);
   }, []);
 };
 
@@ -168,26 +178,26 @@ var buildSingleRoute = exports.buildSingleRoute = function buildSingleRoute(name
 
   var mergedRouteOptions = mergeRouteOptions(name, options);
 
-  var routeOptions = _lodash2.default.omit(mergedRouteOptions, [].concat(_toConsumableArray(constants.BACKFRAME_LIFECYCLE), ['actions', 'except', 'only', 'pathPrefix']));
+  var routeOptions = _lodash2.default.omit(mergedRouteOptions, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_LIFECYCLE), ['actions', 'except', 'only', 'pathPrefix']));
 
-  return _extends({}, route, {
-    options: _extends({}, routeOptions, {
+  return (0, _extends6.default)({}, route, {
+    options: (0, _extends6.default)({}, routeOptions, {
       action: name
     }),
-    handler: _extends({}, (0, _core.mergeEvents)(route.handler, mergedRouteOptions), (0, _core.mergeHooks)(route.handler, mergedRouteOptions))
+    handler: (0, _extends6.default)({}, (0, _core.mergeEvents)(route.handler, mergedRouteOptions), (0, _core.mergeHooks)(route.handler, mergedRouteOptions))
   });
 };
 
 // destructure mapped options and preapre hash to be merged
 var mergeRouteOptions = exports.mergeRouteOptions = function mergeRouteOptions(name, options) {
 
-  return _lodash2.default.omitBy(_extends({}, options, mergeOptionsForAction(options, constants.BACKFRAME_HOOKS, name), overrideOptionsForAction(options, [].concat(_toConsumableArray(constants.BACKFRAME_EVENTS), ['allowedParams', 'query', 'serializer', 'withRelated']), name)), _lodash2.default.isNil);
+  return _lodash2.default.omitBy((0, _extends6.default)({}, options, mergeOptionsForAction(options, constants.BACKFRAME_HOOKS, name), overrideOptionsForAction(options, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_EVENTS), ['allowedParams', 'query', 'serializer', 'withRelated']), name)), _lodash2.default.isNil);
 };
 
 var mapOptionsToActions = function mapOptionsToActions(options, keys) {
 
   return keys.reduce(function (mapped, key) {
-    return _extends({}, mapped, _defineProperty({}, key, mapOptionToActions(options[key])));
+    return (0, _extends6.default)({}, mapped, (0, _defineProperty3.default)({}, key, mapOptionToActions(options[key])));
   }, {});
 };
 
@@ -199,7 +209,7 @@ var mapOptionToActions = exports.mapOptionToActions = function mapOptionToAction
 var mergeOptionsForAction = function mergeOptionsForAction(options, keys, name) {
 
   return keys.reduce(function (merged, key) {
-    return _extends({}, merged, _defineProperty({}, key, (0, _core.mergeParams)(options[key].all, options[key][name])));
+    return (0, _extends6.default)({}, merged, (0, _defineProperty3.default)({}, key, (0, _core.mergeParams)(options[key].all, options[key][name])));
   }, {});
 };
 
@@ -207,6 +217,6 @@ var mergeOptionsForAction = function mergeOptionsForAction(options, keys, name) 
 var overrideOptionsForAction = function overrideOptionsForAction(options, keys, name) {
 
   return keys.reduce(function (mapped, key) {
-    return _extends({}, mapped, _defineProperty({}, key, options[key][name] || options[key].all));
+    return (0, _extends6.default)({}, mapped, (0, _defineProperty3.default)({}, key, options[key][name] || options[key].all));
   }, {});
 };

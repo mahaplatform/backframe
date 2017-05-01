@@ -7,7 +7,13 @@ exports.buildRouter = exports.normalizeOptions = undefined;
 
 var _bluebird = require('bluebird');
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _express = require('express');
 
@@ -45,8 +51,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 exports.default = function () {
   var backframeOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
@@ -64,7 +68,7 @@ exports.default = function () {
 
     (0, _options.validateOptions)('router', userOptions, TYPES);
 
-    var mergedOptions = _extends({}, _lodash2.default.pick(backframeOptions, ['knex', 'redis']), userOptions);
+    var mergedOptions = (0, _extends3.default)({}, _lodash2.default.pick(backframeOptions, ['knex', 'redis']), userOptions);
 
     var options = normalizeOptions(mergedOptions, TYPES);
 
@@ -77,14 +81,14 @@ exports.default = function () {
 
 var normalizeOptions = exports.normalizeOptions = function normalizeOptions(userOptions, types) {
 
-  return _extends({}, (0, _options.defaultOptions)(types), userOptions);
+  return (0, _extends3.default)({}, (0, _options.defaultOptions)(types), userOptions);
 };
 
 // iterate through routing array and configure all events and hooks with
 // accumuated routeOptions
 var renderHandler = function renderHandler(plugins, route) {
 
-  return _extends({}, (0, _core.mergeHooks)({}, [].concat(_toConsumableArray(plugins), [route.handler]), route.options), (0, _core.mergeEvents)({}, [].concat(_toConsumableArray(plugins), [route.handler]), route.options));
+  return (0, _extends3.default)({}, (0, _core.mergeHooks)({}, [].concat((0, _toConsumableArray3.default)(plugins), [route.handler]), route.options), (0, _core.mergeEvents)({}, [].concat((0, _toConsumableArray3.default)(plugins), [route.handler]), route.options));
 };
 
 // iterate through routing array and generate express router
@@ -109,7 +113,7 @@ var buildRouter = exports.buildRouter = function buildRouter(backframeOptions, o
   });
 
   if (options.notFound) router.use(function (req, res) {
-    return logger(options)(req, res, buildHandler(_not_found2.default));
+    return buildHandler(_not_found2.default);
   });
 
   return router;

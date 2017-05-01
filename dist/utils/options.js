@@ -5,7 +5,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.printOptionErrors = exports.checkPermitted = exports.defaultOptions = exports.getOperation = exports.checkRequired = exports.checkType = exports.checkTypes = exports.checkOptions = exports.validateOptions = undefined;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
 
 var _chalk = require('chalk');
 
@@ -18,10 +32,6 @@ var _lodash2 = _interopRequireDefault(_lodash);
 var _core = require('./core');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var validateOptions = exports.validateOptions = function validateOptions(type, options, definitions) {
 
@@ -41,11 +51,11 @@ var validateOptions = exports.validateOptions = function validateOptions(type, o
 
 var checkOptions = exports.checkOptions = function checkOptions(options, definitions) {
 
-  var errors = Object.keys(definitions).reduce(function (errors, key) {
+  var errors = (0, _keys2.default)(definitions).reduce(function (errors, key) {
 
-    var customActions = options.actions ? Object.keys(options.actions) : [];
+    var customActions = options.actions ? (0, _keys2.default)(options.actions) : [];
 
-    var allowedActions = ['all', 'create', 'destroy', 'list', 'show', 'update'].concat(_toConsumableArray(customActions));
+    var allowedActions = ['all', 'create', 'destroy', 'list', 'show', 'update'].concat((0, _toConsumableArray3.default)(customActions));
 
     var definition = definitions[key];
 
@@ -53,7 +63,7 @@ var checkOptions = exports.checkOptions = function checkOptions(options, definit
 
     var error = [];
 
-    return [].concat(_toConsumableArray(errors), _toConsumableArray(checkTypes(option, key, definition.type, allowedActions)), _toConsumableArray(checkRequired(option, key, definition.required)));
+    return [].concat((0, _toConsumableArray3.default)(errors), (0, _toConsumableArray3.default)(checkTypes(option, key, definition.type, allowedActions)), (0, _toConsumableArray3.default)(checkRequired(option, key, definition.required)));
   }, []);
 
   return errors.length === 0 ? true : errors;
@@ -66,9 +76,7 @@ var checkTypes = exports.checkTypes = function checkTypes(option, key, types, al
 
   var valid = (0, _core.coerceArray)(types).reduce(function (valid, type) {
 
-    if (valid) return true;
-
-    return checkType(option, type, allowedActions);
+    return valid || checkType(option, type, allowedActions);
   }, false);
 
   return !valid ? ['attribute "' + key + '" must be of type ' + (0, _core.coerceArray)(types).join(' or ')] : [];
@@ -91,7 +99,7 @@ var checkType = exports.checkType = function checkType(option, type, allowedActi
     }, true);
   } else if (mapped && _lodash2.default.isPlainObject(option)) {
 
-    return Object.keys(option).reduce(function (valid, key) {
+    return (0, _keys2.default)(option).reduce(function (valid, key) {
 
       if (!valid) return valid;
 
@@ -126,8 +134,8 @@ var getOperation = exports.getOperation = function getOperation(type) {
 // extract option defualts
 var defaultOptions = exports.defaultOptions = function defaultOptions(types) {
 
-  return Object.keys(types).reduce(function (defaults, type) {
-    return _extends({}, defaults, types[type].default ? _defineProperty({}, type, types[type].default) : {});
+  return (0, _keys2.default)(types).reduce(function (defaults, type) {
+    return (0, _extends3.default)({}, defaults, types[type].default ? (0, _defineProperty3.default)({}, type, types[type].default) : {});
   }, {});
 };
 
@@ -135,7 +143,7 @@ var checkPermitted = exports.checkPermitted = function checkPermitted(keys, perm
 
   if (process.env.NODE_ENV != 'development') return true;
 
-  var unpermitted = Object.keys(keys).filter(function (key) {
+  var unpermitted = (0, _keys2.default)(keys).filter(function (key) {
     return !_lodash2.default.includes((0, _core.coerceArray)(permitted), key);
   });
 
@@ -146,7 +154,7 @@ var checkPermitted = exports.checkPermitted = function checkPermitted(keys, perm
 
 var printOptionErrors = exports.printOptionErrors = function printOptionErrors(type, name, issues) {
 
-  [_chalk2.default.red('================================================================================'), _chalk2.default.white('Unable to build ' + type + ' \'' + name + '\''), _chalk2.default.red('================================================================================'), _chalk2.default.white('We found the following problems with your configuration:')].concat(_toConsumableArray(issues.map(function (issue) {
+  [_chalk2.default.red('================================================================================'), _chalk2.default.white('Unable to build ' + type + ' \'' + name + '\''), _chalk2.default.red('================================================================================'), _chalk2.default.white('We found the following problems with your configuration:')].concat((0, _toConsumableArray3.default)(issues.map(function (issue) {
     return _chalk2.default.grey('> ' + issue);
   })), [_chalk2.default.red('================================================================================')]).map(function (statement) {
     return console.log(statement);

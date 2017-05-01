@@ -6,6 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _bluebird = require('bluebird');
 
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -20,8 +24,6 @@ var _options = require('../../utils/options');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 exports.default = function (buildRoute) {
 
   var beforeHooks = function beforeHooks(options) {
@@ -29,7 +31,7 @@ exports.default = function (buildRoute) {
 
       if (req.query.$filter) {
 
-        (0, _options.checkPermitted)(req.query.$filter, [].concat(_toConsumableArray(options.filterParams), ['q']), reject, 'Unable to filter on the keys {unpermitted}. Please add it to filterParams');
+        (0, _options.checkPermitted)(req.query.$filter, [].concat((0, _toConsumableArray3.default)(options.filterParams), ['q']), reject, 'Unable to filter on the keys {unpermitted}. Please add it to filterParams');
 
         if (req.query.$filter.q && !options.searchParams && process.env.NODE_ENV == 'development') {
           return reject({ code: 412, message: 'Unable to search on q without searchParams' });

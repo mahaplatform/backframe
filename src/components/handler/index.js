@@ -57,41 +57,45 @@ export const buildHandler = (components) => {
 
   const { alterRequest, beforeHooks, processor, afterHooks, renderer, alterRecord, responder } = components
 
-  return (req, res, recordTick = () => Promise.resolve()) => {
+  return async (req, res, recordTick = () => Promise.resolve()) => {
 
-    return new Promise.resolve(req)
+    try {
 
-    .then((req) => runAlterRequest(req, alterRequest))
+      req = await runAlterRequest(req, alterRequest)
 
-    .then((req) => recordTick('alterRequest').then(() => req))
+      recordTick('alterRequest')
 
-    .then((req) => runHooks(req, beforeHooks).then(() => req))
+      await runHooks(req, beforeHooks)
 
-    .then((req) => recordTick('beforeHooks').then(() => req))
+      recordTick('beforeHooks')
 
-    .then((req) => new Promise((resolve, reject) => processor(req, resolve, reject)).then(result => ([req, result])))
+      let result = await new Promise((resolve, reject) => processor(req, resolve, reject))
 
-    .then(([req, result]) => recordTick('processor').then(() => ([req, result])))
+      recordTick('processor')
 
-    .then(([req, result]) => runHooks(req, afterHooks, result).then(() => [req, result]))
+      await runHooks(req, afterHooks, result)
 
-    .then(([req, result]) => recordTick('afterHooks').then(() => ([req, result])))
+      recordTick('afterHooks')
 
-    .then(([req, result]) => renderer ? new Promise((resolve, reject) => renderer(req, result, resolve, reject)).then(result => ([req, result])) : [req, result])
+      result = await new Promise((resolve, reject) => renderer(req, result, resolve, reject))
 
-    .then(([req, result]) => recordTick('renderer').then(() => ([req, result])))
+      recordTick('renderer')
 
-    .then(([req, result]) => runAlterRecord(req, alterRecord, result).then(result => ([req, result])))
+      result = await runAlterRecord(req, alterRecord, result)
 
-    .then(([req, result]) => recordTick('alterRecord').then(() => ([req, result])))
+      recordTick('alterRecord')
 
-    .then(([req, result]) => new Promise((resolve, reject) => responder(req, res, result, resolve, reject)).then(() => ([req, result])))
+      result = new Promise((resolve, reject) => responder(req, res, result, resolve, reject))
 
-    .then(([req, result]) => recordTick('responder').then(() => req).then(() => ([req, result])))
+      recordTick('responder')
 
-    .then(([req, result]) => result)
+      return result
 
-    .catch(err => renderError(res, err))
+    } catch(err) {
+
+      renderError(res, err)
+
+    }
 
   }
 
@@ -99,7 +103,7 @@ export const buildHandler = (components) => {
 
 export const runAlterRequest = (req, alterRequest) => {
 
-  const runner = (req, operation) => new Promise((resolve, reject) => operation(req, resolve, reject))
+  const runner = async (req, operation) => await new Promise((resolve, reject) => operation(req, resolve, reject))
 
   if(alterRequest.length === 0) return Promise.resolve(req)
 
@@ -111,7 +115,7 @@ export const runAlterRequest = (req, alterRequest) => {
 
 export const runAlterRecord = (req, alterRecord, result) => {
 
-  const runner = (result, operation) => (result && result.records) ? applyToRecords(req, result, operation) : new Promise((resolve, reject) => operation(req, result, resolve, reject))
+  const runner = async (result, operation) => await (result && result.records) ? applyToRecords(req, result, operation) : new Promise((resolve, reject) => operation(req, result, resolve, reject))
 
   if(alterRecord.length === 0) return Promise.resolve(result)
 
@@ -123,7 +127,7 @@ export const runAlterRecord = (req, alterRecord, result) => {
 
 export const runHooks = (req, hooks, result = null) => {
 
-  const runner = (req, result, hook) => new Promise((resolve, reject) => result ? hook(req, result, resolve, reject) : hook(req, resolve, reject))
+  const runner = async (req, result, hook) => await new Promise((resolve, reject) => result ? hook(req, result, resolve, reject) : hook(req, resolve, reject))
 
   if(hooks.length === 0) return Promise.resolve(null)
 

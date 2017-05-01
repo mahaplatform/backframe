@@ -78,7 +78,7 @@ export const buildRouter = (backframeOptions, options, buildHandler) => {
 
   })
 
-  if(options.notFound) router.use((req, res) => logger(options)(req, res, buildHandler(notFound)))
+  if(options.notFound) router.use((req, res) => buildHandler(notFound))
 
   return router
 

@@ -4,11 +4,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _chai = require('chai');
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var buildHandler = require('../index').default();
 
@@ -95,11 +101,11 @@ exports.default = function () {
 
     var handler = buildHandler({
       alterRequest: [function (req, resolve, reject) {
-        resolve(_extends({}, req, {
+        resolve((0, _extends3.default)({}, req, {
           bar: 2
         }));
       }, function (req, resolve, reject) {
-        resolve(_extends({}, req, {
+        resolve((0, _extends3.default)({}, req, {
           baz: 3
         }));
       }],
@@ -190,9 +196,9 @@ exports.default = function () {
 var testSingleHookBeforeProcessor = function testSingleHookBeforeProcessor(key, done) {
   var _buildHandler;
 
-  var handler = buildHandler((_buildHandler = {}, _defineProperty(_buildHandler, key, function (req, resolve, reject) {
+  var handler = buildHandler((_buildHandler = {}, (0, _defineProperty3.default)(_buildHandler, key, function (req, resolve, reject) {
     return resolve(done());
-  }), _defineProperty(_buildHandler, 'processor', function processor(req, resolve, reject) {
+  }), (0, _defineProperty3.default)(_buildHandler, 'processor', function processor(req, resolve, reject) {
     return resolve('foo');
   }), _buildHandler));
 
@@ -202,13 +208,13 @@ var testSingleHookBeforeProcessor = function testSingleHookBeforeProcessor(key, 
 var testMultipleHooksBeforeProcessor = function testMultipleHooksBeforeProcessor(key, done) {
   var _buildHandler2;
 
-  var handler = buildHandler((_buildHandler2 = {}, _defineProperty(_buildHandler2, key, [function (req, resolve, reject) {
+  var handler = buildHandler((_buildHandler2 = {}, (0, _defineProperty3.default)(_buildHandler2, key, [function (req, resolve, reject) {
     return resolve();
   }, function (req, resolve, reject) {
     return resolve();
   }, function (req, resolve, reject) {
     return resolve(done());
-  }]), _defineProperty(_buildHandler2, 'processor', function processor(req, resolve, reject) {
+  }]), (0, _defineProperty3.default)(_buildHandler2, 'processor', function processor(req, resolve, reject) {
     return resolve('foo');
   }), _buildHandler2));
 
@@ -218,9 +224,9 @@ var testMultipleHooksBeforeProcessor = function testMultipleHooksBeforeProcessor
 var testFailedHookBeforeProcessor = function testFailedHookBeforeProcessor(key, done) {
   var _buildHandler3;
 
-  var handler = buildHandler((_buildHandler3 = {}, _defineProperty(_buildHandler3, key, function (req, resolve, reject) {
+  var handler = buildHandler((_buildHandler3 = {}, (0, _defineProperty3.default)(_buildHandler3, key, function (req, resolve, reject) {
     return reject();
-  }), _defineProperty(_buildHandler3, 'processor', function processor(req, resolve, reject) {
+  }), (0, _defineProperty3.default)(_buildHandler3, 'processor', function processor(req, resolve, reject) {
     return resolve('foo');
   }), _buildHandler3));
 
@@ -232,9 +238,9 @@ var testFailedHookBeforeProcessor = function testFailedHookBeforeProcessor(key, 
 var testSingleHookAfterProcessor = function testSingleHookAfterProcessor(key, done) {
   var _buildHandler4;
 
-  var handler = buildHandler((_buildHandler4 = {}, _defineProperty(_buildHandler4, key, function (req, result, resolve, reject) {
+  var handler = buildHandler((_buildHandler4 = {}, (0, _defineProperty3.default)(_buildHandler4, key, function (req, result, resolve, reject) {
     return resolve(done());
-  }), _defineProperty(_buildHandler4, 'processor', function processor(req, resolve, reject) {
+  }), (0, _defineProperty3.default)(_buildHandler4, 'processor', function processor(req, resolve, reject) {
     return resolve('foo');
   }), _buildHandler4));
 
@@ -244,13 +250,13 @@ var testSingleHookAfterProcessor = function testSingleHookAfterProcessor(key, do
 var testMultipleHooksAfterProcessor = function testMultipleHooksAfterProcessor(key, done) {
   var _buildHandler5;
 
-  var handler = buildHandler((_buildHandler5 = {}, _defineProperty(_buildHandler5, key, [function (req, result, resolve, reject) {
+  var handler = buildHandler((_buildHandler5 = {}, (0, _defineProperty3.default)(_buildHandler5, key, [function (req, result, resolve, reject) {
     return resolve();
   }, function (req, result, resolve, reject) {
     return resolve();
   }, function (req, result, resolve, reject) {
     return resolve(done());
-  }]), _defineProperty(_buildHandler5, 'processor', function processor(req, resolve, reject) {
+  }]), (0, _defineProperty3.default)(_buildHandler5, 'processor', function processor(req, resolve, reject) {
     return resolve('foo');
   }), _buildHandler5));
 
@@ -260,9 +266,9 @@ var testMultipleHooksAfterProcessor = function testMultipleHooksAfterProcessor(k
 var testFailedHookAfterProcessor = function testFailedHookAfterProcessor(key, done) {
   var _buildHandler6;
 
-  var handler = buildHandler((_buildHandler6 = {}, _defineProperty(_buildHandler6, key, function (req, result, resolve, reject) {
+  var handler = buildHandler((_buildHandler6 = {}, (0, _defineProperty3.default)(_buildHandler6, key, function (req, result, resolve, reject) {
     return reject();
-  }), _defineProperty(_buildHandler6, 'processor', function processor(req, resolve, reject) {
+  }), (0, _defineProperty3.default)(_buildHandler6, 'processor', function processor(req, resolve, reject) {
     return resolve('foo');
   }), _buildHandler6));
 
