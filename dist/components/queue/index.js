@@ -17,7 +17,10 @@ exports.default = function () {
     var userOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
 
-    var TYPES = {};
+    var TYPES = {
+      handler: { type: 'function', required: true },
+      name: { type: 'string', required: false }
+    };
 
     (0, _options.validateOptions)('handler', userOptions, TYPES);
 
@@ -32,4 +35,9 @@ var normalizeOptions = exports.normalizeOptions = function normalizeOptions(user
   return _extends({}, (0, _options.defaultOptions)(types), userOptions);
 };
 
-var buildQueue = exports.buildQueue = function buildQueue(options) {};
+var buildQueue = exports.buildQueue = function buildQueue(options) {
+  return {
+    name: options.name,
+    handler: options.handler
+  };
+};

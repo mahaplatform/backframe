@@ -5,6 +5,8 @@ export default (backframeOptions = {}) => {
   return (userOptions = {}) => {
 
     const TYPES = {
+      handler: { type: 'function', required: true },
+      name: { type: 'string', required: false }
     }
 
     validateOptions('handler', userOptions, TYPES)
@@ -27,5 +29,8 @@ export const normalizeOptions = (userOptions, types) => {
 }
 
 export const buildQueue = (options) => {
-
+  return {
+    name: options.name,
+    handler: options.handler
+  }
 }

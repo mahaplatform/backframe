@@ -1,4 +1,13 @@
 import express from 'express'
-import { worker } from 'app/services/backframe'
+import { queue, worker } from 'app/services/backframe'
 
-worker({ queues: []})
+const queues = [
+  queue({
+    name: 'foo',
+    handler: (job) => {
+      console.log('foo')
+    }
+  })
+]
+
+worker({ queues })

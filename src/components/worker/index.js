@@ -1,4 +1,4 @@
-import { Queue } from 'bull'
+import Queue from 'bull'
 import { beginLogger, endLogger, recordTick, printLogger } from '../../utils/logger'
 import { validateOptions, defaultOptions } from '../../utils/options'
 
@@ -33,13 +33,13 @@ export const normalizeOptions = (userOptions, types) => {
 
 export const buildWorker = (options) => {
 
-  options.queues.map(queue => {
+  options.queues.map(queueOptions => {
 
-    const wrapped = Queue(queue.name, options.redis.port, options.redis.host)
+    const queue = Queue(queueOptions.name, 6379, '127.0.0.1')
 
-    const process = buildProcess(options, queue.handler)
+    const process = buildProcess(options, queueOptions.handler)
 
-    wrapped.process(process)
+    queue.process(process)
 
   })
 
@@ -49,13 +49,15 @@ const buildProcess = (options, handler) => {
 
   return (job, done) => {
 
+    console.log('here')
+
     return Promise.resolve().then(() => {
 
       return beginLogger(options)()
 
     }).then(() => {
 
-      return handler(job, res, recordTick)
+      return handler(job)
 
     }).then(result => {
 

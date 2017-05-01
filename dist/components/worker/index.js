@@ -11,9 +11,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _bull = require('bull');
 
+var _bull2 = _interopRequireDefault(_bull);
+
 var _logger = require('../../utils/logger');
 
 var _options = require('../../utils/options');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
   var backframeOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -45,13 +49,13 @@ var normalizeOptions = exports.normalizeOptions = function normalizeOptions(user
 
 var buildWorker = exports.buildWorker = function buildWorker(options) {
 
-  options.queues.map(function (queue) {
+  options.queues.map(function (queueOptions) {
 
-    var wrapped = (0, _bull.Queue)(queue.name, options.redis.port, options.redis.host);
+    var queue = (0, _bull2.default)(queueOptions.name, 6379, '127.0.0.1');
 
-    var process = buildProcess(options, queue.handler);
+    var process = buildProcess(options, queueOptions.handler);
 
-    wrapped.process(process);
+    queue.process(process);
   });
 };
 
@@ -59,12 +63,14 @@ var buildProcess = function buildProcess(options, handler) {
 
   return function (job, done) {
 
+    console.log('here');
+
     return (0, _bluebird.resolve)().then(function () {
 
       return (0, _logger.beginLogger)(options)();
     }).then(function () {
 
-      return handler(job, res, _logger.recordTick);
+      return handler(job);
     }).then(function (result) {
 
       return (0, _logger.endLogger)(options)().then(function () {
