@@ -2,7 +2,7 @@ import _ from 'lodash'
 import moment from 'moment'
 import { coerceArray, selectedLabels, selectedKeys } from '../utils/core'
 
-export default (message, pagination, result, req, res, resolve, reject) => {
+export default (message, pagination, result, req, res) => {
 
   const separator = (req.params.format === 'tsv') ? '\t' : ','
 
@@ -34,7 +34,5 @@ export default (message, pagination, result, req, res, resolve, reject) => {
   }, [labels.join(separator)]).join('\n')
 
   res.status(200).type('text/plain').send(output)
-
-  resolve()
 
 }

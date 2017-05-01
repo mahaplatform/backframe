@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _bluebird = require('bluebird');
-
-var _bluebird2 = _interopRequireDefault(_bluebird);
-
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -24,14 +20,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (options) {
 
-  return function (req, result, resolve, reject) {
+  return function (req, result) {
 
     var useSerializer = !_lodash2.default.isPlainObject(result) && !_lodash2.default.isNil(options.serializer);
 
     var serialize = function serialize() {
-      return useSerializer ? new _bluebird2.default(function (resolve, reject) {
-        return options.serializer(req, result, resolve, reject);
-      }) : (0, _bluebird.resolve)(result.toJSON());
+      return useSerializer ? options.serializer(req, result) : result.toJSON();
     };
 
     if (options.cacheFor) {
@@ -45,6 +39,6 @@ exports.default = function (options) {
       return (0, _cache2.default)(options)(key, options.cacheFor, serialize);
     }
 
-    return serialize().then(resolve);
+    return serialize();
   };
 };

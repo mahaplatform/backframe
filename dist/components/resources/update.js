@@ -27,31 +27,29 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function (buildRoute) {
 
   var alterRequest = function alterRequest(options) {
-    return function (req, resolve, reject) {
+    return function (req) {
 
       req.data = _lodash2.default.assign(req.body, req.query);
 
-      resolve(req);
+      return req;
     };
   };
 
   var beforeHooks = function beforeHooks(options) {
-    return function (req, resolve, reject) {
+    return function (req) {
 
-      (0, _options.checkPermitted)(req.data, options.allowedParams, reject, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams');
-
-      resolve();
+      (0, _options.checkPermitted)(req.data, options.allowedParams, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams');
     };
   };
 
   var processor = function processor(options) {
-    return function (req, resolve, reject) {
+    return function (req) {
 
       return (0, _load2.default)(options)(req).then(function (resource) {
 
         var data = _lodash2.default.pick(req.data, options.allowedParams);
 
-        return resource.save(data, { patch: true }).then(resolve);
+        return resource.save(data, { patch: true });
       }).catch(function (err) {
 
         if (err.errors) throw new _error2.default({ code: 422, message: 'Unable to update record', errors: err.toJSON() });

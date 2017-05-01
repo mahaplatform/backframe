@@ -20,7 +20,7 @@ var _core = require('../utils/core');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (message, pagination, result, req, res, resolve, reject) {
+exports.default = function (message, pagination, result, req, res) {
 
   var separator = req.params.format === 'tsv' ? '\t' : ',';
 
@@ -46,6 +46,4 @@ exports.default = function (message, pagination, result, req, res, resolve, reje
   }, [labels.join(separator)]).join('\n');
 
   res.status(200).type('text/plain').send(output);
-
-  resolve();
 };

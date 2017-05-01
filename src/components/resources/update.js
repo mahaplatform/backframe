@@ -7,29 +7,27 @@ import BackframeError from '../../utils/error'
 
 export default (buildRoute) => {
 
-  const alterRequest = options => (req, resolve, reject) => {
+  const alterRequest = options => req => {
 
     req.data = _.assign(req.body, req.query)
 
-    resolve(req)
+    return req
 
   }
 
-  const beforeHooks = options => (req, resolve, reject) => {
+  const beforeHooks = options => req => {
 
-    checkPermitted(req.data, options.allowedParams, reject, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams')
-
-    resolve()
+    checkPermitted(req.data, options.allowedParams, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams')
 
   }
 
-  const processor = options => (req, resolve, reject) => {
+  const processor = options => req => {
 
     return load(options)(req).then(resource => {
 
       const data = _.pick(req.data, options.allowedParams)
 
-      return resource.save(data, { patch: true }).then(resolve)
+      return resource.save(data, { patch: true })
 
     }).catch(err => {
 

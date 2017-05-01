@@ -27,29 +27,27 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function (buildRoute) {
 
   var alterRequest = function alterRequest(options) {
-    return function (req, resolve, reject) {
+    return function (req) {
 
       req.data = _lodash2.default.assign(req.body, req.defaults, req.query);
 
-      resolve(req);
+      return req;
     };
   };
 
   var beforeHooks = function beforeHooks(options) {
-    return function (req, resolve, reject) {
+    return function (req) {
 
-      (0, _options.checkPermitted)(req.data, options.allowedParams, reject, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams');
-
-      resolve();
+      (0, _options.checkPermitted)(req.data, options.allowedParams, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams');
     };
   };
 
   var processor = function processor(options) {
-    return function (req, resolve, reject) {
+    return function (req) {
 
       var data = (0, _extends3.default)({}, options.defaultParams ? options.defaultParams(req) : {}, _lodash2.default.pick(req.data, options.allowedParams));
 
-      return options.model.forge(data).save().then(resolve).catch(function (err) {
+      return options.model.forge(data).save().catch(function (err) {
 
         if (err.errors) throw new _error2.default({ code: 422, message: 'Unable to create record', errors: err.toJSON() });
 

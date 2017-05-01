@@ -2,7 +2,7 @@ import xml from 'xml'
 import _ from 'lodash'
 import { coerceArray } from '../utils/core'
 
-export default (message, pagination, result, req, res, resolve, reject) => {
+export default (message, pagination, result, req, res) => {
 
   const toXML = (hash) => {
 
@@ -40,7 +40,5 @@ export default (message, pagination, result, req, res, resolve, reject) => {
   }, true)
 
   res.status(200).type('application/xml').send(data)
-
-  resolve()
 
 }

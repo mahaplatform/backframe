@@ -6,30 +6,28 @@ import BackframeError from '../../utils/error'
 
 export default  (buildRoute) => {
 
-  const alterRequest = options => (req, resolve, reject) => {
+  const alterRequest = options => req => {
 
     req.data = _.assign(req.body, req.defaults, req.query)
 
-    resolve(req)
+    return req
 
   }
 
-  const beforeHooks = options => (req, resolve, reject) => {
+  const beforeHooks = options => req => {
 
-    checkPermitted(req.data, options.allowedParams, reject, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams')
-
-    resolve()
+    checkPermitted(req.data, options.allowedParams, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams')
 
   }
 
-  const processor = options => (req, resolve, reject) => {
+  const processor = options => req => {
 
     const data = {
       ...options.defaultParams ? options.defaultParams(req) : {},
       ..._.pick(req.data, options.allowedParams)
     }
 
-    return options.model.forge(data).save().then(resolve).catch(err => {
+    return options.model.forge(data).save().catch(err => {
 
       if(err.errors) throw new BackframeError({ code: 422, message: `Unable to create record`, errors: err.toJSON() })
 

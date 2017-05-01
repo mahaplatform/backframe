@@ -19,8 +19,6 @@ var _extends7 = _interopRequireDefault(_extends6);
 
 var _bluebird = require('bluebird');
 
-var _bluebird2 = _interopRequireDefault(_bluebird);
-
 var _keys = require('babel-runtime/core-js/object/keys');
 
 var _keys2 = _interopRequireDefault(_keys);
@@ -76,20 +74,16 @@ var toList = exports.toList = function toList(arr) {
 
 var applyToRecords = exports.applyToRecords = function applyToRecords(req, result, operations) {
 
-  if (!operations) return (0, _bluebird.resolve)(result);
+  if (!operations) return result;
 
   var arrayOfOptions = coerceArray(operations);
 
   return (0, _bluebird.map)(result.records, function (record) {
 
-    return operations.reduce(function (promise, operation) {
+    return (0, _bluebird.reduce)(arrayOfOptions, function (record, operation) {
 
-      return promise.then(function (record) {
-        return new _bluebird2.default(function (resolve, request) {
-          return operation(req, record, resolve, request);
-        });
-      });
-    }, (0, _bluebird.resolve)(record));
+      return operation(req, record);
+    }, record);
   }).then(function (records) {
 
     return (0, _extends7.default)({}, result, {
@@ -118,13 +112,11 @@ var includeAction = exports.includeAction = function includeAction(action, only,
 // cherry pick fields from a serialized record
 var selectFields = exports.selectFields = function selectFields(select) {
 
-  return function (req, record, resolve, reject) {
+  return function (req, record) {
 
     var fields = selectedKeys(select, record);
 
-    var selected = select ? _lodash2.default.pick(record, fields) : record;
-
-    resolve(selected);
+    return select ? _lodash2.default.pick(record, fields) : record;
   };
 };
 

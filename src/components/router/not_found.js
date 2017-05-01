@@ -1,12 +1,10 @@
 import { fail } from '../../utils/response'
 
-const processor = (req, resolve, reject) => resolve()
+const processor = req => ''
 
-const responder = (req, res, data, resolve, reject) => {
+const responder = (req, res, data) => {
 
-  const result = fail(res, 404, 'Unable to locate route')
-
-  resolve(result)
+  return fail(res, 404, 'Unable to locate route')
 
 }
 

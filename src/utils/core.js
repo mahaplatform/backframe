@@ -35,17 +35,17 @@ export const toList = (arr) => {
 
 export const applyToRecords = (req, result, operations) => {
 
-  if(!operations) return Promise.resolve(result)
+  if(!operations) return result
 
   const arrayOfOptions = coerceArray(operations)
 
   return Promise.map(result.records, (record) => {
 
-    return operations.reduce((promise, operation) => {
+    return Promise.reduce(arrayOfOptions, (record, operation) => {
 
-      return promise.then(record => new Promise((resolve, request) => operation(req, record, resolve, request)))
+      return operation(req, record)
 
-    }, Promise.resolve(record))
+    }, record)
 
   }).then(records => {
 
@@ -79,13 +79,11 @@ export const includeAction = (action, only, except) => {
 // cherry pick fields from a serialized record
 export const selectFields = (select) => {
 
-  return (req, record, resolve, reject) => {
+  return (req, record) => {
 
     const fields = selectedKeys(select, record)
 
-    const selected = select ? _.pick(record, fields) : record
-
-    resolve(selected)
+    return select ? _.pick(record, fields) : record
 
   }
 

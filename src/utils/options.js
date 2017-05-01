@@ -133,7 +133,7 @@ export const defaultOptions = (types) => {
 
 }
 
-export const checkPermitted = (keys, permitted, reject, message) => {
+export const checkPermitted = (keys, permitted, message) => {
 
   if(process.env.NODE_ENV != 'development') return true
 

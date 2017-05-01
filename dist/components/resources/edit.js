@@ -15,14 +15,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function (buildRoute) {
 
   var processor = function processor(options) {
-    return function (req, resolve, reject) {
-      return (0, _load2.default)(options)(req).then(resolve);
+    return function (req) {
+      return (0, _load2.default)(options)(req);
     };
   };
 
   var renderer = function renderer(options) {
-    return function (req, result, resolve, reject) {
-      return resolve(result.toJSON());
+    return function (req, result) {
+      return result.toJSON();
     };
   };
 

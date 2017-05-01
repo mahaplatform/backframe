@@ -6,7 +6,7 @@ export default (options) => {
 
   const tableName = options.model.extend().__super__.tableName
 
-  return (req) => {
+  return req => {
 
     return options.model.query(qb => {
 

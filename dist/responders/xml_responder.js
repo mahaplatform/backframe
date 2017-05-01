@@ -24,7 +24,7 @@ var _core = require('../utils/core');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (message, pagination, result, req, res, resolve, reject) {
+exports.default = function (message, pagination, result, req, res) {
 
   var toXML = function toXML(hash) {
 
@@ -55,6 +55,4 @@ exports.default = function (message, pagination, result, req, res, resolve, reje
   }, true);
 
   res.status(200).type('application/xml').send(data);
-
-  resolve();
 };

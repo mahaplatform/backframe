@@ -4,7 +4,7 @@ import BackframeError from '../../utils/error'
 
 export default (buildRoute) => {
 
-  const processor = options => (req, resolve, reject) => load(options)(req).then(resolve).catch(err => {
+  const processor = options => req => load(options)(req).catch(err => {
     throw new BackframeError({ code: 404, message: 'Unable to load resource' })
   })
 

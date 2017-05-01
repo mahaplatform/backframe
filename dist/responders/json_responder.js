@@ -12,11 +12,9 @@ var _response = require('../utils/response');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (message, pagination, data, req, res, resolve, reject) {
+exports.default = function (message, pagination, data, req, res) {
 
   var extra = !_lodash2.default.isEmpty(pagination) ? { pagination: pagination, data: data } : { data: data };
 
   (0, _response.succeed)(res, 200, message, extra);
-
-  resolve();
 };

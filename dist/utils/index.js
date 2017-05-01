@@ -5,9 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.defaultResponder = exports.defaultRenderer = exports.defaultProcessor = exports.defaultQuery = undefined;
 
-var _bluebird = require('bluebird');
+var _regenerator = require('babel-runtime/regenerator');
 
-var _bluebird2 = _interopRequireDefault(_bluebird);
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var _lodash = require('lodash');
 
@@ -63,51 +67,99 @@ var defaultQuery = exports.defaultQuery = function defaultQuery(req, options, qb
 };
 
 var defaultProcessor = exports.defaultProcessor = function defaultProcessor(options) {
-  return function (req, resolve, reject) {
-    return resolve(null);
+  return function (req) {
+    return null;
   };
 };
 
 var defaultRenderer = exports.defaultRenderer = function defaultRenderer(options) {
-  return function (req, result, resolve, reject) {
+  return function () {
+    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, result) {
+      var renderer, selector, transforms, transform;
+      return _regenerator2.default.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              if (result) {
+                _context2.next = 2;
+                break;
+              }
 
-    if (!result) return null;
+              return _context2.abrupt('return', null);
 
-    var renderer = (0, _render2.default)(options);
+            case 2:
+              renderer = (0, _render2.default)(options);
+              selector = (0, _core.selectFields)(req.query.$select);
+              transforms = req.query.$select ? [renderer, selector] : [renderer];
 
-    var selector = (0, _core.selectFields)(req.query.$select);
+              transform = function () {
+                var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, result, transforms) {
+                  return _regenerator2.default.wrap(function _callee$(_context) {
+                    while (1) {
+                      switch (_context.prev = _context.next) {
+                        case 0:
+                          if (!result.records) {
+                            _context.next = 4;
+                            break;
+                          }
 
-    var transforms = req.query.$select ? [renderer, selector] : [renderer];
+                          _context.next = 3;
+                          return (0, _core.applyToRecords)(req, result, transforms);
 
-    var transform = function transform(req, result, transforms) {
+                        case 3:
+                          return _context.abrupt('return', _context.sent);
 
-      if (result.records) return (0, _core.applyToRecords)(req, result, transforms);
+                        case 4:
+                          _context.next = 6;
+                          return renderer(req, result).then(function (result) {
 
-      return new _bluebird2.default(function (resolve, reject) {
-        return renderer(req, result, resolve, reject);
-      }).then(function (result) {
+                            if (!req.query.$select) return result;
 
-        if (!req.query.$select) (0, _bluebird.resolve)(result);
+                            return selector(req, result);
+                          });
 
-        return new _bluebird2.default(function (resolve, reject) {
-          return selector(req, result, resolve, reject);
-        });
-      });
+                        case 6:
+                          return _context.abrupt('return', _context.sent);
+
+                        case 7:
+                        case 'end':
+                          return _context.stop();
+                      }
+                    }
+                  }, _callee, undefined);
+                }));
+
+                return function transform(_x3, _x4, _x5) {
+                  return _ref2.apply(this, arguments);
+                };
+              }();
+
+              _context2.next = 8;
+              return transform(req, result, transforms).catch(function (err) {
+
+                throw err;
+              });
+
+            case 8:
+              return _context2.abrupt('return', _context2.sent);
+
+            case 9:
+            case 'end':
+              return _context2.stop();
+          }
+        }
+      }, _callee2, undefined);
+    }));
+
+    return function (_x, _x2) {
+      return _ref.apply(this, arguments);
     };
-
-    return transform(req, result, transforms).then(function (result) {
-
-      resolve(result);
-    }).catch(function (err) {
-
-      throw err;
-    });
-  };
+  }();
 };
 
 var defaultResponder = exports.defaultResponder = function defaultResponder(message) {
   return function (options) {
-    return function (req, res, result, resolve, reject) {
+    return function (req, res, result) {
 
       var format = req.params && req.params.format ? req.params.format : 'json';
 
@@ -123,7 +175,7 @@ var defaultResponder = exports.defaultResponder = function defaultResponder(mess
 
       var responder = options[format + 'Responder'] || responders[format + 'Responder'];
 
-      return responder(message, pagination, data, req, res, resolve, reject);
+      return responder(message, pagination, data, req, res);
     };
   };
 };

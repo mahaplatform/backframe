@@ -40,8 +40,8 @@ exports.default = function () {
   it('executes with only a processor', function (done) {
 
     var handler = buildHandler({
-      processor: function processor(req, resolve, reject) {
-        resolve('foo');
+      processor: function processor(req) {
+        return 'foo';
       }
     });
 
@@ -54,10 +54,10 @@ exports.default = function () {
   it('succeeds with a single alterRequest hook', function (done) {
 
     var handler = buildHandler({
-      alterRequest: function alterRequest(req, resolve, reject) {
-        resolve(req);done();
+      alterRequest: function alterRequest(req) {
+        done();return 'foo';
       },
-      processor: function processor(req, resolve, reject) {
+      processor: function processor(req) {
         return resolve();
       }
     });
@@ -68,13 +68,13 @@ exports.default = function () {
   it('succeeds with multiple alterRequest hooks', function (done) {
 
     var handler = buildHandler({
-      alterRequest: [function (req, resolve, reject) {
-        return resolve();
-      }, function (req, resolve, reject) {
-        resolve(req);done();
+      alterRequest: [function (req) {
+        return req;
+      }, function (req) {
+        done();return req;
       }],
-      processor: function processor(req, resolve, reject) {
-        return resolve();
+      processor: function processor(req) {
+        return '';
       }
     });
 
@@ -84,11 +84,11 @@ exports.default = function () {
   it('fails with a failed alterRequest hook', function (done) {
 
     var handler = buildHandler({
-      alterRequest: function alterRequest(req, resolve, reject) {
-        return reject();
+      alterRequest: function alterRequest(req) {
+        throw new Error();
       },
-      processor: function processor(req, resolve, reject) {
-        return resolve();
+      processor: function processor(req) {
+        return '';
       }
     });
 
@@ -100,22 +100,22 @@ exports.default = function () {
   it('alters the request with alterRequest hook', function (done) {
 
     var handler = buildHandler({
-      alterRequest: [function (req, resolve, reject) {
-        resolve((0, _extends3.default)({}, req, {
+      alterRequest: [function (req) {
+        return (0, _extends3.default)({}, req, {
           bar: 2
-        }));
-      }, function (req, resolve, reject) {
-        resolve((0, _extends3.default)({}, req, {
+        });
+      }, function (req) {
+        return (0, _extends3.default)({}, req, {
           baz: 3
-        }));
+        });
       }],
-      processor: function processor(req, resolve, reject) {
+      processor: function processor(req) {
         (0, _chai.expect)(req).to.eql({
           foo: 1,
           bar: 2,
           baz: 3
         });
-        resolve(done());
+        done();
       }
     });
 
@@ -149,11 +149,11 @@ exports.default = function () {
   it('succeeds with a single alterRecord hook', function (done) {
 
     var handler = buildHandler({
-      processor: function processor(req, resolve, reject) {
-        return resolve();
+      processor: function processor(req) {
+        return '';
       },
-      alterRecord: function alterRecord(req, result, resolve, reject) {
-        return resolve(done());
+      alterRecord: function alterRecord(req, result) {
+        return done();
       }
     });
 
@@ -163,13 +163,13 @@ exports.default = function () {
   it('succeeds with multiple alterRecord hooks', function (done) {
 
     var handler = buildHandler({
-      processor: function processor(req, resolve, reject) {
-        return resolve();
+      processor: function processor(req) {
+        return '';
       },
-      alterRecord: [function (req, result, resolve, reject) {
-        return resolve();
-      }, function (req, result, resolve, reject) {
-        return resolve(done());
+      alterRecord: [function (req, result) {
+        return '';
+      }, function (req, result) {
+        return done();
       }]
     });
 
@@ -179,11 +179,11 @@ exports.default = function () {
   it('fails with a failed alterRecord hook', function (done) {
 
     var handler = buildHandler({
-      processor: function processor(req, result, resolve, reject) {
-        return resolve();
+      processor: function processor(req, result) {
+        return 'null';
       },
-      alterRecord: function alterRecord(req, result, resolve, reject) {
-        return reject();
+      alterRecord: function alterRecord(req, result) {
+        throw new Error();
       }
     });
 
@@ -196,10 +196,10 @@ exports.default = function () {
 var testSingleHookBeforeProcessor = function testSingleHookBeforeProcessor(key, done) {
   var _buildHandler;
 
-  var handler = buildHandler((_buildHandler = {}, (0, _defineProperty3.default)(_buildHandler, key, function (req, resolve, reject) {
-    return resolve(done());
-  }), (0, _defineProperty3.default)(_buildHandler, 'processor', function processor(req, resolve, reject) {
-    return resolve('foo');
+  var handler = buildHandler((_buildHandler = {}, (0, _defineProperty3.default)(_buildHandler, key, function (req) {
+    return done();
+  }), (0, _defineProperty3.default)(_buildHandler, 'processor', function processor(req) {
+    return 'foo';
   }), _buildHandler));
 
   handler({}, res);
@@ -208,14 +208,14 @@ var testSingleHookBeforeProcessor = function testSingleHookBeforeProcessor(key, 
 var testMultipleHooksBeforeProcessor = function testMultipleHooksBeforeProcessor(key, done) {
   var _buildHandler2;
 
-  var handler = buildHandler((_buildHandler2 = {}, (0, _defineProperty3.default)(_buildHandler2, key, [function (req, resolve, reject) {
-    return resolve();
-  }, function (req, resolve, reject) {
-    return resolve();
-  }, function (req, resolve, reject) {
-    return resolve(done());
-  }]), (0, _defineProperty3.default)(_buildHandler2, 'processor', function processor(req, resolve, reject) {
-    return resolve('foo');
+  var handler = buildHandler((_buildHandler2 = {}, (0, _defineProperty3.default)(_buildHandler2, key, [function (req) {
+    return '';
+  }, function (req) {
+    return '';
+  }, function (req) {
+    return done();
+  }]), (0, _defineProperty3.default)(_buildHandler2, 'processor', function processor(req) {
+    return 'foo';
   }), _buildHandler2));
 
   handler({}, res);
@@ -224,10 +224,10 @@ var testMultipleHooksBeforeProcessor = function testMultipleHooksBeforeProcessor
 var testFailedHookBeforeProcessor = function testFailedHookBeforeProcessor(key, done) {
   var _buildHandler3;
 
-  var handler = buildHandler((_buildHandler3 = {}, (0, _defineProperty3.default)(_buildHandler3, key, function (req, resolve, reject) {
-    return reject();
-  }), (0, _defineProperty3.default)(_buildHandler3, 'processor', function processor(req, resolve, reject) {
-    return resolve('foo');
+  var handler = buildHandler((_buildHandler3 = {}, (0, _defineProperty3.default)(_buildHandler3, key, function (req) {
+    return '';
+  }), (0, _defineProperty3.default)(_buildHandler3, 'processor', function processor(req) {
+    return 'foo';
   }), _buildHandler3));
 
   handler({}, res).catch(function (err) {
@@ -238,10 +238,10 @@ var testFailedHookBeforeProcessor = function testFailedHookBeforeProcessor(key, 
 var testSingleHookAfterProcessor = function testSingleHookAfterProcessor(key, done) {
   var _buildHandler4;
 
-  var handler = buildHandler((_buildHandler4 = {}, (0, _defineProperty3.default)(_buildHandler4, key, function (req, result, resolve, reject) {
-    return resolve(done());
-  }), (0, _defineProperty3.default)(_buildHandler4, 'processor', function processor(req, resolve, reject) {
-    return resolve('foo');
+  var handler = buildHandler((_buildHandler4 = {}, (0, _defineProperty3.default)(_buildHandler4, key, function (req, result) {
+    return done();
+  }), (0, _defineProperty3.default)(_buildHandler4, 'processor', function processor(req) {
+    return 'foo';
   }), _buildHandler4));
 
   handler({}, res);
@@ -250,14 +250,14 @@ var testSingleHookAfterProcessor = function testSingleHookAfterProcessor(key, do
 var testMultipleHooksAfterProcessor = function testMultipleHooksAfterProcessor(key, done) {
   var _buildHandler5;
 
-  var handler = buildHandler((_buildHandler5 = {}, (0, _defineProperty3.default)(_buildHandler5, key, [function (req, result, resolve, reject) {
-    return resolve();
-  }, function (req, result, resolve, reject) {
-    return resolve();
-  }, function (req, result, resolve, reject) {
-    return resolve(done());
-  }]), (0, _defineProperty3.default)(_buildHandler5, 'processor', function processor(req, resolve, reject) {
-    return resolve('foo');
+  var handler = buildHandler((_buildHandler5 = {}, (0, _defineProperty3.default)(_buildHandler5, key, [function (req, result) {
+    return '';
+  }, function (req, result) {
+    return '';
+  }, function (req, result) {
+    return done();
+  }]), (0, _defineProperty3.default)(_buildHandler5, 'processor', function processor(req) {
+    return 'foo';
   }), _buildHandler5));
 
   handler({}, res);
@@ -266,10 +266,10 @@ var testMultipleHooksAfterProcessor = function testMultipleHooksAfterProcessor(k
 var testFailedHookAfterProcessor = function testFailedHookAfterProcessor(key, done) {
   var _buildHandler6;
 
-  var handler = buildHandler((_buildHandler6 = {}, (0, _defineProperty3.default)(_buildHandler6, key, function (req, result, resolve, reject) {
-    return reject();
-  }), (0, _defineProperty3.default)(_buildHandler6, 'processor', function processor(req, resolve, reject) {
-    return resolve('foo');
+  var handler = buildHandler((_buildHandler6 = {}, (0, _defineProperty3.default)(_buildHandler6, key, function (req, result) {
+    return '';
+  }), (0, _defineProperty3.default)(_buildHandler6, 'processor', function processor(req) {
+    return 'foo';
   }), _buildHandler6));
 
   handler({}, res).catch(function (err) {

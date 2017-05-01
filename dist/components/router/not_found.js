@@ -6,15 +6,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _response = require('../../utils/response');
 
-var processor = function processor(req, resolve, reject) {
-  return resolve();
+var processor = function processor(req) {
+  return '';
 };
 
-var responder = function responder(req, res, data, resolve, reject) {
+var responder = function responder(req, res, data) {
 
-  var result = (0, _response.fail)(res, 404, 'Unable to locate route');
-
-  resolve(result);
+  return (0, _response.fail)(res, 404, 'Unable to locate route');
 };
 
 exports.default = { processor: processor, responder: responder };

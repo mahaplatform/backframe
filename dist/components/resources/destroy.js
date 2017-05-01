@@ -52,9 +52,9 @@ exports.default = function (buildRoute) {
   };
 
   var processor = function processor(options) {
-    return function (req, resolve, reject) {
+    return function (req) {
 
-      (0, _load2.default)(options)(req).then(function (resource) {
+      return (0, _load2.default)(options)(req).then(function (resource) {
 
         return new _bluebird2.default(function (resolve, reject) {
           return destroyRelated(options, resource, resolve, reject);
@@ -62,9 +62,6 @@ exports.default = function (buildRoute) {
       }).then(function (resource) {
 
         return destroyResource(options, resource);
-      }).then(function () {
-
-        resolve();
       }).catch(function (err) {
 
         if (err.errors) throw new _error2.default({ code: 422, message: 'Unable to delete ' + options.name, errors: err.toJSON() });

@@ -2,7 +2,6 @@ import _ from 'lodash'
 import { defaultProcessor, defaultResponder } from '../../utils'
 import { validateOptions, defaultOptions } from '../../utils/options'
 import { coerceArray, applyToRecords } from '../../utils/core'
-import { fail } from '../../utils/response'
 import * as constants from '../../constants'
 
 export default (backframeOptions = {}) => {
@@ -60,43 +59,35 @@ export const buildHandler = (options) => {
 
   return async (req, res, recordTick = () => Promise.resolve()) => {
 
-    try {
+    req = await runAlterRequest(req, alterRequest)
 
-      req = await runAlterRequest(req, alterRequest)
+    recordTick('alterRequest')
 
-      recordTick('alterRequest')
+    await runHooks(req, beforeHooks)
 
-      await runHooks(req, beforeHooks)
+    recordTick('beforeHooks')
 
-      recordTick('beforeHooks')
+    let result = await processor(req)
 
-      let result = await new Promise((resolve, reject) => processor(req, resolve, reject))
+    recordTick('processor')
 
-      recordTick('processor')
+    await runHooks(req, afterHooks, result)
 
-      await runHooks(req, afterHooks, result)
+    recordTick('afterHooks')
 
-      recordTick('afterHooks')
+    result = renderer ? await renderer(req, result) : result
 
-      result = await new Promise((resolve, reject) => renderer(req, result, resolve, reject))
+    recordTick('renderer')
 
-      recordTick('renderer')
+    result = await runAlterRecord(req, alterRecord, result)
 
-      result = await runAlterRecord(req, alterRecord, result)
+    recordTick('alterRecord')
 
-      recordTick('alterRecord')
+    await responder(req, res, result)
 
-      result = await new Promise((resolve, reject) => responder(req, res, result, resolve, reject))
+    recordTick('responder')
 
-      recordTick('responder')
-
-      return result
-
-    } catch(err) {
-
-      renderError(res, err)
-
-    }
+    return result
 
   }
 
@@ -104,9 +95,9 @@ export const buildHandler = (options) => {
 
 export const runAlterRequest = (req, alterRequest) => {
 
-  const runner = async (req, operation) => await new Promise((resolve, reject) => operation(req, resolve, reject))
+  const runner = async (req, operation) => await operation(req)
 
-  if(alterRequest.length === 0) return Promise.resolve(req)
+  if(alterRequest.length === 0) req
 
   if(alterRequest.length === 1) return runner(req, alterRequest[0])
 
@@ -116,9 +107,9 @@ export const runAlterRequest = (req, alterRequest) => {
 
 export const runAlterRecord = (req, alterRecord, result) => {
 
-  const runner = async (result, operation) => await (result && result.records) ? applyToRecords(req, result, operation) : new Promise((resolve, reject) => operation(req, result, resolve, reject))
+  const runner = async (result, operation) => await (result && result.records) ? applyToRecords(req, result, operation) : operation(req, result)
 
-  if(alterRecord.length === 0) return Promise.resolve(result)
+  if(alterRecord.length === 0) return result
 
   if(alterRecord.length === 1) return runner(result, alterRecord[0])
 
@@ -128,22 +119,12 @@ export const runAlterRecord = (req, alterRecord, result) => {
 
 export const runHooks = (req, hooks, result = null) => {
 
-  const runner = async (req, result, hook) => await new Promise((resolve, reject) => result ? hook(req, result, resolve, reject) : hook(req, resolve, reject))
+  const runner = async (req, result, hook) => await result ? hook(req, result) : hook(req)
 
-  if(hooks.length === 0) return Promise.resolve(null)
+  if(hooks.length === 0) return null
 
   if(hooks.length === 1) return runner(req, result, hooks[0])
 
   return Promise.map(hooks, hook => runner(req, result, hook))
-
-}
-
-export const renderError = (res, err) => {
-
-  if(_.includes(['development'], process.env.NODE_ENV)) console.log(err)
-
-  if(err.name == 'BackframeError') return fail(res, err.code, err.message, { errors: err.errors })
-
-  return fail(res, 500, err.message)
 
 }

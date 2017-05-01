@@ -6,6 +6,7 @@ export default () => {
   it('returns an object of functions', () => {
 
     const backframe = Backframe({
+      bookshelf: {},
       knex: {},
       redis: {}
     })
@@ -23,6 +24,7 @@ export default () => {
   it('accepts valid options', () => {
 
     const backframe = Backframe({
+      bookshelf: {},
       knex: {},
       redis: {}
     })

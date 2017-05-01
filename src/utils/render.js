@@ -4,11 +4,11 @@ import BackframeError from './error'
 
 export default (options) => {
 
-  return (req, result, resolve, reject) => {
+  return (req, result) => {
 
     const useSerializer = !_.isPlainObject(result) && !_.isNil(options.serializer)
 
-    const serialize = () => useSerializer ? new Promise((resolve, reject) => options.serializer(req, result, resolve, reject)) : Promise.resolve(result.toJSON())
+    const serialize = () => useSerializer ? options.serializer(req, result) : result.toJSON()
 
     if(options.cacheFor) {
 
@@ -22,7 +22,7 @@ export default (options) => {
 
     }
 
-    return serialize().then(resolve)
+    return serialize()
 
   }
 

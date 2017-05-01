@@ -32,19 +32,15 @@ export default (buildRoute) => {
 
   }
 
-  const processor = options => (req, resolve, reject) => {
+  const processor = options => req => {
 
-    load(options)(req).then(resource => {
+    return load(options)(req).then(resource => {
 
       return new Promise((resolve, reject) => destroyRelated(options, resource, resolve, reject))
 
     }).then(resource => {
 
       return destroyResource(options, resource)
-
-    }).then(() => {
-
-      resolve()
 
     }).catch(err => {
 

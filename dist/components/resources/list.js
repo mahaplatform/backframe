@@ -31,11 +31,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function (buildRoute) {
 
   var beforeHooks = function beforeHooks(options) {
-    return function (req, resolve, reject) {
+    return function (req) {
 
       if (req.query.$filter) {
 
-        (0, _options.checkPermitted)(req.query.$filter, [].concat((0, _toConsumableArray3.default)(options.filterParams), ['q']), reject, 'Unable to filter on the keys {unpermitted}. Please add it to filterParams');
+        (0, _options.checkPermitted)(req.query.$filter, [].concat((0, _toConsumableArray3.default)(options.filterParams), ['q']), 'Unable to filter on the keys {unpermitted}. Please add it to filterParams');
 
         if (req.query.$filter.q && !options.searchParams && process.env.NODE_ENV == 'development') {
           throw new _error2.default({ code: 412, message: 'Unable to search on q without searchParams' });
@@ -43,15 +43,13 @@ exports.default = function (buildRoute) {
       }
 
       if (req.query.$sort) {
-        (0, _options.checkPermitted)(req.query.$sort, options.sortParams, reject, 'Unable to sort on the keys {unpermitted}. Please add it to sortParams');
+        (0, _options.checkPermitted)(req.query.$sort, options.sortParams, 'Unable to sort on the keys {unpermitted}. Please add it to sortParams');
       }
-
-      resolve();
     };
   };
 
   var processor = function processor(options) {
-    return function (req, resolve, reject) {
+    return function (req) {
 
       var tableName = options.model.extend().__super__.tableName;
 
@@ -148,7 +146,7 @@ exports.default = function (buildRoute) {
 
         var records = responses[2];
 
-        resolve({ all: all, total: total, records: records, limit: limit, skip: skip });
+        return { all: all, total: total, records: records, limit: limit, skip: skip };
       }).catch(function (err) {
 
         if (err.errors) throw new _error2.default({ code: 422, message: 'Unable to create ' + options.name, errors: err.toJSON() });

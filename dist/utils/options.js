@@ -143,7 +143,7 @@ var defaultOptions = exports.defaultOptions = function defaultOptions(types) {
   }, {});
 };
 
-var checkPermitted = exports.checkPermitted = function checkPermitted(keys, permitted, reject, message) {
+var checkPermitted = exports.checkPermitted = function checkPermitted(keys, permitted, message) {
 
   if (process.env.NODE_ENV != 'development') return true;
 

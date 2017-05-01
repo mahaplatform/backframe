@@ -28,9 +28,9 @@ export const defaultQuery = (req, options, qb, filters) => {
 
 }
 
-export const defaultProcessor = options => (req, resolve, reject) => resolve(null)
+export const defaultProcessor = options => req => null
 
-export const defaultRenderer = options => (req, result, resolve, reject) => {
+export const defaultRenderer = options => async (req, result) => {
 
   if(!result) return null
 
@@ -40,25 +40,22 @@ export const defaultRenderer = options => (req, result, resolve, reject) => {
 
   const transforms = (req.query.$select) ? [renderer, selector] : [renderer]
 
-  const transform = (req, result, transforms) => {
+  const transform = async (req, result, transforms) => {
 
-    if(result.records) return applyToRecords(req, result, transforms)
+    if(result.records) return await applyToRecords(req, result, transforms)
 
-    return new Promise((resolve, reject) => renderer(req, result, resolve, reject)).then(result => {
 
-      if(!req.query.$select) Promise.resolve(result)
+    return await renderer(req, result).then(result => {
 
-      return new Promise((resolve, reject) => selector(req, result, resolve, reject))
+      if(!req.query.$select) return result
+
+      return selector(req, result)
 
     })
 
   }
 
-  return transform(req, result, transforms).then(result => {
-
-    resolve(result)
-
-  }).catch(err => {
+  return await transform(req, result, transforms).catch(err => {
 
     throw err
 
@@ -66,7 +63,7 @@ export const defaultRenderer = options => (req, result, resolve, reject) => {
 
 }
 
-export const defaultResponder = message => options => (req, res, result, resolve, reject) => {
+export const defaultResponder = message => options => (req, res, result) => {
 
   const format = req.params && req.params.format ? req.params.format : 'json'
 
@@ -82,6 +79,6 @@ export const defaultResponder = message => options => (req, res, result, resolve
 
   const responder = options[`${format}Responder`] || responders[`${format}Responder`]
 
-  return responder(message, pagination, data, req, res, resolve, reject)
+  return responder(message, pagination, data, req, res)
 
 }

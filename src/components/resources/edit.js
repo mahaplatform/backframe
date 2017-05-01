@@ -3,9 +3,9 @@ import { defaultResponder } from '../../utils'
 
 export default  (buildRoute) => {
 
-  const processor = options => (req, resolve, reject) => load(options)(req).then(resolve)
+  const processor = options => req => load(options)(req)
 
-  const renderer = options => (req, result, resolve, reject) => resolve(result.toJSON())
+  const renderer = options => (req, result) => result.toJSON()
 
   return buildRoute({
     method: 'get',

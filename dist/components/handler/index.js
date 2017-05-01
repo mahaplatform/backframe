@@ -7,8 +7,6 @@ exports.renderError = exports.runHooks = exports.runAlterRecord = exports.runAlt
 
 var _bluebird = require('bluebird');
 
-var _bluebird2 = _interopRequireDefault(_bluebird);
-
 var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
@@ -128,9 +126,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
               recordTick('beforeHooks');
 
               _context.next = 10;
-              return new _bluebird2.default(function (resolve, reject) {
-                return processor(req, resolve, reject);
-              });
+              return processor(req);
 
             case 10:
               result = _context.sent;
@@ -146,9 +142,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
               recordTick('afterHooks');
 
               _context.next = 17;
-              return new _bluebird2.default(function (resolve, reject) {
-                return renderer(req, result, resolve, reject);
-              });
+              return renderer(req, result);
 
             case 17:
               result = _context.sent;
@@ -166,9 +160,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
               recordTick('alterRecord');
 
               _context.next = 25;
-              return new _bluebird2.default(function (resolve, reject) {
-                return responder(req, res, result, resolve, reject);
-              });
+              return responder(req, res, result);
 
             case 25:
               result = _context.sent;
@@ -208,9 +200,7 @@ var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, al
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return new _bluebird2.default(function (resolve, reject) {
-                return operation(req, resolve, reject);
-              });
+              return operation(req);
 
             case 2:
               return _context2.abrupt('return', _context2.sent);
@@ -228,7 +218,7 @@ var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, al
     };
   }();
 
-  if (alterRequest.length === 0) return (0, _bluebird.resolve)(req);
+  if (alterRequest.length === 0) req;
 
   if (alterRequest.length === 1) return runner(req, alterRequest[0]);
 
@@ -257,9 +247,7 @@ var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, alter
               break;
 
             case 6:
-              _context3.t0 = new _bluebird2.default(function (resolve, reject) {
-                return operation(req, result, resolve, reject);
-              });
+              _context3.t0 = operation(req, result);
 
             case 7:
               return _context3.abrupt('return', _context3.t0);
@@ -277,7 +265,7 @@ var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, alter
     };
   }();
 
-  if (alterRecord.length === 0) return (0, _bluebird.resolve)(result);
+  if (alterRecord.length === 0) return result;
 
   if (alterRecord.length === 1) return runner(result, alterRecord[0]);
 
@@ -295,14 +283,25 @@ var runHooks = exports.runHooks = function runHooks(req, hooks) {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return new _bluebird2.default(function (resolve, reject) {
-                return result ? hook(req, result, resolve, reject) : hook(req, resolve, reject);
-              });
+              return result;
 
             case 2:
-              return _context4.abrupt('return', _context4.sent);
+              if (!_context4.sent) {
+                _context4.next = 6;
+                break;
+              }
 
-            case 3:
+              _context4.t0 = hook(req, result);
+              _context4.next = 7;
+              break;
+
+            case 6:
+              _context4.t0 = hook(req);
+
+            case 7:
+              return _context4.abrupt('return', _context4.t0);
+
+            case 8:
             case 'end':
               return _context4.stop();
           }
@@ -315,7 +314,7 @@ var runHooks = exports.runHooks = function runHooks(req, hooks) {
     };
   }();
 
-  if (hooks.length === 0) return (0, _bluebird.resolve)(null);
+  if (hooks.length === 0) return null;
 
   if (hooks.length === 1) return runner(req, result, hooks[0]);
 

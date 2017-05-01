@@ -7,11 +7,11 @@ import BackframeError from '../../utils/error'
 
 export default (buildRoute) => {
 
-  const beforeHooks = options => (req, resolve, reject) => {
+  const beforeHooks = options => req => {
 
     if(req.query.$filter) {
 
-      checkPermitted(req.query.$filter, [...options.filterParams, 'q'], reject, 'Unable to filter on the keys {unpermitted}. Please add it to filterParams')
+      checkPermitted(req.query.$filter, [...options.filterParams, 'q'], 'Unable to filter on the keys {unpermitted}. Please add it to filterParams')
 
       if(req.query.$filter.q && !options.searchParams && process.env.NODE_ENV == 'development') {
         throw new BackframeError({ code: 412, message: 'Unable to search on q without searchParams' })
@@ -20,14 +20,12 @@ export default (buildRoute) => {
     }
 
     if(req.query.$sort) {
-      checkPermitted(req.query.$sort, options.sortParams, reject, 'Unable to sort on the keys {unpermitted}. Please add it to sortParams')
+      checkPermitted(req.query.$sort, options.sortParams, 'Unable to sort on the keys {unpermitted}. Please add it to sortParams')
     }
-
-    resolve()
 
   }
 
-  const processor = options => (req, resolve, reject) => {
+  const processor = options => req => {
 
     const tableName = options.model.extend().__super__.tableName
 
@@ -115,7 +113,7 @@ export default (buildRoute) => {
 
       const records = responses[2]
 
-      resolve({ all, total, records, limit, skip })
+      return { all, total, records, limit, skip }
 
     }).catch(err => {
 
