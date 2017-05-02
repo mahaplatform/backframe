@@ -103,25 +103,25 @@ export default (buildRoute) => {
 
     }).fetchAll(fetchOptions).then(records => records.map(record => record))
 
-    return Promise.all([all(), count(), paged()]).then(responses => {
+    if(req.query.$page) {
 
-      const all = parseInt(responses[0].toJSON()[0].count)
+      return Promise.all([all(), count(), paged()]).then(responses => {
 
-      const totalResonse = responses[1].rows ? responses[1].rows[0] : responses[1][0]
+        const all = parseInt(responses[0].toJSON()[0].count)
 
-      const total = totalResonse.count ? parseInt(totalResonse.count) : 0
+        const totalResonse = responses[1].rows ? responses[1].rows[0] : responses[1][0]
 
-      const records = responses[2]
+        const total = totalResonse.count ? parseInt(totalResonse.count) : 0
 
-      return { all, total, records, limit, skip }
+        const records = responses[2]
 
-    }).catch(err => {
+        return { all, total, records, limit, skip }
 
-      if(err.errors) throw new BackframeError({ code: 422, message: `Unable to create ${options.name}`, errors: err.toJSON() })
+      })
 
-      throw err
+    }
 
-    })
+    return paged().then(records => ({ records }))
 
   }
 

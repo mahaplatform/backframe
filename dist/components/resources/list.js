@@ -136,22 +136,24 @@ exports.default = function (buildRoute) {
         });
       };
 
-      return (0, _bluebird.all)([all(), count(), paged()]).then(function (responses) {
+      if (req.query.$page) {
 
-        var all = parseInt(responses[0].toJSON()[0].count);
+        return (0, _bluebird.all)([all(), count(), paged()]).then(function (responses) {
 
-        var totalResonse = responses[1].rows ? responses[1].rows[0] : responses[1][0];
+          var all = parseInt(responses[0].toJSON()[0].count);
 
-        var total = totalResonse.count ? parseInt(totalResonse.count) : 0;
+          var totalResonse = responses[1].rows ? responses[1].rows[0] : responses[1][0];
 
-        var records = responses[2];
+          var total = totalResonse.count ? parseInt(totalResonse.count) : 0;
 
-        return { all: all, total: total, records: records, limit: limit, skip: skip };
-      }).catch(function (err) {
+          var records = responses[2];
 
-        if (err.errors) throw new _error2.default({ code: 422, message: 'Unable to create ' + options.name, errors: err.toJSON() });
+          return { all: all, total: total, records: records, limit: limit, skip: skip };
+        });
+      }
 
-        throw err;
+      return paged().then(function (records) {
+        return { records: records };
       });
     };
   };
