@@ -1,13 +1,13 @@
 
 # Backframe
-<a href="https://circleci.com/gh/thinktopography/backframejs">
-  <img src="https://img.shields.io/circleci/project/thinktopography/backframejs.svg?maxAge=600" alt="Build Status" >
+<a href="https://circleci.com/gh/mahaplatform/backframe">
+  <img src="https://img.shields.io/circleci/project/mahaplatform/backframe.svg?maxAge=600" alt="Build Status" >
 </a>
-<a href="https://codeclimate.com/github/thinktopography/backframejs">
-  <img src="https://img.shields.io/codeclimate/github/thinktopography/backframejs.svg?maxAge=600" alt="Code Climate" />
+<a href="https://codeclimate.com/github/mahaplatform/backframe">
+  <img src="https://img.shields.io/codeclimate/github/mahaplatform/backframe.svg?maxAge=600" alt="Code Climate" />
 </a>
-<a href="https://codeclimate.com/github/thinktopography/backframejs/coverage">
-  <img src="https://img.shields.io/codeclimate/coverage/github/thinktopography/backframejs.svg?maxAge=600" alt="Code Coverage" />
+<a href="https://codeclimate.com/github/mahaplatform/backframe/coverage">
+  <img src="https://img.shields.io/codeclimate/coverage/github/mahaplatform/backframe.svg?maxAge=600" alt="Code Coverage" />
 </a>
 
 Backframe is a javascript library for declaratively creating REST APIs for
@@ -17,7 +17,7 @@ building REST API's, this usually ends up requiring the developer to write
 a lot of tedious and repetitive code. Backframe provides simple, declarative
 tools for building REST APIs.
 
-[Read the overview](https://github.com/thinktopography/backframejs/blob/master/docs/overview.md)
+[Read the overview](https://github.com/mahaplatform/backframe/blob/master/docs/overview.md)
 
 ## Installation
 Install with [npm](http://npmjs.com) or [yarn](https://yarnpkg.com):
@@ -54,28 +54,28 @@ and can be used within an Express middleware. Although Backframe is primarily
 intended to build handlers for Express, these function can be used outside of
 Express as well in the context of a worker or some other asynchronous process.
 
-[Learn more about handlers](https://github.com/thinktopography/backframejs/blob/master/docs/handler.md)
+[Learn more about handlers](https://github.com/mahaplatform/backframe/blob/master/docs/handler.md)
 
 ## Resources
 At the core of most REST APIs is the concept of a resource or a collection of
 resources. Backframe provides a convenient factory for creating a series of
 endpoints for each resource in your application.
 
-[Learn more about resources](https://github.com/thinktopography/backframejs/blob/master/docs/resources.md)
+[Learn more about resources](https://github.com/mahaplatform/backframe/blob/master/docs/resources.md)
 
 ## Segments
 In order to handle routes and resources collectively, routes can be grouped into
 one or more nested segments. Segments can be nested as deeply as needed allowing
 attributes to be applied in batch to any level of the hierarchy.
 
-[Learn more about segments](https://github.com/thinktopography/backframejs/blob/master/docs/segment.md)
+[Learn more about segments](https://github.com/mahaplatform/backframe/blob/master/docs/segment.md)
 
 ## Routers
 In most cases, you will want to use Backframe to within Express as a middleware
 router. The Backframe router component enables you to wrap a routing segment
 with an Express router and mount it within your application.
 
-[Learn more about routers](https://github.com/thinktopography/backframejs/blob/master/docs/router.md)
+[Learn more about routers](https://github.com/mahaplatform/backframe/blob/master/docs/router.md)
 
 ## Plugins
 Backframe has a plugin framework that enables developers to extend or decorate
@@ -83,7 +83,7 @@ the lifecycle of a Backframe handler with supplemental functionality through
 the addition of one or more hooks. Plugins can also define their own configuration
 options to be invoked when constructing Backframe objects.
 
-[Learn more about plugins](https://github.com/thinktopography/backframejs/blob/master/docs/plugin.md)
+[Learn more about plugins](https://github.com/mahaplatform/backframe/blob/master/docs/plugin.md)
 
 ## Author & Credits
 
