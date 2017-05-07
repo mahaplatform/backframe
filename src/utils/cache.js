@@ -12,37 +12,22 @@ export const cache = (options) => {
 
   const redis = options.redis
 
-  return (key, duration, method) => {
+  return async (key, duration, method) => {
 
-    return redis.getAsync(key).then(result => {
+    const result = await redis.getAsync(key)
 
-      if(result) {
+    const json = result ? {
+      cached: true,
+      data: parseJSON(result)
+    } : await method()
 
-        return  {
-          cached: true,
-          data: parseJSON(result)
-        }
-      }
+    if(json.cached) return json.data
 
-      return method()
+    await redis.setAsync(key, JSON.stringify(json))
 
-    }).then(json => {
+    await redis.expireAsync(key, duration)
 
-      if(json.cached) {
-        return json.data
-      }
-
-      return redis.setAsync(key, JSON.stringify(json)).then(result => {
-
-        return redis.expireAsync(key, duration)
-
-      }).then(result => {
-
-        return json
-
-      })
-
-    })
+    return json
 
   }
 
