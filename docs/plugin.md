@@ -12,7 +12,7 @@ const alterRequest = options => (req, resolve, reject) => {
   resolve(req)
 }
 
-const beforeHooks = options => (req, resolve, reject) => {
+const before = options => (req, resolve, reject) => {
   console.log('before processor')
   resolve()
 }
@@ -22,7 +22,7 @@ const afterHooks = options => (req, result, resolve, reject) => {
   resolve()
 }
 
-const alterResult = options => (req, result, resolve, reject) => {
+const alter = options => (req, result, resolve, reject) => {
   console.log('altering response')
   resolve(result)
 }
@@ -41,8 +41,8 @@ export default plugin({
     }
   },
   alterRequest,
-  beforeHooks,
-  afterHooks,
+  before,
+  after,
   alterRequest
 })
 ```
