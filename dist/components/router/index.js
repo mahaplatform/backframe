@@ -74,7 +74,7 @@ exports.default = function () {
 
     (0, _options.validateOptions)('router', userOptions, TYPES);
 
-    var mergedOptions = (0, _extends3.default)({}, _lodash2.default.pick(backframeOptions, ['knex', 'redis']), userOptions);
+    var mergedOptions = (0, _extends3.default)({}, _lodash2.default.pick(backframeOptions, ['knex']), userOptions);
 
     var options = normalizeOptions(mergedOptions, TYPES);
 

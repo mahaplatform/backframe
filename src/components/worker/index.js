@@ -1,4 +1,4 @@
-import PriorityQueue from 'bull'
+import Queue from 'bull'
 import _ from 'lodash'
 import { validateOptions, defaultOptions } from '../../utils/options'
 import { mergeEvents, mergeHooks } from '../../utils/core'
@@ -16,7 +16,12 @@ export default (backframeOptions = {}) => {
 
     validateOptions('worker', userOptions, TYPES)
 
-    const options = normalizeOptions(userOptions, TYPES)
+    const mergedOptions = {
+      ..._.pick(backframeOptions, ['knex','redis']),
+      ...userOptions
+    }
+
+    const options = normalizeOptions(mergedOptions, TYPES)
 
     return buildWorker(backframeOptions, options, buildHandler(backframeOptions))
 
@@ -47,19 +52,13 @@ const renderHandler = (plugins, queue) => {
 // iterate through routing array and generate express router
 export const buildWorker = (backframeOptions, options, buildHandler) => {
 
-  const config = {
-    redis: {
-      url: process.env.REDIS_URL
-    }
-  }
-
   return options.queues.reduce((queues, queue) => {
 
     const handler = buildHandler(renderHandler(backframeOptions.plugins, queue))
 
-    const newQueue = new PriorityQueue(queue.options.name, config)
+    const newQueue = new Queue(queue.options.name, options.redis.options)
 
-    newQueue.process(buildProcess(queue.options, handler))
+    newQueue.process(buildProcess({...options,name:queue.options.name}, handler))
 
     return {
       ...queues,
@@ -77,8 +76,6 @@ const buildProcess = (options, handler) => {
     beginLogger(options)()
 
     const result = await handler(job, {}, recordTick)
-
-    console.log(result)
 
     endLogger(options)()
 

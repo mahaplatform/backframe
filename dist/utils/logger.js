@@ -25,10 +25,6 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _knex = require('../services/knex');
-
-var _knex2 = _interopRequireDefault(_knex);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var queries = [];
@@ -61,14 +57,14 @@ var beginLogger = exports.beginLogger = function beginLogger(options) {
 
     started = (0, _moment2.default)();
 
-    _knex2.default.client.on('query', startQuery).on('query-response', endQuery);
+    options.knex.client.on('query', startQuery).on('query-response', endQuery);
   };
 };
 
 var endLogger = exports.endLogger = function endLogger(options) {
   return function () {
 
-    _knex2.default.client.removeListener('query', startQuery).removeListener('query-response', endQuery);
+    options.knex.client.removeListener('query', startQuery).removeListener('query-response', endQuery);
   };
 };
 
@@ -123,8 +119,6 @@ var printLogger = exports.printLogger = function printLogger(options) {
 
 var printQueue = exports.printQueue = function printQueue(options) {
   return function (job, result) {
-
-    console.log(result);
 
     console.log('=========================================================');
     console.log('%s %s', _chalk2.default.red('QUEUE:'), options.name);

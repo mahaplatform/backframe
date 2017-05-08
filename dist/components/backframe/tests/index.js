@@ -18,12 +18,10 @@ exports.default = function () {
 
     var backframe = (0, _index2.default)({
       bookshelf: {},
-      knex: {},
-      redis: {}
+      knex: {}
     });
 
     (0, _chai.expect)(backframe).to.be.an('object');
-    (0, _chai.expect)(backframe.handler).to.be.a('function');
     (0, _chai.expect)(backframe.resources).to.be.a('function');
     (0, _chai.expect)(backframe.route).to.be.a('function');
     (0, _chai.expect)(backframe.router).to.be.a('function');
@@ -35,8 +33,7 @@ exports.default = function () {
 
     var backframe = (0, _index2.default)({
       bookshelf: {},
-      knex: {},
-      redis: {}
+      knex: {}
     });
   });
 

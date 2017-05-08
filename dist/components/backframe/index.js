@@ -9,10 +9,6 @@ var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _environment = require('../../services/environment');
-
-var _environment2 = _interopRequireDefault(_environment);
-
 var _options = require('../../utils/options');
 
 var _handler = require('../handler');
@@ -56,7 +52,9 @@ exports.default = function () {
   var TYPES = {
     defaultLimit: { type: 'integer', required: false, default: 100 },
     defaultFormat: { type: 'string', required: false, default: 'json' },
-    plugins: { type: 'object[]', required: false, default: [] }
+    knex: { type: 'object', required: true },
+    plugins: { type: 'object[]', required: false, default: [] },
+    redis: { type: 'object', required: false }
   };
 
   (0, _options.validateOptions)('backframe', userOptions, TYPES);

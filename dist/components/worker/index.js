@@ -65,7 +65,9 @@ exports.default = function () {
 
     (0, _options.validateOptions)('worker', userOptions, TYPES);
 
-    var options = normalizeOptions(userOptions, TYPES);
+    var mergedOptions = (0, _extends4.default)({}, _lodash2.default.pick(backframeOptions, ['knex', 'redis']), userOptions);
+
+    var options = normalizeOptions(mergedOptions, TYPES);
 
     return buildWorker(backframeOptions, options, (0, _handler2.default)(backframeOptions));
   };
@@ -86,19 +88,13 @@ var renderHandler = function renderHandler(plugins, queue) {
 // iterate through routing array and generate express router
 var buildWorker = exports.buildWorker = function buildWorker(backframeOptions, options, buildHandler) {
 
-  var config = {
-    redis: {
-      url: process.env.REDIS_URL
-    }
-  };
-
   return options.queues.reduce(function (queues, queue) {
 
     var handler = buildHandler(renderHandler(backframeOptions.plugins, queue));
 
-    var newQueue = new _bull2.default(queue.options.name, config);
+    var newQueue = new _bull2.default(queue.options.name, options.redis.options);
 
-    newQueue.process(buildProcess(queue.options, handler));
+    newQueue.process(buildProcess((0, _extends4.default)({}, options, { name: queue.options.name }), handler));
 
     return (0, _extends4.default)({}, queues, (0, _defineProperty3.default)({}, queue.options.name, newQueue));
   }, {});
@@ -123,15 +119,13 @@ var buildProcess = function buildProcess(options, handler) {
               result = _context.sent;
 
 
-              console.log(result);
-
               (0, _logger.endLogger)(options)();
 
               (0, _logger.printQueue)(options)(job, result);
 
               done(result);
 
-            case 8:
+            case 7:
             case 'end':
               return _context.stop();
           }

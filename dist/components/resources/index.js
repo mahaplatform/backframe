@@ -88,7 +88,6 @@ exports.default = function () {
       alterRequest: { type: ['function', 'function{}'], required: false },
       alterRecord: { type: ['function', 'function{}'], required: false },
       before: { type: ['function', 'function{}'], required: false },
-      cacheFor: { type: 'integer', required: false },
       defaultParams: { type: 'function', required: false },
       defaultSort: { type: ['string', 'string[]'], required: false, default: '-created_at' },
       dependents: { type: 'object[]', required: false },
@@ -112,7 +111,7 @@ exports.default = function () {
 
     (0, _options.validateOptions)('resources', userOptions, TYPES);
 
-    var mergedOptions = (0, _extends6.default)({}, _lodash2.default.pick(backframeOptions, ['defaultFormat', 'defaultLimit']), userOptions);
+    var mergedOptions = (0, _extends6.default)({}, _lodash2.default.pick(backframeOptions, ['defaultFormat', 'defaultLimit', 'knex']), userOptions);
 
     var options = normalizeOptions(mergedOptions, TYPES);
 

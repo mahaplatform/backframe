@@ -14,10 +14,6 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _knex = require('../../services/knex');
-
-var _knex2 = _interopRequireDefault(_knex);
-
 var _utils = require('../../utils');
 
 var _core = require('../../utils/core');
@@ -110,10 +106,10 @@ exports.default = function (buildRoute) {
         }).fetchAll({ transacting: trx });
       };
 
-      var queryObject = query((0, _knex2.default)(tableName)).toSQL();
+      var queryObject = query(options.knex(tableName)).toSQL();
 
       var count = function count() {
-        return _knex2.default.raw('select count(*) as count from (' + queryObject.sql + ') as temp', queryObject.bindings).transacting(trx);
+        return options.knex.raw('select count(*) as count from (' + queryObject.sql + ') as temp', queryObject.bindings).transacting(trx);
       };
 
       var paged = function paged() {

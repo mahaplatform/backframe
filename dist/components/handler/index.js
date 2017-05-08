@@ -27,10 +27,6 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _knex = require('../../services/knex');
-
-var _knex2 = _interopRequireDefault(_knex);
-
 var _utils = require('../../utils');
 
 var _options = require('../../utils/options');
@@ -104,7 +100,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
     var recordTick = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
 
 
-    return _knex2.default.transaction(function () {
+    return options.knex.transaction(function () {
       var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(trx) {
         var result;
         return _regenerator2.default.wrap(function _callee$(_context) {
@@ -186,11 +182,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
                 return trx.commit(result);
 
               case 33:
-
-                recordTick('commit');
-
-                _context.next = 41;
-                break;
+                return _context.abrupt('return', _context.sent);
 
               case 36:
                 _context.prev = 36;
@@ -199,8 +191,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
                 return trx.rollback(_context.t1);
 
               case 40:
-
-                recordTick('rollback');
+                return _context.abrupt('return', renderError(res, _context.t1));
 
               case 41:
               case 'end':
@@ -213,10 +204,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
       return function (_x4) {
         return _ref.apply(this, arguments);
       };
-    }()).catch(function (err) {
-
-      return renderError(res, err);
-    });
+    }());
   };
 };
 
@@ -365,5 +353,7 @@ var renderError = exports.renderError = function renderError(res, err) {
 
   if (err.name == 'BackframeError') return (0, _response.fail)(res, err.code, err.message, { errors: err.errors });
 
-  return (0, _response.fail)(res, 500, err.message);
+  (0, _response.fail)(res, 500, err.message);
+
+  return err;
 };

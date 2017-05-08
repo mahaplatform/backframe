@@ -93,8 +93,6 @@ export const printLogger = options => (req, res, result) => {
 
 export const printQueue = options => (job, result) => {
 
-  console.log(result)
-
   console.log('=========================================================')
   console.log('%s %s', chalk.red('QUEUE:'), options.name)
   console.log('=========================================================')
