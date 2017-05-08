@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import knex from '../../services/knex'
 import { defaultQuery, defaultRenderer, defaultResponder } from '../../utils'
 import { coerceArray } from '../../utils/core'
 import { extractSort, filter } from '../../utils/list'
@@ -33,7 +34,7 @@ export default (buildRoute) => {
 
     const fetchOptions = options.withRelated ? { withRelated: coerceArray(options.withRelated), transacting: trx } : { transacting: trx }
 
-    const limit = parseInt(_.get(req.query, '$page.limit')) || 50
+    const limit = _.get(req.query, '$page.limit') ? parseInt(_.get(req.query, '$page.limit')) : 50
 
     const skip = parseInt(_.get(req.query, '$page.skip')) || 0
 
@@ -78,10 +79,9 @@ export default (buildRoute) => {
 
     }).fetchAll({ transacting: trx })
 
+    const queryObject = query(knex(tableName)).toSQL()
 
-    const queryObject = query(options.knex(tableName)).toSQL()
-
-    const count = () => options.knex.raw(`select count(*) as count from (${queryObject.sql}) as temp`, queryObject.bindings).transacting(trx)
+    const count = () => knex.raw(`select count(*) as count from (${queryObject.sql}) as temp`, queryObject.bindings).transacting(trx)
 
     const paged = () => options.model.query(qb => {
 
@@ -89,7 +89,7 @@ export default (buildRoute) => {
 
       qb = query(qb)
 
-      if(req.query.$page) {
+      if(limit > 0) {
 
         qb.limit(limit).offset(skip)
 
@@ -103,25 +103,19 @@ export default (buildRoute) => {
 
     }).fetchAll(fetchOptions).then(records => records.map(record => record))
 
-    if(req.query.$page) {
+    return Promise.all([all(), count(), paged()]).then(responses => {
 
-      return Promise.all([all(), count(), paged()]).then(responses => {
+      const all = parseInt(responses[0].toJSON()[0].count)
 
-        const all = parseInt(responses[0].toJSON()[0].count)
+      const totalResonse = responses[1].rows ? responses[1].rows[0] : responses[1][0]
 
-        const totalResonse = responses[1].rows ? responses[1].rows[0] : responses[1][0]
+      const total = totalResonse.count ? parseInt(totalResonse.count) : 0
 
-        const total = totalResonse.count ? parseInt(totalResonse.count) : 0
+      const records = responses[2]
 
-        const records = responses[2]
+      return { all, total, records, limit, skip }
 
-        return { all, total, records, limit, skip }
-
-      })
-
-    }
-
-    return paged().then(records => ({ records }))
+    })
 
   }
 

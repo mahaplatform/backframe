@@ -19,7 +19,6 @@ var _error2 = _interopRequireDefault(_error);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (options) {
-
   return function (req, trx, result) {
 
     var useSerializer = !_lodash2.default.isPlainObject(result) && !_lodash2.default.isNil(options.serializer);
@@ -28,17 +27,16 @@ exports.default = function (options) {
       return useSerializer ? options.serializer(req, trx, result) : result.toJSON();
     };
 
-    if (options.cacheFor) {
+    if (!options.cacheFor) return serialize();
 
-      if (!options.redis && process.env.NODE_ENV == 'development') {
-        throw new _error2.default({ code: 412, message: 'you must include a redis configuration' });
-      }
-
-      var key = options.name + '-' + result.get('id') + '-' + Math.floor(result.get('updated_at').getTime() / 1000);
-
-      return (0, _cache2.default)(options)(key, options.cacheFor, serialize);
+    if (!process.env.REDIS_URL && process.env.NODE_ENV == 'development') {
+      throw new _error2.default({ code: 412, message: 'you must include a redis configuration' });
     }
 
-    return serialize();
+    var timestamp = _lodash2.default.isDate(result.get('updated_at')) ? result.get('updated_at') : new Date(result.get('updated_at'));
+
+    var key = options.name + '-' + result.get('id') + '-' + Math.floor(timestamp.getTime() / 1000);
+
+    return (0, _cache2.default)(options)(key, options.cacheFor, serialize);
   };
 };

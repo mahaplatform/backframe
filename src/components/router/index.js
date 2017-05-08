@@ -8,7 +8,6 @@ import buildHandler from '../handler'
 import notFound from './not_found'
 import * as constants from '../../constants'
 import { beginLogger, endLogger, recordTick, printLogger } from '../../utils/logger'
-import { fail } from '../../utils/response'
 
 export default (backframeOptions = {}) => {
 
@@ -89,32 +88,14 @@ const buildRoute = (options, handler) => {
 
   return async (req, res) => {
 
-    try {
+    beginLogger(options)()
 
-      beginLogger(options)()
+    const result = await handler(req, res, recordTick)
 
-      const result = await handler(req, res, recordTick)
+    endLogger(options)()
 
-      endLogger(options)()
-
-      printLogger(options)(req, res, result)
-
-    } catch(err) {
-
-      renderError(res, err)
-
-    }
+    printLogger(options)(req, res, result)
 
   }
-
-}
-
-export const renderError = (res, err) => {
-
-  if(_.includes(['development'], process.env.NODE_ENV)) console.log(err)
-
-  if(err.name == 'BackframeError') return fail(res, err.code, err.message, { errors: err.errors })
-
-  return fail(res, 500, err.message)
 
 }

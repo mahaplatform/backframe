@@ -1,8 +1,10 @@
 import _ from 'lodash'
+import knex from '../../services/knex'
 import { defaultProcessor, defaultResponder } from '../../utils'
 import { validateOptions, defaultOptions } from '../../utils/options'
 import { coerceArray, applyToRecords } from '../../utils/core'
 import * as constants from '../../constants'
+import { fail } from '../../utils/response'
 
 export default (backframeOptions = {}) => {
 
@@ -59,37 +61,55 @@ export const buildHandler = (options) => {
 
   return (req, res, recordTick = () => {}) => {
 
-    return options.bookshelf.transaction(async trx => {
+    return knex.transaction(async trx => {
 
-      req = await runAlterRequest(req, trx, alterRequest)
+      try {
 
-      recordTick('alterRequest')
+        req = await runAlterRequest(req, trx, alterRequest)
 
-      await runHooks(req, trx, before)
+        recordTick('alterRequest')
 
-      recordTick('before')
+        await runHooks(req, trx, before)
 
-      let result = await processor(req, trx)
+        recordTick('before')
 
-      recordTick('processor')
+        let result = await processor(req, trx)
 
-      await runHooks(req, trx, after, result)
+        recordTick('processor')
 
-      recordTick('after')
+        await runHooks(req, trx, after, result)
 
-      result = renderer ? await renderer(req, trx, result) : result
+        recordTick('after')
 
-      recordTick('renderer')
+        result = renderer ? await renderer(req, trx, result) : result
 
-      result = await runAlterRecord(req, trx, alterRecord, result)
+        recordTick('renderer')
 
-      recordTick('alterRecord')
+        result = await runAlterRecord(req, trx, alterRecord, result)
 
-      await responder(req, res, result)
+        recordTick('alterRecord')
 
-      recordTick('responder')
+        await responder(req, res, result)
 
-      return result
+        recordTick('responder')
+
+        await trx.commit()
+
+        recordTick('commit')
+
+        return result
+
+      } catch(err) {
+
+        await trx.rollback(err)
+
+        recordTick('rollback')
+
+      }
+
+    }).catch(err => {
+
+      return renderError(res, err)
 
     })
 
@@ -130,5 +150,15 @@ export const runHooks = (req, trx, hooks, result = null) => {
   if(hooks.length === 1) return runner(hooks[0])
 
   return Promise.map(hooks, hook => runner(hook))
+
+}
+
+export const renderError = (res, err) => {
+
+  if(_.includes(['development'], process.env.NODE_ENV)) console.log(err)
+
+  if(err.name == 'BackframeError') return fail(res, err.code, err.message, { errors: err.errors })
+
+  return fail(res, 500, err.message)
 
 }

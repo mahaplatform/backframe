@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.runHooks = exports.runAlterRecord = exports.runAlterRequest = exports.buildHandler = exports.expandLifecycle = exports.normalizeOptions = undefined;
+exports.renderError = exports.runHooks = exports.runAlterRecord = exports.runAlterRequest = exports.buildHandler = exports.expandLifecycle = exports.normalizeOptions = undefined;
 
 var _bluebird = require('bluebird');
 
@@ -27,6 +27,10 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _knex = require('../../services/knex');
+
+var _knex2 = _interopRequireDefault(_knex);
+
 var _utils = require('../../utils');
 
 var _options = require('../../utils/options');
@@ -36,6 +40,8 @@ var _core = require('../../utils/core');
 var _constants = require('../../constants');
 
 var constants = _interopRequireWildcard(_constants);
+
+var _response = require('../../utils/response');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -100,97 +106,118 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
     var recordTick = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
 
 
-    return options.bookshelf.transaction(function () {
+    return _knex2.default.transaction(function () {
       var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(trx) {
         var result;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                _context.prev = 0;
+                _context.next = 3;
                 return runAlterRequest(req, trx, alterRequest);
 
-              case 2:
+              case 3:
                 req = _context.sent;
 
 
                 recordTick('alterRequest');
 
-                _context.next = 6;
+                _context.next = 7;
                 return runHooks(req, trx, before);
 
-              case 6:
+              case 7:
 
                 recordTick('before');
 
-                _context.next = 9;
+                _context.next = 10;
                 return processor(req, trx);
 
-              case 9:
+              case 10:
                 result = _context.sent;
 
 
                 recordTick('processor');
 
-                _context.next = 13;
+                _context.next = 14;
                 return runHooks(req, trx, after, result);
 
-              case 13:
+              case 14:
 
                 recordTick('after');
 
                 if (!renderer) {
-                  _context.next = 20;
+                  _context.next = 21;
                   break;
                 }
 
-                _context.next = 17;
+                _context.next = 18;
                 return renderer(req, trx, result);
 
-              case 17:
+              case 18:
                 _context.t0 = _context.sent;
-                _context.next = 21;
+                _context.next = 22;
                 break;
 
-              case 20:
+              case 21:
                 _context.t0 = result;
 
-              case 21:
+              case 22:
                 result = _context.t0;
 
 
                 recordTick('renderer');
 
-                _context.next = 25;
+                _context.next = 26;
                 return runAlterRecord(req, trx, alterRecord, result);
 
-              case 25:
+              case 26:
                 result = _context.sent;
 
 
                 recordTick('alterRecord');
 
-                _context.next = 29;
+                _context.next = 30;
                 return responder(req, res, result);
 
-              case 29:
+              case 30:
 
                 recordTick('responder');
 
+                _context.next = 33;
+                return trx.commit();
+
+              case 33:
+
+                recordTick('commit');
+
                 return _context.abrupt('return', result);
 
-              case 31:
+              case 37:
+                _context.prev = 37;
+                _context.t1 = _context['catch'](0);
+                _context.next = 41;
+                return trx.rollback(_context.t1);
+
+              case 41:
+
+                recordTick('rollback');
+
+              case 42:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, undefined);
+        }, _callee, undefined, [[0, 37]]);
       }));
 
       return function (_x4) {
         return _ref.apply(this, arguments);
       };
-    }());
+    }()).catch(function (err) {
+
+      return renderError(res, err);
+    });
   };
 };
 
@@ -324,4 +351,13 @@ var runHooks = exports.runHooks = function runHooks(req, trx, hooks) {
   return (0, _bluebird.map)(hooks, function (hook) {
     return runner(hook);
   });
+};
+
+var renderError = exports.renderError = function renderError(res, err) {
+
+  if (_lodash2.default.includes(['development'], process.env.NODE_ENV)) console.log(err);
+
+  if (err.name == 'BackframeError') return (0, _response.fail)(res, err.code, err.message, { errors: err.errors });
+
+  return (0, _response.fail)(res, 500, err.message);
 };

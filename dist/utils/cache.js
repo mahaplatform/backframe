@@ -1,21 +1,29 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.cache = exports.parseJSON = undefined;
+exports.parseJSON = undefined;
 
-var _regenerator = require("babel-runtime/regenerator");
+var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _stringify = require("babel-runtime/core-js/json/stringify");
+var _stringify = require('babel-runtime/core-js/json/stringify');
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _asyncToGenerator2 = require("babel-runtime/helpers/asyncToGenerator");
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _redis = require('../services/redis');
+
+var _redis2 = _interopRequireDefault(_redis);
+
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28,65 +36,46 @@ var parseJSON = exports.parseJSON = function parseJSON(string) {
   }
 };
 
-var cache = exports.cache = function cache(options) {
-
-  var redis = options.redis;
-
+exports.default = function (options) {
   return function () {
     var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(key, duration, method) {
-      var result, json;
+      var result, json, res;
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return redis.getAsync(key);
+              return _redis2.default.getAsync(key);
 
             case 2:
               result = _context.sent;
 
               if (!result) {
-                _context.next = 7;
+                _context.next = 5;
                 break;
               }
 
-              _context.t0 = {
-                cached: true,
-                data: parseJSON(result)
-              };
-              _context.next = 10;
-              break;
+              return _context.abrupt('return', parseJSON(result));
 
-            case 7:
-              _context.next = 9;
+            case 5:
+              _context.next = 7;
               return method();
 
-            case 9:
-              _context.t0 = _context.sent;
+            case 7:
+              json = _context.sent;
+              _context.next = 10;
+              return _redis2.default.setAsync(key, (0, _stringify2.default)(json));
 
             case 10:
-              json = _context.t0;
-
-              if (!json.cached) {
-                _context.next = 13;
-                break;
-              }
-
-              return _context.abrupt("return", json.data);
+              res = _context.sent;
+              _context.next = 13;
+              return _redis2.default.expireAsync(key, duration);
 
             case 13:
-              _context.next = 15;
-              return redis.setAsync(key, (0, _stringify2.default)(json));
+              return _context.abrupt('return', json);
 
-            case 15:
-              _context.next = 17;
-              return redis.expireAsync(key, duration);
-
-            case 17:
-              return _context.abrupt("return", json);
-
-            case 18:
-            case "end":
+            case 14:
+            case 'end':
               return _context.stop();
           }
         }
@@ -98,5 +87,3 @@ var cache = exports.cache = function cache(options) {
     };
   }();
 };
-
-exports.default = cache;

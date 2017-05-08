@@ -25,6 +25,10 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _knex = require('../services/knex');
+
+var _knex2 = _interopRequireDefault(_knex);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var queries = [];
@@ -35,20 +39,17 @@ var ticks = [];
 
 var startTime = null;
 
-var group = [];
-
 var startQuery = function startQuery(query) {
   startTime = process.hrtime();
-  group.push(query);
   queries.push(query);
 };
 
 var endQuery = function endQuery(response, query) {
+  if (!query.__knexQueryUid) return;
   var diff = process.hrtime(startTime);
   var ms = diff[0] * 1e3 + diff[1] * 1e-6;
-  group.forEach(function (query) {
-    query.duration = ms.toFixed(3);
-  });
+  var index = _lodash2.default.findIndex(queries, { __knexQueryUid: query.__knexQueryUid });
+  queries[index].duration = ms.toFixed(3);
 };
 
 var beginLogger = exports.beginLogger = function beginLogger(options) {
@@ -60,14 +61,14 @@ var beginLogger = exports.beginLogger = function beginLogger(options) {
 
     started = (0, _moment2.default)();
 
-    options.knex.client.on('query', startQuery).on('query-response', endQuery);
+    _knex2.default.client.on('query', startQuery).on('query-response', endQuery);
   };
 };
 
 var endLogger = exports.endLogger = function endLogger(options) {
   return function () {
 
-    options.knex.client.removeListener('query', startQuery).removeListener('query-response', endQuery);
+    _knex2.default.client.removeListener('query', startQuery).removeListener('query-response', endQuery);
   };
 };
 
@@ -109,7 +110,8 @@ var printLogger = exports.printLogger = function printLogger(options) {
       console.log('%s %s', _chalk2.default.red(key.toUpperCase() + ':'), (0, _stringify2.default)(extra[key]));
     });
     queries.forEach(function (query) {
-      console.log('%s %s %s %s', _chalk2.default.green('SQL:'), query.sql, query.bindings ? _chalk2.default.magenta('{' + query.bindings.join(', ') + '}') : '', _chalk2.default.grey(query.duration + 'ms'));
+      var duration = query.duration ? _chalk2.default.grey(query.duration + 'ms') : '';
+      console.log('%s %s %s %s', _chalk2.default.green('SQL:'), query.sql, query.bindings ? _chalk2.default.magenta('{' + query.bindings.join(', ') + '}') : '', duration);
     });
     if (result && result.errors) console.log('%s %s', _chalk2.default.red('ERRORS:'), (0, _stringify2.default)(result.errors));
     if (!_lodash2.default.isEmpty(ticks)) console.log('%s %s', _chalk2.default.red('BENCHMERK:'), expandBenchmark(ticks));

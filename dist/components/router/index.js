@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.renderError = exports.buildRouter = exports.normalizeOptions = undefined;
+exports.buildRouter = exports.normalizeOptions = undefined;
 
 var _regenerator = require('babel-runtime/regenerator');
 
@@ -52,8 +52,6 @@ var _constants = require('../../constants');
 var constants = _interopRequireWildcard(_constants);
 
 var _logger = require('../../utils/logger');
-
-var _response = require('../../utils/response');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -136,15 +134,13 @@ var buildRoute = function buildRoute(options, handler) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.prev = 0;
-
 
               (0, _logger.beginLogger)(options)();
 
-              _context.next = 4;
+              _context.next = 3;
               return handler(req, res, _logger.recordTick);
 
-            case 4:
+            case 3:
               result = _context.sent;
 
 
@@ -152,35 +148,16 @@ var buildRoute = function buildRoute(options, handler) {
 
               (0, _logger.printLogger)(options)(req, res, result);
 
-              _context.next = 12;
-              break;
-
-            case 9:
-              _context.prev = 9;
-              _context.t0 = _context['catch'](0);
-
-
-              renderError(res, _context.t0);
-
-            case 12:
+            case 6:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, undefined, [[0, 9]]);
+      }, _callee, undefined);
     }));
 
     return function (_x3, _x4) {
       return _ref.apply(this, arguments);
     };
   }();
-};
-
-var renderError = exports.renderError = function renderError(res, err) {
-
-  if (_lodash2.default.includes(['development'], process.env.NODE_ENV)) console.log(err);
-
-  if (err.name == 'BackframeError') return (0, _response.fail)(res, err.code, err.message, { errors: err.errors });
-
-  return (0, _response.fail)(res, 500, err.message);
 };

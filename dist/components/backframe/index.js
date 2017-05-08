@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _environment = require('../../services/environment');
+
+var _environment2 = _interopRequireDefault(_environment);
+
 var _options = require('../../utils/options');
 
 var _handler = require('../handler');
@@ -37,9 +41,6 @@ exports.default = function () {
 
 
   var TYPES = {
-    bookshelf: { type: 'object', required: true },
-    knex: { type: 'object', required: true },
-    redis: { type: 'object', required: false },
     plugins: { type: 'object[]', required: false, default: [] }
   };
 

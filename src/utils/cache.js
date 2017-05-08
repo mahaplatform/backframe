@@ -1,3 +1,6 @@
+import redis from '../services/redis'
+import moment from 'moment'
+
 export const parseJSON = string => {
 
   try {
@@ -8,29 +11,18 @@ export const parseJSON = string => {
 
 }
 
-export const cache = (options) => {
+export default options => async (key, duration, method) => {
 
-  const redis = options.redis
+  const result = await redis.getAsync(key)
 
-  return async (key, duration, method) => {
+  if(result) return parseJSON(result)
 
-    const result = await redis.getAsync(key)
+  const json = await method()
 
-    const json = result ? {
-      cached: true,
-      data: parseJSON(result)
-    } : await method()
+  const res = await redis.setAsync(key, JSON.stringify(json))
 
-    if(json.cached) return json.data
+  await redis.expireAsync(key, duration)
 
-    await redis.setAsync(key, JSON.stringify(json))
-
-    await redis.expireAsync(key, duration)
-
-    return json
-
-  }
+  return json
 
 }
-
-export default cache

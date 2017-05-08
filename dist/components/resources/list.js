@@ -14,6 +14,10 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _knex = require('../../services/knex');
+
+var _knex2 = _interopRequireDefault(_knex);
+
 var _utils = require('../../utils');
 
 var _core = require('../../utils/core');
@@ -57,7 +61,7 @@ exports.default = function (buildRoute) {
 
       var fetchOptions = options.withRelated ? { withRelated: (0, _core.coerceArray)(options.withRelated), transacting: trx } : { transacting: trx };
 
-      var limit = parseInt(_lodash2.default.get(req.query, '$page.limit')) || 50;
+      var limit = _lodash2.default.get(req.query, '$page.limit') ? parseInt(_lodash2.default.get(req.query, '$page.limit')) : 50;
 
       var skip = parseInt(_lodash2.default.get(req.query, '$page.skip')) || 0;
 
@@ -106,10 +110,10 @@ exports.default = function (buildRoute) {
         }).fetchAll({ transacting: trx });
       };
 
-      var queryObject = query(options.knex(tableName)).toSQL();
+      var queryObject = query((0, _knex2.default)(tableName)).toSQL();
 
       var count = function count() {
-        return options.knex.raw('select count(*) as count from (' + queryObject.sql + ') as temp', queryObject.bindings).transacting(trx);
+        return _knex2.default.raw('select count(*) as count from (' + queryObject.sql + ') as temp', queryObject.bindings).transacting(trx);
       };
 
       var paged = function paged() {
@@ -119,7 +123,7 @@ exports.default = function (buildRoute) {
 
           qb = query(qb);
 
-          if (req.query.$page) {
+          if (limit > 0) {
 
             qb.limit(limit).offset(skip);
           }
@@ -136,24 +140,17 @@ exports.default = function (buildRoute) {
         });
       };
 
-      if (req.query.$page) {
+      return (0, _bluebird.all)([all(), count(), paged()]).then(function (responses) {
 
-        return (0, _bluebird.all)([all(), count(), paged()]).then(function (responses) {
+        var all = parseInt(responses[0].toJSON()[0].count);
 
-          var all = parseInt(responses[0].toJSON()[0].count);
+        var totalResonse = responses[1].rows ? responses[1].rows[0] : responses[1][0];
 
-          var totalResonse = responses[1].rows ? responses[1].rows[0] : responses[1][0];
+        var total = totalResonse.count ? parseInt(totalResonse.count) : 0;
 
-          var total = totalResonse.count ? parseInt(totalResonse.count) : 0;
+        var records = responses[2];
 
-          var records = responses[2];
-
-          return { all: all, total: total, records: records, limit: limit, skip: skip };
-        });
-      }
-
-      return paged().then(function (records) {
-        return { records: records };
+        return { all: all, total: total, records: records, limit: limit, skip: skip };
       });
     };
   };

@@ -1,3 +1,4 @@
+import environment from '../../services/environment'
 import { validateOptions } from '../../utils/options'
 import handler from '../handler'
 import route from '../route'
@@ -9,9 +10,6 @@ import table from '../table'
 export default (userOptions = {}) => {
 
   const TYPES = {
-    bookshelf: { type: 'object', required: true },
-    knex: { type: 'object', required: true },
-    redis: { type: 'object', required: false },
     plugins: { type: 'object[]', required: false, default: [] }
   }
 
