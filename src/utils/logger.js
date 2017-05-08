@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import chalk from 'chalk'
 import moment from 'moment'
-import knex from '../services/knex'
 
 let queries = []
 
@@ -32,13 +31,13 @@ export const beginLogger = options => () => {
 
   started = moment()
 
-  knex.client.on('query', startQuery).on('query-response', endQuery)
+  options.knex.client.on('query', startQuery).on('query-response', endQuery)
 
 }
 
 export const endLogger = options => () => {
 
-  knex.client.removeListener('query', startQuery).removeListener('query-response', endQuery)
+  options.knex.client.removeListener('query', startQuery).removeListener('query-response', endQuery)
 
 }
 

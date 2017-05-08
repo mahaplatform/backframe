@@ -23,7 +23,6 @@ export default (backframeOptions = {}) => {
       alterRequest: { type: ['function','function{}'], required: false },
       alterRecord: { type: ['function','function{}'], required: false },
       before: { type: ['function','function{}'], required: false },
-      cacheFor: { type: 'integer', required: false },
       defaultParams: { type: 'function', required: false },
       defaultSort: { type: ['string','string[]'], required: false, default: '-created_at' },
       dependents: { type: 'object[]', required: false },
@@ -48,7 +47,7 @@ export default (backframeOptions = {}) => {
     validateOptions('resources', userOptions, TYPES)
 
     const mergedOptions = {
-      ..._.pick(backframeOptions, ['defaultFormat','defaultLimit']),
+      ..._.pick(backframeOptions, ['defaultFormat','defaultLimit','knex']),
       ...userOptions
     }
 

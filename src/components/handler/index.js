@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import knex from '../../services/knex'
 import { defaultProcessor } from '../../utils'
 import { validateOptions, defaultOptions } from '../../utils/options'
 import { coerceArray, applyToRecords } from '../../utils/core'
@@ -60,7 +59,7 @@ export const buildHandler = (options) => {
 
   return (req, res, recordTick = () => {}) => {
 
-    return knex.transaction(async trx => {
+    return options.knex.transaction(async trx => {
 
       try {
 
@@ -92,21 +91,15 @@ export const buildHandler = (options) => {
 
         recordTick('responder')
 
-        await trx.commit(result)
-
-        recordTick('commit')
+        return await trx.commit(result)
 
       } catch(err) {
 
         await trx.rollback(err)
 
-        recordTick('rollback')
+        return renderError(res, err)
 
       }
-
-    }).catch(err => {
-
-      return renderError(res, err)
 
     })
 
@@ -164,6 +157,8 @@ export const renderError = (res, err) => {
 
   if(err.name == 'BackframeError') return fail(res, err.code, err.message, { errors: err.errors })
 
-  return fail(res, 500, err.message)
+  fail(res, 500, err.message)
+
+  return err
 
 }

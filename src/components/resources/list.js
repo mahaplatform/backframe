@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import knex from '../../services/knex'
 import { defaultQuery, defaultRenderer, defaultResponder } from '../../utils'
 import { coerceArray } from '../../utils/core'
 import { extractSort, filter } from '../../utils/list'
@@ -79,9 +78,9 @@ export default (buildRoute) => {
 
     }).fetchAll({ transacting: trx })
 
-    const queryObject = query(knex(tableName)).toSQL()
+    const queryObject = query(options.knex(tableName)).toSQL()
 
-    const count = () => knex.raw(`select count(*) as count from (${queryObject.sql}) as temp`, queryObject.bindings).transacting(trx)
+    const count = () => options.knex.raw(`select count(*) as count from (${queryObject.sql}) as temp`, queryObject.bindings).transacting(trx)
 
     const paged = () => options.model.query(qb => {
 

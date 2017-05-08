@@ -1,8 +1,11 @@
 import { expect } from 'chai'
 
 const buildHandler = require('../index').default({
-  bookshelf: {
-    transaction: (cb) => cb(null) 
+  knex: {
+    transaction: (cb) => cb({
+      commit: (result) => Promise.resolve(result),
+      rollback: () => {}
+    })
   }
 })
 
@@ -27,7 +30,7 @@ export default () => {
   it('executes with only a processor', (done) => {
 
     const handler = buildHandler({
-      processor: req => 'foo'
+      processor: (req, trx) => 'foo'
     })
 
     handler({}, res).then(result => {
@@ -40,8 +43,8 @@ export default () => {
   it('succeeds with a single alterRequest hook', (done) => {
 
     const handler = buildHandler({
-      alterRequest: req => { done(); return 'foo' },
-      processor: req => ''
+      alterRequest: (req, trx) => { done(); return 'foo' },
+      processor: (req, trx) => ''
     })
 
     handler({}, res)
@@ -52,10 +55,10 @@ export default () => {
 
     const handler = buildHandler({
       alterRequest: [
-        req => req,
-        req => { done(); return req }
+        (req, trx) => req,
+        (req, trx) => { done(); return req }
       ],
-      processor: req => ''
+      processor: (req, trx) => ''
     })
 
     handler({}, res)
@@ -65,11 +68,14 @@ export default () => {
   it('fails with a failed alterRequest hook', (done) => {
 
     const handler = buildHandler({
-      alterRequest: req => { throw new Error() },
-      processor: req => ''
+      alterRequest: (req, trx) => { throw new Error() },
+      processor: (req, trx) => ''
     })
 
-    handler({}, res).catch(err => done())
+    handler({}, res).then(result => {
+      expect(result instanceof Error).to.be.true
+      done()
+    })
 
   })
 
@@ -77,16 +83,16 @@ export default () => {
 
     const handler = buildHandler({
       alterRequest: [
-        req => ({
+        (req, trx) => ({
           ...req,
           bar: 2
         }),
-        req => ({
+        (req, trx) => ({
           ...req,
           baz: 3
         })
       ],
-      processor: req => {
+      processor: (req, trx) => {
         expect(req).to.eql({
           foo: 1,
           bar: 2,
@@ -115,8 +121,8 @@ export default () => {
   it('succeeds with a single alterRecord hook', (done) => {
 
     const handler = buildHandler({
-      processor: req => '',
-      alterRecord: (req, result) => done()
+      processor: (req, trx) => '',
+      alterRecord: (req, trx, result) => done()
     })
 
     handler({}, res)
@@ -126,10 +132,10 @@ export default () => {
   it('succeeds with multiple alterRecord hooks', (done) => {
 
     const handler = buildHandler({
-      processor: req => '',
+      processor: (req, trx) => '',
       alterRecord: [
-        (req, result) => '',
-        (req, result) => done()
+        (req, trx, result) => '',
+        (req, trx, result) => done()
       ]
     })
 
@@ -140,11 +146,14 @@ export default () => {
   it('fails with a failed alterRecord hook', (done) => {
 
     const handler = buildHandler({
-      processor: (req, result) => 'null',
-      alterRecord: (req, result) => { throw new Error() }
+      processor: (req, trx, result) => 'null',
+      alterRecord: (req, trx, result) => { throw new Error() }
     })
 
-    handler({}, res).catch(err => done())
+    handler({}, res).then(result => {
+      expect(result instanceof Error).to.be.true
+      done()
+    })
 
   })
 
@@ -153,8 +162,8 @@ export default () => {
 const testSingleHookBeforeProcessor = (key, done) => {
 
   const handler = buildHandler({
-    [key]: req => done(),
-    processor: req => 'foo'
+    [key]: (req, trx) => done(),
+    processor: (req, trx) => 'foo'
   })
 
   handler({}, res)
@@ -165,11 +174,11 @@ const testMultipleHooksBeforeProcessor = (key, done) => {
 
   const handler = buildHandler({
     [key]: [
-      req => '',
-      req => '',
-      req => done()
+      (req, trx) => '',
+      (req, trx) => '',
+      (req, trx) => done()
     ],
-    processor: req => 'foo'
+    processor: (req, trx) => 'foo'
   })
 
   handler({}, res)
@@ -179,19 +188,22 @@ const testMultipleHooksBeforeProcessor = (key, done) => {
 const testFailedHookBeforeProcessor = (key, done) => {
 
   const handler = buildHandler({
-    [key]: (req, result) => { throw new Error() },
-    processor: req => 'foo'
+    [key]: (req, trx, result) => { throw new Error() },
+    processor: (req, trx) => 'foo'
   })
 
-  handler({}, res).catch(err => done())
+  handler({}, res).then(result => {
+    expect(result instanceof Error).to.be.true
+    done()
+  })
 
 }
 
 const testSingleHookAfterProcessor = (key, done) => {
 
   const handler = buildHandler({
-    [key]: (req, result) => done(),
-    processor: req => 'foo'
+    [key]: (req, trx, result) => done(),
+    processor: (req, trx) => 'foo'
   })
 
   handler({}, res)
@@ -202,11 +214,11 @@ const testMultipleHooksAfterProcessor = (key, done) => {
 
   const handler = buildHandler({
     [key]: [
-      (req, result) => '',
-      (req, result) => '',
-      (req, result) => done()
+      (req, trx, result) => '',
+      (req, trx, result) => '',
+      (req, trx, result) => done()
     ],
-    processor: req => 'foo'
+    processor: (req, trx) => 'foo'
   })
 
   handler({}, res)
@@ -216,10 +228,13 @@ const testMultipleHooksAfterProcessor = (key, done) => {
 const testFailedHookAfterProcessor = (key, done) => {
 
   const handler = buildHandler({
-    [key]: (req, result) => { throw new Error() },
-    processor: req => 'foo'
+    [key]: (req, trx, result) => { throw new Error() },
+    processor: (req, trx) => 'foo'
   })
 
-  handler({}, res).catch(err => done())
+  handler({}, res).then(result => {
+    expect(result instanceof Error).to.be.true
+    done()
+  })
 
 }

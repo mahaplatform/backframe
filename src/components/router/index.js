@@ -23,7 +23,7 @@ export default (backframeOptions = {}) => {
     validateOptions('router', userOptions, TYPES)
 
     const mergedOptions = {
-      ..._.pick(backframeOptions, ['knex','redis']),
+      ..._.pick(backframeOptions, ['knex']),
       ...userOptions
     }
 

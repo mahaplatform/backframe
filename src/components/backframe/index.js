@@ -1,4 +1,3 @@
-import environment from '../../services/environment'
 import { validateOptions, defaultOptions } from '../../utils/options'
 import handler from '../handler'
 import queue from '../queue'
@@ -14,6 +13,7 @@ export default (userOptions = {}) => {
   const TYPES = {
     defaultLimit: { type: 'integer', required: false, default: 100 },
     defaultFormat: { type: 'string', required: false, default: 'json' },
+    knex: { type: 'object', required: true },
     plugins: { type: 'object[]', required: false, default: [] }
   }
 

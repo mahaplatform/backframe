@@ -7,12 +7,10 @@ export default () => {
 
     const backframe = Backframe({
       bookshelf: {},
-      knex: {},
-      redis: {}
+      knex: {}
     })
 
     expect(backframe).to.be.an('object')
-    expect(backframe.handler).to.be.a('function')
     expect(backframe.resources).to.be.a('function')
     expect(backframe.route).to.be.a('function')
     expect(backframe.router).to.be.a('function')
@@ -25,8 +23,7 @@ export default () => {
 
     const backframe = Backframe({
       bookshelf: {},
-      knex: {},
-      redis: {}
+      knex: {}
     })
 
   })
