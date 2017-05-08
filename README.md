@@ -50,7 +50,7 @@ app.use(backframe.router({
 app.listen(3000)
 ```
 
-[Learn more about apis](https://github.com/mahaplatform/backframe/blob/master/docs/apis.md)
+[Learn more about apis](https://github.com/mahaplatform/backframe/blob/master/docs/api.md)
 
 ## Service Workers
 Backframe can also be used to create service workers that can asynchronously
@@ -85,8 +85,15 @@ const worker = backframe.worker({
 worker.scratch.add({ id: 23 }, { priority: 'high' })
 ```
 
-[Learn more about service workers](https://github.com/mahaplatform/backframe/blob/master/docs/workers.md)
+[Learn more about service workers](https://github.com/mahaplatform/backframe/blob/master/docs/worker.md)
 
+## Handlers
+The fundamental actor in a Backframe application is the handler. A handler is a
+function that performs an atomic unit of work. A handler has the signature `req => result`
+and can be used within an Express middleware. These functions can be used as
+route handlers for express and work processors for bull queues.
+
+[Learn more about handlers](https://github.com/mahaplatform/backframe/blob/master/docs/handler.md)
 
 ## Plugins
 Backframe has a plugin framework that enables developers to extend Backframe
