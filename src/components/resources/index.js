@@ -82,7 +82,6 @@ export const normalizeOptions = (userOptions, types) => {
 // build all rest and custom routes
 export const buildResources = (options, buildSegment, buildRoute) => {
 
-
   const pathPrefix = options.pathPrefix ? `${options.pathPrefix}/${options.path}` : `/${options.path}`
 
   return buildSegment({
@@ -104,7 +103,7 @@ export const buildCustomRoutes = (options, buildRoute) => {
 
     const action = options.actions[name]
 
-    const path = (action.on === 'collection') ? `/${action.path}` : `/:id/${action.path}`
+    const path = `/:id/${action.path}`
 
     const namespaced = { ...action, path }
 

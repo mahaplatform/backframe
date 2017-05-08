@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.renderError = exports.runHooks = exports.runAlterRecord = exports.runAlterRequest = exports.buildHandler = exports.expandLifecycle = exports.normalizeOptions = undefined;
+exports.renderError = exports.runResponder = exports.runHooks = exports.runAlterRecord = exports.runAlterRequest = exports.buildHandler = exports.expandLifecycle = exports.normalizeOptions = undefined;
 
 var _bluebird = require('bluebird');
 
@@ -80,9 +80,7 @@ exports.default = function () {
 
 var normalizeOptions = exports.normalizeOptions = function normalizeOptions(userOptions, backframeOptions, types) {
 
-  return expandLifecycle((0, _extends4.default)({}, (0, _options.defaultOptions)(types), {
-    responder: (0, _utils.defaultResponder)('Success')(userOptions)
-  }, backframeOptions, userOptions));
+  return expandLifecycle((0, _extends4.default)({}, (0, _options.defaultOptions)(types), backframeOptions, userOptions));
 };
 
 var expandLifecycle = exports.expandLifecycle = function expandLifecycle(userOptions) {
@@ -178,37 +176,38 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
                 recordTick('alterRecord');
 
                 _context.next = 30;
-                return responder(req, res, result);
+                return runResponder(req, res, result, responder);
 
               case 30:
 
                 recordTick('responder');
 
                 _context.next = 33;
-                return trx.commit();
+                return trx.commit(result);
 
               case 33:
 
                 recordTick('commit');
 
-                return _context.abrupt('return', result);
-
-              case 37:
-                _context.prev = 37;
-                _context.t1 = _context['catch'](0);
                 _context.next = 41;
+                break;
+
+              case 36:
+                _context.prev = 36;
+                _context.t1 = _context['catch'](0);
+                _context.next = 40;
                 return trx.rollback(_context.t1);
 
-              case 41:
+              case 40:
 
                 recordTick('rollback');
 
-              case 42:
+              case 41:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, undefined, [[0, 37]]);
+        }, _callee, undefined, [[0, 36]]);
       }));
 
       return function (_x4) {
@@ -351,6 +350,13 @@ var runHooks = exports.runHooks = function runHooks(req, trx, hooks) {
   return (0, _bluebird.map)(hooks, function (hook) {
     return runner(hook);
   });
+};
+
+var runResponder = exports.runResponder = function runResponder(req, res, result, responder) {
+
+  if (!responder) return null;
+
+  return responder(req, res, result);
 };
 
 var renderError = exports.renderError = function renderError(res, err) {

@@ -1,5 +1,6 @@
+import environment from './services/environment'
 import express from 'express'
-import backframe from 'app/services/backframe'
+import backframe from './services/backframe'
 import routes from './app/routes'
 
 const app = express()

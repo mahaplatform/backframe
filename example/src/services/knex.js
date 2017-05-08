@@ -13,12 +13,5 @@ module.exports = new Knex({
     min: 3,
     max: 5
   },
-  useNullAsDefault: true,
-  migrations: {
-    tableName: 'schema_migrations',
-    directory: './src/db/migrations'
-  },
-  seeds: {
-    directory: './src/db'
-  }
+  useNullAsDefault: true
 })

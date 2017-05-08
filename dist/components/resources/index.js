@@ -152,7 +152,7 @@ var buildCustomRoutes = exports.buildCustomRoutes = function buildCustomRoutes(o
 
     var action = options.actions[name];
 
-    var path = action.on === 'collection' ? '/' + action.path : '/:id/' + action.path;
+    var path = '/:id/' + action.path;
 
     var namespaced = (0, _extends6.default)({}, action, { path: path });
 

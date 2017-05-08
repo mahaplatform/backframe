@@ -19,6 +19,10 @@ var _handler = require('../handler');
 
 var _handler2 = _interopRequireDefault(_handler);
 
+var _queue = require('../queue');
+
+var _queue2 = _interopRequireDefault(_queue);
+
 var _route = require('../route');
 
 var _route2 = _interopRequireDefault(_route);
@@ -39,6 +43,10 @@ var _table = require('../table');
 
 var _table2 = _interopRequireDefault(_table);
 
+var _worker = require('../worker');
+
+var _worker2 = _interopRequireDefault(_worker);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
@@ -56,12 +64,13 @@ exports.default = function () {
   var options = normalizeOptions(userOptions, TYPES);
 
   return {
-    handler: (0, _handler2.default)(options),
+    queue: (0, _queue2.default)(options),
     route: (0, _route2.default)(options),
     resources: (0, _resources2.default)(options),
     router: (0, _router2.default)(options),
     segment: (0, _segment2.default)(options),
-    table: (0, _table2.default)(options)
+    table: (0, _table2.default)(options),
+    worker: (0, _worker2.default)(options)
   };
 };
 

@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import knex from '../../services/knex'
-import { defaultProcessor, defaultResponder } from '../../utils'
+import { defaultProcessor } from '../../utils'
 import { validateOptions, defaultOptions } from '../../utils/options'
 import { coerceArray, applyToRecords } from '../../utils/core'
 import * as constants from '../../constants'
@@ -39,7 +39,6 @@ export const normalizeOptions = (userOptions, backframeOptions, types) => {
 
   return expandLifecycle({
     ...defaultOptions(types),
-    responder: defaultResponder('Success')(userOptions),
     ...backframeOptions,
     ...userOptions,
   })
@@ -89,15 +88,13 @@ export const buildHandler = (options) => {
 
         recordTick('alterRecord')
 
-        await responder(req, res, result)
+        await runResponder(req, res, result, responder)
 
         recordTick('responder')
 
-        await trx.commit()
+        await trx.commit(result)
 
         recordTick('commit')
-
-        return result
 
       } catch(err) {
 
@@ -150,6 +147,14 @@ export const runHooks = (req, trx, hooks, result = null) => {
   if(hooks.length === 1) return runner(hooks[0])
 
   return Promise.map(hooks, hook => runner(hook))
+
+}
+
+export const runResponder = (req, res, result, responder) => {
+
+  if(!responder) return null
+
+  return responder(req, res, result)
 
 }
 

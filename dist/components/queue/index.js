@@ -3,11 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.buildRoute = exports.normalizeOptions = undefined;
-
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+exports.buildQueue = exports.normalizeOptions = undefined;
 
 var _extends2 = require('babel-runtime/helpers/extends');
 
@@ -16,8 +12,6 @@ var _extends3 = _interopRequireDefault(_extends2);
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
-
-var _utils = require('../../utils');
 
 var _core = require('../../utils/core');
 
@@ -43,21 +37,18 @@ exports.default = function () {
       after: { type: ['function', 'function[]'], required: false },
       alterRequest: { type: ['function', 'function[]'], required: false },
       before: { type: ['function', 'function[]'], required: false },
-      cacheFor: { type: 'integer', required: false },
-      handler: { type: 'function', required: false },
-      method: { type: 'string', required: true, default: 'get' },
-      path: { type: 'string', required: true },
+      name: { type: 'string', required: true },
       processor: { type: 'function', required: false },
       renderer: { type: 'function', required: false },
       responder: { type: 'function', required: false },
       serializer: { type: 'function', required: false }
     }, backframeOptions.plugins);
 
-    (0, _options.validateOptions)('route', userOptions, TYPES);
+    (0, _options.validateOptions)('queue', userOptions, TYPES);
 
     var options = normalizeOptions(userOptions, TYPES);
 
-    return buildRoute(options);
+    return buildQueue(options);
   };
 };
 
@@ -66,18 +57,13 @@ exports.default = function () {
 
 var normalizeOptions = exports.normalizeOptions = function normalizeOptions(userOptions, types) {
 
-  return (0, _extends3.default)({}, (0, _options.defaultOptions)(types), {
-    responder: (0, _utils.defaultResponder)('Success')
-  }, userOptions);
+  return (0, _extends3.default)({}, (0, _options.defaultOptions)(types), userOptions);
 };
 
-// convert options into route fomat { method, path, options, handler]}
-var buildRoute = exports.buildRoute = function buildRoute(options) {
+var buildQueue = exports.buildQueue = function buildQueue(options) {
 
   return {
-    method: options.method,
-    path: options.path,
-    options: _lodash2.default.omit(options, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_LIFECYCLE), ['method', 'path'])),
-    handler: options.handler || _lodash2.default.pick(options, constants.BACKFRAME_LIFECYCLE)
+    options: _lodash2.default.omit(options, constants.BACKFRAME_LIFECYCLE),
+    handler: _lodash2.default.pick(options, constants.BACKFRAME_LIFECYCLE)
   };
 };

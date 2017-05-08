@@ -1,11 +1,13 @@
 import environment from '../../services/environment'
 import { validateOptions, defaultOptions } from '../../utils/options'
 import handler from '../handler'
+import queue from '../queue'
 import route from '../route'
 import resources from '../resources'
 import router from '../router'
 import segment from '../segment'
 import table from '../table'
+import worker from '../worker'
 
 export default (userOptions = {}) => {
 
@@ -20,12 +22,13 @@ export default (userOptions = {}) => {
   const options = normalizeOptions(userOptions, TYPES)
 
   return {
-    handler: handler(options),
+    queue: queue(options),
     route: route(options),
     resources: resources(options),
     router: router(options),
     segment: segment(options),
-    table: table(options)
+    table: table(options),
+    worker: worker(options)
   }
 
 }

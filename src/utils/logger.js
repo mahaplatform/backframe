@@ -91,3 +91,23 @@ export const printLogger = options => (req, res, result) => {
   console.log('=========================================================')
   console.log('')
 }
+
+export const printQueue = options => (job, result) => {
+
+  console.log(result)
+
+  console.log('=========================================================')
+  console.log('%s %s', chalk.red('QUEUE:'), options.name)
+  console.log('=========================================================')
+  if(!_.isEmpty(job)) console.log('%s %s', chalk.red('DATA:'), JSON.stringify(job.data))
+  queries.forEach(query => {
+    const duration = query.duration ? chalk.grey(`${query.duration}ms`) : ''
+    console.log('%s %s %s %s', chalk.green('SQL:'), query.sql, query.bindings ? chalk.magenta(`{${query.bindings.join(', ')}}`) : '', duration)
+  })
+  if(result && result.errors) console.log('%s %s', chalk.red('ERRORS:'), JSON.stringify(result.errors))
+  if(result) console.log('%s %s', chalk.red('RESULT:'), JSON.stringify(result))
+  if(!_.isEmpty(ticks)) console.log('%s %s', chalk.red(`BENCHMERK:`), expandBenchmark(ticks))
+  console.log('%s rendered in %sms', chalk.red('RESPONSE:'), moment().diff(started, 'milliseconds'))
+  console.log('=========================================================')
+  console.log('')
+}

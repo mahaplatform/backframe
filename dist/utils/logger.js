@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.printLogger = exports.expandBenchmark = exports.recordTick = exports.endLogger = exports.beginLogger = undefined;
+exports.printQueue = exports.printLogger = exports.expandBenchmark = exports.recordTick = exports.endLogger = exports.beginLogger = undefined;
 
 var _keys = require('babel-runtime/core-js/object/keys');
 
@@ -116,6 +116,28 @@ var printLogger = exports.printLogger = function printLogger(options) {
     if (result && result.errors) console.log('%s %s', _chalk2.default.red('ERRORS:'), (0, _stringify2.default)(result.errors));
     if (!_lodash2.default.isEmpty(ticks)) console.log('%s %s', _chalk2.default.red('BENCHMERK:'), expandBenchmark(ticks));
     console.log('%s %s rendered in %sms', _chalk2.default.red('RESPONSE:'), res.statusCode, (0, _moment2.default)().diff(started, 'milliseconds'));
+    console.log('=========================================================');
+    console.log('');
+  };
+};
+
+var printQueue = exports.printQueue = function printQueue(options) {
+  return function (job, result) {
+
+    console.log(result);
+
+    console.log('=========================================================');
+    console.log('%s %s', _chalk2.default.red('QUEUE:'), options.name);
+    console.log('=========================================================');
+    if (!_lodash2.default.isEmpty(job)) console.log('%s %s', _chalk2.default.red('DATA:'), (0, _stringify2.default)(job.data));
+    queries.forEach(function (query) {
+      var duration = query.duration ? _chalk2.default.grey(query.duration + 'ms') : '';
+      console.log('%s %s %s %s', _chalk2.default.green('SQL:'), query.sql, query.bindings ? _chalk2.default.magenta('{' + query.bindings.join(', ') + '}') : '', duration);
+    });
+    if (result && result.errors) console.log('%s %s', _chalk2.default.red('ERRORS:'), (0, _stringify2.default)(result.errors));
+    if (result) console.log('%s %s', _chalk2.default.red('RESULT:'), (0, _stringify2.default)(result));
+    if (!_lodash2.default.isEmpty(ticks)) console.log('%s %s', _chalk2.default.red('BENCHMERK:'), expandBenchmark(ticks));
+    console.log('%s rendered in %sms', _chalk2.default.red('RESPONSE:'), (0, _moment2.default)().diff(started, 'milliseconds'));
     console.log('=========================================================');
     console.log('');
   };
