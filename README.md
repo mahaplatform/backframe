@@ -33,9 +33,7 @@ import Backframe from 'backframe'
 import Kittens from from 'app/models/kittens'
 
 // initialize backframe
-const backframe = Backframe({
-  defaultLimit: 50
-})
+const backframe = Backframe()
 
 // create a resource
 const kittens = backframe.resources({
