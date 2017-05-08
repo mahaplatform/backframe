@@ -62,15 +62,17 @@ export const defaultRenderer = options => async (req, trx, result) => {
 
 export const defaultResponder = message => options => (req, res, result) => {
 
-  const format = req.params && req.params.format ? req.params.format : 'json'
+  const format = req.params && req.params.format ? req.params.format : options.defaultFormat
 
   if(!_.includes(['csv','tsv','xlsx','xml','json'], format)) {
     throw new BackframeError({ code: 415, message: 'We dont currently support this media type' })
   }
 
-  const pagination = (_.get(req, 'query.$page')) ? _.pick(result, ['all','total','limit','skip']) : null
+  const hasRecords = _.get(result, 'records')
 
-  const data = _.get(result, 'records') ? result.records : result
+  const pagination = hasRecords ? _.pick(result, ['all','total','limit','skip']) : null
+
+  const data = hasRecords ? result.records : result
 
   const responders = { csvResponder, jsonResponder, tsvResponder: csvResponder, xlsxResponder, xmlResponder }
 

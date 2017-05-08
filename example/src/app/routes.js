@@ -1,9 +1,9 @@
-import { resources } from 'app/services/backframe'
+import backframe from 'app/services/backframe'
 import Kitten from 'app/models/kitten'
 import KittenSerializer from 'app/serializers/kitten_serializer'
 import _ from 'lodash'
 
-export default resources({
+export default backframe.resources({
   allowedParams: ['name','age'],
   model: Kitten,
   filterParams: ['name','created_at'],

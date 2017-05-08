@@ -170,15 +170,17 @@ var defaultResponder = exports.defaultResponder = function defaultResponder(mess
   return function (options) {
     return function (req, res, result) {
 
-      var format = req.params && req.params.format ? req.params.format : 'json';
+      var format = req.params && req.params.format ? req.params.format : options.defaultFormat;
 
       if (!_lodash2.default.includes(['csv', 'tsv', 'xlsx', 'xml', 'json'], format)) {
         throw new _error2.default({ code: 415, message: 'We dont currently support this media type' });
       }
 
-      var pagination = _lodash2.default.get(req, 'query.$page') ? _lodash2.default.pick(result, ['all', 'total', 'limit', 'skip']) : null;
+      var hasRecords = _lodash2.default.get(result, 'records');
 
-      var data = _lodash2.default.get(result, 'records') ? result.records : result;
+      var pagination = hasRecords ? _lodash2.default.pick(result, ['all', 'total', 'limit', 'skip']) : null;
+
+      var data = hasRecords ? result.records : result;
 
       var responders = { csvResponder: _csv_responder2.default, jsonResponder: _json_responder2.default, tsvResponder: _csv_responder2.default, xlsxResponder: _xlsx_responder2.default, xmlResponder: _xml_responder2.default };
 

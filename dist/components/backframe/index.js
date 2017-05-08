@@ -3,6 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.normalizeOptions = undefined;
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _environment = require('../../services/environment');
 
@@ -41,17 +46,26 @@ exports.default = function () {
 
 
   var TYPES = {
+    defaultLimit: { type: 'integer', required: false, default: 100 },
+    defaultFormat: { type: 'string', required: false, default: 'json' },
     plugins: { type: 'object[]', required: false, default: [] }
   };
 
   (0, _options.validateOptions)('backframe', userOptions, TYPES);
 
+  var options = normalizeOptions(userOptions, TYPES);
+
   return {
-    handler: (0, _handler2.default)(userOptions),
-    route: (0, _route2.default)(userOptions),
-    resources: (0, _resources2.default)(userOptions),
-    router: (0, _router2.default)(userOptions),
-    segment: (0, _segment2.default)(userOptions),
-    table: (0, _table2.default)(userOptions)
+    handler: (0, _handler2.default)(options),
+    route: (0, _route2.default)(options),
+    resources: (0, _resources2.default)(options),
+    router: (0, _router2.default)(options),
+    segment: (0, _segment2.default)(options),
+    table: (0, _table2.default)(options)
   };
+};
+
+var normalizeOptions = exports.normalizeOptions = function normalizeOptions(userOptions, types) {
+
+  return (0, _extends3.default)({}, (0, _options.defaultOptions)(types), userOptions);
 };

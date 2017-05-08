@@ -34,9 +34,9 @@ export default (buildRoute) => {
 
     const fetchOptions = options.withRelated ? { withRelated: coerceArray(options.withRelated), transacting: trx } : { transacting: trx }
 
-    const limit = _.get(req.query, '$page.limit') ? parseInt(_.get(req.query, '$page.limit')) : 50
+    const limit = parseInt(_.get(req.query, '$page.limit') || options.defaultLimit)
 
-    const skip = parseInt(_.get(req.query, '$page.skip')) || 0
+    const skip = parseInt(_.get(req.query, '$page.skip') || 0)
 
     const query = qb => {
 

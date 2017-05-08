@@ -1,9 +1,9 @@
 import routes from 'app/routes'
-import { table } from 'app/services/backframe'
+import backframe from 'app/services/backframe'
 
 const method = process.argv[2] || 'all'
 
-const routingTable = table({
+const routingTable = backframe.table({
   method,
   routes
 })

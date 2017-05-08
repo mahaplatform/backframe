@@ -61,9 +61,9 @@ exports.default = function (buildRoute) {
 
       var fetchOptions = options.withRelated ? { withRelated: (0, _core.coerceArray)(options.withRelated), transacting: trx } : { transacting: trx };
 
-      var limit = _lodash2.default.get(req.query, '$page.limit') ? parseInt(_lodash2.default.get(req.query, '$page.limit')) : 50;
+      var limit = parseInt(_lodash2.default.get(req.query, '$page.limit') || options.defaultLimit);
 
-      var skip = parseInt(_lodash2.default.get(req.query, '$page.skip')) || 0;
+      var skip = parseInt(_lodash2.default.get(req.query, '$page.skip') || 0);
 
       var query = function query(qb) {
 

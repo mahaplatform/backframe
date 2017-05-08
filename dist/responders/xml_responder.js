@@ -51,7 +51,7 @@ exports.default = function (message, pagination, result, req, res) {
   };
 
   var data = (0, _xml2.default)({
-    response: req.query.$page ? [paginationSegment, dataSegment] : [dataSegment]
+    response: [paginationSegment, dataSegment]
   }, true);
 
   res.status(200).type('application/xml').send(data);

@@ -48,7 +48,7 @@ export default (backframeOptions = {}) => {
     validateOptions('resources', userOptions, TYPES)
 
     const mergedOptions = {
-      ..._.pick(backframeOptions, ['knex','redis']),
+      ..._.pick(backframeOptions, ['defaultFormat','defaultLimit']),
       ...userOptions
     }
 

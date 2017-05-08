@@ -112,7 +112,7 @@ exports.default = function () {
 
     (0, _options.validateOptions)('resources', userOptions, TYPES);
 
-    var mergedOptions = (0, _extends6.default)({}, _lodash2.default.pick(backframeOptions, ['knex', 'redis']), userOptions);
+    var mergedOptions = (0, _extends6.default)({}, _lodash2.default.pick(backframeOptions, ['defaultFormat', 'defaultLimit']), userOptions);
 
     var options = normalizeOptions(mergedOptions, TYPES);
 

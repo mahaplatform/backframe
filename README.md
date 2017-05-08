@@ -27,20 +27,24 @@ npm install --save backframe
 ```
 
 ## Usage
-Using backframe in your application is easy:
+Using Backframe in your application is easy:
 
 ```javascript
 import express from 'express'
-import { router, resources } from 'backframe'
+import Backframe from 'backframe'
 import Kittens from from 'app/models/kittens'
 
-const kittens = resources({
+const backframe = Backframe({
+  defaultLimit: 50
+})
+
+const kittens = backframe.resources({
   model: Kittens
 })
 
 const app = express()
 
-app.use(router({
+app.use(backframe.router({
   routes: kittens
 }))
 

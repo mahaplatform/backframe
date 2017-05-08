@@ -33,10 +33,10 @@ export default (message, pagination, result, req, res) => {
   }
 
   const data = xml({
-    response: (req.query.$page) ? [
+    response: [
       paginationSegment,
       dataSegment
-    ] : [ dataSegment ]
+    ]
   }, true)
 
   res.status(200).type('application/xml').send(data)
