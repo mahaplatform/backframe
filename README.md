@@ -32,16 +32,19 @@ import express from 'express'
 import Backframe from 'backframe'
 import Kittens from from 'app/models/kittens'
 
+// initialize backframe
 const backframe = Backframe({
   defaultLimit: 50
 })
 
+// create a resource
 const kittens = backframe.resources({
   model: Kittens
 })
 
 const app = express()
 
+// mount backframe within express
 app.use(backframe.router({
   routes: kittens
 }))
@@ -60,8 +63,10 @@ process jobs in a work queue
 import Backframe from 'backframe'
 import Kittens from from 'app/models/kittens'
 
+// initialize backframe
 const backframe = Backframe()
 
+// create a work queue
 const scratchQueue = backframe.queue({
   name: 'scratch',
   processor: options => (job, trx) => {
@@ -71,13 +76,15 @@ const scratchQueue = backframe.queue({
   }
 })
 
-const queues = backframe.worker({
+// mount queue within service worker
+const worker = backframe.worker({
   queues: [
     scratchQueue
   ]
 })
 
-queues.scratch.add({ id: 23 }, { priority: 'high' })
+// somewhere else in your app, add a job
+worker.scratch.add({ id: 23 }, { priority: 'high' })
 ```
 
 [Learn more about service workers](https://github.com/mahaplatform/backframe/blob/master/docs/workers.md)
