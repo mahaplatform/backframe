@@ -69,17 +69,17 @@ var normalizeOptions = exports.normalizeOptions = function normalizeOptions(user
 //segments into an ordered array
 var buildSegment = exports.buildSegment = function buildSegment(options) {
 
-  var pathPrefix = options.pathPrefix || '';
-
   var segmentOptions = _lodash2.default.omit(options, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_HOOKS), ['pathPrefix', 'routes']));
 
   return _lodash2.default.flatten(options.routes).reduce(function (routes, route) {
+
+    var path = options.pathPrefix ? options.pathPrefix + route.path : route.path;
 
     var routeOptions = (0, _extends3.default)({}, segmentOptions, route.options);
 
     var mergedRoute = {
       method: route.method,
-      path: '' + pathPrefix + route.path,
+      path: path,
       options: routeOptions,
       handler: (0, _extends3.default)({}, (0, _core.mergeHooks)({}, [options, route.handler]), (0, _core.mergeEvents)({}, [options, route.handler]))
     };

@@ -112,93 +112,123 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
                 return runAlterRequest(req, trx, alterRequest);
 
               case 3:
-                req = _context.sent;
+                _context.t0 = _context.sent;
+
+                if (_context.t0) {
+                  _context.next = 6;
+                  break;
+                }
+
+                _context.t0 = req;
+
+              case 6:
+                req = _context.t0;
 
 
                 recordTick('alterRequest');
 
-                _context.next = 7;
+                _context.next = 10;
                 return runHooks(req, trx, before);
 
-              case 7:
+              case 10:
 
                 recordTick('before');
 
-                _context.next = 10;
+                _context.next = 13;
                 return processor(req, trx);
 
-              case 10:
-                result = _context.sent;
+              case 13:
+                _context.t1 = _context.sent;
+
+                if (_context.t1) {
+                  _context.next = 16;
+                  break;
+                }
+
+                _context.t1 = null;
+
+              case 16:
+                result = _context.t1;
 
 
                 recordTick('processor');
 
-                _context.next = 14;
+                _context.next = 20;
                 return runHooks(req, trx, after, result);
 
-              case 14:
+              case 20:
 
                 recordTick('after');
 
                 if (!renderer) {
-                  _context.next = 21;
+                  _context.next = 27;
                   break;
                 }
 
-                _context.next = 18;
+                _context.next = 24;
                 return renderer(req, trx, result);
 
-              case 18:
-                _context.t0 = _context.sent;
-                _context.next = 22;
+              case 24:
+                _context.t2 = _context.sent;
+                _context.next = 28;
                 break;
 
-              case 21:
-                _context.t0 = result;
+              case 27:
+                _context.t2 = result;
 
-              case 22:
-                result = _context.t0;
+              case 28:
+                result = _context.t2;
 
 
                 recordTick('renderer');
 
-                _context.next = 26;
+                _context.next = 32;
                 return runAlterRecord(req, trx, alterRecord, result);
 
-              case 26:
-                result = _context.sent;
+              case 32:
+                _context.t3 = _context.sent;
+
+                if (_context.t3) {
+                  _context.next = 35;
+                  break;
+                }
+
+                _context.t3 = result;
+
+              case 35:
+                result = _context.t3;
 
 
                 recordTick('alterRecord');
 
-                _context.next = 30;
+                _context.next = 39;
                 return runResponder(req, res, result, responder);
 
-              case 30:
+              case 39:
 
                 recordTick('responder');
 
-                _context.next = 33;
+                _context.next = 42;
                 return trx.commit(result);
 
-              case 33:
+              case 42:
                 return _context.abrupt('return', _context.sent);
 
-              case 36:
-                _context.prev = 36;
-                _context.t1 = _context['catch'](0);
-                _context.next = 40;
-                return trx.rollback(_context.t1);
+              case 45:
+                _context.prev = 45;
+                _context.t4 = _context['catch'](0);
+                _context.next = 49;
+                return trx.rollback(_context.t4);
 
-              case 40:
-                return _context.abrupt('return', renderError(res, _context.t1));
+              case 49:
+                return _context.abrupt('return', renderError(res, _context.t4));
 
-              case 41:
+              case 50:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, undefined, [[0, 36]]);
+        }, _callee, undefined, [[0, 45]]);
       }));
 
       return function (_x4) {

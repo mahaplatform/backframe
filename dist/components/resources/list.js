@@ -53,7 +53,7 @@ exports.default = function (buildRoute) {
 
       var tableName = options.model.extend().__super__.tableName;
 
-      req.query.$filter = _lodash2.default.pick(req.query.$filter, options.filterParams);
+      req.query.$filter = _lodash2.default.pick(req.query.$filter, [].concat((0, _toConsumableArray3.default)(options.filterParams), ['q']));
 
       var fetchOptions = options.withRelated ? { withRelated: (0, _core.coerceArray)(options.withRelated), transacting: trx } : { transacting: trx };
 
@@ -63,7 +63,10 @@ exports.default = function (buildRoute) {
 
       var query = function query(qb) {
 
-        qb = (0, _utils.defaultQuery)(req, options, qb, req.query.$filter);
+        qb = (0, _utils.defaultQuery)(options)(req, trx, qb);
+
+        console.log(options.searchParams);
+        console.log(req.query);
 
         if (options.searchParams && req.query.$filter && req.query.$filter.q) {
           var term = '%' + req.query.$filter.q.toLowerCase() + '%';

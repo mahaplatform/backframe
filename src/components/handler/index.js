@@ -63,7 +63,7 @@ export const buildHandler = (options) => {
 
       try {
 
-        req = await runAlterRequest(req, trx, alterRequest)
+        req = await runAlterRequest(req, trx, alterRequest) || req
 
         recordTick('alterRequest')
 
@@ -71,7 +71,7 @@ export const buildHandler = (options) => {
 
         recordTick('before')
 
-        let result = await processor(req, trx)
+        let result = await processor(req, trx) || null
 
         recordTick('processor')
 
@@ -83,7 +83,7 @@ export const buildHandler = (options) => {
 
         recordTick('renderer')
 
-        result = await runAlterRecord(req, trx, alterRecord, result)
+        result = await runAlterRecord(req, trx, alterRecord, result) || result
 
         recordTick('alterRecord')
 

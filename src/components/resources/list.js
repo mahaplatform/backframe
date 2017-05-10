@@ -29,7 +29,7 @@ export default (buildRoute) => {
 
     const tableName = options.model.extend().__super__.tableName
 
-    req.query.$filter = _.pick(req.query.$filter, options.filterParams)
+    req.query.$filter = _.pick(req.query.$filter, [...options.filterParams, 'q'])
 
     const fetchOptions = options.withRelated ? { withRelated: coerceArray(options.withRelated), transacting: trx } : { transacting: trx }
 
@@ -39,7 +39,7 @@ export default (buildRoute) => {
 
     const query = qb => {
 
-      qb = defaultQuery(req, options, qb, req.query.$filter)
+      qb = defaultQuery(options)(req, trx, qb)
 
       if(options.searchParams && req.query.$filter && req.query.$filter.q) {
         const term = `%${req.query.$filter.q.toLowerCase()}%`

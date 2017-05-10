@@ -8,16 +8,10 @@ import jsonResponder from '../responders/json_responder'
 import xlsxResponder from '../responders/xlsx_responder'
 import xmlResponder from '../responders/xml_responder'
 
-export const defaultQuery = (req, options, qb, filters) => {
+export const defaultQuery = options => (req, trx, qb) => {
 
-  const tableName = options.model.extend().__super__.tableName
-
-  if(options.ownedByUser) {
-    qb = qb.where(`${tableName}.user_id`, req.user.get('id'))
-  }
-
-  if(options.query ) {
-    options.query(qb, req, filters)
+  if(options.defaultQuery) {
+    qb = options.defaultQuery(req, trx, qb)
   }
 
   if(options.softDelete) {

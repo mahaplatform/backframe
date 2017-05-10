@@ -92,7 +92,7 @@ exports.default = function () {
       defaultSort: { type: ['string', 'string[]'], required: false, default: '-created_at' },
       dependents: { type: 'object[]', required: false },
       except: { type: 'string[]', required: false },
-      filterParams: { type: 'string[]', required: false },
+      filterParams: { type: 'string[]', required: false, default: [] },
       model: { type: 'object', required: true },
       name: { type: 'string', required: false },
       only: { type: 'string[]', required: false },

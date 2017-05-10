@@ -5,6 +5,7 @@ import _ from 'lodash'
 import { validateOptions, defaultOptions } from '../../utils/options'
 import { mergeEvents, mergeHooks } from '../../utils/core'
 import buildHandler from '../handler'
+import buildRoute from '../route'
 import notFound from './not_found'
 import * as constants from '../../constants'
 import { beginLogger, endLogger, recordTick, printLogger } from '../../utils/logger'
@@ -17,6 +18,7 @@ export default (backframeOptions = {}) => {
       cors: { type: 'boolean', required: false, default: false },
       log: { type: 'function', required: false },
       notFound: { type: 'boolean', required: false, default: true },
+      pathPrefix: { type: 'string', required: false },
       routes: { type: 'object[]', required: false }
     }
 
@@ -29,7 +31,7 @@ export default (backframeOptions = {}) => {
 
     const options = normalizeOptions(mergedOptions, TYPES)
 
-    return buildRouter(backframeOptions, options, buildHandler(backframeOptions))
+    return buildRouter(backframeOptions, options, buildHandler(backframeOptions), buildRoute(backframeOptions))
 
   }
 
@@ -40,7 +42,8 @@ export const normalizeOptions = (userOptions, types) => {
 
   return {
     ...defaultOptions(types),
-    ...userOptions
+    ...userOptions,
+    routes: _.flatten(userOptions.routes)
   }
 
 }
@@ -57,7 +60,7 @@ const renderHandler = (plugins, route) => {
 }
 
 // iterate through routing array and generate express router
-export const buildRouter = (backframeOptions, options, buildHandler) => {
+export const buildRouter = (backframeOptions, options, buildHandler, buildRoute) => {
 
   const router = Router({ mergeParams: true })
 
@@ -68,23 +71,23 @@ export const buildRouter = (backframeOptions, options, buildHandler) => {
 
   options.routes.map(route => {
 
-    const path = options.prefix ? options.prefix + route.path : route.path
+    const path = options.pathPrefix ? options.pathPrefix + route.path : route.path
 
     const handler = _.isFunction(route.handler) ? route.handler : buildHandler(renderHandler(backframeOptions.plugins, route))
 
-    const wrapped = buildRoute(options, handler)
+    const wrapped = wrapWithLogger(options, handler)
 
     router[route.method](`${path.replace(':id',':id(\\d+)')}\.:format?`, wrapped)
 
   })
 
-  if(options.notFound) router.use((req, res) => buildHandler(notFound))
+  if(options.notFound) router.use(wrapWithLogger(options, notFound))
 
   return router
 
 }
 
-const buildRoute = (options, handler) => {
+const wrapWithLogger = (options, handler) => {
 
   return async (req, res) => {
 

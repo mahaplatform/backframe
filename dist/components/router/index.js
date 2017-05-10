@@ -43,6 +43,10 @@ var _handler = require('../handler');
 
 var _handler2 = _interopRequireDefault(_handler);
 
+var _route = require('../route');
+
+var _route2 = _interopRequireDefault(_route);
+
 var _not_found = require('./not_found');
 
 var _not_found2 = _interopRequireDefault(_not_found);
@@ -69,6 +73,7 @@ exports.default = function () {
       cors: { type: 'boolean', required: false, default: false },
       log: { type: 'function', required: false },
       notFound: { type: 'boolean', required: false, default: true },
+      pathPrefix: { type: 'string', required: false },
       routes: { type: 'object[]', required: false }
     };
 
@@ -78,7 +83,7 @@ exports.default = function () {
 
     var options = normalizeOptions(mergedOptions, TYPES);
 
-    return buildRouter(backframeOptions, options, (0, _handler2.default)(backframeOptions));
+    return buildRouter(backframeOptions, options, (0, _handler2.default)(backframeOptions), (0, _route2.default)(backframeOptions));
   };
 };
 
@@ -87,7 +92,9 @@ exports.default = function () {
 
 var normalizeOptions = exports.normalizeOptions = function normalizeOptions(userOptions, types) {
 
-  return (0, _extends3.default)({}, (0, _options.defaultOptions)(types), userOptions);
+  return (0, _extends3.default)({}, (0, _options.defaultOptions)(types), userOptions, {
+    routes: _lodash2.default.flatten(userOptions.routes)
+  });
 };
 
 // iterate through routing array and configure all events and hooks with
@@ -98,7 +105,7 @@ var renderHandler = function renderHandler(plugins, route) {
 };
 
 // iterate through routing array and generate express router
-var buildRouter = exports.buildRouter = function buildRouter(backframeOptions, options, buildHandler) {
+var buildRouter = exports.buildRouter = function buildRouter(backframeOptions, options, buildHandler, buildRoute) {
 
   var router = (0, _express.Router)({ mergeParams: true });
 
@@ -109,23 +116,21 @@ var buildRouter = exports.buildRouter = function buildRouter(backframeOptions, o
 
   options.routes.map(function (route) {
 
-    var path = options.prefix ? options.prefix + route.path : route.path;
+    var path = options.pathPrefix ? options.pathPrefix + route.path : route.path;
 
     var handler = _lodash2.default.isFunction(route.handler) ? route.handler : buildHandler(renderHandler(backframeOptions.plugins, route));
 
-    var wrapped = buildRoute(options, handler);
+    var wrapped = wrapWithLogger(options, handler);
 
     router[route.method](path.replace(':id', ':id(\\d+)') + '.:format?', wrapped);
   });
 
-  if (options.notFound) router.use(function (req, res) {
-    return buildHandler(_not_found2.default);
-  });
+  if (options.notFound) router.use(wrapWithLogger(options, _not_found2.default));
 
   return router;
 };
 
-var buildRoute = function buildRoute(options, handler) {
+var wrapWithLogger = function wrapWithLogger(options, handler) {
 
   return function () {
     var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, res) {

@@ -42,17 +42,17 @@ export const normalizeOptions = (userOptions, types) => {
 //segments into an ordered array
 export const buildSegment = (options) => {
 
-  const pathPrefix = options.pathPrefix || ''
-
   const segmentOptions = _.omit(options, [...constants.BACKFRAME_HOOKS,'pathPrefix','routes'])
 
   return _.flatten(options.routes).reduce((routes, route) => {
+
+    const path = options.pathPrefix ? options.pathPrefix + route.path : route.path
 
     const routeOptions = { ...segmentOptions, ...route.options }
 
     const mergedRoute = {
       method: route.method,
-      path: `${pathPrefix}${route.path}`,
+      path,
       options: routeOptions,
       handler: {
         ...mergeHooks({}, [ options, route.handler ]),

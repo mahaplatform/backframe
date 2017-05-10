@@ -47,23 +47,19 @@ var _xml_responder2 = _interopRequireDefault(_xml_responder);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var defaultQuery = exports.defaultQuery = function defaultQuery(req, options, qb, filters) {
+var defaultQuery = exports.defaultQuery = function defaultQuery(options) {
+  return function (req, trx, qb) {
 
-  var tableName = options.model.extend().__super__.tableName;
+    if (options.defaultQuery) {
+      qb = options.defaultQuery(req, trx, qb);
+    }
 
-  if (options.ownedByUser) {
-    qb = qb.where(tableName + '.user_id', req.user.get('id'));
-  }
+    if (options.softDelete) {
+      qb = qb.whereNull('deleted_at');
+    }
 
-  if (options.query) {
-    options.query(qb, req, filters);
-  }
-
-  if (options.softDelete) {
-    qb = qb.whereNull('deleted_at');
-  }
-
-  return qb;
+    return qb;
+  };
 };
 
 var defaultProcessor = exports.defaultProcessor = function defaultProcessor(options) {

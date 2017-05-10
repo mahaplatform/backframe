@@ -113,7 +113,12 @@ export const mergeHooks = (hooks, plugins, options = null) => {
 
   return coerceArray(plugins).reduce((hooks, plugin) => {
 
-    return constants.BACKFRAME_HOOKS.reduce((hooks, hook) => {
+    const items = [
+      ...constants.BACKFRAME_HOOKS,
+      'defaultQuery'
+    ]
+
+    return items.reduce((hooks, hook) => {
 
       if(!plugin[hook]) return hooks
 
