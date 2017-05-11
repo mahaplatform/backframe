@@ -99,7 +99,7 @@ export const buildRouter = (backframeOptions, options, buildHandler, buildRoute)
 
   })
 
-  if(options.notFound) router.use(wrapWithLogger(options, notFound))
+  if(options.notFound) router.use(options.pathPrefix, wrapWithLogger(options, notFound))
 
   return router
 

@@ -150,7 +150,7 @@ var buildRouter = exports.buildRouter = function buildRouter(backframeOptions, o
     router[route.method](path.replace(':id', ':id(\\d+)') + '.:format?', wrapped);
   });
 
-  if (options.notFound) router.use(wrapWithLogger(options, _not_found2.default));
+  if (options.notFound) router.use(options.pathPrefix, wrapWithLogger(options, _not_found2.default));
 
   return router;
 };
