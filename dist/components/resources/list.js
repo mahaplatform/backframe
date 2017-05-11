@@ -65,9 +65,6 @@ exports.default = function (buildRoute) {
 
         qb = (0, _utils.defaultQuery)(options)(req, trx, qb);
 
-        console.log(options.searchParams);
-        console.log(req.query);
-
         if (options.searchParams && req.query.$filter && req.query.$filter.q) {
           var term = '%' + req.query.$filter.q.toLowerCase() + '%';
           var sql = options.searchParams.map(function (param) {

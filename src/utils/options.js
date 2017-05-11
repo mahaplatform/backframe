@@ -133,11 +133,13 @@ export const defaultOptions = (types) => {
 
 }
 
-export const checkPermitted = (keys, permitted, message) => {
+export const checkPermitted = (items, permitted, message) => {
 
   if(process.env.NODE_ENV != 'development') return true
 
-  const unpermitted = Object.keys(keys).filter(key => {
+  const keys = _.isPlainObject(items) ? Object.keys(items) : items
+
+  const unpermitted = keys.filter(key => {
     return !_.includes(coerceArray(permitted), key)
   })
 

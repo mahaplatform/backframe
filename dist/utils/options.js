@@ -143,11 +143,13 @@ var defaultOptions = exports.defaultOptions = function defaultOptions(types) {
   }, {});
 };
 
-var checkPermitted = exports.checkPermitted = function checkPermitted(keys, permitted, message) {
+var checkPermitted = exports.checkPermitted = function checkPermitted(items, permitted, message) {
 
   if (process.env.NODE_ENV != 'development') return true;
 
-  var unpermitted = (0, _keys2.default)(keys).filter(function (key) {
+  var keys = _lodash2.default.isPlainObject(items) ? (0, _keys2.default)(items) : items;
+
+  var unpermitted = keys.filter(function (key) {
     return !_lodash2.default.includes((0, _core.coerceArray)(permitted), key);
   });
 
