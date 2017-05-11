@@ -1,4 +1,5 @@
-import { coerceArray, defaultQuery } from '../utils'
+import { coerceArray } from '../utils/core'
+import { defaultQuery } from '../utils'
 import BackframeError from '../utils/error'
 
 export default options => async (req, trx) => {

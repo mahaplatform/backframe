@@ -13,13 +13,21 @@ var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
 var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _extends2 = require('babel-runtime/helpers/extends');
+var _extends3 = require('babel-runtime/helpers/extends');
 
-var _extends3 = _interopRequireDefault(_extends2);
+var _extends4 = _interopRequireDefault(_extends3);
 
 var _express = require('express');
 
@@ -79,7 +87,7 @@ exports.default = function () {
 
     (0, _options.validateOptions)('router', userOptions, TYPES);
 
-    var mergedOptions = (0, _extends3.default)({}, _lodash2.default.pick(backframeOptions, ['knex']), userOptions);
+    var mergedOptions = (0, _extends4.default)({}, _lodash2.default.pick(backframeOptions, ['knex']), userOptions);
 
     var options = normalizeOptions(mergedOptions, TYPES);
 
@@ -92,16 +100,25 @@ exports.default = function () {
 
 var normalizeOptions = exports.normalizeOptions = function normalizeOptions(userOptions, types) {
 
-  return (0, _extends3.default)({}, (0, _options.defaultOptions)(types), userOptions, {
+  return (0, _extends4.default)({}, (0, _options.defaultOptions)(types), userOptions, {
     routes: _lodash2.default.flatten(userOptions.routes)
   });
 };
 
 // iterate through routing array and configure all events and hooks with
 // accumuated routeOptions
-var renderHandler = function renderHandler(plugins, route) {
+var mergeLifecycle = function mergeLifecycle(plugins, route) {
 
-  return (0, _extends3.default)({}, (0, _core.mergeHooks)({}, [].concat((0, _toConsumableArray3.default)(plugins), [route.handler]), route.options), (0, _core.mergeEvents)({}, [].concat((0, _toConsumableArray3.default)(plugins), [route.handler]), route.options));
+  return (0, _extends4.default)({}, (0, _core.mergeHooks)({}, [].concat((0, _toConsumableArray3.default)(plugins), [route.handler])), (0, _core.mergeEvents)({}, [].concat((0, _toConsumableArray3.default)(plugins), [route.handler])));
+};
+
+var renderHandler = function renderHandler(lifecycle, options) {
+
+  return (0, _keys2.default)(lifecycle).reduce(function (keys, key) {
+    return (0, _extends4.default)({}, keys, (0, _defineProperty3.default)({}, key, _lodash2.default.isArray(lifecycle[key]) ? lifecycle[key].map(function (item) {
+      return item(options);
+    }) : lifecycle[key](options)));
+  }, {});
 };
 
 // iterate through routing array and generate express router
@@ -118,7 +135,15 @@ var buildRouter = exports.buildRouter = function buildRouter(backframeOptions, o
 
     var path = options.pathPrefix ? options.pathPrefix + route.path : route.path;
 
-    var handler = _lodash2.default.isFunction(route.handler) ? route.handler : buildHandler(renderHandler(backframeOptions.plugins, route));
+    var merged = mergeLifecycle(backframeOptions.plugins, route);
+
+    var handlerLifecycle = _lodash2.default.pick(merged, constants.BACKFRAME_LIFECYCLE);
+
+    var handlerOptions = (0, _extends4.default)({}, route.options, _lodash2.default.omit(merged, constants.BACKFRAME_LIFECYCLE));
+
+    var rendered = renderHandler(handlerLifecycle, handlerOptions);
+
+    var handler = _lodash2.default.isFunction(route.handler) ? route.handler : buildHandler(rendered);
 
     var wrapped = wrapWithLogger(options, handler);
 

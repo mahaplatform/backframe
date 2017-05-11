@@ -12,6 +12,8 @@ var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
+var _core = require('../utils/core');
+
 var _utils = require('../utils');
 
 var _error = require('../utils/error');
@@ -29,7 +31,7 @@ exports.default = function (options) {
           switch (_context.prev = _context.next) {
             case 0:
               tableName = options.model.extend().__super__.tableName;
-              fetchOptions = options.withRelated ? { withRelated: (0, _utils.coerceArray)(options.withRelated), transacting: trx } : { transacting: trx };
+              fetchOptions = options.withRelated ? { withRelated: (0, _core.coerceArray)(options.withRelated), transacting: trx } : { transacting: trx };
 
               query = function query(qb) {
 

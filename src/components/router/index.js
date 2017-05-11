@@ -50,12 +50,22 @@ export const normalizeOptions = (userOptions, types) => {
 
 // iterate through routing array and configure all events and hooks with
 // accumuated routeOptions
-const renderHandler = (plugins, route) => {
+const mergeLifecycle = (plugins, route) => {
 
   return {
-    ...mergeHooks({}, [ ...plugins, route.handler ], route.options),
-    ...mergeEvents({}, [ ...plugins, route.handler ], route.options)
+    ...mergeHooks({}, [ ...plugins, route.handler ]),
+    ...mergeEvents({}, [ ...plugins, route.handler ])
   }
+
+}
+
+
+const renderHandler = (lifecycle, options) => {
+
+  return Object.keys(lifecycle).reduce((keys, key) => ({
+    ...keys,
+    [key]: _.isArray(lifecycle[key]) ? lifecycle[key].map(item => item(options)) : lifecycle[key](options)
+  }), {})
 
 }
 
@@ -73,7 +83,15 @@ export const buildRouter = (backframeOptions, options, buildHandler, buildRoute)
 
     const path = options.pathPrefix ? options.pathPrefix + route.path : route.path
 
-    const handler = _.isFunction(route.handler) ? route.handler : buildHandler(renderHandler(backframeOptions.plugins, route))
+    const merged = mergeLifecycle(backframeOptions.plugins, route)
+
+    const handlerLifecycle = _.pick(merged, constants.BACKFRAME_LIFECYCLE)
+
+    const handlerOptions = { ...route.options, ..._.omit(merged, constants.BACKFRAME_LIFECYCLE) }
+
+    const rendered = renderHandler(handlerLifecycle, handlerOptions)
+
+    const handler = _.isFunction(route.handler) ? route.handler : buildHandler(rendered)
 
     const wrapped = wrapWithLogger(options, handler)
 

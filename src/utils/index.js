@@ -11,7 +11,9 @@ import xmlResponder from '../responders/xml_responder'
 export const defaultQuery = options => (req, trx, qb) => {
 
   if(options.defaultQuery) {
-    qb = options.defaultQuery(req, trx, qb)
+    qb = options.defaultQuery.reduce((qb, defaultQuery) => {
+      return defaultQuery(options)(req, trx, qb)
+    }, qb)
   }
 
   if(options.softDelete) {

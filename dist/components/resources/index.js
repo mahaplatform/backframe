@@ -207,6 +207,7 @@ var mapOptionToActions = exports.mapOptionToActions = function mapOptionToAction
 
   return value !== null ? !_lodash2.default.isPlainObject(value) ? { all: value } : value : {};
 };
+
 // merge all and named option
 var mergeOptionsForAction = function mergeOptionsForAction(options, keys, name) {
 

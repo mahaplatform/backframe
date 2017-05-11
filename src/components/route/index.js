@@ -49,7 +49,7 @@ export const buildRoute = (options) => {
   return {
     method: options.method,
     path: options.path,
-    options: _.omit(options, [...constants.BACKFRAME_LIFECYCLE,'method','path']),
+    options: _.omit(options, [...constants.BACKFRAME_LIFECYCLE, 'method', 'path']),
     handler: options.handler || _.pick(options, constants.BACKFRAME_LIFECYCLE)
   }
 

@@ -184,6 +184,7 @@ export const mapOptionToActions = (value) => {
   return value !== null ? (!_.isPlainObject(value) ? { all: value } : value) : {}
 
 }
+
 // merge all and named option
 const mergeOptionsForAction = (options, keys, name) => {
 

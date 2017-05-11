@@ -51,7 +51,9 @@ var defaultQuery = exports.defaultQuery = function defaultQuery(options) {
   return function (req, trx, qb) {
 
     if (options.defaultQuery) {
-      qb = options.defaultQuery(req, trx, qb);
+      qb = options.defaultQuery.reduce(function (qb, defaultQuery) {
+        return defaultQuery(options)(req, trx, qb);
+      }, qb);
     }
 
     if (options.softDelete) {
