@@ -15,7 +15,6 @@ export default () => {
     expect(backframe.route).to.be.a('function')
     expect(backframe.router).to.be.a('function')
     expect(backframe.segment).to.be.a('function')
-    expect(backframe.table).to.be.a('function')
 
   })
 

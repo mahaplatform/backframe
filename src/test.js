@@ -4,7 +4,6 @@ import resources from './components/resources/tests'
 import route from './components/route/tests'
 import router from './components/router/tests'
 import segment from './components/segment/tests'
-import table from './components/table/tests'
 import utils from './utils/tests'
 
 describe('backframe', () => {
