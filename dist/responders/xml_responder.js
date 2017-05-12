@@ -36,9 +36,9 @@ exports.default = function (message, pagination, result, req, res) {
     });
   };
 
-  var paginationSegment = {
+  var paginationSegment = pagination ? {
     pagination: [{ all: pagination.all }, { total: pagination.total }, { limit: pagination.limit }, { skip: pagination.skip }]
-  };
+  } : null;
 
   var records = (0, _core.coerceArray)(result);
 
@@ -51,7 +51,7 @@ exports.default = function (message, pagination, result, req, res) {
   };
 
   var data = (0, _xml2.default)({
-    response: [paginationSegment, dataSegment]
+    response: pagination ? [paginationSegment, dataSegment] : [dataSegment]
   }, true);
 
   res.status(200).type('application/xml').send(data);

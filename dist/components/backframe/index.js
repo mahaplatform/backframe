@@ -35,10 +35,6 @@ var _segment = require('../segment');
 
 var _segment2 = _interopRequireDefault(_segment);
 
-var _table = require('../table');
-
-var _table2 = _interopRequireDefault(_table);
-
 var _worker = require('../worker');
 
 var _worker2 = _interopRequireDefault(_worker);
@@ -67,7 +63,6 @@ exports.default = function () {
     resources: (0, _resources2.default)(options),
     router: (0, _router2.default)(options),
     segment: (0, _segment2.default)(options),
-    table: (0, _table2.default)(options),
     worker: (0, _worker2.default)(options)
   };
 };

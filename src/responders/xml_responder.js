@@ -15,14 +15,14 @@ export default (message, pagination, result, req, res) => {
     })
   }
 
-  const paginationSegment = {
+  const paginationSegment = pagination ? {
     pagination: [
       { all: pagination.all },
       { total: pagination.total },
       { limit: pagination.limit },
       { skip: pagination.skip }
     ]
-  }
+  } : null
 
   const records = coerceArray(result)
 
@@ -33,10 +33,10 @@ export default (message, pagination, result, req, res) => {
   }
 
   const data = xml({
-    response: [
+    response: pagination ? [
       paginationSegment,
       dataSegment
-    ]
+    ] : [dataSegment]
   }, true)
 
   res.status(200).type('application/xml').send(data)

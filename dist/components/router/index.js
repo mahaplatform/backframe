@@ -5,14 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.buildRouter = exports.normalizeOptions = undefined;
 
-var _regenerator = require('babel-runtime/regenerator');
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
 var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
@@ -145,49 +137,10 @@ var buildRouter = exports.buildRouter = function buildRouter(backframeOptions, o
 
     var handler = _lodash2.default.isFunction(route.handler) ? route.handler : buildHandler(rendered);
 
-    var wrapped = wrapWithLogger(options, handler);
-
-    router[route.method](path.replace(':id', ':id(\\d+)') + '.:format?', wrapped);
+    router[route.method](path.replace(':id', ':id(\\d+)') + '.:format?', handler);
   });
 
-  if (options.notFound) router.use(options.pathPrefix, wrapWithLogger(options, _not_found2.default));
+  if (options.notFound) router.use(options.pathPrefix, _not_found2.default);
 
   return router;
-};
-
-var wrapWithLogger = function wrapWithLogger(options, handler) {
-
-  return function () {
-    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, res) {
-      var result;
-      return _regenerator2.default.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-
-              (0, _logger.beginLogger)(options)();
-
-              _context.next = 3;
-              return handler(req, res, _logger.recordTick);
-
-            case 3:
-              result = _context.sent;
-
-
-              (0, _logger.endLogger)(options)();
-
-              (0, _logger.printLogger)(options)(req, res, result);
-
-            case 6:
-            case 'end':
-              return _context.stop();
-          }
-        }
-      }, _callee, undefined);
-    }));
-
-    return function (_x3, _x4) {
-      return _ref.apply(this, arguments);
-    };
-  }();
 };

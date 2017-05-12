@@ -97,8 +97,6 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
 
 
   return function (req, res) {
-    var recordTick = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
-
 
     return options.knex.transaction(function () {
       var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(trx) {
@@ -123,115 +121,90 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
 
               case 6:
                 req = _context.t0;
-
-
-                recordTick('alterRequest');
-
-                _context.next = 10;
+                _context.next = 9;
                 return runHooks(req, trx, before);
 
-              case 10:
-
-                recordTick('before');
-
-                _context.next = 13;
+              case 9:
+                _context.next = 11;
                 return processor(req, trx);
 
-              case 13:
+              case 11:
                 _context.t1 = _context.sent;
 
                 if (_context.t1) {
-                  _context.next = 16;
+                  _context.next = 14;
                   break;
                 }
 
                 _context.t1 = null;
 
-              case 16:
+              case 14:
                 result = _context.t1;
-
-
-                recordTick('processor');
-
-                _context.next = 20;
+                _context.next = 17;
                 return runHooks(req, trx, after, result);
 
-              case 20:
-
-                recordTick('after');
-
+              case 17:
                 if (!renderer) {
-                  _context.next = 27;
+                  _context.next = 23;
                   break;
                 }
 
-                _context.next = 24;
+                _context.next = 20;
                 return renderer(req, trx, result);
 
-              case 24:
+              case 20:
                 _context.t2 = _context.sent;
-                _context.next = 28;
+                _context.next = 24;
                 break;
 
-              case 27:
+              case 23:
                 _context.t2 = result;
 
-              case 28:
+              case 24:
                 result = _context.t2;
-
-
-                recordTick('renderer');
-
-                _context.next = 32;
+                _context.next = 27;
                 return runAlterRecord(req, trx, alterRecord, result);
 
-              case 32:
+              case 27:
                 _context.t3 = _context.sent;
 
                 if (_context.t3) {
-                  _context.next = 35;
+                  _context.next = 30;
                   break;
                 }
 
                 _context.t3 = result;
 
-              case 35:
+              case 30:
                 result = _context.t3;
-
-
-                recordTick('alterRecord');
-
-                _context.next = 39;
+                _context.next = 33;
                 return runResponder(req, res, result, responder);
 
-              case 39:
-
-                recordTick('responder');
-
-                _context.next = 42;
+              case 33:
+                _context.next = 35;
                 return trx.commit(result);
 
-              case 42:
+              case 35:
                 return _context.abrupt('return', _context.sent);
 
-              case 45:
-                _context.prev = 45;
+              case 38:
+                _context.prev = 38;
                 _context.t4 = _context['catch'](0);
-                _context.next = 49;
+                _context.next = 42;
                 return trx.rollback(_context.t4);
 
-              case 49:
+              case 42:
                 return _context.abrupt('return', renderError(res, _context.t4));
 
-              case 50:
+              case 43:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, undefined, [[0, 45]]);
+        }, _callee, undefined, [[0, 38]]);
       }));
 
-      return function (_x4) {
+      return function (_x3) {
         return _ref.apply(this, arguments);
       };
     }());
@@ -260,7 +233,7 @@ var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, tr
       }, _callee2, undefined);
     }));
 
-    return function runner(_x5, _x6) {
+    return function runner(_x4, _x5) {
       return _ref2.apply(this, arguments);
     };
   }();
@@ -307,7 +280,7 @@ var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, trx, 
       }, _callee3, undefined);
     }));
 
-    return function runner(_x7, _x8) {
+    return function runner(_x6, _x7) {
       return _ref3.apply(this, arguments);
     };
   }();
@@ -356,7 +329,7 @@ var runHooks = exports.runHooks = function runHooks(req, trx, hooks) {
       }, _callee4, undefined);
     }));
 
-    return function runner(_x10) {
+    return function runner(_x9) {
       return _ref4.apply(this, arguments);
     };
   }();

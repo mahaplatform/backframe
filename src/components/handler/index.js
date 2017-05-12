@@ -57,7 +57,7 @@ export const buildHandler = (options) => {
 
   const { alterRequest, before, processor, after, renderer, alterRecord, responder } = options
 
-  return (req, res, recordTick = () => {}) => {
+  return (req, res) => {
 
     return options.knex.transaction(async trx => {
 
@@ -65,31 +65,17 @@ export const buildHandler = (options) => {
 
         req = await runAlterRequest(req, trx, alterRequest) || req
 
-        recordTick('alterRequest')
-
         await runHooks(req, trx, before)
-
-        recordTick('before')
 
         let result = await processor(req, trx) || null
 
-        recordTick('processor')
-
         await runHooks(req, trx, after, result)
-
-        recordTick('after')
 
         result = renderer ? await renderer(req, trx, result) : result
 
-        recordTick('renderer')
-
         result = await runAlterRecord(req, trx, alterRecord, result) || result
 
-        recordTick('alterRecord')
-
         await runResponder(req, res, result, responder)
-
-        recordTick('responder')
 
         return await trx.commit(result)
 

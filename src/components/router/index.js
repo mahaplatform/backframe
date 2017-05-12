@@ -93,30 +93,12 @@ export const buildRouter = (backframeOptions, options, buildHandler, buildRoute)
 
     const handler = _.isFunction(route.handler) ? route.handler : buildHandler(rendered)
 
-    const wrapped = wrapWithLogger(options, handler)
-
-    router[route.method](`${path.replace(':id',':id(\\d+)')}\.:format?`, wrapped)
+    router[route.method](`${path.replace(':id',':id(\\d+)')}\.:format?`, handler)
 
   })
 
-  if(options.notFound) router.use(options.pathPrefix, wrapWithLogger(options, notFound))
+  if(options.notFound) router.use(options.pathPrefix, notFound)
 
   return router
-
-}
-
-const wrapWithLogger = (options, handler) => {
-
-  return async (req, res) => {
-
-    beginLogger(options)()
-
-    const result = await handler(req, res, recordTick)
-
-    endLogger(options)()
-
-    printLogger(options)(req, res, result)
-
-  }
 
 }
