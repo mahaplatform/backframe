@@ -345,9 +345,7 @@ var runHooks = exports.runHooks = function runHooks(req, trx, hooks) {
 
 var runResponder = exports.runResponder = function runResponder(req, res, result, responder) {
 
-  if (!responder) return null;
-
-  return responder(req, res, result);
+  if (responder) responder(req, res, result);
 };
 
 var renderError = exports.renderError = function renderError(res, err) {

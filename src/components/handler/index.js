@@ -131,9 +131,7 @@ export const runHooks = (req, trx, hooks, result = null) => {
 
 export const runResponder = (req, res, result, responder) => {
 
-  if(!responder) return null
-
-  return responder(req, res, result)
+  if(responder) responder(req, res, result)
 
 }
 

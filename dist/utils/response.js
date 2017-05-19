@@ -40,8 +40,6 @@ var response = function response(res, code, success, message, extra) {
   }, extra);
 
   res.status(code).json(json);
-
-  return json;
 };
 
 var succeed = exports.succeed = function succeed(res, code, message) {

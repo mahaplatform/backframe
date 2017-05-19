@@ -24,13 +24,9 @@ var _tests11 = require('./components/segment/tests');
 
 var _tests12 = _interopRequireDefault(_tests11);
 
-var _tests13 = require('./components/table/tests');
+var _tests13 = require('./utils/tests');
 
 var _tests14 = _interopRequireDefault(_tests13);
-
-var _tests15 = require('./utils/tests');
-
-var _tests16 = _interopRequireDefault(_tests15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50,5 +46,5 @@ describe('backframe', function () {
   //
   // describe('table', table)
   //
-  describe('utils', _tests16.default);
+  describe('utils', _tests14.default);
 });

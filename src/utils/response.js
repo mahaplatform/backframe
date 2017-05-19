@@ -29,8 +29,6 @@ const response = (res, code, success, message, extra) => {
 
   res.status(code).json(json)
 
-  return json
-
 }
 
 export const succeed = (res, code, message, extra = {}) => {

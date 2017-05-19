@@ -24,7 +24,12 @@ export default (backframeOptions = {}) => {
 
     validateOptions('route', userOptions, TYPES)
 
-    const options = normalizeOptions(userOptions, TYPES)
+    const mergedOptions = {
+      ..._.pick(backframeOptions, ['defaultFormat','knex']),
+      ...userOptions
+    }
+
+    const options = normalizeOptions(mergedOptions, TYPES)
 
     return buildRoute(options)
 

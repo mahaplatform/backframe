@@ -26,7 +26,6 @@ exports.default = function () {
     (0, _chai.expect)(backframe.route).to.be.a('function');
     (0, _chai.expect)(backframe.router).to.be.a('function');
     (0, _chai.expect)(backframe.segment).to.be.a('function');
-    (0, _chai.expect)(backframe.table).to.be.a('function');
   });
 
   it('accepts valid options', function () {
