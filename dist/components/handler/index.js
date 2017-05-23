@@ -254,26 +254,30 @@ var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, trx, 
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              _context3.next = 2;
-              return result && result.records;
-
-            case 2:
-              if (!_context3.sent) {
+              if (!(result && result.records)) {
                 _context3.next = 6;
                 break;
               }
 
-              _context3.t0 = (0, _core.applyToRecords)(req, trx, result, operation);
-              _context3.next = 7;
+              _context3.next = 3;
+              return (0, _core.applyToRecords)(req, trx, result, operation);
+
+            case 3:
+              _context3.t0 = _context3.sent;
+              _context3.next = 9;
               break;
 
             case 6:
-              _context3.t0 = operation(req, trx, result);
-
-            case 7:
-              return _context3.abrupt('return', _context3.t0);
+              _context3.next = 8;
+              return operation(req, trx, result);
 
             case 8:
+              _context3.t0 = _context3.sent;
+
+            case 9:
+              return _context3.abrupt('return', _context3.t0);
+
+            case 10:
             case 'end':
               return _context3.stop();
           }

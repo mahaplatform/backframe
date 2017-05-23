@@ -108,7 +108,7 @@ export const runAlterRequest = (req, trx, alterRequest) => {
 
 export const runAlterRecord = (req, trx, alterRecord, result) => {
 
-  const runner = async (result, operation) => await (result && result.records) ? applyToRecords(req, trx, result, operation) : operation(req, trx, result)
+  const runner = async (result, operation) => (result && result.records) ? await applyToRecords(req, trx, result, operation) : await operation(req, trx, result)
 
   if(alterRecord.length === 0) return result
 
