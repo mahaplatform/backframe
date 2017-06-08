@@ -137,7 +137,7 @@ export const checkPermitted = (items, permitted, message) => {
 
   if(process.env.NODE_ENV != 'development') return true
 
-  const keys = _.isPlainObject(items) ? Object.keys(items) : items
+  const keys = _.isPlainObject(items) ? Object.keys(items) : coerceArray(items)
 
   const unpermitted = keys.filter(key => {
     return !_.includes(coerceArray(permitted), key)

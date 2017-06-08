@@ -82,43 +82,37 @@ exports.default = function (buildRoute) {
   var processor = function processor(options) {
     return function () {
       var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, trx) {
-        var resource;
         return _regenerator2.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
-                return (0, _load2.default)(options)(req, trx);
+                return destroyRelated(options, req.resource, trx);
 
               case 3:
-                resource = _context2.sent;
-                _context2.next = 6;
-                return destroyRelated(options, resource, trx);
+                return _context2.abrupt('return', destroyResource(options, req.resource, trx));
 
               case 6:
-                return _context2.abrupt('return', destroyResource(options, resource, trx));
-
-              case 9:
-                _context2.prev = 9;
+                _context2.prev = 6;
                 _context2.t0 = _context2['catch'](0);
 
                 if (!_context2.t0.errors) {
-                  _context2.next = 13;
+                  _context2.next = 10;
                   break;
                 }
 
                 throw new _error2.default({ code: 422, message: 'Unable to delete ' + options.name, errors: _context2.t0.toJSON() });
 
-              case 13:
+              case 10:
                 throw _context2.t0;
 
-              case 14:
+              case 11:
               case 'end':
                 return _context2.stop();
             }
           }
-        }, _callee2, undefined, [[0, 9]]);
+        }, _callee2, undefined, [[0, 6]]);
       }));
 
       return function (_x4, _x5) {

@@ -43,7 +43,12 @@ exports.default = function (buildRoute) {
       }
 
       if (req.query.$sort) {
-        (0, _options.checkPermitted)(req.query.$sort, options.sortParams, 'Unable to sort on the keys {unpermitted}. Please add it to sortParams');
+
+        var sort = req.query.$sort.split(',').map(function (sort) {
+          return sort.replace('-', '');
+        });
+
+        (0, _options.checkPermitted)(sort, options.sortParams, 'Unable to sort on the keys {unpermitted}. Please add it to sortParams');
       }
     };
   };

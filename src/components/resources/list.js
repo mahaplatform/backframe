@@ -20,7 +20,11 @@ export default (buildRoute) => {
     }
 
     if(req.query.$sort) {
-      checkPermitted(req.query.$sort, options.sortParams, 'Unable to sort on the keys {unpermitted}. Please add it to sortParams')
+
+      const sort = req.query.$sort.split(',').map(sort => sort.replace('-', ''))
+
+      checkPermitted(sort, options.sortParams, 'Unable to sort on the keys {unpermitted}. Please add it to sortParams')
+
     }
 
   }

@@ -21,21 +21,21 @@ export default (buildRoute) => {
 
   }
 
-  const processor = options => (req, trx) => {
+  const processor = options => async (req, trx) => {
 
-    return load(options)(req, trx).then(resource => {
+    try {
 
       const data = _.pick(req.data, options.allowedParams)
 
-      return resource.save(data, { patch: true, transacting: trx })
+      return await req.resource.save(data, { patch: true, transacting: trx })
 
-    }).catch(err => {
+    } catch(err) {
 
       if(err.errors) throw new BackframeError({ code: 422, message: `Unable to update record`, errors: err.toJSON() })
 
       throw err
 
-    })
+    }
 
   }
 

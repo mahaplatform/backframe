@@ -38,11 +38,9 @@ export default (buildRoute) => {
 
     try {
 
-      const resource = await load(options)(req, trx)
+      await destroyRelated(options, req.resource, trx)
 
-      await destroyRelated(options, resource, trx)
-
-      return destroyResource(options, resource, trx)
+      return destroyResource(options, req.resource, trx)
 
     } catch(err) {
 

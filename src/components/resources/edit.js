@@ -3,7 +3,7 @@ import { defaultResponder } from '../../utils'
 
 export default  (buildRoute) => {
 
-  const processor = options => (req, trx) => load(options)(req, trx)
+  const processor = options => (req, trx) => req.resource
 
   const renderer = options => (req, result) => result.toJSON()
 

@@ -39,7 +39,7 @@ export const normalizeOptions = (userOptions, types) => {
 }
 
 // merge segment options and handlers with route handlers and flatten nested
-//segments into an ordered array
+// segments into an ordered array
 export const buildSegment = (options) => {
 
   const segmentOptions = _.omit(options, [...constants.BACKFRAME_HOOKS,'pathPrefix','routes'])

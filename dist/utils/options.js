@@ -147,7 +147,7 @@ var checkPermitted = exports.checkPermitted = function checkPermitted(items, per
 
   if (process.env.NODE_ENV != 'development') return true;
 
-  var keys = _lodash2.default.isPlainObject(items) ? (0, _keys2.default)(items) : items;
+  var keys = _lodash2.default.isPlainObject(items) ? (0, _keys2.default)(items) : (0, _core.coerceArray)(items);
 
   var unpermitted = keys.filter(function (key) {
     return !_lodash2.default.includes((0, _core.coerceArray)(permitted), key);

@@ -9,6 +9,14 @@ var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
 var _keys = require('babel-runtime/core-js/object/keys');
 
 var _keys2 = _interopRequireDefault(_keys);
@@ -32,6 +40,10 @@ var _lodash2 = _interopRequireDefault(_lodash);
 var _core = require('../../utils/core');
 
 var _options = require('../../utils/options');
+
+var _load = require('../../utils/load');
+
+var _load2 = _interopRequireDefault(_load);
 
 var _segment = require('../segment');
 
@@ -151,7 +163,7 @@ var buildCustomRoutes = exports.buildCustomRoutes = function buildCustomRoutes(o
 
     var action = options.actions[name];
 
-    var path = '/:id/' + action.path;
+    var path = '/:id' + action.path;
 
     var namespaced = (0, _extends6.default)({}, action, { path: path });
 
@@ -175,12 +187,46 @@ var buildStandardRoutes = exports.buildStandardRoutes = function buildStandardRo
   }, []);
 };
 
+// load resource before route
+var loadResource = function loadResource(options) {
+  return function () {
+    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, trx) {
+      return _regenerator2.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return (0, _load2.default)(options)(req, trx);
+
+            case 2:
+              req.resource = _context.sent;
+              return _context.abrupt('return', req);
+
+            case 4:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function (_x3, _x4) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
 // build single rest route
 var buildSingleRoute = exports.buildSingleRoute = function buildSingleRoute(name, options, route) {
 
   var mergedRouteOptions = mergeRouteOptions(name, options);
 
   var routeOptions = _lodash2.default.omit(mergedRouteOptions, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_LIFECYCLE), ['actions', 'except', 'only', 'pathPrefix']));
+
+  if (!_lodash2.default.includes(['list', 'create'], name)) {
+
+    route.handler.alterRequest = [].concat((0, _toConsumableArray3.default)((0, _core.coerceArray)(route.handler.alterRequest)), [loadResource]);
+  }
 
   return (0, _extends6.default)({}, route, {
     options: (0, _extends6.default)({}, routeOptions, {

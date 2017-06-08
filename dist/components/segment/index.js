@@ -66,7 +66,7 @@ var normalizeOptions = exports.normalizeOptions = function normalizeOptions(user
 };
 
 // merge segment options and handlers with route handlers and flatten nested
-//segments into an ordered array
+// segments into an ordered array
 var buildSegment = exports.buildSegment = function buildSegment(options) {
 
   var segmentOptions = _lodash2.default.omit(options, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_HOOKS), ['pathPrefix', 'routes']));

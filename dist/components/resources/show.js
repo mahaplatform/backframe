@@ -20,9 +20,7 @@ exports.default = function (buildRoute) {
 
   var processor = function processor(options) {
     return function (req, trx) {
-      return (0, _load2.default)(options)(req, trx).catch(function (err) {
-        throw new _error2.default({ code: 404, message: 'Unable to load resource' });
-      });
+      return req.resource;
     };
   };
 

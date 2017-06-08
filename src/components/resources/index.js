@@ -1,7 +1,8 @@
 import pluralize from 'pluralize'
 import _ from 'lodash'
-import { includeAction, mergeHooks, mergeEvents, mergeParams, pluginOptionDefaults, mergeTypes } from '../../utils/core'
+import { coerceArray, includeAction, mergeHooks, mergeEvents, mergeParams, pluginOptionDefaults, mergeTypes } from '../../utils/core'
 import { validateOptions, defaultOptions } from '../../utils/options'
+import load from '../../utils/load'
 import buildSegment from '../segment'
 import buildRoute from '../route'
 import list from './list'
@@ -102,7 +103,7 @@ export const buildCustomRoutes = (options, buildRoute) => {
 
     const action = options.actions[name]
 
-    const path = `/:id/${action.path}`
+    const path = `/:id${action.path}`
 
     const namespaced = { ...action, path }
 
@@ -138,12 +139,30 @@ export const buildStandardRoutes = (options, buildRoute) => {
 
 }
 
+// load resource before route
+const loadResource = options => async (req, trx) => {
+
+  req.resource = await load(options)(req, trx)
+
+  return req
+
+}
+
 // build single rest route
 export const buildSingleRoute = (name, options, route) => {
 
   const mergedRouteOptions = mergeRouteOptions(name, options)
 
   const routeOptions = _.omit(mergedRouteOptions, [...constants.BACKFRAME_LIFECYCLE,'actions','except','only','pathPrefix'])
+
+  if(!_.includes(['list','create'], name)) {
+
+    route.handler.alterRequest = [
+      ...coerceArray(route.handler.alterRequest),
+      loadResource
+    ]
+
+  }
 
   return {
     ...route,

@@ -4,6 +4,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -43,20 +51,47 @@ exports.default = function (buildRoute) {
   };
 
   var processor = function processor(options) {
-    return function (req, trx) {
+    return function () {
+      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, trx) {
+        var data;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                data = _lodash2.default.pick(req.data, options.allowedParams);
+                _context.next = 4;
+                return req.resource.save(data, { patch: true, transacting: trx });
 
-      return (0, _load2.default)(options)(req, trx).then(function (resource) {
+              case 4:
+                return _context.abrupt('return', _context.sent);
 
-        var data = _lodash2.default.pick(req.data, options.allowedParams);
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context['catch'](0);
 
-        return resource.save(data, { patch: true, transacting: trx });
-      }).catch(function (err) {
+                if (!_context.t0.errors) {
+                  _context.next = 11;
+                  break;
+                }
 
-        if (err.errors) throw new _error2.default({ code: 422, message: 'Unable to update record', errors: err.toJSON() });
+                throw new _error2.default({ code: 422, message: 'Unable to update record', errors: _context.t0.toJSON() });
 
-        throw err;
-      });
-    };
+              case 11:
+                throw _context.t0;
+
+              case 12:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, undefined, [[0, 7]]);
+      }));
+
+      return function (_x, _x2) {
+        return _ref.apply(this, arguments);
+      };
+    }();
   };
 
   return buildRoute({
