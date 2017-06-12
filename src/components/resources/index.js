@@ -18,17 +18,18 @@ export default (backframeOptions = {}) => {
   return (userOptions = {}) => {
 
     const TYPES = mergeTypes({
-      actions: { type: 'object', required: false },
       after: { type: ['function','function{}'], required: false },
       allowedParams: { type: ['string[]','string[]{}'], required: false },
       alterRequest: { type: ['function','function{}'], required: false },
       alterRecord: { type: ['function','function{}'], required: false },
       before: { type: ['function','function{}'], required: false },
+      collectionActions: { type: 'object', required: false },
       defaultParams: { type: 'function', required: false },
       defaultSort: { type: ['string','string[]'], required: false, default: '-created_at' },
       dependents: { type: 'object[]', required: false },
       except: { type: ['string', 'string[]'], required: false },
       filterParams: { type: 'string[]', required: false, default: [] },
+      memberActions: { type: 'object', required: false },
       model: { type: 'object', required: true },
       name: { type: 'string', required: false },
       only: { type: ['string', 'string[]'], required: false },
@@ -87,7 +88,8 @@ export const buildResources = (options, buildSegment, buildRoute) => {
   return buildSegment({
     pathPrefix,
     routes: [
-      ...buildCustomRoutes(options, buildRoute),
+      ...buildCustomRoutes(options.collectionActions, options, buildRoute, false),
+      ...buildCustomRoutes(options.memberActions, options, buildRoute, true),
       ...buildStandardRoutes(options, buildRoute)
     ]
   })
@@ -95,15 +97,15 @@ export const buildResources = (options, buildSegment, buildRoute) => {
 }
 
 // build custom rest actions
-export const buildCustomRoutes = (options, buildRoute) => {
+export const buildCustomRoutes = (actions, options, buildRoute, id) => {
 
-  if(!options.actions) return []
+  if(!actions) return []
 
-  return Object.keys(options.actions).reduce((routes, name) => {
+  return Object.keys(actions).reduce((routes, name) => {
 
-    const action = options.actions[name]
+    const action = actions[name]
 
-    const path = `/:id${action.path}`
+    const path = id ? `/:id${action.path}` : action.path
 
     const namespaced = { ...action, path }
 
@@ -115,7 +117,6 @@ export const buildCustomRoutes = (options, buildRoute) => {
   }, [])
 
 }
-
 
 // build standard rest routes
 export const buildStandardRoutes = (options, buildRoute) => {
@@ -155,7 +156,7 @@ export const buildSingleRoute = (name, options, route) => {
 
   const routeOptions = _.omit(mergedRouteOptions, [...constants.BACKFRAME_LIFECYCLE,'actions','except','only','pathPrefix'])
 
-  if(!_.includes(['list','create'], name)) {
+  if(route.path.substr(0,4) == '/:id') {
 
     route.handler.alterRequest = [
       ...coerceArray(route.handler.alterRequest),

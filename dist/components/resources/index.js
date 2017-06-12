@@ -94,17 +94,18 @@ exports.default = function () {
 
 
     var TYPES = (0, _core.mergeTypes)({
-      actions: { type: 'object', required: false },
       after: { type: ['function', 'function{}'], required: false },
       allowedParams: { type: ['string[]', 'string[]{}'], required: false },
       alterRequest: { type: ['function', 'function{}'], required: false },
       alterRecord: { type: ['function', 'function{}'], required: false },
       before: { type: ['function', 'function{}'], required: false },
+      collectionActions: { type: 'object', required: false },
       defaultParams: { type: 'function', required: false },
       defaultSort: { type: ['string', 'string[]'], required: false, default: '-created_at' },
       dependents: { type: 'object[]', required: false },
       except: { type: ['string', 'string[]'], required: false },
       filterParams: { type: 'string[]', required: false, default: [] },
+      memberActions: { type: 'object', required: false },
       model: { type: 'object', required: true },
       name: { type: 'string', required: false },
       only: { type: ['string', 'string[]'], required: false },
@@ -150,20 +151,20 @@ var buildResources = exports.buildResources = function buildResources(options, b
 
   return buildSegment({
     pathPrefix: pathPrefix,
-    routes: [].concat((0, _toConsumableArray3.default)(buildCustomRoutes(options, buildRoute)), (0, _toConsumableArray3.default)(buildStandardRoutes(options, buildRoute)))
+    routes: [].concat((0, _toConsumableArray3.default)(buildCustomRoutes(options.collectionActions, options, buildRoute, false)), (0, _toConsumableArray3.default)(buildCustomRoutes(options.memberActions, options, buildRoute, true)), (0, _toConsumableArray3.default)(buildStandardRoutes(options, buildRoute)))
   });
 };
 
 // build custom rest actions
-var buildCustomRoutes = exports.buildCustomRoutes = function buildCustomRoutes(options, buildRoute) {
+var buildCustomRoutes = exports.buildCustomRoutes = function buildCustomRoutes(actions, options, buildRoute, id) {
 
-  if (!options.actions) return [];
+  if (!actions) return [];
 
-  return (0, _keys2.default)(options.actions).reduce(function (routes, name) {
+  return (0, _keys2.default)(actions).reduce(function (routes, name) {
 
-    var action = options.actions[name];
+    var action = actions[name];
 
-    var path = '/:id' + action.path;
+    var path = id ? '/:id' + action.path : action.path;
 
     var namespaced = (0, _extends6.default)({}, action, { path: path });
 
@@ -223,7 +224,7 @@ var buildSingleRoute = exports.buildSingleRoute = function buildSingleRoute(name
 
   var routeOptions = _lodash2.default.omit(mergedRouteOptions, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_LIFECYCLE), ['actions', 'except', 'only', 'pathPrefix']));
 
-  if (!_lodash2.default.includes(['list', 'create'], name)) {
+  if (route.path.substr(0, 4) == '/:id') {
 
     route.handler.alterRequest = [].concat((0, _toConsumableArray3.default)((0, _core.coerceArray)(route.handler.alterRequest)), [loadResource]);
   }
