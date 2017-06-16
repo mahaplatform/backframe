@@ -81,40 +81,34 @@ exports.default = function (buildRoute) {
           qb.whereRaw('(' + sql + ')', vars);
         }
 
-        if (req.query.$filter) {
-          (0, _list.filter)(qb, req.query.$filter);
-        }
+        if (req.query.$filter) (0, _list.filter)(qb, req.query.$filter);
 
-        if (req.query.$exclude_ids) {
-          qb.whereNotIn(tableName + '.id', req.query.$exclude_ids);
-        }
+        if (req.query.$exclude_ids) qb.whereNotIn(tableName + '.id', req.query.$exclude_ids);
 
-        if (req.query.$ids) {
-          qb.whereIn(tableName + '.id', req.query.$ids);
-        }
+        if (req.query.$ids) qb.whereIn(tableName + '.id', req.query.$ids);
 
         return qb;
       };
 
+      var allQueryObject = null;
+
+      options.model.query(function (qb) {
+
+        qb = (0, _utils.defaultQuery)(options)(req, trx, qb);
+
+        if (options.softDelete) qb = qb.whereNull('deleted_at');
+
+        allQueryObject = qb.toSQL();
+      });
+
       var all = function all() {
-        return options.model.query(function (qb) {
-
-          if (options.ownedByUser) {
-            qb = qb.where('user_id', req.user.get('id'));
-          }
-
-          if (options.softDelete) {
-            qb = qb.whereNull('deleted_at');
-          }
-
-          qb.count('* as count');
-        }).fetchAll({ transacting: trx });
+        return options.knex.raw('select count(*) as count from (' + allQueryObject.sql + ') as temp', allQueryObject.bindings).transacting(trx);
       };
 
-      var queryObject = query(options.knex(tableName)).toSQL();
+      var countQueryObject = query(options.knex(tableName)).toSQL();
 
       var count = function count() {
-        return options.knex.raw('select count(*) as count from (' + queryObject.sql + ') as temp', queryObject.bindings).transacting(trx);
+        return options.knex.raw('select count(*) as count from (' + countQueryObject.sql + ') as temp', countQueryObject.bindings).transacting(trx);
       };
 
       var paged = function paged() {
@@ -124,16 +118,11 @@ exports.default = function (buildRoute) {
 
           qb = query(qb);
 
-          if (limit > 0) {
+          if (limit > 0) qb.limit(limit).offset(skip);
 
-            qb.limit(limit).offset(skip);
-          }
-
-          if (sort) {
-            sort.map(function (item) {
-              qb.orderBy(item.key, item.order);
-            });
-          }
+          if (sort) sort.map(function (item) {
+            return qb.orderByRaw(tableName + '.' + item.key + ' ' + item.order);
+          });
         }).fetchAll(fetchOptions).then(function (records) {
           return records.map(function (record) {
             return record;
@@ -143,7 +132,9 @@ exports.default = function (buildRoute) {
 
       return (0, _bluebird.all)([all(), count(), paged()]).then(function (responses) {
 
-        var all = parseInt(responses[0].toJSON()[0].count);
+        var allResonse = responses[0].rows ? responses[0].rows[0] : responses[0][0];
+
+        var all = allResonse.count ? parseInt(allResonse.count) : 0;
 
         var totalResonse = responses[1].rows ? responses[1].rows[0] : responses[1][0];
 

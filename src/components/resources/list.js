@@ -52,39 +52,33 @@ export default (buildRoute) => {
         qb.whereRaw(`(${sql})`, vars)
       }
 
-      if(req.query.$filter) {
-        filter(qb, req.query.$filter)
-      }
+      if(req.query.$filter) filter(qb, req.query.$filter)
 
-      if(req.query.$exclude_ids) {
-        qb.whereNotIn(`${tableName}.id`, req.query.$exclude_ids)
-      }
+      if(req.query.$exclude_ids) qb.whereNotIn(`${tableName}.id`, req.query.$exclude_ids)
 
-      if(req.query.$ids) {
-        qb.whereIn(`${tableName}.id`, req.query.$ids)
-      }
+      if(req.query.$ids) qb.whereIn(`${tableName}.id`, req.query.$ids)
 
       return qb
 
     }
 
-    const all = () => options.model.query(qb => {
+    let allQueryObject = null
 
-      if(options.ownedByUser) {
-        qb = qb.where('user_id', req.user.get('id'))
-      }
+    options.model.query(qb => {
 
-      if(options.softDelete) {
-        qb = qb.whereNull('deleted_at')
-      }
+      qb = defaultQuery(options)(req, trx, qb)
 
-      qb.count('* as count')
+      if(options.softDelete) qb = qb.whereNull('deleted_at')
 
-    }).fetchAll({ transacting: trx })
+      allQueryObject = qb.toSQL()
 
-    const queryObject = query(options.knex(tableName)).toSQL()
+    })
 
-    const count = () => options.knex.raw(`select count(*) as count from (${queryObject.sql}) as temp`, queryObject.bindings).transacting(trx)
+    const all = () => options.knex.raw(`select count(*) as count from (${allQueryObject.sql}) as temp`, allQueryObject.bindings).transacting(trx)
+
+    const countQueryObject = query(options.knex(tableName)).toSQL()
+
+    const count = () => options.knex.raw(`select count(*) as count from (${countQueryObject.sql}) as temp`, countQueryObject.bindings).transacting(trx)
 
     const paged = () => options.model.query(qb => {
 
@@ -92,23 +86,17 @@ export default (buildRoute) => {
 
       qb = query(qb)
 
-      if(limit > 0) {
+      if(limit > 0) qb.limit(limit).offset(skip)
 
-        qb.limit(limit).offset(skip)
-
-      }
-
-      if(sort) {
-        sort.map(item => {
-          qb.orderBy(item.key, item.order)
-        })
-      }
+      if(sort) sort.map(item => qb.orderByRaw(`${tableName}.${item.key} ${item.order}`))
 
     }).fetchAll(fetchOptions).then(records => records.map(record => record))
 
     return Promise.all([all(), count(), paged()]).then(responses => {
 
-      const all = parseInt(responses[0].toJSON()[0].count)
+      const allResonse = responses[0].rows ? responses[0].rows[0] : responses[0][0]
+
+      const all = allResonse.count ? parseInt(allResonse.count) : 0
 
       const totalResonse = responses[1].rows ? responses[1].rows[0] : responses[1][0]
 
