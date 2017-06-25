@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.mapOptionToActions = exports.mergeRouteOptions = exports.buildSingleRoute = exports.buildStandardRoutes = exports.buildCustomRoutes = exports.buildResources = exports.normalizeOptions = undefined;
+exports.mapOptionToActions = exports.mergeRouteOptions = exports.buildNestedResourcs = exports.buildSingleRoute = exports.buildStandardRoutes = exports.buildCustomRoutes = exports.buildResources = exports.normalizeOptions = undefined;
 
 var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
@@ -114,6 +114,7 @@ exports.default = function () {
       processor: { type: ['function', 'function{}'], required: false },
       query: { type: ['function', 'function{}'], required: false },
       renderer: { type: ['function', 'function{}'], required: false },
+      resources: { type: ['object[]'], required: false },
       responder: { type: ['function', 'function{}'], required: false },
       searchParams: { type: 'string[]', required: false },
       serializer: { type: ['function', 'function{}'], required: false },
@@ -151,7 +152,7 @@ var buildResources = exports.buildResources = function buildResources(options, b
 
   return buildSegment({
     pathPrefix: pathPrefix,
-    routes: [].concat((0, _toConsumableArray3.default)(buildCustomRoutes(options.collectionActions, options, buildRoute, false)), (0, _toConsumableArray3.default)(buildCustomRoutes(options.memberActions, options, buildRoute, true)), (0, _toConsumableArray3.default)(buildStandardRoutes(options, buildRoute)))
+    routes: [].concat((0, _toConsumableArray3.default)(buildCustomRoutes(options.collectionActions, options, buildRoute, false)), (0, _toConsumableArray3.default)(buildCustomRoutes(options.memberActions, options, buildRoute, true)), (0, _toConsumableArray3.default)(buildStandardRoutes(options, buildRoute)), (0, _toConsumableArray3.default)(buildNestedResourcs(options, buildSegment)))
   });
 };
 
@@ -234,6 +235,18 @@ var buildSingleRoute = exports.buildSingleRoute = function buildSingleRoute(name
       action: name
     }),
     handler: (0, _extends6.default)({}, (0, _core.mergeEvents)(route.handler, mergedRouteOptions), (0, _core.mergeHooks)(route.handler, mergedRouteOptions))
+  });
+};
+
+var buildNestedResourcs = exports.buildNestedResourcs = function buildNestedResourcs(options, buildSegment) {
+
+  if (!options.resources) return [];
+
+  var pathPrefix = '/:' + options.name + '_id';
+
+  return buildSegment({
+    pathPrefix: pathPrefix,
+    routes: [].concat((0, _toConsumableArray3.default)(options.resources))
   });
 };
 

@@ -38,6 +38,7 @@ export default  (buildRoute) => {
   }
 
   return buildRoute({
+    action: 'create',
     method: 'post',
     path: '',
     alterRequest,

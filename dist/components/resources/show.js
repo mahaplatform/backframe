@@ -25,6 +25,7 @@ exports.default = function (buildRoute) {
   };
 
   return buildRoute({
+    action: 'show',
     method: 'get',
     path: '/:id',
     processor: processor,

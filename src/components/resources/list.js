@@ -111,6 +111,7 @@ export default (buildRoute) => {
   }
 
   return buildRoute({
+    action: 'list',
     method: 'get',
     path: '',
     before,

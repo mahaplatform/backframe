@@ -57,6 +57,7 @@ exports.default = function (buildRoute) {
   };
 
   return buildRoute({
+    action: 'create',
     method: 'post',
     path: '',
     alterRequest: alterRequest,

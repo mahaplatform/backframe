@@ -148,6 +148,7 @@ exports.default = function (buildRoute) {
   };
 
   return buildRoute({
+    action: 'list',
     method: 'get',
     path: '',
     before: before,

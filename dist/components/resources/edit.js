@@ -27,6 +27,7 @@ exports.default = function (buildRoute) {
   };
 
   return buildRoute({
+    action: 'edit',
     method: 'get',
     path: '/:id/edit',
     processor: processor,

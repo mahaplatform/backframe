@@ -38,6 +38,7 @@ export default (backframeOptions = {}) => {
       processor: { type: ['function','function{}'], required: false },
       query: { type: ['function','function{}'], required: false },
       renderer: { type: ['function','function{}'], required: false },
+      resources: { type: ['object[]'], required: false },
       responder: { type: ['function','function{}'], required: false },
       searchParams: { type: 'string[]', required: false },
       serializer: { type: ['function','function{}'], required: false },
@@ -90,7 +91,8 @@ export const buildResources = (options, buildSegment, buildRoute) => {
     routes: [
       ...buildCustomRoutes(options.collectionActions, options, buildRoute, false),
       ...buildCustomRoutes(options.memberActions, options, buildRoute, true),
-      ...buildStandardRoutes(options, buildRoute)
+      ...buildStandardRoutes(options, buildRoute),
+      ...buildNestedResourcs(options, buildSegment)
     ]
   })
 
@@ -176,6 +178,21 @@ export const buildSingleRoute = (name, options, route) => {
       ...mergeHooks(route.handler, mergedRouteOptions)
     }
   }
+
+}
+
+export const buildNestedResourcs = (options, buildSegment) => {
+
+  if(!options.resources) return []
+
+  const pathPrefix = `/:${options.name}_id`
+
+  return buildSegment({
+    pathPrefix,
+    routes: [
+      ...options.resources
+    ]
+  })
 
 }
 

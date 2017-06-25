@@ -7,6 +7,7 @@ export default (buildRoute) => {
   const processor = options => (req, trx) => req.resource
 
   return buildRoute({
+    action: 'show',
     method: 'get',
     path: '/:id',
     processor,

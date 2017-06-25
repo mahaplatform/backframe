@@ -95,6 +95,7 @@ exports.default = function (buildRoute) {
   };
 
   return buildRoute({
+    action: 'update',
     method: 'patch',
     path: '/:id',
     alterRequest: alterRequest,

@@ -46,6 +46,7 @@ exports.default = function () {
       cacheFor: { type: 'integer', required: false },
       handler: { type: 'function', required: false },
       method: { type: 'string', required: true, default: 'get' },
+      name: { type: 'string', required: false },
       path: { type: 'string', required: true },
       processor: { type: 'function', required: false },
       renderer: { type: 'function', required: false },

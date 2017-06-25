@@ -9,6 +9,7 @@ export default (backframeOptions = {}) => {
   return (userOptions = {}) => {
 
     const TYPES = mergeTypes({
+      action: { type: 'string', required: false },
       after: { type: ['function','function[]'], required: false },
       alterRequest: { type: ['function','function[]'], required: false },
       before: { type: ['function','function[]'], required: false },

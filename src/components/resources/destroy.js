@@ -53,6 +53,7 @@ export default (buildRoute) => {
   }
 
   return buildRoute({
+    action: 'destroy',
     method: 'delete',
     path: '/:id',
     processor,

@@ -8,6 +8,7 @@ export default  (buildRoute) => {
   const renderer = options => (req, result) => result.toJSON()
 
   return buildRoute({
+    action: 'edit',
     method: 'get',
     path: '/:id/edit',
     processor,
