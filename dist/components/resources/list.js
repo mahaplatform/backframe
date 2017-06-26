@@ -71,17 +71,20 @@ exports.default = function (buildRoute) {
         qb = (0, _utils.defaultQuery)(options)(req, trx, qb);
 
         if (options.searchParams && req.query.$filter && req.query.$filter.q) {
-          var term = '%' + req.query.$filter.q.toLowerCase() + '%';
-          var sql = options.searchParams.map(function (param) {
-            return 'LOWER(' + param + ') LIKE ?';
-          }).join(' OR ');
-          var vars = options.searchParams.map(function (param) {
-            return term;
-          });
-          qb.whereRaw('(' + sql + ')', vars);
+
+          var vector = options.searchParams.join(' || \' \' || ');
+
+          var term = req.query.$filter.q.toLowerCase().replace(' ', '%');
+
+          if (options.knex.client.config.client === 'postgresql') {
+            var _query = req.query.$filter.q.toLowerCase().replace(' ', ' & ');
+            qb.whereRaw('(lower(' + vector + ') LIKE \'%' + term + '%\' OR to_tsvector(' + vector + ') @@ to_tsquery(\'' + _query + '\'))');
+          } else {
+            qb.whereRaw('lower(' + vector + ') LIKE \'%' + term + '%\'');
+          }
         }
 
-        if (req.query.$filter) (0, _list.filter)(qb, req.query.$filter);
+        if (req.query.$filter) (0, _list.filter)(options, qb, req.query.$filter);
 
         if (req.query.$exclude_ids) qb.whereNotIn(tableName + '.id', req.query.$exclude_ids);
 

@@ -109,7 +109,8 @@ var checkType = exports.checkType = function checkType(option, type, allowedActi
 
       var value = option[key];
 
-      return _lodash2.default.includes(allowedActions, key) && checkType(value, mapped[1], allowedActions);
+      return checkType(value, mapped[1], allowedActions);
+      // return _.includes(allowedActions, key) && checkType(value, mapped[1], allowedActions)
     }, true);
   } else if (!array && !mapped) {
 

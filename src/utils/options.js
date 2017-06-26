@@ -92,7 +92,8 @@ export const checkType = (option, type, allowedActions) => {
 
       const value = option[key]
 
-      return _.includes(allowedActions, key) && checkType(value, mapped[1], allowedActions)
+      return checkType(value, mapped[1], allowedActions)
+      // return _.includes(allowedActions, key) && checkType(value, mapped[1], allowedActions)
 
     }, true)
 

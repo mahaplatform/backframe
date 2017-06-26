@@ -45,13 +45,16 @@ var extractSort = exports.extractSort = function extractSort(query, defaults) {
 };
 
 // map query filters to a qb object
-var filter = exports.filter = function filter(qb, filters) {
+var filter = exports.filter = function filter(options, qb, filters) {
 
   return (0, _keys2.default)(filters).filter(function (key) {
     return filters[key];
   }).reduce(function (qb, key) {
 
-    if (filters[key].$eq) {
+    if (options.virtualFilters && options.virtualFilters[key]) {
+
+      options.virtualFilters[key](filters[key], qb);
+    } else if (filters[key].$eq) {
 
       if (filters[key].$eq === 'null') {
 

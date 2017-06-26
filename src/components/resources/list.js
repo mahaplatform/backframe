@@ -46,13 +46,21 @@ export default (buildRoute) => {
       qb = defaultQuery(options)(req, trx, qb)
 
       if(options.searchParams && req.query.$filter && req.query.$filter.q) {
-        const term = `%${req.query.$filter.q.toLowerCase()}%`
-        const sql = options.searchParams.map(param => `LOWER(${param}) LIKE ?`).join(' OR ')
-        const vars = options.searchParams.map(param => term)
-        qb.whereRaw(`(${sql})`, vars)
+
+        const vector = options.searchParams.join(` || ' ' || `)
+
+        const term = req.query.$filter.q.toLowerCase().replace(' ', '%')
+
+        if(options.knex.client.config.client === 'postgresql') {
+          const query = req.query.$filter.q.toLowerCase().replace(' ', ' & ')
+          qb.whereRaw(`(lower(${vector}) LIKE '%${term}%' OR to_tsvector(${vector}) @@ to_tsquery('${query}'))`)
+        } else {
+          qb.whereRaw(`lower(${vector}) LIKE '%${term}%'`)
+        }
+
       }
 
-      if(req.query.$filter) filter(qb, req.query.$filter)
+      if(req.query.$filter) filter(options, qb, req.query.$filter)
 
       if(req.query.$exclude_ids) qb.whereNotIn(`${tableName}.id`, req.query.$exclude_ids)
 
