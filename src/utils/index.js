@@ -24,6 +24,18 @@ export const defaultQuery = options => (req, trx, qb) => {
 
 }
 
+export const defaultParams = options => (req, trx) => {
+
+  if(options.defaultParams) {
+    return options.defaultParams.reduce((params, defaultParams) => ({
+      ...params,
+      ...defaultParams(options)(req, trx)
+    }), {})
+  }
+
+  return {}
+
+}
 export const defaultProcessor = options => req => null
 
 export const defaultRenderer = options => async (req, trx, result) => {

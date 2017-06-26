@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.defaultResponder = exports.defaultRenderer = exports.defaultProcessor = exports.defaultQuery = undefined;
+exports.defaultResponder = exports.defaultRenderer = exports.defaultProcessor = exports.defaultParams = exports.defaultQuery = undefined;
 
 var _regenerator = require('babel-runtime/regenerator');
 
@@ -12,6 +12,10 @@ var _regenerator2 = _interopRequireDefault(_regenerator);
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _lodash = require('lodash');
 
@@ -64,6 +68,18 @@ var defaultQuery = exports.defaultQuery = function defaultQuery(options) {
   };
 };
 
+var defaultParams = exports.defaultParams = function defaultParams(options) {
+  return function (req, trx) {
+
+    if (options.defaultParams) {
+      return options.defaultParams.reduce(function (params, defaultParams) {
+        return (0, _extends3.default)({}, params, defaultParams(options)(req, trx));
+      }, {});
+    }
+
+    return {};
+  };
+};
 var defaultProcessor = exports.defaultProcessor = function defaultProcessor(options) {
   return function (req) {
     return null;

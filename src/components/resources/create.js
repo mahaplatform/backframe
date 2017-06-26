@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { coerceArray } from '../../utils/core'
-import { defaultRenderer, defaultResponder } from '../../utils'
+import { defaultParams, defaultRenderer, defaultResponder } from '../../utils'
 import { checkPermitted } from '../../utils/options'
 import BackframeError from '../../utils/error'
 
@@ -23,7 +23,7 @@ export default  (buildRoute) => {
   const processor = options => (req, trx) => {
 
     const data = {
-      ...options.defaultParams ? options.defaultParams(req) : {},
+      ...defaultParams(options)(req, trx),
       ..._.pick(req.data, options.allowedParams)
     }
 

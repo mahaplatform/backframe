@@ -144,7 +144,7 @@ var mergeHooks = exports.mergeHooks = function mergeHooks(hooks, plugins) {
 
   return coerceArray(plugins).reduce(function (hooks, plugin) {
 
-    var items = [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_HOOKS), ['defaultQuery']);
+    var items = [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_HOOKS), ['defaultParams', 'defaultQuery']);
 
     return items.reduce(function (hooks, hook) {
 

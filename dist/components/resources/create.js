@@ -45,7 +45,7 @@ exports.default = function (buildRoute) {
   var processor = function processor(options) {
     return function (req, trx) {
 
-      var data = (0, _extends3.default)({}, options.defaultParams ? options.defaultParams(req) : {}, _lodash2.default.pick(req.data, options.allowedParams));
+      var data = (0, _extends3.default)({}, (0, _utils.defaultParams)(options)(req, trx), _lodash2.default.pick(req.data, options.allowedParams));
 
       return options.model.forge(data).save(null, { transacting: trx }).catch(function (err) {
 

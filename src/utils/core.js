@@ -115,7 +115,8 @@ export const mergeHooks = (hooks, plugins, options = null) => {
 
     const items = [
       ...constants.BACKFRAME_HOOKS,
-      'defaultQuery'
+      'defaultParams',
+      'defaultQuery',
     ]
 
     return items.reduce((hooks, hook) => {
