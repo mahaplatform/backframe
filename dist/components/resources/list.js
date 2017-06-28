@@ -35,7 +35,9 @@ exports.default = function (buildRoute) {
 
       if (req.query.$filter) {
 
-        (0, _options.checkPermitted)(req.query.$filter, [].concat((0, _toConsumableArray3.default)(options.filterParams), ['q']), 'Unable to filter on the keys {unpermitted}. Please add it to filterParams');
+        var allowed = [].concat((0, _toConsumableArray3.default)(options.filterParams), (0, _toConsumableArray3.default)(options.virtualFilters), ['q']);
+
+        (0, _options.checkPermitted)(req.query.$filter, allowed, 'Unable to filter on the keys {unpermitted}. Please add it to filterParams');
 
         if (req.query.$filter.q && !options.searchParams && process.env.NODE_ENV == 'development') {
           throw new _error2.default({ code: 412, message: 'Unable to search on q without searchParams' });

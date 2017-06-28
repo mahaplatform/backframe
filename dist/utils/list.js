@@ -51,10 +51,7 @@ var filter = exports.filter = function filter(options, qb, filters) {
     return filters[key];
   }).reduce(function (qb, key) {
 
-    if (options.virtualFilters && options.virtualFilters[key]) {
-
-      options.virtualFilters[key](filters[key], qb);
-    } else if (filters[key].$eq) {
+    if (filters[key].$eq) {
 
       if (filters[key].$eq === 'null') {
 

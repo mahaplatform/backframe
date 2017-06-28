@@ -11,7 +11,13 @@ export default (buildRoute) => {
 
     if(req.query.$filter) {
 
-      checkPermitted(req.query.$filter, [...options.filterParams, 'q'], 'Unable to filter on the keys {unpermitted}. Please add it to filterParams')
+      const allowed = [
+        ...options.filterParams,
+        ...options.virtualFilters,
+        'q'
+      ]
+
+      checkPermitted(req.query.$filter, allowed, 'Unable to filter on the keys {unpermitted}. Please add it to filterParams')
 
       if(req.query.$filter.q && !options.searchParams && process.env.NODE_ENV == 'development') {
         throw new BackframeError({ code: 412, message: 'Unable to search on q without searchParams' })

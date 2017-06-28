@@ -17,7 +17,12 @@ export default (buildRoute) => {
 
   const before = options => req => {
 
-    checkPermitted(req.data, options.allowedParams, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams')
+    const allowed = [
+      ...coerceArray(options.allowedParams),
+      ...coerceArray(options.virtualParams),
+    ]
+    
+    checkPermitted(req.data, allowed, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams')
 
   }
 

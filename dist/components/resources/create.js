@@ -8,6 +8,10 @@ var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
 
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -38,7 +42,9 @@ exports.default = function (buildRoute) {
   var before = function before(options) {
     return function (req) {
 
-      (0, _options.checkPermitted)(req.data, options.allowedParams, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams');
+      var allowed = [].concat((0, _toConsumableArray3.default)((0, _core.coerceArray)(options.allowedParams)), (0, _toConsumableArray3.default)((0, _core.coerceArray)(options.virtualParams)));
+
+      (0, _options.checkPermitted)(req.data, allowed, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams');
     };
   };
 

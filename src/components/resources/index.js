@@ -45,7 +45,8 @@ export default (backframeOptions = {}) => {
       softDelete: { type: 'boolean', required: false, default: false },
       sortParams: { type: ['string','string[]'], required: false },
       withRelated: { type: ['string','string[]','string[]{}'], required: false },
-      virtualFilters: { type: ['function{}'], required: false }
+      virtualFilters: { type: ['string','string[]'], required: false },
+      virtualParams: { type: ['string','string[]'], required: false }
     }, backframeOptions.plugins)
 
     validateOptions('resources', userOptions, TYPES)
@@ -155,7 +156,7 @@ const loadResource = options => async (req, trx) => {
 // build single rest route
 export const buildSingleRoute = (name, options, route) => {
 
-  const mergedRouteOptions = mergeRouteOptions(name, options)
+  const mergedRouteOptions = mergeRouteOptions(name, options, route.options)
 
   const routeOptions = _.omit(mergedRouteOptions, [...constants.BACKFRAME_LIFECYCLE,'actions','except','only','pathPrefix'])
 
@@ -198,12 +199,15 @@ export const buildNestedResourcs = (options, buildSegment) => {
 }
 
 // destructure mapped options and preapre hash to be merged
-export const mergeRouteOptions = (name, options) => {
+export const mergeRouteOptions = (name, options, routeOptions) => {
+
+  //TODO: need to be smarter about how routeOptions are merged
 
   return _.omitBy({
     ...options,
     ...mergeOptionsForAction(options, constants.BACKFRAME_HOOKS, name, ),
-    ...overrideOptionsForAction(options, [...constants.BACKFRAME_EVENTS,'allowedParams','query','serializer','withRelated'], name)
+    ...overrideOptionsForAction(options, [...constants.BACKFRAME_EVENTS,'allowedParams','query','serializer','withRelated'], name),
+    ...routeOptions
   }, _.isNil)
 
 }

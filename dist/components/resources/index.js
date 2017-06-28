@@ -121,7 +121,8 @@ exports.default = function () {
       softDelete: { type: 'boolean', required: false, default: false },
       sortParams: { type: ['string', 'string[]'], required: false },
       withRelated: { type: ['string', 'string[]', 'string[]{}'], required: false },
-      virtualFilters: { type: ['function{}'], required: false }
+      virtualFilters: { type: ['string', 'string[]'], required: false },
+      virtualParams: { type: ['string', 'string[]'], required: false }
     }, backframeOptions.plugins);
 
     (0, _options.validateOptions)('resources', userOptions, TYPES);
@@ -222,7 +223,7 @@ var loadResource = function loadResource(options) {
 // build single rest route
 var buildSingleRoute = exports.buildSingleRoute = function buildSingleRoute(name, options, route) {
 
-  var mergedRouteOptions = mergeRouteOptions(name, options);
+  var mergedRouteOptions = mergeRouteOptions(name, options, route.options);
 
   var routeOptions = _lodash2.default.omit(mergedRouteOptions, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_LIFECYCLE), ['actions', 'except', 'only', 'pathPrefix']));
 
@@ -252,9 +253,9 @@ var buildNestedResourcs = exports.buildNestedResourcs = function buildNestedReso
 };
 
 // destructure mapped options and preapre hash to be merged
-var mergeRouteOptions = exports.mergeRouteOptions = function mergeRouteOptions(name, options) {
+var mergeRouteOptions = exports.mergeRouteOptions = function mergeRouteOptions(name, options, routeOptions) {
 
-  return _lodash2.default.omitBy((0, _extends6.default)({}, options, mergeOptionsForAction(options, constants.BACKFRAME_HOOKS, name), overrideOptionsForAction(options, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_EVENTS), ['allowedParams', 'query', 'serializer', 'withRelated']), name)), _lodash2.default.isNil);
+  return _lodash2.default.omitBy((0, _extends6.default)({}, options, mergeOptionsForAction(options, constants.BACKFRAME_HOOKS, name), overrideOptionsForAction(options, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_EVENTS), ['allowedParams', 'query', 'serializer', 'withRelated']), name), routeOptions), _lodash2.default.isNil);
 };
 
 var mapOptionsToActions = function mapOptionsToActions(options, keys) {

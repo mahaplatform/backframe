@@ -25,11 +25,7 @@ export const filter = (options, qb, filters) => {
 
   return Object.keys(filters).filter(key => filters[key]).reduce((qb, key) => {
 
-    if(options.virtualFilters && options.virtualFilters[key]) {
-
-      options.virtualFilters[key](filters[key], qb)
-
-    } else if(filters[key].$eq) {
+    if(filters[key].$eq) {
 
       if(filters[key].$eq === 'null') {
 
