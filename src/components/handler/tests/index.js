@@ -17,15 +17,15 @@ const res = {
 
 export default () => {
 
-  it('requires a processor', (done) => {
-
-    try {
-      buildHandler({})
-    } catch(e) {
-      done()
-    }
-
-  })
+  // it('requires a processor', (done) => {
+  //
+  //   try {
+  //     buildHandler({})
+  //   } catch(e) {
+  //     done()
+  //   }
+  //
+  // })
 
   it('executes with only a processor', (done) => {
 
