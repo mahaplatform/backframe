@@ -41,14 +41,15 @@ var res = {
 
 exports.default = function () {
 
-  it('requires a processor', function (done) {
-
-    try {
-      buildHandler({});
-    } catch (e) {
-      done();
-    }
-  });
+  // it('requires a processor', (done) => {
+  //
+  //   try {
+  //     buildHandler({})
+  //   } catch(e) {
+  //     done()
+  //   }
+  //
+  // })
 
   it('executes with only a processor', function (done) {
 

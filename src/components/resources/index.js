@@ -43,10 +43,10 @@ export default (backframeOptions = {}) => {
       searchParams: { type: 'string[]', required: false },
       serializer: { type: ['function','function{}'], required: false },
       softDelete: { type: 'boolean', required: false, default: false },
-      sortParams: { type: ['string','string[]'], required: false },
+      sortParams: { type: ['string','string[]'], required: false, default: [] },
       withRelated: { type: ['string','string[]','string[]{}'], required: false },
-      virtualFilters: { type: ['string','string[]'], required: false },
-      virtualParams: { type: ['string','string[]'], required: false }
+      virtualFilters: { type: ['string','string[]'], required: false, default: [] },
+      virtualParams: { type: ['string','string[]'], required: false, default: [] }
     }, backframeOptions.plugins)
 
     validateOptions('resources', userOptions, TYPES)

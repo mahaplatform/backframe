@@ -121,8 +121,8 @@ exports.default = function () {
       softDelete: { type: 'boolean', required: false, default: false },
       sortParams: { type: ['string', 'string[]'], required: false },
       withRelated: { type: ['string', 'string[]', 'string[]{}'], required: false },
-      virtualFilters: { type: ['string', 'string[]'], required: false },
-      virtualParams: { type: ['string', 'string[]'], required: false }
+      virtualFilters: { type: ['string', 'string[]'], required: false, default: [] },
+      virtualParams: { type: ['string', 'string[]'], required: false, default: [] }
     }, backframeOptions.plugins);
 
     (0, _options.validateOptions)('resources', userOptions, TYPES);
@@ -254,6 +254,8 @@ var buildNestedResourcs = exports.buildNestedResourcs = function buildNestedReso
 
 // destructure mapped options and preapre hash to be merged
 var mergeRouteOptions = exports.mergeRouteOptions = function mergeRouteOptions(name, options, routeOptions) {
+
+  //TODO: need to be smarter about how routeOptions are merged
 
   return _lodash2.default.omitBy((0, _extends6.default)({}, options, mergeOptionsForAction(options, constants.BACKFRAME_HOOKS, name), overrideOptionsForAction(options, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_EVENTS), ['allowedParams', 'query', 'serializer', 'withRelated']), name), routeOptions), _lodash2.default.isNil);
 };
