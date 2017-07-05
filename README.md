@@ -9,9 +9,12 @@
   <img src="https://img.shields.io/codeclimate/coverage/github/mahaplatform/backframe.svg?maxAge=600" alt="Code Coverage" />
 </a>
 
-Backframe is a javascript library for declaratively creating REST APIs and
-asynchronous service workers. Backframe provides simple, declarative tools for
-creating units of work that can be handled both synchronously or asynchronously.
+Backframe is a javascript library for declaratively creating REST APIs for
+Express. Express is a great tool for building lightweight web and application
+servers, but it leaves almost all of the implementation to the developer. When
+building REST API's, this usually ends up requiring the developer to write
+a lot of tedious and repetitive code. Backframe provides simple, declarative
+tools for building REST APIs.
 
 [Read the overview](https://github.com/mahaplatform/backframe/blob/master/docs/overview.md)
 
@@ -22,7 +25,7 @@ Install with [npm](http://npmjs.com) or [yarn](https://yarnpkg.com):
 npm install --save backframe
 ```
 
-## REST APIS
+## Usage
 Backframe is a great tool for rapidly creating performant REST APIs for your web
 or mobile application
 
@@ -49,42 +52,7 @@ app.use(backframe.router({
 app.listen(3000)
 ```
 
-[Learn more about apis](https://github.com/mahaplatform/backframe/blob/master/docs/api.md)
-
-## Service Workers
-Backframe can also be used to create service workers that can asynchronously
-process jobs in a work queue
-
-
-```javascript
-import Backframe from 'backframe'
-import Kittens from from 'app/models/kittens'
-
-// initialize backframe
-const backframe = Backframe()
-
-// create a work queue
-const scratchQueue = backframe.queue({
-  name: 'scratch',
-  processor: options => (job, trx) => {
-    return Kitten.where({ id: job.data.id })
-      .fetch({ transacting: trx })
-      .then(kitten => `Scratching ${kitten.get('name')}`)
-  }
-})
-
-// mount queue within service worker
-const worker = backframe.worker({
-  queues: [
-    scratchQueue
-  ]
-})
-
-// somewhere else in your app, add a job
-worker.scratch.add({ id: 23 }, { priority: 'high' })
-```
-
-[Learn more about service workers](https://github.com/mahaplatform/backframe/blob/master/docs/worker.md)
+[Learn more](https://github.com/mahaplatform/backframe/blob/master/docs/api.md)
 
 ## Author & Credits
 
