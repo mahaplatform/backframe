@@ -1,5 +1,5 @@
 # Backframe
-<img src="https://raw.githubusercontent.com/mahaplatform/maha-platform/master/docs/backframe.png"/>
+<img src="https://raw.githubusercontent.com/mahaplatform/backframe/master/docs/backframe.png"/>
 
 <a href="https://circleci.com/gh/mahaplatform/backframe">
   <img src="https://img.shields.io/circleci/project/mahaplatform/backframe.svg?maxAge=600" alt="Build Status" >
