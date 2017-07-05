@@ -7,7 +7,7 @@ import BackframeError from '../../utils/error'
 
 export default (buildRoute) => {
 
-  const before = options => req => {
+  const beforeProcessor = options => req => {
 
     if(req.query.$filter) {
 
@@ -57,12 +57,7 @@ export default (buildRoute) => {
 
         const term = req.query.$filter.q.toLowerCase().replace(' ', '%')
 
-        if(options.knex.client.config.client === 'postgresql') {
-          const query = req.query.$filter.q.toLowerCase().replace(' ', ' & ')
-          qb.whereRaw(`(lower(${vector}) LIKE '%${term}%' OR to_tsvector(${vector}) @@ to_tsquery('${query}'))`)
-        } else {
-          qb.whereRaw(`lower(${vector}) LIKE '%${term}%'`)
-        }
+        qb.whereRaw(`lower(${vector}) LIKE '%${term}%'`)
 
       }
 
@@ -128,7 +123,7 @@ export default (buildRoute) => {
     action: 'list',
     method: 'get',
     path: '',
-    before,
+    beforeProcessor,
     processor,
     renderer: defaultRenderer,
     responder: defaultResponder('Successfully found records')

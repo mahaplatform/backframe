@@ -4,9 +4,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
 var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
@@ -39,7 +47,7 @@ exports.default = function (buildRoute) {
     };
   };
 
-  var before = function before(options) {
+  var beforeProcessor = function beforeProcessor(options) {
     return function (req) {
 
       var allowed = [].concat((0, _toConsumableArray3.default)((0, _core.coerceArray)(options.allowedParams)), (0, _toConsumableArray3.default)((0, _core.coerceArray)(options.virtualParams)));
@@ -49,17 +57,49 @@ exports.default = function (buildRoute) {
   };
 
   var processor = function processor(options) {
-    return function (req, trx) {
+    return function () {
+      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, trx) {
+        var data;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                data = (0, _extends3.default)({}, (0, _utils.defaultParams)(options)(req, trx), _lodash2.default.pick(req.data, options.allowedParams));
+                _context.next = 4;
+                return options.model.forge(data).save(null, { transacting: trx });
 
-      var data = (0, _extends3.default)({}, (0, _utils.defaultParams)(options)(req, trx), _lodash2.default.pick(req.data, options.allowedParams));
+              case 4:
+                req.resource = _context.sent;
+                _context.next = 12;
+                break;
 
-      return options.model.forge(data).save(null, { transacting: trx }).catch(function (err) {
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context['catch'](0);
 
-        if (err.errors) throw new _error2.default({ code: 422, message: 'Unable to create record', errors: err.toJSON() });
+                if (!_context.t0.errors) {
+                  _context.next = 11;
+                  break;
+                }
 
-        throw err;
-      });
-    };
+                throw new _error2.default({ code: 422, message: 'Unable to create record', errors: _context.t0.toJSON() });
+
+              case 11:
+                throw _context.t0;
+
+              case 12:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, undefined, [[0, 7]]);
+      }));
+
+      return function (_x, _x2) {
+        return _ref.apply(this, arguments);
+      };
+    }();
   };
 
   return buildRoute({
@@ -67,7 +107,7 @@ exports.default = function (buildRoute) {
     method: 'post',
     path: '',
     alterRequest: alterRequest,
-    before: before,
+    beforeProcessor: beforeProcessor,
     processor: processor,
     renderer: _utils.defaultRenderer,
     responder: (0, _utils.defaultResponder)('Successfully created record')

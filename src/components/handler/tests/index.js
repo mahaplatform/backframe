@@ -106,17 +106,23 @@ export default () => {
 
   })
 
-  it('succeeds with a single before hook', (done) => testSingleHookBeforeProcessor('before', done))
+  it('succeeds with a single beforeProcessor hook', (done) => testSingleHookBeforeProcessor('beforeProcessor', done))
 
-  it('succeeds with multiple before hooks', (done) => testMultipleHooksBeforeProcessor('before', done))
+  it('succeeds with multiple beforeProcessor hooks', (done) => testMultipleHooksBeforeProcessor('beforeProcessor', done))
 
-  it('fails with a failed before hook', (done) => testFailedHookBeforeProcessor('before', done))
+  it('fails with a failed beforeProcessor hook', (done) => testFailedHookBeforeProcessor('beforeProcessor', done))
 
-  it('succeeds with a single after hook', (done) => testSingleHookAfterProcessor('after', done))
+  it('succeeds with a single afterProcessor hook', (done) => testSingleHookAfterProcessor('afterProcessor', done))
 
-  it('succeeds with multiple after hooks', (done) => testMultipleHooksAfterProcessor('after', done))
+  it('succeeds with multiple afterProcessor hooks', (done) => testMultipleHooksAfterProcessor('afterProcessor', done))
 
-  it('fails with a failed after hook', (done) => testFailedHookAfterProcessor('after', done))
+  it('fails with a failed afterProcessor hook', (done) => testFailedHookAfterProcessor('afterProcessor', done))
+
+  it('succeeds with a single afterCommit hook', (done) => testSingleHookAfterProcessor('afterCommit', done))
+
+  it('succeeds with multiple afterCommit hooks', (done) => testMultipleHooksAfterProcessor('afterCommit', done))
+
+  it('fails with a failed afterCommit hook', (done) => testFailedHookAfterProcessor('afterCommit', done))
 
   it('succeeds with a single alterRecord hook', (done) => {
 

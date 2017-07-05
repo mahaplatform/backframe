@@ -39,7 +39,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function (buildRoute) {
 
   var alterRequest = function alterRequest(options) {
-    return function (req) {
+    return function (req, trx) {
 
       req.data = _lodash2.default.assign(req.body, req.query);
 
@@ -47,8 +47,8 @@ exports.default = function (buildRoute) {
     };
   };
 
-  var before = function before(options) {
-    return function (req) {
+  var beforeProcessor = function beforeProcessor(options) {
+    return function (req, trx) {
 
       var allowed = [].concat((0, _toConsumableArray3.default)((0, _core.coerceArray)(options.allowedParams)), (0, _toConsumableArray3.default)((0, _core.coerceArray)(options.virtualParams)));
 
@@ -105,7 +105,7 @@ exports.default = function (buildRoute) {
     method: 'patch',
     path: '/:id',
     alterRequest: alterRequest,
-    before: before,
+    beforeProcessor: beforeProcessor,
     processor: processor,
     renderer: _utils.defaultRenderer,
     responder: (0, _utils.defaultResponder)('Successfully updated record')

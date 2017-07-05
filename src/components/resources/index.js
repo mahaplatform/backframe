@@ -201,8 +201,6 @@ export const buildNestedResourcs = (options, buildSegment) => {
 // destructure mapped options and preapre hash to be merged
 export const mergeRouteOptions = (name, options, routeOptions) => {
 
-  //TODO: need to be smarter about how routeOptions are merged
-
   return _.omitBy({
     ...options,
     ...mergeOptionsForAction(options, constants.BACKFRAME_HOOKS, name, ),

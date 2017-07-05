@@ -10,10 +10,12 @@ export default (backframeOptions = {}) => {
   return (userOptions = {}) => {
 
     const TYPES = {
-      after: { type: ['function','function[]'], required: false },
+      afterCommit: { type: ['function','function[]'], required: false },
+      afterProcessor: { type: ['function','function[]'], required: false },
       alterRequest: { type: ['function','function[]'], required: false },
       alterRecord: { type: ['function','function[]'], required: false },
-      before: { type: ['function','function[]'], required: false },
+      beforeProcessor: { type: ['function','function[]'], required: false },
+      beforeRollback: { type: ['function','function[]'], required: false },
       csvResponder: { type: ['function'], required: false },
       jsonResponder: { type: ['function'], required: false},
       handler: { type: 'function', required: false },
@@ -56,7 +58,7 @@ export const expandLifecycle = (userOptions) => {
 
 export const buildHandler = (options) => {
 
-  const { alterRequest, before, processor, after, renderer, alterRecord, responder } = options
+  const { alterRequest, beforeProcessor, processor, afterProcessor, renderer, alterRecord, responder, afterCommit, beforeRollback } = options
 
   return (req, res) => {
 
@@ -66,11 +68,11 @@ export const buildHandler = (options) => {
 
         req = await runAlterRequest(req, trx, alterRequest) || req
 
-        await runHooks(req, trx, before)
+        await runHooks(req, trx, beforeProcessor)
 
         let result = await processor(req, trx) || null
 
-        await runHooks(req, trx, after, result)
+        await runHooks(req, trx, afterProcessor, result)
 
         result = renderer ? await renderer(req, trx, result) : result
 
@@ -78,9 +80,15 @@ export const buildHandler = (options) => {
 
         await runResponder(req, res, result, responder)
 
-        return await trx.commit(result)
+        await trx.commit(result)
+
+        await runHooks(req, trx, afterCommit, result)
+
+        return result
 
       } catch(err) {
+
+        await runHooks(req, trx, beforeRollback)
 
         await trx.rollback(err)
 
@@ -108,6 +116,8 @@ export const runAlterRequest = (req, trx, alterRequest) => {
 
 export const runAlterRecord = (req, trx, alterRecord, result) => {
 
+  if(!alterRecord) return result
+
   const runner = async (result, operation) => (result && result.records) ? await applyToRecords(req, trx, result, operation) : await operation(req, trx, result)
 
   if(alterRecord.length === 0) return result
@@ -119,6 +129,8 @@ export const runAlterRecord = (req, trx, alterRecord, result) => {
 }
 
 export const runHooks = (req, trx, hooks, result = null) => {
+
+  if(!hooks) return true
 
   const runner = async (hook) => await result ? hook(req, trx, result) : hook(req, trx)
 

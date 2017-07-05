@@ -7,7 +7,7 @@ import BackframeError from '../../utils/error'
 
 export default (buildRoute) => {
 
-  const alterRequest = options => req => {
+  const alterRequest = options => (req, trx) => {
 
     req.data = _.assign(req.body, req.query)
 
@@ -15,13 +15,13 @@ export default (buildRoute) => {
 
   }
 
-  const before = options => req => {
+  const beforeProcessor = options => (req, trx) => {
 
     const allowed = [
       ...coerceArray(options.allowedParams),
       ...coerceArray(options.virtualParams),
     ]
-    
+
     checkPermitted(req.data, allowed, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams')
 
   }
@@ -49,7 +49,7 @@ export default (buildRoute) => {
     method: 'patch',
     path: '/:id',
     alterRequest,
-    before,
+    beforeProcessor,
     processor,
     renderer: defaultRenderer,
     responder: defaultResponder('Successfully updated record')

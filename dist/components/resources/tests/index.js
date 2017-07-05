@@ -89,12 +89,14 @@ exports.default = function () {
       (0, _chai.expect)(list.path).to.equal('/users');
       (0, _chai.expect)(list.handler).to.include.keys(constants.BACKFRAME_LIFECYCLE);
       (0, _chai.expect)(list.handler.alterRequest).to.be.empty;
-      (0, _chai.expect)(list.handler.before.length).to.equal(1);
-      (0, _chai.expect)(list.handler.after).to.be.empty;
+      (0, _chai.expect)(list.handler.beforeProcessor.length).to.equal(1);
+      (0, _chai.expect)(list.handler.afterProcessor).to.be.empty;
       (0, _chai.expect)(list.handler.alterRecord).to.be.empty;
       (0, _chai.expect)(list.handler.processor).to.be.a('function');
       (0, _chai.expect)(list.handler.renderer).to.be.a('function');
       (0, _chai.expect)(list.handler.responder).to.be.a('function');
+      (0, _chai.expect)(list.handler.afterCommit).to.be.empty;
+      (0, _chai.expect)(list.handler.beforeRollback).to.be.empty;
     });
   });
 

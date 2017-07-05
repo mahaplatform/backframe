@@ -14,7 +14,7 @@ export default  (buildRoute) => {
 
   }
 
-  const before = options => req => {
+  const beforeProcessor = options => req => {
 
     const allowed = [
       ...coerceArray(options.allowedParams),
@@ -25,20 +25,24 @@ export default  (buildRoute) => {
 
   }
 
-  const processor = options => (req, trx) => {
+  const processor = options => async (req, trx) => {
 
-    const data = {
-      ...defaultParams(options)(req, trx),
-      ..._.pick(req.data, options.allowedParams)
+    try {
+
+      const data = {
+        ...defaultParams(options)(req, trx),
+        ..._.pick(req.data, options.allowedParams)
+      }
+
+      req.resource = await options.model.forge(data).save(null, { transacting: trx })
+
+    } catch(err) {
+
+        if(err.errors) throw new BackframeError({ code: 422, message: `Unable to create record`, errors: err.toJSON() })
+
+        throw err
+
     }
-
-    return options.model.forge(data).save(null, { transacting: trx }).catch(err => {
-
-      if(err.errors) throw new BackframeError({ code: 422, message: `Unable to create record`, errors: err.toJSON() })
-
-      throw err
-
-    })
 
   }
 
@@ -47,7 +51,7 @@ export default  (buildRoute) => {
     method: 'post',
     path: '',
     alterRequest,
-    before,
+    beforeProcessor,
     processor,
     renderer: defaultRenderer,
     responder: defaultResponder('Successfully created record')

@@ -4,13 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _load = require('../../utils/load');
-
-var _load2 = _interopRequireDefault(_load);
-
 var _utils = require('../../utils');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (buildRoute) {
 
@@ -21,7 +15,7 @@ exports.default = function (buildRoute) {
   };
 
   var renderer = function renderer(options) {
-    return function (req, result) {
+    return function (req, trx, result) {
       return result.toJSON();
     };
   };

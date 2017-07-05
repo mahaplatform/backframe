@@ -30,7 +30,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (buildRoute) {
 
-  var before = function before(options) {
+  var beforeProcessor = function beforeProcessor(options) {
     return function (req) {
 
       if (req.query.$filter) {
@@ -78,12 +78,7 @@ exports.default = function (buildRoute) {
 
           var term = req.query.$filter.q.toLowerCase().replace(' ', '%');
 
-          if (options.knex.client.config.client === 'postgresql') {
-            var _query = req.query.$filter.q.toLowerCase().replace(' ', ' & ');
-            qb.whereRaw('(lower(' + vector + ') LIKE \'%' + term + '%\' OR to_tsvector(' + vector + ') @@ to_tsquery(\'' + _query + '\'))');
-          } else {
-            qb.whereRaw('lower(' + vector + ') LIKE \'%' + term + '%\'');
-          }
+          qb.whereRaw('lower(' + vector + ') LIKE \'%' + term + '%\'');
         }
 
         if (req.query.$filter) (0, _list.filter)(options, qb, req.query.$filter);
@@ -156,7 +151,7 @@ exports.default = function (buildRoute) {
     action: 'list',
     method: 'get',
     path: '',
-    before: before,
+    beforeProcessor: beforeProcessor,
     processor: processor,
     renderer: _utils.defaultRenderer,
     responder: (0, _utils.defaultResponder)('Successfully found records')

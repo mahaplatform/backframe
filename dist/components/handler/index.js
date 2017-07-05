@@ -52,10 +52,12 @@ exports.default = function () {
 
 
     var TYPES = {
-      after: { type: ['function', 'function[]'], required: false },
+      afterCommit: { type: ['function', 'function[]'], required: false },
+      afterProcessor: { type: ['function', 'function[]'], required: false },
       alterRequest: { type: ['function', 'function[]'], required: false },
       alterRecord: { type: ['function', 'function[]'], required: false },
-      before: { type: ['function', 'function[]'], required: false },
+      beforeProcessor: { type: ['function', 'function[]'], required: false },
+      beforeRollback: { type: ['function', 'function[]'], required: false },
       csvResponder: { type: ['function'], required: false },
       jsonResponder: { type: ['function'], required: false },
       handler: { type: 'function', required: false },
@@ -89,12 +91,14 @@ var expandLifecycle = exports.expandLifecycle = function expandLifecycle(userOpt
 
 var buildHandler = exports.buildHandler = function buildHandler(options) {
   var alterRequest = options.alterRequest,
-      before = options.before,
+      beforeProcessor = options.beforeProcessor,
       processor = options.processor,
-      after = options.after,
+      afterProcessor = options.afterProcessor,
       renderer = options.renderer,
       alterRecord = options.alterRecord,
-      responder = options.responder;
+      responder = options.responder,
+      afterCommit = options.afterCommit,
+      beforeRollback = options.beforeRollback;
 
 
   return function (req, res) {
@@ -123,7 +127,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
               case 6:
                 req = _context.t0;
                 _context.next = 9;
-                return runHooks(req, trx, before);
+                return runHooks(req, trx, beforeProcessor);
 
               case 9:
                 _context.next = 11;
@@ -142,7 +146,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
               case 14:
                 result = _context.t1;
                 _context.next = 17;
-                return runHooks(req, trx, after, result);
+                return runHooks(req, trx, afterProcessor, result);
 
               case 17:
                 if (!renderer) {
@@ -186,23 +190,31 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
                 return trx.commit(result);
 
               case 35:
-                return _context.abrupt('return', _context.sent);
+                _context.next = 37;
+                return runHooks(req, trx, afterCommit, result);
 
-              case 38:
-                _context.prev = 38;
+              case 37:
+                return _context.abrupt('return', result);
+
+              case 40:
+                _context.prev = 40;
                 _context.t4 = _context['catch'](0);
-                _context.next = 42;
+                _context.next = 44;
+                return runHooks(req, trx, beforeRollback);
+
+              case 44:
+                _context.next = 46;
                 return trx.rollback(_context.t4);
 
-              case 42:
+              case 46:
                 return _context.abrupt('return', renderError(res, _context.t4));
 
-              case 43:
+              case 47:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, undefined, [[0, 38]]);
+        }, _callee, undefined, [[0, 40]]);
       }));
 
       return function (_x3) {
@@ -247,6 +259,8 @@ var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, tr
 };
 
 var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, trx, alterRecord, result) {
+
+  if (!alterRecord) return result;
 
   var runner = function () {
     var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(result, operation) {
@@ -300,6 +314,8 @@ var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, trx, 
 var runHooks = exports.runHooks = function runHooks(req, trx, hooks) {
   var result = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
+
+  if (!hooks) return true;
 
   var runner = function () {
     var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(hook) {
