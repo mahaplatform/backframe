@@ -1,6 +1,6 @@
-<table width="100%">
+<table width="100%" bgcolor="#EEE">
   <tr>
-    <td align="center" bgcolor="#EEE">
+    <td align="center">
       <img src="https://raw.githubusercontent.com/mahaplatform/backframe/master/docs/backframe.png" title="Backframe" alt="Backframe"/>
     </td>
   </tr>
