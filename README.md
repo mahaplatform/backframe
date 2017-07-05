@@ -1,7 +1,5 @@
-# Backframe
-Backframe is an open source component of <a href="https://github.com/mahaplatform/maha">the Maha Platform</a>
-
 <img src="https://raw.githubusercontent.com/mahaplatform/backframe/master/docs/backframe.png" title="Backframe" alt="Backframe"/>
+Backframe is an open source component of <a href="https://github.com/mahaplatform/maha">the Maha Platform</a>
 
 <a href="https://circleci.com/gh/mahaplatform/backframe">
   <img src="https://img.shields.io/circleci/project/mahaplatform/backframe.svg?maxAge=600" alt="Build Status" >
