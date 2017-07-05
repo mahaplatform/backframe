@@ -1,4 +1,10 @@
-<img src="https://raw.githubusercontent.com/mahaplatform/backframe/master/docs/backframe.png" title="Backframe" alt="Backframe"/>
+<table width="100%">
+  <tr>
+    <td align="center" bgcolor="#EEE">
+      <img src="https://raw.githubusercontent.com/mahaplatform/backframe/master/docs/backframe.png" title="Backframe" alt="Backframe"/>
+    </td>
+  </tr>
+</table>
 
 <a href="https://circleci.com/gh/mahaplatform/backframe">
   <img src="https://img.shields.io/circleci/project/mahaplatform/backframe.svg?maxAge=600" alt="Build Status" >
