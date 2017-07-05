@@ -70,28 +70,29 @@ exports.default = function (buildRoute) {
                 return req.resource.save(data, { patch: true, transacting: trx });
 
               case 4:
-                return _context.abrupt('return', _context.sent);
+                req.resource = _context.sent;
+                return _context.abrupt('return', req.resource);
 
-              case 7:
-                _context.prev = 7;
+              case 8:
+                _context.prev = 8;
                 _context.t0 = _context['catch'](0);
 
                 if (!_context.t0.errors) {
-                  _context.next = 11;
+                  _context.next = 12;
                   break;
                 }
 
                 throw new _error2.default({ code: 422, message: 'Unable to update record', errors: _context.t0.toJSON() });
 
-              case 11:
+              case 12:
                 throw _context.t0;
 
-              case 12:
+              case 13:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, undefined, [[0, 7]]);
+        }, _callee, undefined, [[0, 8]]);
       }));
 
       return function (_x, _x2) {

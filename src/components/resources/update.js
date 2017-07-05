@@ -32,7 +32,9 @@ export default (buildRoute) => {
 
       const data = _.pick(req.data, options.allowedParams)
 
-      return await req.resource.save(data, { patch: true, transacting: trx })
+      req.resource = await req.resource.save(data, { patch: true, transacting: trx })
+
+      return req.resource
 
     } catch(err) {
 

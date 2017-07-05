@@ -36,6 +36,8 @@ export default  (buildRoute) => {
 
       req.resource = await options.model.forge(data).save(null, { transacting: trx })
 
+      return req.resource
+
     } catch(err) {
 
         if(err.errors) throw new BackframeError({ code: 422, message: `Unable to create record`, errors: err.toJSON() })
