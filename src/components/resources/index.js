@@ -18,11 +18,13 @@ export default (backframeOptions = {}) => {
   return (userOptions = {}) => {
 
     const TYPES = mergeTypes({
-      after: { type: ['function','function{}'], required: false },
+      afterCommit: { type: ['function','function{}'], required: false },
+      afterProcessor: { type: ['function','function{}'], required: false },
       allowedParams: { type: ['string[]','string[]{}'], required: false },
       alterRequest: { type: ['function','function{}'], required: false },
       alterRecord: { type: ['function','function{}'], required: false },
-      before: { type: ['function','function{}'], required: false },
+      beforeProcessor: { type: ['function','function{}'], required: false },
+      beforeRollback: { type: ['function','function{}'], required: false },
       collectionActions: { type: 'object', required: false },
       defaultParams: { type: 'function', required: false },
       defaultSort: { type: ['string','string[]'], required: false, default: '-created_at' },
