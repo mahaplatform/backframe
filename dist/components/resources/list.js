@@ -74,7 +74,12 @@ exports.default = function (buildRoute) {
 
         if (options.searchParams && req.query.$filter && req.query.$filter.q) {
 
-          var vector = options.searchParams.join(' || \' \' || ');
+          var vector = options.searchParams.map(function (param) {
+
+            var qualified = param.match(/\./) ? param : tableName + '.' + param;
+
+            return 'coalesce(' + qualified + ', \'\')';
+          }).join(' || ');
 
           var term = req.query.$filter.q.toLowerCase().replace(' ', '%');
 

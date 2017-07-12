@@ -53,7 +53,13 @@ export default (buildRoute) => {
 
       if(options.searchParams && req.query.$filter && req.query.$filter.q) {
 
-        const vector = options.searchParams.join(` || ' ' || `)
+        const vector = options.searchParams.map(param => {
+
+          const qualified = param.match(/\./) ? param : `${tableName}.${param}`
+
+          return `coalesce(${qualified}, '')`
+
+        }).join(' || ')
 
         const term = req.query.$filter.q.toLowerCase().replace(' ', '%')
 
