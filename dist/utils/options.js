@@ -89,9 +89,9 @@ var checkTypes = exports.checkTypes = function checkTypes(option, key, types, al
 // recursively check if option matches the specified type
 var checkType = exports.checkType = function checkType(option, type, allowedActions) {
 
-  var array = type.match(/^(\w*)\[\]$/);
+  var array = type.match(/^(.*)\[\]$/);
 
-  var mapped = type.match(/^(\w*)\{\}$/);
+  var mapped = type.match(/^(.*)\{\}$/);
 
   if (array && _lodash2.default.isArray(option)) {
 
@@ -134,6 +134,7 @@ var getOperation = exports.getOperation = function getOperation(type) {
   if (type === 'integer') return _lodash2.default.isInteger;
   if (type === 'object') return _lodash2.default.isObject;
   if (type === 'string') return _lodash2.default.isString;
+  console.log(type);
 };
 
 // extract option defualts

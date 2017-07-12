@@ -70,9 +70,9 @@ export const checkTypes = (option, key, types, allowedActions) => {
 // recursively check if option matches the specified type
 export const checkType = (option, type, allowedActions) => {
 
-  const array = type.match(/^(\w*)\[\]$/)
+  const array = type.match(/^(.*)\[\]$/)
 
-  const mapped = type.match(/^(\w*)\{\}$/)
+  const mapped = type.match(/^(.*)\{\}$/)
 
   if(array && _.isArray(option)) {
 
@@ -122,6 +122,7 @@ export const getOperation = (type) => {
   if(type === 'integer') return _.isInteger
   if(type === 'object') return _.isObject
   if(type === 'string') return _.isString
+  console.log(type)
 }
 
 // extract option defualts
