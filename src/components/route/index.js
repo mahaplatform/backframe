@@ -4,37 +4,33 @@ import { mergeTypes } from '../../utils/core'
 import { validateOptions, defaultOptions } from '../../utils/options'
 import * as constants from '../../constants'
 
-export default (backframeOptions = {}) => {
+export default (backframeOptions = {}) => (userOptions = {}) => {
 
-  return (userOptions = {}) => {
+  const TYPES = mergeTypes({
+    action: { type: 'string', required: false },
+    after: { type: ['function','function[]'], required: false },
+    alterRequest: { type: ['function','function[]'], required: false },
+    before: { type: ['function','function[]'], required: false },
+    cacheFor: { type: 'integer', required: false },
+    handler: { type: 'function', required: false },
+    method: { type: 'string', required: true, default: 'get' },
+    path: { type: 'string', required: true },
+    processor: { type: 'function', required: false },
+    renderer: { type: 'function', required: false },
+    responder: { type: 'function', required: false },
+    serializer: { type: 'function', required: false }
+  }, backframeOptions.plugins)
 
-    const TYPES = mergeTypes({
-      action: { type: 'string', required: false },
-      after: { type: ['function','function[]'], required: false },
-      alterRequest: { type: ['function','function[]'], required: false },
-      before: { type: ['function','function[]'], required: false },
-      cacheFor: { type: 'integer', required: false },
-      handler: { type: 'function', required: false },
-      method: { type: 'string', required: true, default: 'get' },
-      path: { type: 'string', required: true },
-      processor: { type: 'function', required: false },
-      renderer: { type: 'function', required: false },
-      responder: { type: 'function', required: false },
-      serializer: { type: 'function', required: false }
-    }, backframeOptions.plugins)
+  validateOptions('route', userOptions, TYPES)
 
-    validateOptions('route', userOptions, TYPES)
-
-    const mergedOptions = {
-      ..._.pick(backframeOptions, ['defaultFormat','knex']),
-      ...userOptions
-    }
-
-    const options = normalizeOptions(mergedOptions, TYPES)
-
-    return buildRoute(options)
-
+  const mergedOptions = {
+    ..._.pick(backframeOptions, ['defaultFormat','knex']),
+    ...userOptions
   }
+
+  const options = normalizeOptions(mergedOptions, TYPES)
+
+  return buildRoute(options)
 
 }
 

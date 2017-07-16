@@ -45,8 +45,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function () {
   var backframeOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-
   return function () {
     var userOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 

@@ -5,35 +5,31 @@ import { coerceArray, applyToRecords } from '../../utils/core'
 import * as constants from '../../constants'
 import { fail } from '../../utils/response'
 
-export default (backframeOptions = {}) => {
+export default (backframeOptions = {}) => (userOptions = {}) => {
 
-  return (userOptions = {}) => {
-
-    const TYPES = {
-      afterCommit: { type: ['function','function[]'], required: false },
-      afterProcessor: { type: ['function','function[]'], required: false },
-      alterRequest: { type: ['function','function[]'], required: false },
-      alterRecord: { type: ['function','function[]'], required: false },
-      beforeProcessor: { type: ['function','function[]'], required: false },
-      beforeRollback: { type: ['function','function[]'], required: false },
-      csvResponder: { type: ['function'], required: false },
-      jsonResponder: { type: ['function'], required: false},
-      handler: { type: 'function', required: false },
-      processor: { type: 'function', required: false },
-      renderer: { type: 'function', required: false },
-      responder: { type: 'function', required: false },
-      tsvResponder: { type: ['function'], required: false },
-      xlsxResponder: { type: ['function'], required: false },
-      xmlResponder: { type: ['function'], required: false }
-    }
-
-    validateOptions('handler', userOptions, TYPES)
-
-    const options = normalizeOptions(userOptions, backframeOptions, TYPES)
-
-    return buildHandler(options)
-
+  const TYPES = {
+    afterCommit: { type: ['function','function[]'], required: false },
+    afterProcessor: { type: ['function','function[]'], required: false },
+    alterRequest: { type: ['function','function[]'], required: false },
+    alterRecord: { type: ['function','function[]'], required: false },
+    beforeProcessor: { type: ['function','function[]'], required: false },
+    beforeRollback: { type: ['function','function[]'], required: false },
+    csvResponder: { type: ['function'], required: false },
+    jsonResponder: { type: ['function'], required: false},
+    handler: { type: 'function', required: false },
+    processor: { type: 'function', required: false },
+    renderer: { type: 'function', required: false },
+    responder: { type: 'function', required: false },
+    tsvResponder: { type: ['function'], required: false },
+    xlsxResponder: { type: ['function'], required: false },
+    xmlResponder: { type: ['function'], required: false }
   }
+
+  validateOptions('handler', userOptions, TYPES)
+
+  const options = normalizeOptions(userOptions, backframeOptions, TYPES)
+
+  return buildHandler(options)
 
 }
 

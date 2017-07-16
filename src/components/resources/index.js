@@ -13,56 +13,52 @@ import update from './update'
 import destroy from './destroy'
 import * as constants from '../../constants'
 
-export default (backframeOptions = {}) => {
+export default (backframeOptions = {}) => (userOptions = {}) => {
 
-  return (userOptions = {}) => {
+  const TYPES = mergeTypes({
+    afterCommit: { type: ['function','function{}'], required: false },
+    afterProcessor: { type: ['function','function{}'], required: false },
+    allowedParams: { type: ['string[]','string[]{}'], required: false },
+    alterRequest: { type: ['function','function{}'], required: false },
+    alterRecord: { type: ['function','function{}'], required: false },
+    beforeProcessor: { type: ['function','function{}'], required: false },
+    beforeRollback: { type: ['function','function{}'], required: false },
+    collectionActions: { type: 'object', required: false },
+    defaultParams: { type: 'function', required: false },
+    defaultSort: { type: ['string','string[]'], required: false, default: '-created_at' },
+    dependents: { type: 'object[]', required: false },
+    except: { type: ['string', 'string[]'], required: false },
+    filterParams: { type: 'string[]', required: false, default: [] },
+    memberActions: { type: 'object', required: false },
+    model: { type: 'object', required: true },
+    name: { type: 'string', required: false },
+    only: { type: ['string', 'string[]'], required: false },
+    path: { type: 'string', required: false },
+    pathPrefix: { type: 'string', required: false },
+    processor: { type: ['function','function{}'], required: false },
+    query: { type: ['function','function{}'], required: false },
+    renderer: { type: ['function','function{}'], required: false },
+    resources: { type: ['object[]'], required: false },
+    responder: { type: ['function','function{}'], required: false },
+    searchParams: { type: 'string[]', required: false },
+    serializer: { type: ['function','function{}'], required: false },
+    softDelete: { type: 'boolean', required: false, default: false },
+    sortParams: { type: ['string','string[]'], required: false, default: [] },
+    withRelated: { type: ['string','string[]','string[]{}'], required: false },
+    virtualFilters: { type: ['string','string[]'], required: false, default: [] },
+    virtualParams: { type: ['string','string[]'], required: false, default: [] }
+  }, backframeOptions.plugins)
 
-    const TYPES = mergeTypes({
-      afterCommit: { type: ['function','function{}'], required: false },
-      afterProcessor: { type: ['function','function{}'], required: false },
-      allowedParams: { type: ['string[]','string[]{}'], required: false },
-      alterRequest: { type: ['function','function{}'], required: false },
-      alterRecord: { type: ['function','function{}'], required: false },
-      beforeProcessor: { type: ['function','function{}'], required: false },
-      beforeRollback: { type: ['function','function{}'], required: false },
-      collectionActions: { type: 'object', required: false },
-      defaultParams: { type: 'function', required: false },
-      defaultSort: { type: ['string','string[]'], required: false, default: '-created_at' },
-      dependents: { type: 'object[]', required: false },
-      except: { type: ['string', 'string[]'], required: false },
-      filterParams: { type: 'string[]', required: false, default: [] },
-      memberActions: { type: 'object', required: false },
-      model: { type: 'object', required: true },
-      name: { type: 'string', required: false },
-      only: { type: ['string', 'string[]'], required: false },
-      path: { type: 'string', required: false },
-      pathPrefix: { type: 'string', required: false },
-      processor: { type: ['function','function{}'], required: false },
-      query: { type: ['function','function{}'], required: false },
-      renderer: { type: ['function','function{}'], required: false },
-      resources: { type: ['object[]'], required: false },
-      responder: { type: ['function','function{}'], required: false },
-      searchParams: { type: 'string[]', required: false },
-      serializer: { type: ['function','function{}'], required: false },
-      softDelete: { type: 'boolean', required: false, default: false },
-      sortParams: { type: ['string','string[]'], required: false, default: [] },
-      withRelated: { type: ['string','string[]','string[]{}'], required: false },
-      virtualFilters: { type: ['string','string[]'], required: false, default: [] },
-      virtualParams: { type: ['string','string[]'], required: false, default: [] }
-    }, backframeOptions.plugins)
+  validateOptions('resources', userOptions, TYPES)
 
-    validateOptions('resources', userOptions, TYPES)
-
-    const mergedOptions = {
-      ..._.pick(backframeOptions, ['defaultFormat','defaultLimit','knex']),
-      ...userOptions
-    }
-
-    const options = normalizeOptions(mergedOptions, TYPES)
-
-    return buildResources(options, buildSegment(backframeOptions), buildRoute(backframeOptions))
-
+  const mergedOptions = {
+    ..._.pick(backframeOptions, ['defaultFormat','defaultLimit','knex']),
+    ...userOptions
   }
+
+  const options = normalizeOptions(mergedOptions, TYPES)
+
+  return buildResources(options, buildSegment(backframeOptions), buildRoute(backframeOptions))
 
 }
 

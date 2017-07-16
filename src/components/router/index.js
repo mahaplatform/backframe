@@ -10,30 +10,26 @@ import notFound from './not_found'
 import * as constants from '../../constants'
 import { beginLogger, endLogger, recordTick, printLogger } from '../../utils/logger'
 
-export default (backframeOptions = {}) => {
+export default (backframeOptions = {}) => (userOptions = {}) => {
 
-  return (userOptions = {}) => {
-
-    const TYPES = {
-      cors: { type: 'boolean', required: false, default: false },
-      log: { type: 'function', required: false },
-      notFound: { type: 'boolean', required: false, default: true },
-      pathPrefix: { type: 'string', required: false },
-      routes: { type: 'object[]', required: false }
-    }
-
-    validateOptions('router', userOptions, TYPES)
-
-    const mergedOptions = {
-      ..._.pick(backframeOptions, ['knex']),
-      ...userOptions
-    }
-
-    const options = normalizeOptions(mergedOptions, TYPES)
-
-    return buildRouter(backframeOptions, options, buildHandler(backframeOptions), buildRoute(backframeOptions))
-
+  const TYPES = {
+    cors: { type: 'boolean', required: false, default: false },
+    log: { type: 'function', required: false },
+    notFound: { type: 'boolean', required: false, default: true },
+    pathPrefix: { type: 'string', required: false },
+    routes: { type: 'object[]', required: false }
   }
+
+  validateOptions('router', userOptions, TYPES)
+
+  const mergedOptions = {
+    ..._.pick(backframeOptions, ['knex']),
+    ...userOptions
+  }
+
+  const options = normalizeOptions(mergedOptions, TYPES)
+
+  return buildRouter(backframeOptions, options, buildHandler(backframeOptions), buildRoute(backframeOptions))
 
 }
 
@@ -97,7 +93,9 @@ export const buildRouter = (backframeOptions, options, buildHandler, buildRoute)
 
   })
 
-  if(options.notFound) router.use(options.pathPrefix, notFound)
+  const pathPrefix = options.pathPrefix || ''
+
+  if(options.notFound) router.use(pathPrefix, notFound)
 
   return router
 

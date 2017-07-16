@@ -63,8 +63,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function () {
   var backframeOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-
   return function () {
     var userOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
@@ -140,7 +138,9 @@ var buildRouter = exports.buildRouter = function buildRouter(backframeOptions, o
     router[route.method](path.replace(':id', ':id(\\d+)') + '.:format?', handler);
   });
 
-  if (options.notFound) router.use(options.pathPrefix, _not_found2.default);
+  var pathPrefix = options.pathPrefix || '';
+
+  if (options.notFound) router.use(pathPrefix, _not_found2.default);
 
   return router;
 };

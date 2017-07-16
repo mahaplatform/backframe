@@ -6,8 +6,7 @@
   "scripts": {
     "build": "rm -rf ./dist && babel ./src --out-dir ./dist",
     "setup": "knex migrate:rollback && knex migrate:latest && knex seed:run",
-    "server": "NODE_PATH=./dist node ./dist/server.js",
-    "worker": "NODE_PATH=./dist node ./dist/worker.js"
+    "start": "NODE_PATH=./dist node ./dist/server.js"
   },
   "author": "",
   "license": "ISC",
