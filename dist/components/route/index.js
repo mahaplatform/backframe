@@ -39,9 +39,12 @@ exports.default = function () {
 
     var TYPES = (0, _core.mergeTypes)({
       action: { type: 'string', required: false },
-      after: { type: ['function', 'function[]'], required: false },
+      afterCommit: { type: ['function', 'function[]'], required: false },
+      afterProcessor: { type: ['function', 'function[]'], required: false },
       alterRequest: { type: ['function', 'function[]'], required: false },
-      before: { type: ['function', 'function[]'], required: false },
+      alterRecord: { type: ['function', 'function[]'], required: false },
+      beforeProcessor: { type: ['function', 'function[]'], required: false },
+      beforeRollback: { type: ['function', 'function[]'], required: false },
       cacheFor: { type: 'integer', required: false },
       handler: { type: 'function', required: false },
       method: { type: 'string', required: true, default: 'get' },
