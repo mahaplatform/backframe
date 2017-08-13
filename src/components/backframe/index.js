@@ -11,8 +11,7 @@ export default (userOptions = {}) => {
     defaultLimit: { type: 'integer', required: false, default: 100 },
     defaultFormat: { type: 'string', required: false, default: 'json' },
     knex: { type: 'object', required: true },
-    plugins: { type: 'object[]', required: false, default: [] },
-    redis: { type: 'object', required: false }
+    plugins: { type: 'object[]', required: false, default: [] }
   }
 
   validateOptions('backframe', userOptions, TYPES)

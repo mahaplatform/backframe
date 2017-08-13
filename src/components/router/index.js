@@ -71,6 +71,7 @@ export const buildRouter = (backframeOptions, options, buildHandler, buildRoute)
   const router = Router({ mergeParams: true })
 
   router.use(bodyParser.urlencoded({ extended: true }))
+
   router.use(bodyParser.json())
 
   if(options.cors) router.use(cors())
