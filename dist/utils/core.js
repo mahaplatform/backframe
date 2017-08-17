@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.pluginOptionDefaults = exports.mergeTypes = exports.mergeEvents = exports.mergeHooks = exports.selectedKeys = exports.selectedLabels = exports.selectFields = exports.includeAction = exports.applyToRecords = exports.toList = exports.flattenKeys = exports.mergeParams = exports.coerceArray = undefined;
+exports.pluginOptionDefaults = exports.mergeTypes = exports.mergeEvents = exports.mergeHooks = exports.selectedKeys = exports.selectedLabels = exports.selectFields = exports.includeAction = exports.applyToRecords = exports.toList = exports.castColumn = exports.flattenKeys = exports.mergeParams = exports.coerceArray = undefined;
 
 var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
@@ -65,6 +65,14 @@ var flattenKeys = exports.flattenKeys = function flattenKeys(hash) {
   return (0, _keys2.default)(hash).reduce(function (keys, key) {
     return [].concat((0, _toConsumableArray3.default)(keys), (0, _toConsumableArray3.default)(_lodash2.default.isObject(hash[key]) ? flattenKeys(hash[key], '' + prefix + key + '.') : ['' + prefix + key]));
   }, []);
+};
+
+// namespace column if necessary
+var castColumn = exports.castColumn = function castColumn(tableName, column) {
+
+  var matches = column.match(/(.*)\.(.*)/);
+
+  return matches ? column : tableName + '.' + column;
 };
 
 var toList = exports.toList = function toList(arr) {

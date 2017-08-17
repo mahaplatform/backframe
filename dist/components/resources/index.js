@@ -236,7 +236,7 @@ var buildSingleRoute = exports.buildSingleRoute = function buildSingleRoute(name
     options: (0, _extends6.default)({}, routeOptions, {
       action: name
     }),
-    handler: (0, _extends6.default)({}, (0, _core.mergeEvents)(route.handler, mergedRouteOptions), (0, _core.mergeHooks)(route.handler, mergedRouteOptions))
+    handler: (0, _extends6.default)({}, (0, _core.mergeHooks)(route.handler, mergedRouteOptions), (0, _core.mergeEvents)(route.handler, mergedRouteOptions))
   });
 };
 

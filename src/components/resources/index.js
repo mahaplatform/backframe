@@ -174,8 +174,8 @@ export const buildSingleRoute = (name, options, route) => {
       action: name
     },
     handler: {
-      ...mergeEvents(route.handler, mergedRouteOptions),
-      ...mergeHooks(route.handler, mergedRouteOptions)
+      ...mergeHooks(route.handler, mergedRouteOptions),
+      ...mergeEvents(route.handler, mergedRouteOptions)
     }
   }
 

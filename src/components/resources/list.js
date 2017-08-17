@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { defaultQuery, defaultRenderer, defaultResponder } from '../../utils'
-import { coerceArray } from '../../utils/core'
+import { castColumn, coerceArray } from '../../utils/core'
 import { extractSort, filter } from '../../utils/list'
 import { checkPermitted } from '../../utils/options'
 import BackframeError from '../../utils/error'
@@ -55,9 +55,7 @@ export default (buildRoute) => {
 
         const vector = options.searchParams.map(param => {
 
-          const qualified = param.match(/\./) ? param : `${tableName}.${param}`
-
-          return `coalesce(${qualified}, '')`
+          return `coalesce(${castColumn(tableName, param)}, '')`
 
         }).join(' || ')
 
@@ -103,7 +101,7 @@ export default (buildRoute) => {
 
       if(limit > 0) qb.limit(limit).offset(skip)
 
-      if(sort) sort.map(item => qb.orderByRaw(`${tableName}.${item.key} ${item.order}`))
+      if(sort) sort.map(item => qb.orderByRaw(`${castColumn(tableName, item.key)} ${item.order}`))
 
     }).fetchAll(fetchOptions).then(records => records.map(record => record))
 

@@ -27,6 +27,15 @@ export const flattenKeys = (hash, prefix = '') => {
 
 }
 
+// namespace column if necessary
+export const castColumn = (tableName, column) => {
+
+  const matches = column.match(/(.*)\.(.*)/)
+
+  return matches ? column : `${tableName}.${column}`
+
+}
+
 export const toList = (arr) => {
 
   return arr.join(', ').replace(new RegExp(',$'), ', and')

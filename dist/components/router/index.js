@@ -117,6 +117,7 @@ var buildRouter = exports.buildRouter = function buildRouter(backframeOptions, o
   var router = (0, _express.Router)({ mergeParams: true });
 
   router.use(_bodyParser2.default.urlencoded({ extended: true }));
+
   router.use(_bodyParser2.default.json());
 
   if (options.cors) router.use((0, _cors2.default)());

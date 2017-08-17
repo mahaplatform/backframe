@@ -76,9 +76,7 @@ exports.default = function (buildRoute) {
 
           var vector = options.searchParams.map(function (param) {
 
-            var qualified = param.match(/\./) ? param : tableName + '.' + param;
-
-            return 'coalesce(' + qualified + ', \'\')';
+            return 'coalesce(' + (0, _core.castColumn)(tableName, param) + ', \'\')';
           }).join(' || ');
 
           var term = req.query.$filter.q.toLowerCase().replace(' ', '%');
@@ -126,7 +124,7 @@ exports.default = function (buildRoute) {
           if (limit > 0) qb.limit(limit).offset(skip);
 
           if (sort) sort.map(function (item) {
-            return qb.orderByRaw(tableName + '.' + item.key + ' ' + item.order);
+            return qb.orderByRaw((0, _core.castColumn)(tableName, item.key) + ' ' + item.order);
           });
         }).fetchAll(fetchOptions).then(function (records) {
           return records.map(function (record) {

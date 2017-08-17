@@ -45,7 +45,6 @@ exports.default = function () {
       alterRecord: { type: ['function', 'function[]'], required: false },
       beforeProcessor: { type: ['function', 'function[]'], required: false },
       beforeRollback: { type: ['function', 'function[]'], required: false },
-      cacheFor: { type: 'integer', required: false },
       handler: { type: 'function', required: false },
       method: { type: 'string', required: true, default: 'get' },
       path: { type: 'string', required: true },
