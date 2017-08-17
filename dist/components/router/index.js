@@ -114,6 +114,8 @@ var renderHandler = function renderHandler(lifecycle, options) {
 // iterate through routing array and generate express router
 var buildRouter = exports.buildRouter = function buildRouter(backframeOptions, options, buildHandler, buildRoute) {
 
+  var table = {};
+
   var router = (0, _express.Router)({ mergeParams: true });
 
   router.use(_bodyParser2.default.urlencoded({ extended: true }));
@@ -126,6 +128,8 @@ var buildRouter = exports.buildRouter = function buildRouter(backframeOptions, o
 
     var path = options.pathPrefix ? options.pathPrefix + route.path : route.path;
 
+    var formattedPath = path.replace(':id', ':id(\\d+)') + '.:format?';
+
     var merged = mergeLifecycle(backframeOptions.plugins, route);
 
     var handlerLifecycle = _lodash2.default.pick(merged, constants.BACKFRAME_LIFECYCLE);
@@ -136,12 +140,16 @@ var buildRouter = exports.buildRouter = function buildRouter(backframeOptions, o
 
     var handler = _lodash2.default.isFunction(route.handler) ? route.handler : buildHandler(rendered);
 
-    router[route.method](path.replace(':id', ':id(\\d+)') + '.:format?', handler);
+    table[route.method + ':' + path] = handler;
+
+    router[route.method](formattedPath, handler);
   });
 
   var pathPrefix = options.pathPrefix || '';
 
   if (options.notFound) router.use(pathPrefix, _not_found2.default);
+
+  router.table = table;
 
   return router;
 };

@@ -68,6 +68,8 @@ const renderHandler = (lifecycle, options) => {
 // iterate through routing array and generate express router
 export const buildRouter = (backframeOptions, options, buildHandler, buildRoute) => {
 
+  const table = {}
+
   const router = Router({ mergeParams: true })
 
   router.use(bodyParser.urlencoded({ extended: true }))
@@ -80,6 +82,8 @@ export const buildRouter = (backframeOptions, options, buildHandler, buildRoute)
 
     const path = options.pathPrefix ? options.pathPrefix + route.path : route.path
 
+    const formattedPath = `${path.replace(':id',':id(\\d+)')}\.:format?`
+
     const merged = mergeLifecycle(backframeOptions.plugins, route)
 
     const handlerLifecycle = _.pick(merged, constants.BACKFRAME_LIFECYCLE)
@@ -90,13 +94,17 @@ export const buildRouter = (backframeOptions, options, buildHandler, buildRoute)
 
     const handler = _.isFunction(route.handler) ? route.handler : buildHandler(rendered)
 
-    router[route.method](`${path.replace(':id',':id(\\d+)')}\.:format?`, handler)
+    table[`${route.method}:${path}`] = handler
+
+    router[route.method](formattedPath, handler)
 
   })
 
   const pathPrefix = options.pathPrefix || ''
 
   if(options.notFound) router.use(pathPrefix, notFound)
+
+  router.table = table
 
   return router
 
