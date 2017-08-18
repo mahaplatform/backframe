@@ -30,124 +30,120 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (buildRoute) {
 
-  var beforeProcessor = function beforeProcessor(options) {
-    return function (req) {
+  var beforeProcessor = function beforeProcessor(req, trx, options) {
 
-      if (req.query.$filter) {
+    if (req.query.$filter) {
 
-        var allowed = [].concat((0, _toConsumableArray3.default)(options.filterParams), (0, _toConsumableArray3.default)(options.virtualFilters), ['q']);
+      var allowed = [].concat((0, _toConsumableArray3.default)(options.filterParams), (0, _toConsumableArray3.default)(options.virtualFilters), ['q']);
 
-        (0, _options.checkPermitted)(req.query.$filter, allowed, 'Unable to filter on the keys {unpermitted}. Please add it to filterParams');
+      (0, _options.checkPermitted)(req.query.$filter, allowed, 'Unable to filter on the keys {unpermitted}. Please add it to filterParams');
 
-        if (req.query.$filter.q && !options.searchParams && process.env.NODE_ENV == 'development') {
-          throw new _error2.default({ code: 412, message: 'Unable to search on q without searchParams' });
-        }
+      if (req.query.$filter.q && !options.searchParams && process.env.NODE_ENV == 'development') {
+        throw new _error2.default({ code: 412, message: 'Unable to search on q without searchParams' });
       }
+    }
 
-      if (req.query.$sort) {
+    if (req.query.$sort) {
 
-        var sort = req.query.$sort.split(',').map(function (sort) {
-          return sort.replace('-', '');
-        });
+      var sort = req.query.$sort.split(',').map(function (sort) {
+        return sort.replace('-', '');
+      });
 
-        (0, _options.checkPermitted)(sort, options.sortParams, 'Unable to sort on the keys {unpermitted}. Please add it to sortParams');
-      }
-    };
+      (0, _options.checkPermitted)(sort, options.sortParams, 'Unable to sort on the keys {unpermitted}. Please add it to sortParams');
+    }
   };
 
-  var processor = function processor(options) {
-    return function (req, trx) {
+  var processor = function processor(req, trx, options) {
 
-      var tableName = options.model.extend().__super__.tableName;
+    var tableName = options.model.extend().__super__.tableName;
 
-      req.query.$filter = _lodash2.default.pick(req.query.$filter, [].concat((0, _toConsumableArray3.default)(options.filterParams), ['q']));
+    req.query.$filter = _lodash2.default.pick(req.query.$filter, [].concat((0, _toConsumableArray3.default)(options.filterParams), ['q']));
 
-      var fetchOptions = options.withRelated ? { withRelated: (0, _core.coerceArray)(options.withRelated), transacting: trx } : { transacting: trx };
+    var fetchOptions = options.withRelated ? { withRelated: (0, _core.coerceArray)(options.withRelated), transacting: trx } : { transacting: trx };
 
-      var limit = parseInt(_lodash2.default.get(req.query, '$page.limit') || options.defaultLimit);
+    var limit = parseInt(_lodash2.default.get(req.query, '$page.limit') || options.defaultLimit);
 
-      var skip = parseInt(_lodash2.default.get(req.query, '$page.skip') || 0);
+    var skip = parseInt(_lodash2.default.get(req.query, '$page.skip') || 0);
 
-      var query = function query(qb) {
+    var query = function query(qb) {
 
-        qb = (0, _utils.defaultQuery)(options)(req, trx, qb);
+      qb = (0, _utils.defaultQuery)(req, trx, qb, options);
 
-        if (options.searchParams && req.query.$filter && req.query.$filter.q) {
+      if (options.searchParams && req.query.$filter && req.query.$filter.q) {
 
-          var vector = options.searchParams.map(function (param) {
+        var vector = options.searchParams.map(function (param) {
 
-            return 'coalesce(' + (0, _core.castColumn)(tableName, param) + ', \'\')';
-          }).join(' || ');
+          return 'coalesce(' + (0, _core.castColumn)(tableName, param) + ', \'\')';
+        }).join(' || ');
 
-          var term = req.query.$filter.q.toLowerCase().replace(' ', '%');
+        var term = req.query.$filter.q.toLowerCase().replace(' ', '%');
 
-          qb.whereRaw('lower(' + vector + ') LIKE \'%' + term + '%\'');
-        }
+        qb.whereRaw('lower(' + vector + ') LIKE \'%' + term + '%\'');
+      }
 
-        if (req.query.$filter) (0, _list.filter)(options, qb, req.query.$filter);
+      if (req.query.$filter) (0, _list.filter)(options, qb, req.query.$filter);
 
-        if (req.query.$exclude_ids) qb.whereNotIn(tableName + '.id', req.query.$exclude_ids);
+      if (req.query.$exclude_ids) qb.whereNotIn(tableName + '.id', req.query.$exclude_ids);
 
-        if (req.query.$ids) qb.whereIn(tableName + '.id', req.query.$ids);
+      if (req.query.$ids) qb.whereIn(tableName + '.id', req.query.$ids);
 
-        return qb;
-      };
+      return qb;
+    };
 
-      var allQueryObject = null;
+    var allQueryObject = null;
 
-      options.model.query(function (qb) {
+    options.model.query(function (qb) {
 
-        qb = (0, _utils.defaultQuery)(options)(req, trx, qb);
+      qb = (0, _utils.defaultQuery)(req, trx, qb, options);
 
-        if (options.softDelete) qb = qb.whereNull('deleted_at');
+      if (options.softDelete) qb = qb.whereNull('deleted_at');
 
-        allQueryObject = qb.toSQL();
-      });
+      allQueryObject = qb.toSQL();
+    });
 
-      var all = function all() {
-        return options.knex.raw('select count(*) as count from (' + allQueryObject.sql + ') as temp', allQueryObject.bindings).transacting(trx);
-      };
+    var all = function all() {
+      return options.knex.raw('select count(*) as count from (' + allQueryObject.sql + ') as temp', allQueryObject.bindings).transacting(trx);
+    };
 
-      var countQueryObject = query(options.knex(tableName)).toSQL();
+    var countQueryObject = query(options.knex(tableName)).toSQL();
 
-      var count = function count() {
-        return options.knex.raw('select count(*) as count from (' + countQueryObject.sql + ') as temp', countQueryObject.bindings).transacting(trx);
-      };
+    var count = function count() {
+      return options.knex.raw('select count(*) as count from (' + countQueryObject.sql + ') as temp', countQueryObject.bindings).transacting(trx);
+    };
 
-      var paged = function paged() {
-        return options.model.query(function (qb) {
+    var paged = function paged() {
+      return options.model.query(function (qb) {
 
-          var sort = (0, _list.extractSort)(req.query.$sort, options.defaultSort, options.sortParams);
+        var sort = (0, _list.extractSort)(req.query.$sort, options.defaultSort, options.sortParams);
 
-          qb = query(qb);
+        qb = query(qb);
 
-          if (limit > 0) qb.limit(limit).offset(skip);
+        if (limit > 0) qb.limit(limit).offset(skip);
 
-          if (sort) sort.map(function (item) {
-            return qb.orderByRaw((0, _core.castColumn)(tableName, item.key) + ' ' + item.order);
-          });
-        }).fetchAll(fetchOptions).then(function (records) {
-          return records.map(function (record) {
-            return record;
-          });
+        if (sort) sort.map(function (item) {
+          return qb.orderByRaw((0, _core.castColumn)(tableName, item.key) + ' ' + item.order);
         });
-      };
-
-      return (0, _bluebird.all)([all(), count(), paged()]).then(function (responses) {
-
-        var allResonse = responses[0].rows ? responses[0].rows[0] : responses[0][0];
-
-        var all = allResonse.count ? parseInt(allResonse.count) : 0;
-
-        var totalResonse = responses[1].rows ? responses[1].rows[0] : responses[1][0];
-
-        var total = totalResonse.count ? parseInt(totalResonse.count) : 0;
-
-        var records = responses[2];
-
-        return { all: all, total: total, records: records, limit: limit, skip: skip };
+      }).fetchAll(fetchOptions).then(function (records) {
+        return records.map(function (record) {
+          return record;
+        });
       });
     };
+
+    return (0, _bluebird.all)([all(), count(), paged()]).then(function (responses) {
+
+      var allResonse = responses[0].rows ? responses[0].rows[0] : responses[0][0];
+
+      var all = allResonse.count ? parseInt(allResonse.count) : 0;
+
+      var totalResonse = responses[1].rows ? responses[1].rows[0] : responses[1][0];
+
+      var total = totalResonse.count ? parseInt(totalResonse.count) : 0;
+
+      var records = responses[2];
+
+      return { all: all, total: total, records: records, limit: limit, skip: skip };
+    });
   };
 
   return buildRoute({

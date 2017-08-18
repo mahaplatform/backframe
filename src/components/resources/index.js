@@ -143,9 +143,9 @@ export const buildStandardRoutes = (options, buildRoute) => {
 }
 
 // load resource before route
-const loadResource = options => async (req, trx) => {
+const loadResource =  async (req, trx, options) => {
 
-  req.resource = await load(options)(req, trx)
+  req.resource = await load(req, trx, options)
 
   return req
 

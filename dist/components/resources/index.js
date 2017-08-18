@@ -192,33 +192,31 @@ var buildStandardRoutes = exports.buildStandardRoutes = function buildStandardRo
 };
 
 // load resource before route
-var loadResource = function loadResource(options) {
-  return function () {
-    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, trx) {
-      return _regenerator2.default.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return (0, _load2.default)(options)(req, trx);
+var loadResource = function () {
+  var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, trx, options) {
+    return _regenerator2.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return (0, _load2.default)(req, trx, options);
 
-            case 2:
-              req.resource = _context.sent;
-              return _context.abrupt('return', req);
+          case 2:
+            req.resource = _context.sent;
+            return _context.abrupt('return', req);
 
-            case 4:
-            case 'end':
-              return _context.stop();
-          }
+          case 4:
+          case 'end':
+            return _context.stop();
         }
-      }, _callee, undefined);
-    }));
+      }
+    }, _callee, undefined);
+  }));
 
-    return function (_x3, _x4) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-};
+  return function loadResource(_x3, _x4, _x5) {
+    return _ref.apply(this, arguments);
+  };
+}();
 
 // build single rest route
 var buildSingleRoute = exports.buildSingleRoute = function buildSingleRoute(name, options, route) {

@@ -34,7 +34,7 @@ export default (buildRoute) => {
 
   }
 
-  const processor = options => async (req, trx) => {
+  const processor = async (req, trx, options) => {
 
     try {
 

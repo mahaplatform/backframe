@@ -62,29 +62,29 @@ export const buildHandler = (options) => {
 
       try {
 
-        req = await runAlterRequest(req, trx, alterRequest) || req
+        req = await runAlterRequest(req, trx, options, alterRequest) || req
 
-        await runHooks(req, trx, beforeProcessor)
+        await runHooks(req, trx, options, beforeProcessor)
 
-        let result = await processor(req, trx) || null
+        let result = await processor(req, trx, options) || null
 
-        await runHooks(req, trx, afterProcessor, result)
+        await runHooks(req, trx, options, afterProcessor, result)
 
-        result = renderer ? await renderer(req, trx, result) : result
+        result = renderer ? await renderer(req, trx, result, options) : result
 
-        result = await runAlterRecord(req, trx, alterRecord, result) || result
+        result = await runAlterRecord(req, trx, options, alterRecord, result) || result
 
-        await runResponder(req, res, result, responder)
+        await runResponder(req, res, options, result, responder)
 
         await trx.commit(result)
 
-        await runHooks(req, trx, afterCommit, result)
+        await runHooks(req, trx, options, afterCommit, result)
 
         return result
 
       } catch(err) {
 
-        await runHooks(req, trx, beforeRollback)
+        await runHooks(req, trx, options, beforeRollback)
 
         await trx.rollback(err)
 
@@ -98,9 +98,9 @@ export const buildHandler = (options) => {
 
 }
 
-export const runAlterRequest = (req, trx, alterRequest) => {
+export const runAlterRequest = (req, trx, options, alterRequest) => {
 
-  const runner = async (req, operation) => await operation(req, trx)
+  const runner = async (req, operation) => await operation(req, trx, options)
 
   if(alterRequest.length === 0) req
 
@@ -110,11 +110,11 @@ export const runAlterRequest = (req, trx, alterRequest) => {
 
 }
 
-export const runAlterRecord = (req, trx, alterRecord, result) => {
+export const runAlterRecord = (req, trx, options, alterRecord, result) => {
 
   if(!alterRecord) return result
 
-  const runner = async (result, operation) => (result && result.records) ? await applyToRecords(req, trx, result, operation) : await operation(req, trx, result)
+  const runner = async (result, operation) => (result && result.records) ? await applyToRecords(req, trx, result, operation, options) : await operation(req, trx, result, options)
 
   if(alterRecord.length === 0) return result
 
@@ -124,11 +124,11 @@ export const runAlterRecord = (req, trx, alterRecord, result) => {
 
 }
 
-export const runHooks = (req, trx, hooks, result = null) => {
+export const runHooks = (req, trx, options, hooks, result = null) => {
 
   if(!hooks) return true
 
-  const runner = async (hook) => await result ? hook(req, trx, result) : hook(req, trx)
+  const runner = async (hook) => await result ? hook(req, trx, result, options) : hook(req, trx, options)
 
   if(hooks.length === 0) return null
 
@@ -138,15 +138,13 @@ export const runHooks = (req, trx, hooks, result = null) => {
 
 }
 
-export const runResponder = (req, res, result, responder) => {
+export const runResponder = (req, res, options, result, responder) => {
 
-  if(responder) responder(req, res, result)
+  if(responder) responder(req, res, result, options)
 
 }
 
 export const renderError = (res, err) => {
-
-  if(_.includes(['development'], process.env.NODE_ENV)) console.log(err)
 
   if(err.name == 'BackframeError') return fail(res, err.code, err.message, { errors: err.errors })
 

@@ -18,10 +18,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (buildRoute) {
 
-  var processor = function processor(options) {
-    return function (req, trx) {
-      return req.resource;
-    };
+  var processor = function processor(req, trx, options) {
+    return req.resource;
   };
 
   return buildRoute({

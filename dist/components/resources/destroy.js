@@ -79,47 +79,45 @@ exports.default = function (buildRoute) {
     return resource.destroy({ transacting: trx });
   };
 
-  var processor = function processor(options) {
-    return function () {
-      var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, trx) {
-        return _regenerator2.default.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.prev = 0;
-                _context2.next = 3;
-                return destroyRelated(options, req.resource, trx);
+  var processor = function () {
+    var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, trx, options) {
+      return _regenerator2.default.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _context2.next = 3;
+              return destroyRelated(options, req.resource, trx);
 
-              case 3:
-                return _context2.abrupt('return', destroyResource(options, req.resource, trx));
+            case 3:
+              return _context2.abrupt('return', destroyResource(options, req.resource, trx));
 
-              case 6:
-                _context2.prev = 6;
-                _context2.t0 = _context2['catch'](0);
+            case 6:
+              _context2.prev = 6;
+              _context2.t0 = _context2['catch'](0);
 
-                if (!_context2.t0.errors) {
-                  _context2.next = 10;
-                  break;
-                }
+              if (!_context2.t0.errors) {
+                _context2.next = 10;
+                break;
+              }
 
-                throw new _error2.default({ code: 422, message: 'Unable to delete ' + options.name, errors: _context2.t0.toJSON() });
+              throw new _error2.default({ code: 422, message: 'Unable to delete ' + options.name, errors: _context2.t0.toJSON() });
 
-              case 10:
-                throw _context2.t0;
+            case 10:
+              throw _context2.t0;
 
-              case 11:
-              case 'end':
-                return _context2.stop();
-            }
+            case 11:
+            case 'end':
+              return _context2.stop();
           }
-        }, _callee2, undefined, [[0, 6]]);
-      }));
+        }
+      }, _callee2, undefined, [[0, 6]]);
+    }));
 
-      return function (_x4, _x5) {
-        return _ref2.apply(this, arguments);
-      };
-    }();
-  };
+    return function processor(_x4, _x5, _x6) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
 
   return buildRoute({
     action: 'destroy',

@@ -4,7 +4,7 @@ import BackframeError from '../../utils/error'
 
 export default (buildRoute) => {
 
-  const processor = options => (req, trx) => req.resource
+  const processor = (req, trx, options) => req.resource
 
   return buildRoute({
     action: 'show',

@@ -7,7 +7,7 @@ import BackframeError from '../../utils/error'
 
 export default (buildRoute) => {
 
-  const beforeProcessor = options => req => {
+  const beforeProcessor = (req, trx, options)  => {
 
     if(req.query.$filter) {
 
@@ -35,7 +35,7 @@ export default (buildRoute) => {
 
   }
 
-  const processor = options => (req, trx) => {
+  const processor = (req, trx, options) => {
 
     const tableName = options.model.extend().__super__.tableName
 
@@ -49,7 +49,7 @@ export default (buildRoute) => {
 
     const query = qb => {
 
-      qb = defaultQuery(options)(req, trx, qb)
+      qb = defaultQuery(req, trx, qb, options)
 
       if(options.searchParams && req.query.$filter && req.query.$filter.q) {
 
@@ -79,7 +79,7 @@ export default (buildRoute) => {
 
     options.model.query(qb => {
 
-      qb = defaultQuery(options)(req, trx, qb)
+      qb = defaultQuery(req, trx, qb, options)
 
       if(options.softDelete) qb = qb.whereNull('deleted_at')
 

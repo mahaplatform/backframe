@@ -80,7 +80,7 @@ var toList = exports.toList = function toList(arr) {
   return arr.join(', ').replace(new RegExp(',$'), ', and');
 };
 
-var applyToRecords = exports.applyToRecords = function applyToRecords(req, trx, result, operations) {
+var applyToRecords = exports.applyToRecords = function applyToRecords(req, trx, result, operations, options) {
 
   if (!operations) return result;
 
@@ -90,7 +90,7 @@ var applyToRecords = exports.applyToRecords = function applyToRecords(req, trx, 
 
     return (0, _bluebird.reduce)(arrayOfOptions, function (record, operation) {
 
-      return operation(req, trx, record);
+      return operation(req, trx, record, options);
     }, record);
   }).then(function (records) {
 
@@ -147,8 +147,6 @@ var selectedKeys = exports.selectedKeys = function selectedKeys(select, record) 
 };
 
 var mergeHooks = exports.mergeHooks = function mergeHooks(hooks, plugins) {
-  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-
 
   return coerceArray(plugins).reduce(function (hooks, plugin) {
 
@@ -158,9 +156,7 @@ var mergeHooks = exports.mergeHooks = function mergeHooks(hooks, plugins) {
 
       if (!plugin[hook]) return hooks;
 
-      return (0, _extends7.default)({}, hooks, (0, _defineProperty3.default)({}, hook, [].concat((0, _toConsumableArray3.default)(coerceArray(hooks[hook])), (0, _toConsumableArray3.default)(coerceArray(plugin[hook]).map(function (hook) {
-        return options ? hook(options) : hook;
-      })))));
+      return (0, _extends7.default)({}, hooks, (0, _defineProperty3.default)({}, hook, [].concat((0, _toConsumableArray3.default)(coerceArray(hooks[hook])), (0, _toConsumableArray3.default)(coerceArray(plugin[hook])))));
     }, hooks);
   }, hooks);
 };

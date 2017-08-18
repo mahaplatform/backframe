@@ -2,9 +2,9 @@ import { defaultResponder } from '../../utils'
 
 export default  (buildRoute) => {
 
-  const processor = options => (req, trx) => req.resource
+  const processor = (req, trx, options) => req.resource
 
-  const renderer = options => (req, trx, result) => result.toJSON()
+  const renderer = (req, trx, result, options) => result.toJSON()
 
   return buildRoute({
     action: 'edit',

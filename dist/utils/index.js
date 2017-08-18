@@ -51,156 +51,145 @@ var _xml_responder2 = _interopRequireDefault(_xml_responder);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var defaultQuery = exports.defaultQuery = function defaultQuery(options) {
-  return function (req, trx, qb) {
+var defaultQuery = exports.defaultQuery = function defaultQuery(req, trx, qb, options) {
 
-    if (options.defaultQuery) {
-      qb = options.defaultQuery.reduce(function (qb, defaultQuery) {
-        return defaultQuery(options)(req, trx, qb);
-      }, qb);
-    }
+  if (options.defaultQuery) {
+    qb = options.defaultQuery.reduce(function (qb, defaultQuery) {
+      return defaultQuery(req, trx, qb, options);
+    }, qb);
+  }
 
-    if (options.softDelete) {
-      qb = qb.whereNull('deleted_at');
-    }
+  if (options.softDelete) {
+    qb = qb.whereNull('deleted_at');
+  }
 
-    return qb;
-  };
+  return qb;
 };
 
-var defaultParams = exports.defaultParams = function defaultParams(options) {
-  return function (req, trx) {
+var defaultParams = exports.defaultParams = function defaultParams(req, trx, options) {
 
-    if (options.defaultParams) {
-      return options.defaultParams.reduce(function (params, defaultParams) {
-        return (0, _extends3.default)({}, params, defaultParams(options)(req, trx));
-      }, {});
-    }
+  if (options.defaultParams) {
+    return options.defaultParams.reduce(function (params, defaultParams) {
+      return (0, _extends3.default)({}, params, defaultParams(req, trx, options));
+    }, {});
+  }
 
-    return {};
-  };
+  return {};
 };
-var defaultProcessor = exports.defaultProcessor = function defaultProcessor(options) {
-  return function (req) {
-    return null;
-  };
+var defaultProcessor = exports.defaultProcessor = function defaultProcessor(req, options) {
+  return null;
 };
 
-var defaultRenderer = exports.defaultRenderer = function defaultRenderer(options) {
-  return function () {
-    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, trx, result) {
-      var renderer, selector, transforms, transform;
-      return _regenerator2.default.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              if (result) {
-                _context2.next = 2;
-                break;
-              }
+var defaultRenderer = exports.defaultRenderer = function () {
+  var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, trx, result, options) {
+    var selector, transforms, transform;
+    return _regenerator2.default.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            if (result) {
+              _context2.next = 2;
+              break;
+            }
 
-              return _context2.abrupt('return', null);
+            return _context2.abrupt('return', null);
 
-            case 2:
-              renderer = (0, _render2.default)(options);
-              selector = (0, _core.selectFields)(req.query.$select);
-              transforms = req.query.$select ? [renderer, selector] : [renderer];
+          case 2:
+            selector = (0, _core.selectFields)(req.query.$select);
+            transforms = req.query.$select ? [renderer, selector] : [_render2.default];
 
-              transform = function () {
-                var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, trx, result, transforms) {
-                  return _regenerator2.default.wrap(function _callee$(_context) {
-                    while (1) {
-                      switch (_context.prev = _context.next) {
-                        case 0:
-                          if (!result.records) {
-                            _context.next = 4;
-                            break;
-                          }
+            transform = function () {
+              var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, trx, result, transforms, options) {
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        if (!result.records) {
+                          _context.next = 4;
+                          break;
+                        }
 
-                          _context.next = 3;
-                          return (0, _core.applyToRecords)(req, trx, result, transforms);
+                        _context.next = 3;
+                        return (0, _core.applyToRecords)(req, trx, result, transforms, options);
 
-                        case 3:
-                          return _context.abrupt('return', _context.sent);
+                      case 3:
+                        return _context.abrupt('return', _context.sent);
 
-                        case 4:
-                          _context.next = 6;
-                          return renderer(req, trx, result);
+                      case 4:
+                        _context.next = 6;
+                        return (0, _render2.default)(req, trx, result, options);
 
-                        case 6:
-                          result = _context.sent;
+                      case 6:
+                        result = _context.sent;
 
-                          if (req.query.$select) {
-                            _context.next = 9;
-                            break;
-                          }
+                        if (req.query.$select) {
+                          _context.next = 9;
+                          break;
+                        }
 
-                          return _context.abrupt('return', result);
+                        return _context.abrupt('return', result);
 
-                        case 9:
-                          _context.next = 11;
-                          return selector(req, trx, result);
+                      case 9:
+                        _context.next = 11;
+                        return selector(req, trx, result);
 
-                        case 11:
-                          return _context.abrupt('return', _context.sent);
+                      case 11:
+                        return _context.abrupt('return', _context.sent);
 
-                        case 12:
-                        case 'end':
-                          return _context.stop();
-                      }
+                      case 12:
+                      case 'end':
+                        return _context.stop();
                     }
-                  }, _callee, undefined);
-                }));
+                  }
+                }, _callee, undefined);
+              }));
 
-                return function transform(_x4, _x5, _x6, _x7) {
-                  return _ref2.apply(this, arguments);
-                };
-              }();
+              return function transform(_x5, _x6, _x7, _x8, _x9) {
+                return _ref2.apply(this, arguments);
+              };
+            }();
 
-              _context2.next = 8;
-              return transform(req, trx, result, transforms).catch(function (err) {
+            _context2.next = 7;
+            return transform(req, trx, result, transforms, options).catch(function (err) {
 
-                throw err;
-              });
+              throw err;
+            });
 
-            case 8:
-              return _context2.abrupt('return', _context2.sent);
+          case 7:
+            return _context2.abrupt('return', _context2.sent);
 
-            case 9:
-            case 'end':
-              return _context2.stop();
-          }
+          case 8:
+          case 'end':
+            return _context2.stop();
         }
-      }, _callee2, undefined);
-    }));
+      }
+    }, _callee2, undefined);
+  }));
 
-    return function (_x, _x2, _x3) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-};
+  return function defaultRenderer(_x, _x2, _x3, _x4) {
+    return _ref.apply(this, arguments);
+  };
+}();
 
 var defaultResponder = exports.defaultResponder = function defaultResponder(message) {
-  return function (options) {
-    return function (req, res, result) {
+  return function (req, res, result, options) {
 
-      var format = req.params && req.params.format ? req.params.format : options.defaultFormat;
+    var format = req.params && req.params.format ? req.params.format : options.defaultFormat;
 
-      if (!_lodash2.default.includes(['csv', 'tsv', 'xlsx', 'xml', 'json'], format)) {
-        throw new _error2.default({ code: 415, message: 'We dont currently support this media type' });
-      }
+    if (!_lodash2.default.includes(['csv', 'tsv', 'xlsx', 'xml', 'json'], format)) {
+      throw new _error2.default({ code: 415, message: 'We dont currently support this media type' });
+    }
 
-      var hasRecords = _lodash2.default.get(result, 'records');
+    var hasRecords = _lodash2.default.get(result, 'records');
 
-      var pagination = hasRecords ? _lodash2.default.pick(result, ['all', 'total', 'limit', 'skip']) : null;
+    var pagination = hasRecords ? _lodash2.default.pick(result, ['all', 'total', 'limit', 'skip']) : null;
 
-      var data = hasRecords ? result.records : result;
+    var data = hasRecords ? result.records : result;
 
-      var responders = { csvResponder: _csv_responder2.default, jsonResponder: _json_responder2.default, tsvResponder: _csv_responder2.default, xlsxResponder: _xlsx_responder2.default, xmlResponder: _xml_responder2.default };
+    var responders = { csvResponder: _csv_responder2.default, jsonResponder: _json_responder2.default, tsvResponder: _csv_responder2.default, xlsxResponder: _xlsx_responder2.default, xmlResponder: _xml_responder2.default };
 
-      var responder = options[format + 'Responder'] || responders[format + 'Responder'];
+    var responder = options[format + 'Responder'] || responders[format + 'Responder'];
 
-      return responder(message, pagination, data, req, res);
-    };
+    return responder(message, pagination, data, req, res);
   };
 };

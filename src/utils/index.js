@@ -8,11 +8,11 @@ import jsonResponder from '../responders/json_responder'
 import xlsxResponder from '../responders/xlsx_responder'
 import xmlResponder from '../responders/xml_responder'
 
-export const defaultQuery = options => (req, trx, qb) => {
+export const defaultQuery = (req, trx, qb, options) => {
 
   if(options.defaultQuery) {
     qb = options.defaultQuery.reduce((qb, defaultQuery) => {
-      return defaultQuery(options)(req, trx, qb)
+      return defaultQuery(req, trx, qb, options)
     }, qb)
   }
 
@@ -24,35 +24,33 @@ export const defaultQuery = options => (req, trx, qb) => {
 
 }
 
-export const defaultParams = options => (req, trx) => {
+export const defaultParams = (req, trx, options) => {
 
   if(options.defaultParams) {
     return options.defaultParams.reduce((params, defaultParams) => ({
       ...params,
-      ...defaultParams(options)(req, trx)
+      ...defaultParams(req, trx, options)
     }), {})
   }
 
   return {}
 
 }
-export const defaultProcessor = options => req => null
+export const defaultProcessor = (req, options) => null
 
-export const defaultRenderer = options => async (req, trx, result) => {
+export const defaultRenderer = async (req, trx, result, options) => {
 
   if(!result) return null
 
-  const renderer = render(options)
-
   const selector = selectFields(req.query.$select)
 
-  const transforms = (req.query.$select) ? [renderer, selector] : [renderer]
+  const transforms = (req.query.$select) ? [renderer, selector] : [render]
 
-  const transform = async (req, trx, result, transforms) => {
+  const transform = async (req, trx, result, transforms, options) => {
 
-    if(result.records) return await applyToRecords(req, trx, result, transforms)
+    if(result.records) return await applyToRecords(req, trx, result, transforms, options)
 
-    result = await renderer(req, trx, result)
+    result = await render(req, trx, result, options)
 
     if(!req.query.$select) return result
 
@@ -60,7 +58,7 @@ export const defaultRenderer = options => async (req, trx, result) => {
 
   }
 
-  return await transform(req, trx, result, transforms).catch(err => {
+  return await transform(req, trx, result, transforms, options).catch(err => {
 
     throw err
 
@@ -68,7 +66,7 @@ export const defaultRenderer = options => async (req, trx, result) => {
 
 }
 
-export const defaultResponder = message => options => (req, res, result) => {
+export const defaultResponder = message => (req, res, result, options) => {
 
   const format = req.params && req.params.format ? req.params.format : options.defaultFormat
 

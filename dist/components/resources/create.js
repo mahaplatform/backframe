@@ -38,68 +38,62 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (buildRoute) {
 
-  var alterRequest = function alterRequest(options) {
-    return function (req) {
+  var alterRequest = function alterRequest(req, options) {
 
-      req.data = _lodash2.default.assign(req.body, req.defaults, req.query);
+    req.data = _lodash2.default.assign(req.body, req.defaults, req.query);
 
-      return req;
-    };
+    return req;
   };
 
-  var beforeProcessor = function beforeProcessor(options) {
-    return function (req) {
+  var beforeProcessor = function beforeProcessor(req, options) {
 
-      var allowed = [].concat((0, _toConsumableArray3.default)((0, _core.coerceArray)(options.allowedParams)), (0, _toConsumableArray3.default)((0, _core.coerceArray)(options.virtualParams)));
+    var allowed = [].concat((0, _toConsumableArray3.default)((0, _core.coerceArray)(options.allowedParams)), (0, _toConsumableArray3.default)((0, _core.coerceArray)(options.virtualParams)));
 
-      (0, _options.checkPermitted)(req.data, allowed, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams');
-    };
+    (0, _options.checkPermitted)(req.data, allowed, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams');
   };
 
-  var processor = function processor(options) {
-    return function () {
-      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, trx) {
-        var data;
-        return _regenerator2.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.prev = 0;
-                data = (0, _extends3.default)({}, (0, _utils.defaultParams)(options)(req, trx), _lodash2.default.pick(req.data, options.allowedParams));
-                _context.next = 4;
-                return options.model.forge(data).save(null, { transacting: trx });
+  var processor = function () {
+    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, trx, options) {
+      var data;
+      return _regenerator2.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              data = (0, _extends3.default)({}, (0, _utils.defaultParams)(req, trx, options), _lodash2.default.pick(req.data, options.allowedParams));
+              _context.next = 4;
+              return options.model.forge(data).save(null, { transacting: trx });
 
-              case 4:
-                req.resource = _context.sent;
-                return _context.abrupt('return', req.resource);
+            case 4:
+              req.resource = _context.sent;
+              return _context.abrupt('return', req.resource);
 
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context['catch'](0);
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context['catch'](0);
 
-                if (!_context.t0.errors) {
-                  _context.next = 12;
-                  break;
-                }
+              if (!_context.t0.errors) {
+                _context.next = 12;
+                break;
+              }
 
-                throw new _error2.default({ code: 422, message: 'Unable to create record', errors: _context.t0.toJSON() });
+              throw new _error2.default({ code: 422, message: 'Unable to create record', errors: _context.t0.toJSON() });
 
-              case 12:
-                throw _context.t0;
+            case 12:
+              throw _context.t0;
 
-              case 13:
-              case 'end':
-                return _context.stop();
-            }
+            case 13:
+            case 'end':
+              return _context.stop();
           }
-        }, _callee, undefined, [[0, 8]]);
-      }));
+        }
+      }, _callee, undefined, [[0, 8]]);
+    }));
 
-      return function (_x, _x2) {
-        return _ref.apply(this, arguments);
-      };
-    }();
-  };
+    return function processor(_x, _x2, _x3) {
+      return _ref.apply(this, arguments);
+    };
+  }();
 
   return buildRoute({
     action: 'create',

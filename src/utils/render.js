@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-export default (options) => (req, trx, result) => {
+export default (req, trx, result, options) => {
 
   const useSerializer = !_.isPlainObject(result) && !_.isNil(options.serializer)
 

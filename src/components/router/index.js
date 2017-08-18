@@ -55,16 +55,6 @@ const mergeLifecycle = (plugins, route) => {
 
 }
 
-
-const renderHandler = (lifecycle, options) => {
-
-  return Object.keys(lifecycle).reduce((keys, key) => ({
-    ...keys,
-    [key]: _.isArray(lifecycle[key]) ? lifecycle[key].map(item => item(options)) : lifecycle[key](options)
-  }), {})
-
-}
-
 // iterate through routing array and generate express router
 export const buildRouter = (backframeOptions, options, buildHandler, buildRoute) => {
 
@@ -86,13 +76,9 @@ export const buildRouter = (backframeOptions, options, buildHandler, buildRoute)
 
     const merged = mergeLifecycle(backframeOptions.plugins, route)
 
-    const handlerLifecycle = _.pick(merged, constants.BACKFRAME_LIFECYCLE)
+    const handlerOptions = { ...route.options, ...merged }
 
-    const handlerOptions = { ...route.options, ..._.omit(merged, constants.BACKFRAME_LIFECYCLE) }
-
-    const rendered = renderHandler(handlerLifecycle, handlerOptions)
-
-    const handler = _.isFunction(route.handler) ? route.handler : buildHandler(rendered)
+    const handler = _.isFunction(route.handler) ? route.handler : buildHandler(handlerOptions)
 
     table[`${route.method}:${path}`] = handler
 

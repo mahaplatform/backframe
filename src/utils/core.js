@@ -42,7 +42,7 @@ export const toList = (arr) => {
 
 }
 
-export const applyToRecords = (req, trx, result, operations) => {
+export const applyToRecords = (req, trx, result, operations, options) => {
 
   if(!operations) return result
 
@@ -52,7 +52,7 @@ export const applyToRecords = (req, trx, result, operations) => {
 
     return Promise.reduce(arrayOfOptions, (record, operation) => {
 
-      return operation(req, trx, record)
+      return operation(req, trx, record, options)
 
     }, record)
 
@@ -118,7 +118,7 @@ export const selectedKeys = (select, record) => {
 
 }
 
-export const mergeHooks = (hooks, plugins, options = null) => {
+export const mergeHooks = (hooks, plugins) => {
 
   return coerceArray(plugins).reduce((hooks, plugin) => {
 
@@ -136,7 +136,7 @@ export const mergeHooks = (hooks, plugins, options = null) => {
         ...hooks,
         [hook]: [
           ...coerceArray(hooks[hook]),
-          ...coerceArray(plugin[hook]).map(hook => options ? hook(options) : hook)
+          ...coerceArray(plugin[hook])
         ]
       }
 

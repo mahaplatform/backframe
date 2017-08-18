@@ -110,7 +110,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return runAlterRequest(req, trx, alterRequest);
+                return runAlterRequest(req, trx, options, alterRequest);
 
               case 3:
                 _context.t0 = _context.sent;
@@ -125,11 +125,11 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
               case 6:
                 req = _context.t0;
                 _context.next = 9;
-                return runHooks(req, trx, beforeProcessor);
+                return runHooks(req, trx, options, beforeProcessor);
 
               case 9:
                 _context.next = 11;
-                return processor(req, trx);
+                return processor(req, trx, options);
 
               case 11:
                 _context.t1 = _context.sent;
@@ -144,7 +144,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
               case 14:
                 result = _context.t1;
                 _context.next = 17;
-                return runHooks(req, trx, afterProcessor, result);
+                return runHooks(req, trx, options, afterProcessor, result);
 
               case 17:
                 if (!renderer) {
@@ -153,7 +153,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
                 }
 
                 _context.next = 20;
-                return renderer(req, trx, result);
+                return renderer(req, trx, result, options);
 
               case 20:
                 _context.t2 = _context.sent;
@@ -166,7 +166,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
               case 24:
                 result = _context.t2;
                 _context.next = 27;
-                return runAlterRecord(req, trx, alterRecord, result);
+                return runAlterRecord(req, trx, options, alterRecord, result);
 
               case 27:
                 _context.t3 = _context.sent;
@@ -181,7 +181,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
               case 30:
                 result = _context.t3;
                 _context.next = 33;
-                return runResponder(req, res, result, responder);
+                return runResponder(req, res, options, result, responder);
 
               case 33:
                 _context.next = 35;
@@ -189,7 +189,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
 
               case 35:
                 _context.next = 37;
-                return runHooks(req, trx, afterCommit, result);
+                return runHooks(req, trx, options, afterCommit, result);
 
               case 37:
                 return _context.abrupt('return', result);
@@ -198,7 +198,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
                 _context.prev = 40;
                 _context.t4 = _context['catch'](0);
                 _context.next = 44;
-                return runHooks(req, trx, beforeRollback);
+                return runHooks(req, trx, options, beforeRollback);
 
               case 44:
                 _context.next = 46;
@@ -222,7 +222,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
   };
 };
 
-var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, trx, alterRequest) {
+var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, trx, options, alterRequest) {
 
   var runner = function () {
     var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, operation) {
@@ -231,7 +231,7 @@ var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, tr
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return operation(req, trx);
+              return operation(req, trx, options);
 
             case 2:
               return _context2.abrupt('return', _context2.sent);
@@ -256,7 +256,7 @@ var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, tr
   return (0, _bluebird.reduce)(alterRequest, runner, req);
 };
 
-var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, trx, alterRecord, result) {
+var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, trx, options, alterRecord, result) {
 
   if (!alterRecord) return result;
 
@@ -272,7 +272,7 @@ var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, trx, 
               }
 
               _context3.next = 3;
-              return (0, _core.applyToRecords)(req, trx, result, operation);
+              return (0, _core.applyToRecords)(req, trx, result, operation, options);
 
             case 3:
               _context3.t0 = _context3.sent;
@@ -281,7 +281,7 @@ var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, trx, 
 
             case 6:
               _context3.next = 8;
-              return operation(req, trx, result);
+              return operation(req, trx, result, options);
 
             case 8:
               _context3.t0 = _context3.sent;
@@ -309,8 +309,8 @@ var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, trx, 
   return (0, _bluebird.reduce)(alterRecord, runner, result);
 };
 
-var runHooks = exports.runHooks = function runHooks(req, trx, hooks) {
-  var result = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+var runHooks = exports.runHooks = function runHooks(req, trx, options, hooks) {
+  var result = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
 
 
   if (!hooks) return true;
@@ -330,12 +330,12 @@ var runHooks = exports.runHooks = function runHooks(req, trx, hooks) {
                 break;
               }
 
-              _context4.t0 = hook(req, trx, result);
+              _context4.t0 = hook(req, trx, result, options);
               _context4.next = 7;
               break;
 
             case 6:
-              _context4.t0 = hook(req, trx);
+              _context4.t0 = hook(req, trx, options);
 
             case 7:
               return _context4.abrupt('return', _context4.t0);
@@ -362,14 +362,12 @@ var runHooks = exports.runHooks = function runHooks(req, trx, hooks) {
   });
 };
 
-var runResponder = exports.runResponder = function runResponder(req, res, result, responder) {
+var runResponder = exports.runResponder = function runResponder(req, res, options, result, responder) {
 
-  if (responder) responder(req, res, result);
+  if (responder) responder(req, res, result, options);
 };
 
 var renderError = exports.renderError = function renderError(res, err) {
-
-  if (_lodash2.default.includes(['development'], process.env.NODE_ENV)) console.log(err);
 
   if (err.name == 'BackframeError') return (0, _response.fail)(res, err.code, err.message, { errors: err.errors });
 

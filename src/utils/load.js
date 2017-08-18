@@ -2,7 +2,7 @@ import { coerceArray } from '../utils/core'
 import { defaultQuery } from '../utils'
 import BackframeError from '../utils/error'
 
-export default options => async (req, trx) => {
+const load = async (req, trx, options) => {
 
   const tableName = options.model.extend().__super__.tableName
 
@@ -10,7 +10,7 @@ export default options => async (req, trx) => {
 
   const query = qb => {
 
-    qb = defaultQuery(options)(req, trx, qb)
+    qb = defaultQuery(req, trx, qb, options)
 
     qb.where(`${tableName}.id`, req.params.id)
 
@@ -25,3 +25,5 @@ export default options => async (req, trx) => {
   return record
 
 }
+
+export default load
