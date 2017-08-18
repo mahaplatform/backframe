@@ -49,7 +49,7 @@ export default (buildRoute) => {
 
     const query = qb => {
 
-      qb = defaultQuery(req, trx, qb, options)
+      defaultQuery(req, trx, qb, options)
 
       if(options.searchParams && req.query.$filter && req.query.$filter.q) {
 
@@ -79,9 +79,9 @@ export default (buildRoute) => {
 
     options.model.query(qb => {
 
-      qb = defaultQuery(req, trx, qb, options)
+      defaultQuery(req, trx, qb, options)
 
-      if(options.softDelete) qb = qb.whereNull('deleted_at')
+      if(options.softDelete) qb.whereNull('deleted_at')
 
       allQueryObject = qb.toSQL()
 
@@ -97,7 +97,7 @@ export default (buildRoute) => {
 
       const sort = extractSort(req.query.$sort, options.defaultSort, options.sortParams)
 
-      qb = query(qb)
+      query(qb)
 
       if(limit > 0) qb.limit(limit).offset(skip)
 

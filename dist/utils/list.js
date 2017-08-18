@@ -49,7 +49,7 @@ var filter = exports.filter = function filter(options, qb, filters) {
 
   return (0, _keys2.default)(filters).filter(function (key) {
     return filters[key];
-  }).reduce(function (qb, key) {
+  }).map(function (key) {
 
     if (filters[key].$eq) {
 
@@ -105,50 +105,48 @@ var filter = exports.filter = function filter(options, qb, filters) {
 
       if (filters[key].$dr === 'this_week') {
 
-        qb = daterange(qb, key, 0, 'week');
+        daterange(qb, key, 0, 'week');
       } else if (filters[key].$dr === 'last_week') {
 
-        qb = daterange(qb, key, -1, 'week');
+        daterange(qb, key, -1, 'week');
       } else if (filters[key].$dr === 'next_week') {
 
-        qb = daterange(qb, key, 1, 'week');
+        daterange(qb, key, 1, 'week');
       } else if (filters[key].$dr === 'this_month') {
 
-        qb = daterange(qb, key, 0, 'month');
+        daterange(qb, key, 0, 'month');
       } else if (filters[key].$dr === 'last_month') {
 
-        qb = daterange(qb, key, -1, 'month');
+        daterange(qb, key, -1, 'month');
       } else if (filters[key].$dr === 'next_month') {
 
-        qb = daterange(qb, key, 1, 'month');
+        daterange(qb, key, 1, 'month');
       } else if (filters[key].$dr === 'this_quarter') {
 
-        qb = daterange(qb, key, 0, 'quarter');
+        daterange(qb, key, 0, 'quarter');
       } else if (filters[key].$dr === 'last_quarter') {
 
-        qb = daterange(qb, key, -1, 'quarter');
+        daterange(qb, key, -1, 'quarter');
       } else if (filters[key].$dr === 'next_quarter') {
 
-        qb = daterange(qb, key, 1, 'quarter');
+        daterange(qb, key, 1, 'quarter');
       } else if (filters[key].$dr === 'this_year') {
 
-        qb = daterange(qb, key, 0, 'year');
+        daterange(qb, key, 0, 'year');
       } else if (filters[key].$dr === 'last_year') {
 
-        qb = daterange(qb, key, -1, 'year');
+        daterange(qb, key, -1, 'year');
       } else if (filters[key].$dr === 'next_year') {
 
-        qb = daterange(qb, key, 1, 'year');
+        daterange(qb, key, 1, 'year');
       }
     }
 
     return qb;
-  }, qb);
+  });
 };
 
 var daterange = exports.daterange = function daterange(qb, field, quantity, unit) {
 
   qb.where(field, '>=', (0, _moment2.default)().add(quantity, unit).startOf(unit).format('YYYY-MM-DD')).where(field, '<=', (0, _moment2.default)().add(quantity, unit).endOf(unit).format('YYYY-MM-DD'));
-
-  return qb;
 };

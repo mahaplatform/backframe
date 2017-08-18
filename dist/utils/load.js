@@ -34,7 +34,7 @@ var load = function () {
 
             query = function query(qb) {
 
-              qb = (0, _utils.defaultQuery)(req, trx, qb, options);
+              (0, _utils.defaultQuery)(req, trx, qb, options);
 
               qb.where(tableName + '.id', req.params.id);
             };

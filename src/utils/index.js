@@ -11,16 +11,18 @@ import xmlResponder from '../responders/xml_responder'
 export const defaultQuery = (req, trx, qb, options) => {
 
   if(options.defaultQuery) {
-    qb = options.defaultQuery.reduce((qb, defaultQuery) => {
-      return defaultQuery(req, trx, qb, options)
-    }, qb)
+
+    options.defaultQuery.map(defaultQuery => {
+
+      defaultQuery(req, trx, qb, options)
+
+    })
+
   }
 
   if(options.softDelete) {
-    qb = qb.whereNull('deleted_at')
+    qb.whereNull('deleted_at')
   }
-
-  return qb
 
 }
 

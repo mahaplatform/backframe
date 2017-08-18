@@ -54,16 +54,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var defaultQuery = exports.defaultQuery = function defaultQuery(req, trx, qb, options) {
 
   if (options.defaultQuery) {
-    qb = options.defaultQuery.reduce(function (qb, defaultQuery) {
-      return defaultQuery(req, trx, qb, options);
-    }, qb);
+
+    options.defaultQuery.map(function (defaultQuery) {
+
+      defaultQuery(req, trx, qb, options);
+    });
   }
 
   if (options.softDelete) {
-    qb = qb.whereNull('deleted_at');
+    qb.whereNull('deleted_at');
   }
-
-  return qb;
 };
 
 var defaultParams = exports.defaultParams = function defaultParams(req, trx, options) {

@@ -10,7 +10,7 @@ const load = async (req, trx, options) => {
 
   const query = qb => {
 
-    qb = defaultQuery(req, trx, qb, options)
+    defaultQuery(req, trx, qb, options)
 
     qb.where(`${tableName}.id`, req.params.id)
 

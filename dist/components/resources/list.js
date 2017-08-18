@@ -67,7 +67,7 @@ exports.default = function (buildRoute) {
 
     var query = function query(qb) {
 
-      qb = (0, _utils.defaultQuery)(req, trx, qb, options);
+      (0, _utils.defaultQuery)(req, trx, qb, options);
 
       if (options.searchParams && req.query.$filter && req.query.$filter.q) {
 
@@ -94,9 +94,9 @@ exports.default = function (buildRoute) {
 
     options.model.query(function (qb) {
 
-      qb = (0, _utils.defaultQuery)(req, trx, qb, options);
+      (0, _utils.defaultQuery)(req, trx, qb, options);
 
-      if (options.softDelete) qb = qb.whereNull('deleted_at');
+      if (options.softDelete) qb.whereNull('deleted_at');
 
       allQueryObject = qb.toSQL();
     });
@@ -116,7 +116,7 @@ exports.default = function (buildRoute) {
 
         var sort = (0, _list.extractSort)(req.query.$sort, options.defaultSort, options.sortParams);
 
-        qb = query(qb);
+        query(qb);
 
         if (limit > 0) qb.limit(limit).offset(skip);
 
