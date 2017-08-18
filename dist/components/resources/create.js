@@ -38,14 +38,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = function (buildRoute) {
 
-  var alterRequest = function alterRequest(req, options) {
+  var alterRequest = function alterRequest(req, trx, options) {
 
     req.data = _lodash2.default.assign(req.body, req.defaults, req.query);
 
     return req;
   };
 
-  var beforeProcessor = function beforeProcessor(req, options) {
+  var beforeProcessor = function beforeProcessor(req, trx, options) {
 
     var allowed = [].concat((0, _toConsumableArray3.default)((0, _core.coerceArray)(options.allowedParams)), (0, _toConsumableArray3.default)((0, _core.coerceArray)(options.virtualParams)));
 

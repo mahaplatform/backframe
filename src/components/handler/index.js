@@ -54,45 +54,49 @@ export const expandLifecycle = (userOptions) => {
 
 export const buildHandler = (options) => {
 
+  return async (req, res) => {
+
+    if(process.env.NODE_ENV === 'test') return await withTransaction(req, res, null, options)
+
+    return await options.knex.transaction(async trx => await withTransaction(req, res, trx, options))
+
+  }
+
+}
+
+const withTransaction = async (req, res, trx, options) => {
+
   const { alterRequest, beforeProcessor, processor, afterProcessor, renderer, alterRecord, responder, afterCommit, beforeRollback } = options
 
-  return (req, res) => {
+  try {
 
-    return options.knex.transaction(async trx => {
+    req = await runAlterRequest(req, trx, options, alterRequest) || req
 
-      try {
+    await runHooks(req, trx, options, beforeProcessor)
 
-        req = await runAlterRequest(req, trx, options, alterRequest) || req
+    let result = await processor(req, trx, options) || null
 
-        await runHooks(req, trx, options, beforeProcessor)
+    await runHooks(req, trx, options, afterProcessor, result)
 
-        let result = await processor(req, trx, options) || null
+    result = renderer ? await renderer(req, trx, result, options) : result
 
-        await runHooks(req, trx, options, afterProcessor, result)
+    result = await runAlterRecord(req, trx, options, alterRecord, result) || result
 
-        result = renderer ? await renderer(req, trx, result, options) : result
+    await runResponder(req, res, options, result, responder)
 
-        result = await runAlterRecord(req, trx, options, alterRecord, result) || result
+    if(trx) await trx.commit(result)
 
-        await runResponder(req, res, options, result, responder)
+    await runHooks(req, trx, options, afterCommit, result)
 
-        await trx.commit(result)
+    return result
 
-        await runHooks(req, trx, options, afterCommit, result)
+  } catch(err) {
 
-        return result
+    await runHooks(req, trx, options, beforeRollback)
 
-      } catch(err) {
+    if(trx) await trx.rollback(err)
 
-        await runHooks(req, trx, options, beforeRollback)
-
-        await trx.rollback(err)
-
-        return renderError(res, err)
-
-      }
-
-    })
+    return renderError(res, err)
 
   }
 

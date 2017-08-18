@@ -7,25 +7,36 @@ options to be invoked when constructing Backframe objects.
 ```Javascript
 import { plugin } from 'backframe'
 
-const alterRequest = options => (req, resolve, reject) => {
+const alterRequest = (req, trx, options) => {
   console.log('altering request')
   resolve(req)
 }
 
-const before = options => (req, resolve, reject) => {
+const beforeProcessor = (req, trx, options) => {
   console.log('before processor')
   resolve()
 }
 
-const afterHooks = options => (req, result, resolve, reject) => {
+const afterProcessor = (req, trx, options) => {
   console.log('after processor')
   resolve()
 }
 
-const alter = options => (req, result, resolve, reject) => {
-  console.log('altering response')
+const alterRecord = (req, trx, result, options) => {
+  console.log('altering record')
   resolve(result)
 }
+
+const beforeCommit = (req, trx, options) => {
+  console.log('before commit')
+  resolve()
+}
+
+const beforeRollback = (req, trx, options) => {
+  console.log('before rollback')
+  resolve()
+}
+
 
 export default plugin({
   options: {

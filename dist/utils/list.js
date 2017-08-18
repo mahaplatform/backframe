@@ -47,7 +47,7 @@ var extractSort = exports.extractSort = function extractSort(query, defaults) {
 // map query filters to a qb object
 var filter = exports.filter = function filter(options, qb, filters) {
 
-  return (0, _keys2.default)(filters).filter(function (key) {
+  (0, _keys2.default)(filters).filter(function (key) {
     return filters[key];
   }).map(function (key) {
 
@@ -141,12 +141,12 @@ var filter = exports.filter = function filter(options, qb, filters) {
         daterange(qb, key, 1, 'year');
       }
     }
-
-    return qb;
   });
 };
 
 var daterange = exports.daterange = function daterange(qb, field, quantity, unit) {
 
-  qb.where(field, '>=', (0, _moment2.default)().add(quantity, unit).startOf(unit).format('YYYY-MM-DD')).where(field, '<=', (0, _moment2.default)().add(quantity, unit).endOf(unit).format('YYYY-MM-DD'));
+  qb.where(field, '>=', (0, _moment2.default)().add(quantity, unit).startOf(unit).format('YYYY-MM-DD'));
+
+  qb.where(field, '<=', (0, _moment2.default)().add(quantity, unit).endOf(unit).format('YYYY-MM-DD'));
 };

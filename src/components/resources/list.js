@@ -35,9 +35,11 @@ export default (buildRoute) => {
 
   }
 
-  const processor = (req, trx, options) => {
+  const processor = async (req, trx, options) => {
 
     const tableName = options.model.extend().__super__.tableName
+
+    const columns = await options.knex(tableName).columnInfo()
 
     req.query.$filter = _.pick(req.query.$filter, [...options.filterParams, 'q'])
 
@@ -101,7 +103,17 @@ export default (buildRoute) => {
 
       if(limit > 0) qb.limit(limit).offset(skip)
 
-      if(sort) sort.map(item => qb.orderByRaw(`${castColumn(tableName, item.key)} ${item.order}`))
+      if(sort) sort.map(item => {
+
+        const cast = castColumn(tableName, item.key)
+
+        const isString = columns[item.key] && columns[item.key].type === 'character varying'
+
+        const column = isString ? `lower(${cast})` : cast
+
+        qb.orderByRaw(`${column} ${item.order}`)
+
+      })
 
     }).fetchAll(fetchOptions).then(records => records.map(record => record))
 

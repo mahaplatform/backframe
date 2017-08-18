@@ -88,155 +88,55 @@ var expandLifecycle = exports.expandLifecycle = function expandLifecycle(userOpt
 };
 
 var buildHandler = exports.buildHandler = function buildHandler(options) {
-  var alterRequest = options.alterRequest,
-      beforeProcessor = options.beforeProcessor,
-      processor = options.processor,
-      afterProcessor = options.afterProcessor,
-      renderer = options.renderer,
-      alterRecord = options.alterRecord,
-      responder = options.responder,
-      afterCommit = options.afterCommit,
-      beforeRollback = options.beforeRollback;
 
-
-  return function (req, res) {
-
-    return options.knex.transaction(function () {
-      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(trx) {
-        var result;
-        return _regenerator2.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return runAlterRequest(req, trx, options, alterRequest);
-
-              case 3:
-                _context.t0 = _context.sent;
-
-                if (_context.t0) {
-                  _context.next = 6;
-                  break;
-                }
-
-                _context.t0 = req;
-
-              case 6:
-                req = _context.t0;
-                _context.next = 9;
-                return runHooks(req, trx, options, beforeProcessor);
-
-              case 9:
-                _context.next = 11;
-                return processor(req, trx, options);
-
-              case 11:
-                _context.t1 = _context.sent;
-
-                if (_context.t1) {
-                  _context.next = 14;
-                  break;
-                }
-
-                _context.t1 = null;
-
-              case 14:
-                result = _context.t1;
-                _context.next = 17;
-                return runHooks(req, trx, options, afterProcessor, result);
-
-              case 17:
-                if (!renderer) {
-                  _context.next = 23;
-                  break;
-                }
-
-                _context.next = 20;
-                return renderer(req, trx, result, options);
-
-              case 20:
-                _context.t2 = _context.sent;
-                _context.next = 24;
-                break;
-
-              case 23:
-                _context.t2 = result;
-
-              case 24:
-                result = _context.t2;
-                _context.next = 27;
-                return runAlterRecord(req, trx, options, alterRecord, result);
-
-              case 27:
-                _context.t3 = _context.sent;
-
-                if (_context.t3) {
-                  _context.next = 30;
-                  break;
-                }
-
-                _context.t3 = result;
-
-              case 30:
-                result = _context.t3;
-                _context.next = 33;
-                return runResponder(req, res, options, result, responder);
-
-              case 33:
-                _context.next = 35;
-                return trx.commit(result);
-
-              case 35:
-                _context.next = 37;
-                return runHooks(req, trx, options, afterCommit, result);
-
-              case 37:
-                return _context.abrupt('return', result);
-
-              case 40:
-                _context.prev = 40;
-                _context.t4 = _context['catch'](0);
-                _context.next = 44;
-                return runHooks(req, trx, options, beforeRollback);
-
-              case 44:
-                _context.next = 46;
-                return trx.rollback(_context.t4);
-
-              case 46:
-                return _context.abrupt('return', renderError(res, _context.t4));
-
-              case 47:
-              case 'end':
-                return _context.stop();
-            }
-          }
-        }, _callee, undefined, [[0, 40]]);
-      }));
-
-      return function (_x3) {
-        return _ref.apply(this, arguments);
-      };
-    }());
-  };
-};
-
-var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, trx, options, alterRequest) {
-
-  var runner = function () {
-    var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, operation) {
+  return function () {
+    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, res) {
       return _regenerator2.default.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.next = 2;
-              return operation(req, trx, options);
+              if (!(process.env.NODE_ENV === 'test')) {
+                _context2.next = 4;
+                break;
+              }
 
-            case 2:
-              return _context2.abrupt('return', _context2.sent);
+              _context2.next = 3;
+              return withTransaction(req, res, null, options);
 
             case 3:
+              return _context2.abrupt('return', _context2.sent);
+
+            case 4:
+              _context2.next = 6;
+              return options.knex.transaction(function () {
+                var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(trx) {
+                  return _regenerator2.default.wrap(function _callee$(_context) {
+                    while (1) {
+                      switch (_context.prev = _context.next) {
+                        case 0:
+                          _context.next = 2;
+                          return withTransaction(req, res, trx, options);
+
+                        case 2:
+                          return _context.abrupt('return', _context.sent);
+
+                        case 3:
+                        case 'end':
+                          return _context.stop();
+                      }
+                    }
+                  }, _callee, undefined);
+                }));
+
+                return function (_x5) {
+                  return _ref2.apply(this, arguments);
+                };
+              }());
+
+            case 6:
+              return _context2.abrupt('return', _context2.sent);
+
+            case 7:
             case 'end':
               return _context2.stop();
           }
@@ -244,8 +144,166 @@ var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, tr
       }, _callee2, undefined);
     }));
 
-    return function runner(_x4, _x5) {
-      return _ref2.apply(this, arguments);
+    return function (_x3, _x4) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+var withTransaction = function () {
+  var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(req, res, trx, options) {
+    var alterRequest, beforeProcessor, processor, afterProcessor, renderer, alterRecord, responder, afterCommit, beforeRollback, result;
+    return _regenerator2.default.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            alterRequest = options.alterRequest, beforeProcessor = options.beforeProcessor, processor = options.processor, afterProcessor = options.afterProcessor, renderer = options.renderer, alterRecord = options.alterRecord, responder = options.responder, afterCommit = options.afterCommit, beforeRollback = options.beforeRollback;
+            _context3.prev = 1;
+            _context3.next = 4;
+            return runAlterRequest(req, trx, options, alterRequest);
+
+          case 4:
+            _context3.t0 = _context3.sent;
+
+            if (_context3.t0) {
+              _context3.next = 7;
+              break;
+            }
+
+            _context3.t0 = req;
+
+          case 7:
+            req = _context3.t0;
+            _context3.next = 10;
+            return runHooks(req, trx, options, beforeProcessor);
+
+          case 10:
+            _context3.next = 12;
+            return processor(req, trx, options);
+
+          case 12:
+            _context3.t1 = _context3.sent;
+
+            if (_context3.t1) {
+              _context3.next = 15;
+              break;
+            }
+
+            _context3.t1 = null;
+
+          case 15:
+            result = _context3.t1;
+            _context3.next = 18;
+            return runHooks(req, trx, options, afterProcessor, result);
+
+          case 18:
+            if (!renderer) {
+              _context3.next = 24;
+              break;
+            }
+
+            _context3.next = 21;
+            return renderer(req, trx, result, options);
+
+          case 21:
+            _context3.t2 = _context3.sent;
+            _context3.next = 25;
+            break;
+
+          case 24:
+            _context3.t2 = result;
+
+          case 25:
+            result = _context3.t2;
+            _context3.next = 28;
+            return runAlterRecord(req, trx, options, alterRecord, result);
+
+          case 28:
+            _context3.t3 = _context3.sent;
+
+            if (_context3.t3) {
+              _context3.next = 31;
+              break;
+            }
+
+            _context3.t3 = result;
+
+          case 31:
+            result = _context3.t3;
+            _context3.next = 34;
+            return runResponder(req, res, options, result, responder);
+
+          case 34:
+            if (!trx) {
+              _context3.next = 37;
+              break;
+            }
+
+            _context3.next = 37;
+            return trx.commit(result);
+
+          case 37:
+            _context3.next = 39;
+            return runHooks(req, trx, options, afterCommit, result);
+
+          case 39:
+            return _context3.abrupt('return', result);
+
+          case 42:
+            _context3.prev = 42;
+            _context3.t4 = _context3['catch'](1);
+            _context3.next = 46;
+            return runHooks(req, trx, options, beforeRollback);
+
+          case 46:
+            if (!trx) {
+              _context3.next = 49;
+              break;
+            }
+
+            _context3.next = 49;
+            return trx.rollback(_context3.t4);
+
+          case 49:
+            return _context3.abrupt('return', renderError(res, _context3.t4));
+
+          case 50:
+          case 'end':
+            return _context3.stop();
+        }
+      }
+    }, _callee3, undefined, [[1, 42]]);
+  }));
+
+  return function withTransaction(_x6, _x7, _x8, _x9) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, trx, options, alterRequest) {
+
+  var runner = function () {
+    var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(req, operation) {
+      return _regenerator2.default.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return operation(req, trx, options);
+
+            case 2:
+              return _context4.abrupt('return', _context4.sent);
+
+            case 3:
+            case 'end':
+              return _context4.stop();
+          }
+        }
+      }, _callee4, undefined);
+    }));
+
+    return function runner(_x10, _x11) {
+      return _ref4.apply(this, arguments);
     };
   }();
 
@@ -261,44 +319,44 @@ var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, trx, 
   if (!alterRecord) return result;
 
   var runner = function () {
-    var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(result, operation) {
-      return _regenerator2.default.wrap(function _callee3$(_context3) {
+    var _ref5 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee5(result, operation) {
+      return _regenerator2.default.wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
               if (!(result && result.records)) {
-                _context3.next = 6;
+                _context5.next = 6;
                 break;
               }
 
-              _context3.next = 3;
+              _context5.next = 3;
               return (0, _core.applyToRecords)(req, trx, result, operation, options);
 
             case 3:
-              _context3.t0 = _context3.sent;
-              _context3.next = 9;
+              _context5.t0 = _context5.sent;
+              _context5.next = 9;
               break;
 
             case 6:
-              _context3.next = 8;
+              _context5.next = 8;
               return operation(req, trx, result, options);
 
             case 8:
-              _context3.t0 = _context3.sent;
+              _context5.t0 = _context5.sent;
 
             case 9:
-              return _context3.abrupt('return', _context3.t0);
+              return _context5.abrupt('return', _context5.t0);
 
             case 10:
             case 'end':
-              return _context3.stop();
+              return _context5.stop();
           }
         }
-      }, _callee3, undefined);
+      }, _callee5, undefined);
     }));
 
-    return function runner(_x6, _x7) {
-      return _ref3.apply(this, arguments);
+    return function runner(_x12, _x13) {
+      return _ref5.apply(this, arguments);
     };
   }();
 
@@ -316,40 +374,40 @@ var runHooks = exports.runHooks = function runHooks(req, trx, options, hooks) {
   if (!hooks) return true;
 
   var runner = function () {
-    var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(hook) {
-      return _regenerator2.default.wrap(function _callee4$(_context4) {
+    var _ref6 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee6(hook) {
+      return _regenerator2.default.wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
-              _context4.next = 2;
+              _context6.next = 2;
               return result;
 
             case 2:
-              if (!_context4.sent) {
-                _context4.next = 6;
+              if (!_context6.sent) {
+                _context6.next = 6;
                 break;
               }
 
-              _context4.t0 = hook(req, trx, result, options);
-              _context4.next = 7;
+              _context6.t0 = hook(req, trx, result, options);
+              _context6.next = 7;
               break;
 
             case 6:
-              _context4.t0 = hook(req, trx, options);
+              _context6.t0 = hook(req, trx, options);
 
             case 7:
-              return _context4.abrupt('return', _context4.t0);
+              return _context6.abrupt('return', _context6.t0);
 
             case 8:
             case 'end':
-              return _context4.stop();
+              return _context6.stop();
           }
         }
-      }, _callee4, undefined);
+      }, _callee6, undefined);
     }));
 
-    return function runner(_x9) {
-      return _ref4.apply(this, arguments);
+    return function runner(_x15) {
+      return _ref6.apply(this, arguments);
     };
   }();
 

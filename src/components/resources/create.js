@@ -6,7 +6,7 @@ import BackframeError from '../../utils/error'
 
 export default  (buildRoute) => {
 
-  const alterRequest = (req, options) => {
+  const alterRequest = (req, trx, options) => {
 
     req.data = _.assign(req.body, req.defaults, req.query)
 
@@ -14,7 +14,7 @@ export default  (buildRoute) => {
 
   }
 
-  const beforeProcessor = (req, options) => {
+  const beforeProcessor = (req, trx, options) => {
 
     const allowed = [
       ...coerceArray(options.allowedParams),
