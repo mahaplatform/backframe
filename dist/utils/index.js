@@ -55,7 +55,7 @@ var defaultQuery = exports.defaultQuery = function defaultQuery(req, trx, qb, op
 
   if (options.defaultQuery) {
 
-    options.defaultQuery.map(function (defaultQuery) {
+    (0, _core.coerceArray)(options.defaultQuery).map(function (defaultQuery) {
 
       defaultQuery(req, trx, qb, options);
     });

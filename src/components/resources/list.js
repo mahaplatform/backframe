@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { defaultQuery, defaultRenderer, defaultResponder } from '../../utils'
 import { castColumn, coerceArray } from '../../utils/core'
-import { extractSort, filter } from '../../utils/list'
+import { extractSort, filter } from '../list_route'
 import { checkPermitted } from '../../utils/options'
 import BackframeError from '../../utils/error'
 

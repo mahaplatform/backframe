@@ -2,6 +2,7 @@ import _ from 'lodash'
 import render from './render'
 import { succeed } from './response'
 import { applyToRecords, selectFields } from './core'
+import { coerceArray } from './core'
 import BackframeError from './error'
 import csvResponder from '../responders/csv_responder'
 import jsonResponder from '../responders/json_responder'
@@ -12,7 +13,7 @@ export const defaultQuery = (req, trx, qb, options) => {
 
   if(options.defaultQuery) {
 
-    options.defaultQuery.map(defaultQuery => {
+    coerceArray(options.defaultQuery).map(defaultQuery => {
 
       defaultQuery(req, trx, qb, options)
 

@@ -1,5 +1,6 @@
 import { validateOptions, defaultOptions } from '../../utils/options'
 import handler from '../handler'
+import listRoute from '../list_route'
 import route from '../route'
 import resources from '../resources'
 import router from '../router'
@@ -19,6 +20,7 @@ export default (userOptions = {}) => {
   const options = normalizeOptions(userOptions, TYPES)
 
   return {
+    listRoute: listRoute(options),
     route: route(options),
     resources: resources(options),
     router: router(options),

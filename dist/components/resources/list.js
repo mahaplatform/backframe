@@ -26,7 +26,7 @@ var _utils = require('../../utils');
 
 var _core = require('../../utils/core');
 
-var _list = require('../../utils/list');
+var _list_route = require('../list_route');
 
 var _options = require('../../utils/options');
 
@@ -98,7 +98,7 @@ exports.default = function (buildRoute) {
                   qb.whereRaw('lower(' + vector + ') LIKE \'%' + term + '%\'');
                 }
 
-                if (req.query.$filter) (0, _list.filter)(options, qb, req.query.$filter);
+                if (req.query.$filter) (0, _list_route.filter)(options, qb, req.query.$filter);
 
                 if (req.query.$exclude_ids) qb.whereNotIn(tableName + '.id', req.query.$exclude_ids);
 
@@ -132,7 +132,7 @@ exports.default = function (buildRoute) {
               paged = function paged() {
                 return options.model.query(function (qb) {
 
-                  var sort = (0, _list.extractSort)(req.query.$sort, options.defaultSort, options.sortParams);
+                  var sort = (0, _list_route.extractSort)(req.query.$sort, options.defaultSort, options.sortParams);
 
                   query(qb);
 

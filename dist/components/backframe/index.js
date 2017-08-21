@@ -15,6 +15,10 @@ var _handler = require('../handler');
 
 var _handler2 = _interopRequireDefault(_handler);
 
+var _list_route = require('../list_route');
+
+var _list_route2 = _interopRequireDefault(_list_route);
+
 var _route = require('../route');
 
 var _route2 = _interopRequireDefault(_route);
@@ -49,6 +53,7 @@ exports.default = function () {
   var options = normalizeOptions(userOptions, TYPES);
 
   return {
+    listRoute: (0, _list_route2.default)(options),
     route: (0, _route2.default)(options),
     resources: (0, _resources2.default)(options),
     router: (0, _router2.default)(options),
