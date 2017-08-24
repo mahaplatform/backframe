@@ -20,7 +20,7 @@ export default () => {
   it('succeeds with required options', () => {
 
     const routes = buildResources({
-      name: 'user',
+      path: '/users',
       model: UserMock([])
     })
 
@@ -35,35 +35,12 @@ export default () => {
 
   })
 
-  it('sets a default path', () => {
-
-    const routes = buildResources({
-      name: 'user',
-      model: UserMock([])
-    })
-
-    expect(routes[0].options.path).to.equal('users')
-
-  })
-
-  it('set a override path', () => {
-
-    const routes = buildResources({
-      name: 'user',
-      model: UserMock([]),
-      path: 'people'
-    })
-
-    expect(routes[0].options.path).to.equal('people')
-
-  })
-
   describe('list route', () => {
 
     it('succeeds with basic options', () => {
 
       const routes = buildResources({
-        name: 'user',
+        path: '/users',
         model: UserMock([])
       })
 
