@@ -109,7 +109,7 @@ exports.default = function () {
       model: { type: 'object', required: true },
       name: { type: 'string', required: false },
       only: { type: ['string', 'string[]'], required: false },
-      path: { type: 'string', required: false },
+      path: { type: 'string', required: true },
       pathPrefix: { type: 'string', required: false },
       processor: { type: ['function', 'function{}'], required: false },
       query: { type: ['function', 'function{}'], required: false },
@@ -137,20 +137,15 @@ exports.default = function () {
 
 var normalizeOptions = exports.normalizeOptions = function normalizeOptions(userOptions, types) {
 
-  var name = userOptions.name || _pluralize2.default.singular(userOptions.model.extend().__super__.tableName);
-
-  var derivedOptions = {
-    name: name,
-    path: _pluralize2.default.plural(name)
-  };
-
-  return (0, _extends6.default)({}, (0, _options.defaultOptions)(types), derivedOptions, userOptions, mapOptionsToActions(userOptions, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_LIFECYCLE), ['allowedParams', 'query', 'serializer', 'withRelated'])));
+  return (0, _extends6.default)({}, (0, _options.defaultOptions)(types), {
+    name: _pluralize2.default.singular(userOptions.model.extend().__super__.tableName)
+  }, userOptions, mapOptionsToActions(userOptions, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_LIFECYCLE), ['allowedParams', 'query', 'serializer', 'withRelated'])));
 };
 
 // build all rest and custom routes
 var buildResources = exports.buildResources = function buildResources(options, buildSegment, buildRoute) {
 
-  var pathPrefix = options.pathPrefix ? options.pathPrefix + '/' + options.path : '/' + options.path;
+  var pathPrefix = options.pathPrefix ? '' + options.pathPrefix + options.path : '' + options.path;
 
   return buildSegment({
     pathPrefix: pathPrefix,

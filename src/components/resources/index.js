@@ -33,7 +33,7 @@ export default (backframeOptions = {}) => (userOptions = {}) => {
     model: { type: 'object', required: true },
     name: { type: 'string', required: false },
     only: { type: ['string', 'string[]'], required: false },
-    path: { type: 'string', required: false },
+    path: { type: 'string', required: true },
     pathPrefix: { type: 'string', required: false },
     processor: { type: ['function','function{}'], required: false },
     query: { type: ['function','function{}'], required: false },
@@ -64,16 +64,9 @@ export default (backframeOptions = {}) => (userOptions = {}) => {
 
 export const normalizeOptions = (userOptions, types) => {
 
-  const name = userOptions.name || pluralize.singular(userOptions.model.extend().__super__.tableName)
-
-  const derivedOptions = {
-    name,
-    path: pluralize.plural(name)
-  }
-
   return {
     ...defaultOptions(types),
-    ...derivedOptions,
+    name: pluralize.singular(userOptions.model.extend().__super__.tableName),
     ...userOptions,
     ...mapOptionsToActions(userOptions, [...constants.BACKFRAME_LIFECYCLE, 'allowedParams','query','serializer','withRelated'])
   }
@@ -84,7 +77,7 @@ export const normalizeOptions = (userOptions, types) => {
 // build all rest and custom routes
 export const buildResources = (options, buildSegment, buildRoute) => {
 
-  const pathPrefix = options.pathPrefix ? `${options.pathPrefix}/${options.path}` : `/${options.path}`
+  const pathPrefix = options.pathPrefix ? `${options.pathPrefix}${options.path}` : `${options.path}`
 
   return buildSegment({
     pathPrefix,
