@@ -61,11 +61,7 @@ export const defaultRenderer = async (req, trx, result, options) => {
 
   }
 
-  return await transform(req, trx, result, transforms, options).catch(err => {
-
-    throw err
-
-  })
+  return await transform(req, trx, result, transforms, options)
 
 }
 

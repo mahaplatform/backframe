@@ -152,7 +152,7 @@ var buildListRoute = exports.buildListRoute = function buildListRoute(routeOptio
 
                     var term = req.query.$filter.q.toLowerCase().replace(' ', '%');
 
-                    qb.whereRaw('lower(' + vector.join(' || ') + ') LIKE \'%' + term + '%\'');
+                    qb.whereRaw(vector.join(' || ') + ' LIKE \'%' + term + '%\'');
                   }
                 }
 
@@ -198,11 +198,9 @@ var buildListRoute = exports.buildListRoute = function buildListRoute(routeOptio
 
                   if (sort) sort.map(function (item) {
 
-                    var cast = (0, _core.castColumn)(tableName, item.key);
+                    var column = (0, _core.castColumn)(tableName, item.key);
 
                     var isString = columns[item.key] && columns[item.key].type === 'character varying';
-
-                    var column = isString ? 'lower(' + cast + ')' : cast;
 
                     qb.orderByRaw(column + ' ' + item.order);
                   });
@@ -245,7 +243,10 @@ var buildListRoute = exports.buildListRoute = function buildListRoute(routeOptio
     method: routeOptions.method,
     path: routeOptions.path,
     beforeProcessor: beforeProcessor,
-    processor: processor
+    processor: processor,
+    renderer: _utils.defaultRenderer,
+    responder: (0, _utils.defaultResponder)('Successfully found records'),
+    serializer: routeOptions.serializer
   });
 };
 

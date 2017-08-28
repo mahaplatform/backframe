@@ -23,21 +23,25 @@ var _extends3 = require('babel-runtime/helpers/extends');
 
 var _extends4 = _interopRequireDefault(_extends3);
 
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
-var _utils = require('../../utils');
-
 var _options = require('../../utils/options');
 
 var _core = require('../../utils/core');
+
+var _utils = require('../../utils');
 
 var _constants = require('../../constants');
 
 var constants = _interopRequireWildcard(_constants);
 
 var _response = require('../../utils/response');
+
+var _chalk = require('chalk');
+
+var _chalk2 = _interopRequireDefault(_chalk);
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -175,7 +179,7 @@ var withTransaction = function () {
           case 7:
             req = _context3.t0;
             _context3.next = 10;
-            return runHooks(req, trx, options, beforeProcessor);
+            return runHooks(req, trx, options, beforeProcessor, false);
 
           case 10:
             _context3.next = 12;
@@ -252,22 +256,26 @@ var withTransaction = function () {
           case 42:
             _context3.prev = 42;
             _context3.t4 = _context3['catch'](1);
-            _context3.next = 46;
+
+
+            console.error(_context3.t4.stack);
+
+            _context3.next = 47;
             return runHooks(req, trx, options, beforeRollback);
 
-          case 46:
+          case 47:
             if (!trx) {
-              _context3.next = 49;
+              _context3.next = 50;
               break;
             }
 
-            _context3.next = 49;
+            _context3.next = 50;
             return trx.rollback(_context3.t4);
 
-          case 49:
+          case 50:
             return _context3.abrupt('return', renderError(res, _context3.t4));
 
-          case 50:
+          case 51:
           case 'end':
             return _context3.stop();
         }
@@ -367,9 +375,7 @@ var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, trx, 
   return (0, _bluebird.reduce)(alterRecord, runner, result);
 };
 
-var runHooks = exports.runHooks = function runHooks(req, trx, options, hooks) {
-  var result = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
-
+var runHooks = exports.runHooks = function runHooks(req, trx, options, hooks, result) {
 
   if (!hooks) return true;
 
@@ -383,22 +389,24 @@ var runHooks = exports.runHooks = function runHooks(req, trx, options, hooks) {
               return result;
 
             case 2:
-              if (!_context6.sent) {
-                _context6.next = 6;
+              _context6.t0 = _context6.sent;
+
+              if (!(_context6.t0 === false)) {
+                _context6.next = 7;
                 break;
               }
 
-              _context6.t0 = hook(req, trx, result, options);
-              _context6.next = 7;
+              _context6.t1 = hook(req, trx, options);
+              _context6.next = 8;
               break;
 
-            case 6:
-              _context6.t0 = hook(req, trx, options);
-
             case 7:
-              return _context6.abrupt('return', _context6.t0);
+              _context6.t1 = hook(req, trx, result, options);
 
             case 8:
+              return _context6.abrupt('return', _context6.t1);
+
+            case 9:
             case 'end':
               return _context6.stop();
           }
@@ -406,7 +414,7 @@ var runHooks = exports.runHooks = function runHooks(req, trx, options, hooks) {
       }, _callee6, undefined);
     }));
 
-    return function runner(_x15) {
+    return function runner(_x14) {
       return _ref6.apply(this, arguments);
     };
   }();

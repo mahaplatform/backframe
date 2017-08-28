@@ -63,7 +63,7 @@ export default (buildRoute) => {
 
         const term = req.query.$filter.q.toLowerCase().replace(' ', '%')
 
-        qb.whereRaw(`lower(${vector}) LIKE '%${term}%'`)
+        qb.whereRaw(`${vector} LIKE '%${term}%'`)
 
       }
 
@@ -105,11 +105,9 @@ export default (buildRoute) => {
 
       if(sort) sort.map(item => {
 
-        const cast = castColumn(tableName, item.key)
+        const column = castColumn(tableName, item.key)
 
         const isString = columns[item.key] && columns[item.key].type === 'character varying'
-
-        const column = isString ? `lower(${cast})` : cast
 
         qb.orderByRaw(`${column} ${item.order}`)
 

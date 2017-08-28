@@ -101,7 +101,7 @@ export const buildListRoute = (routeOptions, buildRoute) => {
 
           const term = req.query.$filter.q.toLowerCase().replace(' ', '%')
 
-          qb.whereRaw(`lower(${vector.join(' || ')}) LIKE '%${term}%'`)
+          qb.whereRaw(`${vector.join(' || ')} LIKE '%${term}%'`)
 
 
         }
@@ -146,11 +146,9 @@ export const buildListRoute = (routeOptions, buildRoute) => {
 
       if(sort) sort.map(item => {
 
-        const cast = castColumn(tableName, item.key)
+        const column = castColumn(tableName, item.key)
 
         const isString = columns[item.key] && columns[item.key].type === 'character varying'
-
-        const column = isString ? `lower(${cast})` : cast
 
         qb.orderByRaw(`${column} ${item.order}`)
 
@@ -180,7 +178,10 @@ export const buildListRoute = (routeOptions, buildRoute) => {
     method: routeOptions.method,
     path: routeOptions.path,
     beforeProcessor,
-    processor
+    processor,
+    renderer: defaultRenderer,
+    responder: defaultResponder('Successfully found records'),
+    serializer: routeOptions.serializer
   })
 
 }

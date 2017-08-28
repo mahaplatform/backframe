@@ -95,7 +95,7 @@ exports.default = function (buildRoute) {
 
                   var term = req.query.$filter.q.toLowerCase().replace(' ', '%');
 
-                  qb.whereRaw('lower(' + vector + ') LIKE \'%' + term + '%\'');
+                  qb.whereRaw(vector + ' LIKE \'%' + term + '%\'');
                 }
 
                 if (req.query.$filter) (0, _list_route.filter)(options, qb, req.query.$filter);
@@ -140,11 +140,9 @@ exports.default = function (buildRoute) {
 
                   if (sort) sort.map(function (item) {
 
-                    var cast = (0, _core.castColumn)(tableName, item.key);
+                    var column = (0, _core.castColumn)(tableName, item.key);
 
                     var isString = columns[item.key] && columns[item.key].type === 'character varying';
-
-                    var column = isString ? 'lower(' + cast + ')' : cast;
 
                     qb.orderByRaw(column + ' ' + item.order);
                   });

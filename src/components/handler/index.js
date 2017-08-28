@@ -1,9 +1,10 @@
-import _ from 'lodash'
-import { defaultProcessor } from '../../utils'
 import { validateOptions, defaultOptions } from '../../utils/options'
 import { coerceArray, applyToRecords } from '../../utils/core'
+import { defaultProcessor } from '../../utils'
 import * as constants from '../../constants'
 import { fail } from '../../utils/response'
+import chalk from 'chalk'
+import _ from 'lodash'
 
 export default (backframeOptions = {}) => (userOptions = {}) => {
 
@@ -72,7 +73,7 @@ const withTransaction = async (req, res, trx, options) => {
 
     req = await runAlterRequest(req, trx, options, alterRequest) || req
 
-    await runHooks(req, trx, options, beforeProcessor)
+    await runHooks(req, trx, options, beforeProcessor, false)
 
     let result = await processor(req, trx, options) || null
 
@@ -91,6 +92,8 @@ const withTransaction = async (req, res, trx, options) => {
     return result
 
   } catch(err) {
+
+    console.error(err.stack)
 
     await runHooks(req, trx, options, beforeRollback)
 
@@ -128,11 +131,11 @@ export const runAlterRecord = (req, trx, options, alterRecord, result) => {
 
 }
 
-export const runHooks = (req, trx, options, hooks, result = null) => {
+export const runHooks = (req, trx, options, hooks, result) => {
 
   if(!hooks) return true
 
-  const runner = async (hook) => await result ? hook(req, trx, result, options) : hook(req, trx, options)
+  const runner = async (hook) => await result === false ? hook(req, trx, options) : hook(req, trx, result, options)
 
   if(hooks.length === 0) return null
 

@@ -150,10 +150,7 @@ var defaultRenderer = exports.defaultRenderer = function () {
             }();
 
             _context2.next = 7;
-            return transform(req, trx, result, transforms, options).catch(function (err) {
-
-              throw err;
-            });
+            return transform(req, trx, result, transforms, options);
 
           case 7:
             return _context2.abrupt('return', _context2.sent);

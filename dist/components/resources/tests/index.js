@@ -38,7 +38,7 @@ exports.default = function () {
   it('succeeds with required options', function () {
 
     var routes = buildResources({
-      name: 'user',
+      path: '/users',
       model: (0, _user_mock2.default)([])
     });
 
@@ -52,33 +52,12 @@ exports.default = function () {
     (0, _chai.expect)(routes[5]).to.be.an('object');
   });
 
-  it('sets a default path', function () {
-
-    var routes = buildResources({
-      name: 'user',
-      model: (0, _user_mock2.default)([])
-    });
-
-    (0, _chai.expect)(routes[0].options.path).to.equal('users');
-  });
-
-  it('set a override path', function () {
-
-    var routes = buildResources({
-      name: 'user',
-      model: (0, _user_mock2.default)([]),
-      path: 'people'
-    });
-
-    (0, _chai.expect)(routes[0].options.path).to.equal('people');
-  });
-
   describe('list route', function () {
 
     it('succeeds with basic options', function () {
 
       var routes = buildResources({
-        name: 'user',
+        path: '/users',
         model: (0, _user_mock2.default)([])
       });
 

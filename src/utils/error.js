@@ -6,7 +6,7 @@ class BackframeError extends Error {
     this.code = code;
     this.message = message;
     this.errors = errors;
-  }
+ }
 
 }
 
