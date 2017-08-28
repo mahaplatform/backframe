@@ -79,11 +79,11 @@ const withTransaction = async (req, res, trx, options) => {
 
     await runHooks(req, trx, options, afterProcessor, result)
 
-    result = renderer ? await renderer(req, trx, result, options) : result
+    const rendered = renderer ? await renderer(req, trx, result, options) : result
 
-    result = await runAlterRecord(req, trx, options, alterRecord, result) || result
+    await runAlterRecord(req, trx, options, alterRecord, rendered)
 
-    await runResponder(req, res, options, result, responder)
+    await runResponder(req, res, options, rendered, responder)
 
     if(trx) await trx.commit(result)
 

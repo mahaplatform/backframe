@@ -156,7 +156,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
 
 var withTransaction = function () {
   var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(req, res, trx, options) {
-    var alterRequest, beforeProcessor, processor, afterProcessor, renderer, alterRecord, responder, afterCommit, beforeRollback, result;
+    var alterRequest, beforeProcessor, processor, afterProcessor, renderer, alterRecord, responder, afterCommit, beforeRollback, result, rendered;
     return _regenerator2.default.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -218,69 +218,58 @@ var withTransaction = function () {
             _context3.t2 = result;
 
           case 25:
-            result = _context3.t2;
+            rendered = _context3.t2;
             _context3.next = 28;
-            return runAlterRecord(req, trx, options, alterRecord, result);
+            return runAlterRecord(req, trx, options, alterRecord, rendered);
 
           case 28:
-            _context3.t3 = _context3.sent;
+            _context3.next = 30;
+            return runResponder(req, res, options, rendered, responder);
 
-            if (_context3.t3) {
-              _context3.next = 31;
-              break;
-            }
-
-            _context3.t3 = result;
-
-          case 31:
-            result = _context3.t3;
-            _context3.next = 34;
-            return runResponder(req, res, options, result, responder);
-
-          case 34:
+          case 30:
             if (!trx) {
-              _context3.next = 37;
+              _context3.next = 33;
               break;
             }
 
-            _context3.next = 37;
+            _context3.next = 33;
             return trx.commit(result);
 
-          case 37:
-            _context3.next = 39;
+          case 33:
+            _context3.next = 35;
             return runHooks(req, trx, options, afterCommit, result);
 
-          case 39:
+          case 35:
             return _context3.abrupt('return', result);
 
-          case 42:
-            _context3.prev = 42;
-            _context3.t4 = _context3['catch'](1);
+          case 38:
+            _context3.prev = 38;
+            _context3.t3 = _context3['catch'](1);
 
 
-            console.error(_context3.t4.stack);
+            console.error(_context3.t3.stack);
 
-            _context3.next = 47;
+            _context3.next = 43;
             return runHooks(req, trx, options, beforeRollback);
 
-          case 47:
+          case 43:
             if (!trx) {
-              _context3.next = 50;
+              _context3.next = 46;
               break;
             }
 
-            _context3.next = 50;
-            return trx.rollback(_context3.t4);
+            _context3.next = 46;
+            return trx.rollback(_context3.t3);
 
-          case 50:
-            return _context3.abrupt('return', renderError(res, _context3.t4));
+          case 46:
+            return _context3.abrupt('return', renderError(res, _context3.t3));
 
-          case 51:
+          case 47:
           case 'end':
             return _context3.stop();
         }
       }
-    }, _callee3, undefined, [[1, 42]]);
+    }, _callee3, undefined, [[1, 38]]);
   }));
 
   return function withTransaction(_x6, _x7, _x8, _x9) {
