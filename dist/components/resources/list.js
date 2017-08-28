@@ -95,7 +95,7 @@ exports.default = function (buildRoute) {
 
                   var term = req.query.$filter.q.toLowerCase().replace(' ', '%');
 
-                  qb.whereRaw(vector + ' LIKE \'%' + term + '%\'');
+                  qb.whereRaw('lower(' + vector + ') LIKE \'%' + term + '%\'');
                 }
 
                 if (req.query.$filter) (0, _list_route.filter)(options, qb, req.query.$filter);

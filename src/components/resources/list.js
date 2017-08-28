@@ -63,7 +63,7 @@ export default (buildRoute) => {
 
         const term = req.query.$filter.q.toLowerCase().replace(' ', '%')
 
-        qb.whereRaw(`${vector} LIKE '%${term}%'`)
+        qb.whereRaw(`lower(${vector}) LIKE '%${term}%'`)
 
       }
 

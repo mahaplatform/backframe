@@ -152,7 +152,7 @@ var buildListRoute = exports.buildListRoute = function buildListRoute(routeOptio
 
                     var term = req.query.$filter.q.toLowerCase().replace(' ', '%');
 
-                    qb.whereRaw(vector.join(' || ') + ' LIKE \'%' + term + '%\'');
+                    qb.whereRaw('lower(' + vector.join(' || ') + ') LIKE \'%' + term + '%\'');
                   }
                 }
 
