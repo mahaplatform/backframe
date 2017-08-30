@@ -148,9 +148,9 @@ var selectedKeys = exports.selectedKeys = function selectedKeys(select, record) 
 
 var mergeHooks = exports.mergeHooks = function mergeHooks(hooks, plugins) {
 
-  return coerceArray(plugins).reduce(function (hooks, plugin) {
+  var items = [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_HOOKS), ['defaultParams', 'defaultQuery']);
 
-    var items = [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_HOOKS), ['defaultParams', 'defaultQuery']);
+  return coerceArray(plugins).reduce(function (hooks, plugin) {
 
     return items.reduce(function (hooks, hook) {
 
@@ -158,7 +158,7 @@ var mergeHooks = exports.mergeHooks = function mergeHooks(hooks, plugins) {
 
       return (0, _extends7.default)({}, hooks, (0, _defineProperty3.default)({}, hook, [].concat((0, _toConsumableArray3.default)(coerceArray(hooks[hook])), (0, _toConsumableArray3.default)(coerceArray(plugin[hook])))));
     }, hooks);
-  }, hooks);
+  }, _lodash2.default.pick(hooks, items));
 };
 
 var mergeEvents = exports.mergeEvents = function mergeEvents(events, plugins) {
@@ -173,7 +173,7 @@ var mergeEvents = exports.mergeEvents = function mergeEvents(events, plugins) {
 
       return (0, _extends7.default)({}, events, (0, _defineProperty3.default)({}, event, options ? plugin[event](options) : plugin[event]));
     }, events);
-  }, events);
+  }, _lodash2.default.pick(events, constants.BACKFRAME_EVENTS));
 };
 
 var mergeTypes = exports.mergeTypes = function mergeTypes(types, plugins) {

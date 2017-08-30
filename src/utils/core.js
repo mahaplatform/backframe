@@ -120,13 +120,13 @@ export const selectedKeys = (select, record) => {
 
 export const mergeHooks = (hooks, plugins) => {
 
-  return coerceArray(plugins).reduce((hooks, plugin) => {
+  const items = [
+    ...constants.BACKFRAME_HOOKS,
+    'defaultParams',
+    'defaultQuery',
+  ]
 
-    const items = [
-      ...constants.BACKFRAME_HOOKS,
-      'defaultParams',
-      'defaultQuery',
-    ]
+  return coerceArray(plugins).reduce((hooks, plugin) => {
 
     return items.reduce((hooks, hook) => {
 
@@ -142,7 +142,7 @@ export const mergeHooks = (hooks, plugins) => {
 
     }, hooks)
 
-  }, hooks)
+  }, _.pick(hooks, items))
 
 }
 
@@ -162,7 +162,7 @@ export const mergeEvents = (events, plugins, options = null) => {
 
     }, events)
 
-  }, events)
+  }, _.pick(events, constants.BACKFRAME_EVENTS))
 
 }
 
