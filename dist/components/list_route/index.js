@@ -156,7 +156,7 @@ var buildListRoute = exports.buildListRoute = function buildListRoute(routeOptio
                   }
                 }
 
-                if (req.query.$filter) filter(options, qb, req.query.$filter);
+                if (req.query.$filter) filter(routeOptions, qb, req.query.$filter);
 
                 if (req.query.$exclude_ids) qb.whereNotIn(tableName + '.id', req.query.$exclude_ids);
 
@@ -280,102 +280,106 @@ var filter = exports.filter = function filter(options, qb, filters) {
     return filters[key];
   }).map(function (key) {
 
+    var tableName = options.model.extend().__super__.tableName;
+
+    var column = (0, _core.castColumn)(tableName, key);
+
     if (filters[key].$eq) {
 
       if (filters[key].$eq === 'null') {
 
-        qb.whereNull(key);
+        qb.whereNull(column);
       } else if (filters[key].$eq === 'not_null') {
 
-        qb.whereNotNull(key);
+        qb.whereNotNull(column);
       } else {
 
-        qb.whereRaw('lower(' + key + ') = ?', filters[key].$eq.toLowerCase());
+        qb.whereRaw('lower(' + column + ') = ?', filters[key].$eq.toLowerCase());
       }
     } else if (filters[key].$ne) {
 
-      qb.whereNot(key, filters[key].$ne);
+      qb.whereNot(column, filters[key].$ne);
     } else if (filters[key].$lk) {
 
-      qb.whereRaw('lower(' + key + ') like ?', '%' + filters[key].$lk.toLowerCase() + '%');
+      qb.whereRaw('lower(' + column + ') like ?', '%' + filters[key].$lk.toLowerCase() + '%');
     } else if (filters[key].$in) {
 
       var inArray = _lodash2.default.without(filters[key].$in, 'null');
       if (_lodash2.default.includes(filters[key].$in, 'null')) {
         qb.where(function () {
-          this.whereIn(key, inArray).orWhereNull(key);
+          this.whereIn(column, inArray).orWhereNull(key);
         });
       } else {
-        qb.whereIn(key, inArray);
+        qb.whereIn(column, inArray);
       }
     } else if (filters[key].$nin) {
 
       var _inArray = _lodash2.default.without(filters[key].$nin, 'null');
       if (_lodash2.default.includes(filters[key].$nin, 'null')) {
         qb.where(function () {
-          this.whereNotIn(key, _inArray).orWhereNotNull(key);
+          this.whereNotIn(column, _inArray).orWhereNotNull(key);
         });
       } else {
-        qb.whereNotIn(key, _inArray);
+        qb.whereNotIn(column, _inArray);
       }
     } else if (filters[key].$lt) {
 
-      qb.where(key, '<', filters[key].$lt);
+      qb.where(column, '<', filters[key].$lt);
     } else if (filters[key].$lte) {
 
-      qb.where(key, '<=', filters[key].$lte);
+      qb.where(column, '<=', filters[key].$lte);
     } else if (filters[key].$gt) {
 
-      qb.where(key, '>', filters[key].$gt);
+      qb.where(column, '>', filters[key].$gt);
     } else if (filters[key].$gte) {
 
-      qb.where(key, '>=', filters[key].$gte);
+      qb.where(column, '>=', filters[key].$gte);
     } else if (filters[key].$dr) {
 
       if (filters[key].$dr === 'this_week') {
 
-        daterange(qb, key, 0, 'week');
+        daterange(qb, column, 0, 'week');
       } else if (filters[key].$dr === 'last_week') {
 
-        daterange(qb, key, -1, 'week');
+        daterange(qb, column, -1, 'week');
       } else if (filters[key].$dr === 'next_week') {
 
-        daterange(qb, key, 1, 'week');
+        daterange(qb, column, 1, 'week');
       } else if (filters[key].$dr === 'this_month') {
 
-        daterange(qb, key, 0, 'month');
+        daterange(qb, column, 0, 'month');
       } else if (filters[key].$dr === 'last_month') {
 
-        daterange(qb, key, -1, 'month');
+        daterange(qb, column, -1, 'month');
       } else if (filters[key].$dr === 'next_month') {
 
-        daterange(qb, key, 1, 'month');
+        daterange(qb, column, 1, 'month');
       } else if (filters[key].$dr === 'this_quarter') {
 
-        daterange(qb, key, 0, 'quarter');
+        daterange(qb, column, 0, 'quarter');
       } else if (filters[key].$dr === 'last_quarter') {
 
-        daterange(qb, key, -1, 'quarter');
+        daterange(qb, column, -1, 'quarter');
       } else if (filters[key].$dr === 'next_quarter') {
 
-        daterange(qb, key, 1, 'quarter');
+        daterange(qb, column, 1, 'quarter');
       } else if (filters[key].$dr === 'this_year') {
 
-        daterange(qb, key, 0, 'year');
+        daterange(qb, column, 0, 'year');
       } else if (filters[key].$dr === 'last_year') {
 
-        daterange(qb, key, -1, 'year');
+        daterange(qb, column, -1, 'year');
       } else if (filters[key].$dr === 'next_year') {
 
-        daterange(qb, key, 1, 'year');
+        daterange(qb, column, 1, 'year');
       }
     }
   });
 };
 
-var daterange = exports.daterange = function daterange(qb, field, quantity, unit) {
+var daterange = exports.daterange = function daterange(qb, column, quantity, unit) {
 
-  qb.where(field, '>=', (0, _moment2.default)().add(quantity, unit).startOf(unit).format('YYYY-MM-DD'));
+  qb.where(column, '>=', (0, _moment2.default)().add(quantity, unit).startOf(unit).format('YYYY-MM-DD'));
 
-  qb.where(field, '<=', (0, _moment2.default)().add(quantity, unit).endOf(unit).format('YYYY-MM-DD'));
+  qb.where(column, '<=', (0, _moment2.default)().add(quantity, unit).endOf(unit).format('YYYY-MM-DD'));
 };

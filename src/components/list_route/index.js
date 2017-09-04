@@ -108,7 +108,7 @@ export const buildListRoute = (routeOptions, buildRoute) => {
 
       }
 
-      if(req.query.$filter) filter(options, qb, req.query.$filter)
+      if(req.query.$filter) filter(routeOptions, qb, req.query.$filter)
 
       if(req.query.$exclude_ids) qb.whereNotIn(`${tableName}.id`, req.query.$exclude_ids)
 
@@ -209,39 +209,43 @@ export const filter = (options, qb, filters) => {
 
   Object.keys(filters).filter(key => filters[key]).map(key => {
 
+    const tableName = options.model.extend().__super__.tableName
+
+    const column = castColumn(tableName, key)
+
     if(filters[key].$eq) {
 
       if(filters[key].$eq === 'null') {
 
-        qb.whereNull(key)
+        qb.whereNull(column)
 
       } else if(filters[key].$eq === 'not_null') {
 
-        qb.whereNotNull(key)
+        qb.whereNotNull(column)
 
       } else {
 
-        qb.whereRaw(`lower(${key}) = ?`, filters[key].$eq.toLowerCase())
+        qb.whereRaw(`lower(${column}) = ?`, filters[key].$eq.toLowerCase())
 
       }
 
     } else if(filters[key].$ne) {
 
-      qb.whereNot(key, filters[key].$ne)
+      qb.whereNot(column, filters[key].$ne)
 
     } else if(filters[key].$lk) {
 
-      qb.whereRaw(`lower(${key}) like ?`, `%${filters[key].$lk.toLowerCase()}%`)
+      qb.whereRaw(`lower(${column}) like ?`, `%${filters[key].$lk.toLowerCase()}%`)
 
     } else if(filters[key].$in) {
 
       const inArray = _.without(filters[key].$in, 'null')
       if(_.includes(filters[key].$in, 'null')) {
         qb.where(function() {
-          this.whereIn(key, inArray).orWhereNull(key)
+          this.whereIn(column, inArray).orWhereNull(key)
         })
       } else {
-        qb.whereIn(key, inArray)
+        qb.whereIn(column, inArray)
       }
 
     } else if(filters[key].$nin) {
@@ -249,77 +253,77 @@ export const filter = (options, qb, filters) => {
       const inArray = _.without(filters[key].$nin, 'null')
       if(_.includes(filters[key].$nin, 'null')) {
         qb.where(function() {
-          this.whereNotIn(key, inArray).orWhereNotNull(key)
+          this.whereNotIn(column, inArray).orWhereNotNull(key)
         })
       } else {
-        qb.whereNotIn(key, inArray)
+        qb.whereNotIn(column, inArray)
       }
 
     } else if(filters[key].$lt) {
 
-      qb.where(key, '<', filters[key].$lt)
+      qb.where(column, '<', filters[key].$lt)
 
     } else if(filters[key].$lte) {
 
-      qb.where(key, '<=', filters[key].$lte)
+      qb.where(column, '<=', filters[key].$lte)
 
     } else if(filters[key].$gt) {
 
-      qb.where(key, '>', filters[key].$gt)
+      qb.where(column, '>', filters[key].$gt)
 
     } else if(filters[key].$gte) {
 
-      qb.where(key, '>=', filters[key].$gte)
+      qb.where(column, '>=', filters[key].$gte)
 
     } else if(filters[key].$dr) {
 
       if(filters[key].$dr === 'this_week') {
 
-        daterange(qb, key, 0, 'week')
+        daterange(qb, column, 0, 'week')
 
       } else if(filters[key].$dr === 'last_week') {
 
-        daterange(qb, key, -1, 'week')
+        daterange(qb, column, -1, 'week')
 
       } else if(filters[key].$dr === 'next_week') {
 
-        daterange(qb, key, 1, 'week')
+        daterange(qb, column, 1, 'week')
 
       } else if(filters[key].$dr === 'this_month') {
 
-        daterange(qb, key, 0, 'month')
+        daterange(qb, column, 0, 'month')
 
       } else if(filters[key].$dr === 'last_month') {
 
-        daterange(qb, key, -1, 'month')
+        daterange(qb, column, -1, 'month')
 
       } else if(filters[key].$dr === 'next_month') {
 
-        daterange(qb, key, 1, 'month')
+        daterange(qb, column, 1, 'month')
 
       } else if(filters[key].$dr === 'this_quarter') {
 
-        daterange(qb, key, 0, 'quarter')
+        daterange(qb, column, 0, 'quarter')
 
       } else if(filters[key].$dr === 'last_quarter') {
 
-        daterange(qb, key, -1, 'quarter')
+        daterange(qb, column, -1, 'quarter')
 
       } else if(filters[key].$dr === 'next_quarter') {
 
-        daterange(qb, key, 1, 'quarter')
+        daterange(qb, column, 1, 'quarter')
 
       } else if(filters[key].$dr === 'this_year') {
 
-        daterange(qb, key, 0, 'year')
+        daterange(qb, column, 0, 'year')
 
       } else if(filters[key].$dr === 'last_year') {
 
-        daterange(qb, key, -1, 'year')
+        daterange(qb, column, -1, 'year')
 
       } else if(filters[key].$dr === 'next_year') {
 
-        daterange(qb, key, 1, 'year')
+        daterange(qb, column, 1, 'year')
 
       }
 
@@ -329,10 +333,10 @@ export const filter = (options, qb, filters) => {
 
 }
 
-export const daterange = (qb, field, quantity, unit) => {
+export const daterange = (qb, column, quantity, unit) => {
 
-  qb.where(field, '>=', moment().add(quantity, unit).startOf(unit).format('YYYY-MM-DD'))
+  qb.where(column, '>=', moment().add(quantity, unit).startOf(unit).format('YYYY-MM-DD'))
 
-  qb.where(field, '<=', moment().add(quantity, unit).endOf(unit).format('YYYY-MM-DD'))
+  qb.where(column, '<=', moment().add(quantity, unit).endOf(unit).format('YYYY-MM-DD'))
 
 }
