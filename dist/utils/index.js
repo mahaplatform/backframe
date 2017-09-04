@@ -81,7 +81,7 @@ var defaultProcessor = exports.defaultProcessor = function defaultProcessor(req,
 };
 
 var defaultRenderer = exports.defaultRenderer = function () {
-  var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, trx, result, options) {
+  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, trx, result, options) {
     var selector, transforms, transform;
     return _regenerator2.default.wrap(function _callee2$(_context2) {
       while (1) {
@@ -99,7 +99,7 @@ var defaultRenderer = exports.defaultRenderer = function () {
             transforms = req.query.$select ? [renderer, selector] : [_render2.default];
 
             transform = function () {
-              var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, trx, result, transforms, options) {
+              var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, result, transforms, options) {
                 return _regenerator2.default.wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {

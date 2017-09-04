@@ -120,7 +120,7 @@ exports.default = function () {
       serializer: { type: ['function', 'function{}'], required: false },
       softDelete: { type: 'boolean', required: false, default: false },
       sortParams: { type: ['string', 'string[]'], required: false, default: [] },
-      withRelated: { type: ['string', 'string[]', 'string[]{}'], required: false },
+      withRelated: { type: ['string', 'string[]', 'string[]{}', 'object', 'object[]', 'object[]{}'], required: false },
       virtualFilters: { type: ['string', 'string[]'], required: false, default: [] },
       virtualParams: { type: ['string', 'string[]'], required: false, default: [] }
     }, backframeOptions.plugins);
@@ -188,7 +188,7 @@ var buildStandardRoutes = exports.buildStandardRoutes = function buildStandardRo
 
 // load resource before route
 var loadResource = function () {
-  var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, trx, options) {
+  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {

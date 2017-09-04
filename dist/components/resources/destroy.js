@@ -37,7 +37,7 @@ exports.default = function (buildRoute) {
     if (!options.dependents) return resource;
 
     return (0, _bluebird.each)(options.dependents, function () {
-      var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(dependent, index, length) {
+      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(dependent, index, length) {
         var results, records;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
@@ -80,7 +80,7 @@ exports.default = function (buildRoute) {
   };
 
   var processor = function () {
-    var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, trx, options) {
+    var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, trx, options) {
       return _regenerator2.default.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {

@@ -117,7 +117,7 @@ var buildListRoute = exports.buildListRoute = function buildListRoute(routeOptio
   };
 
   var processor = function () {
-    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, trx, options) {
+    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
       var tableName, columns, fetchOptions, limit, skip, query, allQueryObject, all, countQueryObject, count, paged;
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {

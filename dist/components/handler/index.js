@@ -94,7 +94,7 @@ var expandLifecycle = exports.expandLifecycle = function expandLifecycle(userOpt
 var buildHandler = exports.buildHandler = function buildHandler(options) {
 
   return function () {
-    var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, res) {
+    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, res) {
       return _regenerator2.default.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -113,7 +113,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
             case 4:
               _context2.next = 6;
               return options.knex.transaction(function () {
-                var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(trx) {
+                var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(trx) {
                   return _regenerator2.default.wrap(function _callee$(_context) {
                     while (1) {
                       switch (_context.prev = _context.next) {
@@ -155,7 +155,7 @@ var buildHandler = exports.buildHandler = function buildHandler(options) {
 };
 
 var withTransaction = function () {
-  var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(req, res, trx, options) {
+  var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(req, res, trx, options) {
     var alterRequest, beforeProcessor, processor, afterProcessor, renderer, alterRecord, responder, afterCommit, beforeRollback, result, rendered;
     return _regenerator2.default.wrap(function _callee3$(_context3) {
       while (1) {
@@ -280,7 +280,7 @@ var withTransaction = function () {
 var runAlterRequest = exports.runAlterRequest = function runAlterRequest(req, trx, options, alterRequest) {
 
   var runner = function () {
-    var _ref4 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(req, operation) {
+    var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(req, operation) {
       return _regenerator2.default.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -316,7 +316,7 @@ var runAlterRecord = exports.runAlterRecord = function runAlterRecord(req, trx, 
   if (!alterRecord) return result;
 
   var runner = function () {
-    var _ref5 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee5(result, operation) {
+    var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5(result, operation) {
       return _regenerator2.default.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
@@ -369,7 +369,7 @@ var runHooks = exports.runHooks = function runHooks(req, trx, options, hooks, re
   if (!hooks) return true;
 
   var runner = function () {
-    var _ref6 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee6(hook) {
+    var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6(hook) {
       return _regenerator2.default.wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {

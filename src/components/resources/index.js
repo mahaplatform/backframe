@@ -44,7 +44,7 @@ export default (backframeOptions = {}) => (userOptions = {}) => {
     serializer: { type: ['function','function{}'], required: false },
     softDelete: { type: 'boolean', required: false, default: false },
     sortParams: { type: ['string','string[]'], required: false, default: [] },
-    withRelated: { type: ['string','string[]','string[]{}'], required: false },
+    withRelated: { type: ['string','string[]','string[]{}','object','object[]','object[]{}'], required: false },
     virtualFilters: { type: ['string','string[]'], required: false, default: [] },
     virtualParams: { type: ['string','string[]'], required: false, default: [] }
   }, backframeOptions.plugins)
