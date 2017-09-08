@@ -13,7 +13,7 @@ export default (backframeOptions = {}) => (userOptions = {}) => {
     filterParams: { type: ['string','string[]'], required: false },
     sortParams: { type: ['string','string[]'], required: false },
     searchParams: { type: ['string','string[]'], required: false },
-    virtualFilters: { type: ['string','string[]'], required: false }
+    virtualFilters: { type: ['object'], required: false }
   }, backframeOptions.plugins)
 
   validateOptions('list route', userOptions, TYPES)
@@ -34,7 +34,7 @@ export const normalizeOptions = (userOptions, backframeOptions, types) => {
     knex: backframeOptions.knex,
     sortParams: [],
     searchParams: [],
-    virtualFilters: [],
+    virtualFilters: {},
     ...userOptions
   }
 
@@ -49,7 +49,7 @@ export const buildListRoute = (routeOptions, buildRoute) => {
 
       const allowed = [
         ...routeOptions.filterParams,
-        ...routeOptions.virtualFilters,
+        ...Object.keys(options.virtualFilters),
         'q'
       ]
 
@@ -77,7 +77,9 @@ export const buildListRoute = (routeOptions, buildRoute) => {
 
     const columns = await options.knex(tableName).columnInfo()
 
-    req.query.$filter = _.pick(req.query.$filter, [...routeOptions.filterParams, 'q'])
+    const whitelistedFilters = _.pick(req.query.$filter, [...options.filterParams, 'q'])
+
+    const whitelistedVirtualFilters = _.pick(req.query.$filter, Object.keys(options.virtualFilters))
 
     const fetchOptions = routeOptions.withRelated ? { withRelated: coerceArray(routeOptions.withRelated), transacting: trx } : { transacting: trx }
 
@@ -89,7 +91,7 @@ export const buildListRoute = (routeOptions, buildRoute) => {
 
       defaultQuery(req, trx, qb, routeOptions)
 
-      if(routeOptions.searchParams && req.query.$filter && req.query.$filter.q) {
+      if(routeOptions.searchParams && whitelistedFilters && whitelistedFilters.q) {
 
         const vector = routeOptions.searchParams.map(param => {
 
@@ -99,7 +101,7 @@ export const buildListRoute = (routeOptions, buildRoute) => {
 
         if(vector.length > 0) {
 
-          const term = req.query.$filter.q.toLowerCase().replace(' ', '%')
+          const term = whitelistedFilters.q.toLowerCase().replace(' ', '%')
 
           qb.whereRaw(`lower(${vector.join(' || ')}) LIKE '%${term}%'`)
 
@@ -108,7 +110,7 @@ export const buildListRoute = (routeOptions, buildRoute) => {
 
       }
 
-      if(req.query.$filter) filter(routeOptions, qb, req.query.$filter)
+      filter(routeOptions, qb, whitelistedFilters, whitelistedVirtualFilters)
 
       if(req.query.$exclude_ids) qb.whereNotIn(`${tableName}.id`, req.query.$exclude_ids)
 
@@ -205,11 +207,23 @@ export const extractSort = (query, defaults, allowedParams = []) => {
 }
 
 // map query filters to a qb object
-export const filter = (options, qb, filters) => {
+export const filter = (options, qb, filters, virtualFilters) => {
+
+  const tableName = options.model.extend().__super__.tableName
+
+  if(options.virtualFilters) {
+
+    Object.keys(options.virtualFilters).map(key => {
+
+      if(!virtualFilters[key]) return
+
+      options.virtualFilters[key](qb, virtualFilters[key], options)
+
+    })
+
+  }
 
   Object.keys(filters).filter(key => filters[key]).map(key => {
-
-    const tableName = options.model.extend().__super__.tableName
 
     const column = castColumn(tableName, key)
 

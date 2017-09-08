@@ -5,10 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.daterange = exports.filter = exports.extractSort = exports.buildListRoute = exports.normalizeOptions = undefined;
 
-var _keys = require('babel-runtime/core-js/object/keys');
-
-var _keys2 = _interopRequireDefault(_keys);
-
 var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
@@ -18,6 +14,10 @@ var _bluebird = require('bluebird');
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
 
 var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
@@ -63,7 +63,7 @@ exports.default = function () {
       filterParams: { type: ['string', 'string[]'], required: false },
       sortParams: { type: ['string', 'string[]'], required: false },
       searchParams: { type: ['string', 'string[]'], required: false },
-      virtualFilters: { type: ['string', 'string[]'], required: false }
+      virtualFilters: { type: ['object'], required: false }
     }, backframeOptions.plugins);
 
     (0, _options.validateOptions)('list route', userOptions, TYPES);
@@ -86,7 +86,7 @@ var normalizeOptions = exports.normalizeOptions = function normalizeOptions(user
     knex: backframeOptions.knex,
     sortParams: [],
     searchParams: [],
-    virtualFilters: []
+    virtualFilters: {}
   }, userOptions);
 };
 
@@ -97,7 +97,7 @@ var buildListRoute = exports.buildListRoute = function buildListRoute(routeOptio
 
     if (req.query.$filter) {
 
-      var allowed = [].concat((0, _toConsumableArray3.default)(routeOptions.filterParams), (0, _toConsumableArray3.default)(routeOptions.virtualFilters), ['q']);
+      var allowed = [].concat((0, _toConsumableArray3.default)(routeOptions.filterParams), (0, _toConsumableArray3.default)((0, _keys2.default)(options.virtualFilters)), ['q']);
 
       (0, _options.checkPermitted)(req.query.$filter, allowed, 'Unable to filter on the keys {unpermitted}. Please add it to filterParams');
 
@@ -118,7 +118,7 @@ var buildListRoute = exports.buildListRoute = function buildListRoute(routeOptio
 
   var processor = function () {
     var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
-      var tableName, columns, fetchOptions, limit, skip, query, allQueryObject, all, countQueryObject, count, paged;
+      var tableName, columns, whitelistedFilters, whitelistedVirtualFilters, fetchOptions, limit, skip, query, allQueryObject, all, countQueryObject, count, paged;
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -129,10 +129,8 @@ var buildListRoute = exports.buildListRoute = function buildListRoute(routeOptio
 
             case 3:
               columns = _context.sent;
-
-
-              req.query.$filter = _lodash2.default.pick(req.query.$filter, [].concat((0, _toConsumableArray3.default)(routeOptions.filterParams), ['q']));
-
+              whitelistedFilters = _lodash2.default.pick(req.query.$filter, [].concat((0, _toConsumableArray3.default)(options.filterParams), ['q']));
+              whitelistedVirtualFilters = _lodash2.default.pick(req.query.$filter, (0, _keys2.default)(options.virtualFilters));
               fetchOptions = routeOptions.withRelated ? { withRelated: (0, _core.coerceArray)(routeOptions.withRelated), transacting: trx } : { transacting: trx };
               limit = parseInt(_lodash2.default.get(req.query, '$page.limit') || routeOptions.defaultLimit);
               skip = parseInt(_lodash2.default.get(req.query, '$page.skip') || 0);
@@ -141,7 +139,7 @@ var buildListRoute = exports.buildListRoute = function buildListRoute(routeOptio
 
                 (0, _utils.defaultQuery)(req, trx, qb, routeOptions);
 
-                if (routeOptions.searchParams && req.query.$filter && req.query.$filter.q) {
+                if (routeOptions.searchParams && whitelistedFilters && whitelistedFilters.q) {
 
                   var vector = routeOptions.searchParams.map(function (param) {
 
@@ -150,13 +148,13 @@ var buildListRoute = exports.buildListRoute = function buildListRoute(routeOptio
 
                   if (vector.length > 0) {
 
-                    var term = req.query.$filter.q.toLowerCase().replace(' ', '%');
+                    var term = whitelistedFilters.q.toLowerCase().replace(' ', '%');
 
                     qb.whereRaw('lower(' + vector.join(' || ') + ') LIKE \'%' + term + '%\'');
                   }
                 }
 
-                if (req.query.$filter) filter(routeOptions, qb, req.query.$filter);
+                filter(routeOptions, qb, whitelistedFilters, whitelistedVirtualFilters);
 
                 if (req.query.$exclude_ids) qb.whereNotIn(tableName + '.id', req.query.$exclude_ids);
 
@@ -226,7 +224,7 @@ var buildListRoute = exports.buildListRoute = function buildListRoute(routeOptio
                 return { all: all, total: total, records: records, limit: limit, skip: skip };
               }));
 
-            case 16:
+            case 17:
             case 'end':
               return _context.stop();
           }
@@ -274,13 +272,25 @@ var extractSort = exports.extractSort = function extractSort(query, defaults) {
 };
 
 // map query filters to a qb object
-var filter = exports.filter = function filter(options, qb, filters) {
+var filter = exports.filter = function filter(options, qb, filters, virtualFilters) {
+
+  var tableName = options.model.extend().__super__.tableName;
+
+  if (options.virtualFilters) {
+
+    console.log(options.VirtualFilters);
+
+    (0, _keys2.default)(options.virtualFilters).map(function (key) {
+
+      if (!virtualFilters[key]) return;
+
+      options.virtualFilters[key](qb, virtualFilters[key], options);
+    });
+  }
 
   (0, _keys2.default)(filters).filter(function (key) {
     return filters[key];
   }).map(function (key) {
-
-    var tableName = options.model.extend().__super__.tableName;
 
     var column = (0, _core.castColumn)(tableName, key);
 

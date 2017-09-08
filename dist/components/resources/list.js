@@ -14,6 +14,10 @@ var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
 var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
@@ -42,7 +46,7 @@ exports.default = function (buildRoute) {
 
     if (req.query.$filter) {
 
-      var allowed = [].concat((0, _toConsumableArray3.default)(options.filterParams), (0, _toConsumableArray3.default)(options.virtualFilters), ['q']);
+      var allowed = [].concat((0, _toConsumableArray3.default)(options.filterParams), (0, _toConsumableArray3.default)((0, _keys2.default)(options.virtualFilters)), ['q']);
 
       (0, _options.checkPermitted)(req.query.$filter, allowed, 'Unable to filter on the keys {unpermitted}. Please add it to filterParams');
 
@@ -63,7 +67,7 @@ exports.default = function (buildRoute) {
 
   var processor = function () {
     var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
-      var tableName, columns, fetchOptions, limit, skip, query, allQueryObject, all, countQueryObject, count, paged;
+      var tableName, columns, whitelistedFilters, whitelistedVirtualFilters, fetchOptions, limit, skip, query, allQueryObject, all, countQueryObject, count, paged;
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -74,10 +78,8 @@ exports.default = function (buildRoute) {
 
             case 3:
               columns = _context.sent;
-
-
-              req.query.$filter = _lodash2.default.pick(req.query.$filter, [].concat((0, _toConsumableArray3.default)(options.filterParams), ['q']));
-
+              whitelistedFilters = _lodash2.default.pick(req.query.$filter, [].concat((0, _toConsumableArray3.default)(options.filterParams), ['q']));
+              whitelistedVirtualFilters = _lodash2.default.pick(req.query.$filter, (0, _keys2.default)(options.virtualFilters));
               fetchOptions = options.withRelated ? { withRelated: (0, _core.coerceArray)(options.withRelated), transacting: trx } : { transacting: trx };
               limit = parseInt(_lodash2.default.get(req.query, '$page.limit') || options.defaultLimit);
               skip = parseInt(_lodash2.default.get(req.query, '$page.skip') || 0);
@@ -86,19 +88,19 @@ exports.default = function (buildRoute) {
 
                 (0, _utils.defaultQuery)(req, trx, qb, options);
 
-                if (options.searchParams && req.query.$filter && req.query.$filter.q) {
+                if (options.searchParams && whitelistedFilters && whitelistedFilters.q) {
 
                   var vector = options.searchParams.map(function (param) {
 
                     return 'coalesce(' + (0, _core.castColumn)(tableName, param) + ', \'\')';
                   }).join(' || ');
 
-                  var term = req.query.$filter.q.toLowerCase().replace(' ', '%');
+                  var term = whitelistedFilters.q.toLowerCase().replace(' ', '%');
 
                   qb.whereRaw('lower(' + vector + ') LIKE \'%' + term + '%\'');
                 }
 
-                if (req.query.$filter) (0, _list_route.filter)(options, qb, req.query.$filter);
+                (0, _list_route.filter)(options, qb, whitelistedFilters, whitelistedVirtualFilters);
 
                 if (req.query.$exclude_ids) qb.whereNotIn(tableName + '.id', req.query.$exclude_ids);
 
@@ -168,7 +170,7 @@ exports.default = function (buildRoute) {
                 return { all: all, total: total, records: records, limit: limit, skip: skip };
               }));
 
-            case 16:
+            case 17:
             case 'end':
               return _context.stop();
           }

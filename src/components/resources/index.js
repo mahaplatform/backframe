@@ -45,7 +45,7 @@ export default (backframeOptions = {}) => (userOptions = {}) => {
     softDelete: { type: 'boolean', required: false, default: false },
     sortParams: { type: ['string','string[]'], required: false, default: [] },
     withRelated: { type: ['string','string[]','string[]{}','object','object[]','object[]{}'], required: false },
-    virtualFilters: { type: ['string','string[]'], required: false, default: [] },
+    virtualFilters: { type: ['object'], required: false, default: {} },
     virtualParams: { type: ['string','string[]'], required: false, default: [] }
   }, backframeOptions.plugins)
 

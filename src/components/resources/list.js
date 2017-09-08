@@ -13,7 +13,7 @@ export default (buildRoute) => {
 
       const allowed = [
         ...options.filterParams,
-        ...options.virtualFilters,
+        ...Object.keys(options.virtualFilters),
         'q'
       ]
 
@@ -41,7 +41,9 @@ export default (buildRoute) => {
 
     const columns = await options.knex(tableName).columnInfo()
 
-    req.query.$filter = _.pick(req.query.$filter, [...options.filterParams, 'q'])
+    const whitelistedFilters = _.pick(req.query.$filter, [...options.filterParams, 'q'])
+
+    const whitelistedVirtualFilters = _.pick(req.query.$filter, Object.keys(options.virtualFilters))
 
     const fetchOptions = options.withRelated ? { withRelated: coerceArray(options.withRelated), transacting: trx } : { transacting: trx }
 
@@ -53,7 +55,7 @@ export default (buildRoute) => {
 
       defaultQuery(req, trx, qb, options)
 
-      if(options.searchParams && req.query.$filter && req.query.$filter.q) {
+      if(options.searchParams && whitelistedFilters && whitelistedFilters.q) {
 
         const vector = options.searchParams.map(param => {
 
@@ -61,13 +63,13 @@ export default (buildRoute) => {
 
         }).join(' || ')
 
-        const term = req.query.$filter.q.toLowerCase().replace(' ', '%')
+        const term = whitelistedFilters.q.toLowerCase().replace(' ', '%')
 
         qb.whereRaw(`lower(${vector}) LIKE '%${term}%'`)
 
       }
 
-      if(req.query.$filter) filter(options, qb, req.query.$filter)
+      filter(options, qb, whitelistedFilters, whitelistedVirtualFilters)
 
       if(req.query.$exclude_ids) qb.whereNotIn(`${tableName}.id`, req.query.$exclude_ids)
 
