@@ -13,7 +13,7 @@ export default (backframeOptions = {}) => (userOptions = {}) => {
     filterParams: { type: ['string','string[]'], required: false },
     sortParams: { type: ['string','string[]'], required: false },
     searchParams: { type: ['string','string[]'], required: false },
-    virtualFilters: { type: ['object'], required: false }
+    virtualFilters: { type: ['object'], required: false, default: {} }
   }, backframeOptions.plugins)
 
   validateOptions('list route', userOptions, TYPES)
@@ -77,9 +77,9 @@ export const buildListRoute = (routeOptions, buildRoute) => {
 
     const columns = await options.knex(tableName).columnInfo()
 
-    const whitelistedFilters = _.pick(req.query.$filter, [...options.filterParams, 'q'])
+    const whitelistedFilters = _.pick(req.query.$filter, [...routeOptions.filterParams, 'q'])
 
-    const whitelistedVirtualFilters = _.pick(req.query.$filter, Object.keys(options.virtualFilters))
+    const whitelistedVirtualFilters = _.pick(req.query.$filter, Object.keys(routeOptions.virtualFilters))
 
     const fetchOptions = routeOptions.withRelated ? { withRelated: coerceArray(routeOptions.withRelated), transacting: trx } : { transacting: trx }
 

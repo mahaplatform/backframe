@@ -63,7 +63,7 @@ exports.default = function () {
       filterParams: { type: ['string', 'string[]'], required: false },
       sortParams: { type: ['string', 'string[]'], required: false },
       searchParams: { type: ['string', 'string[]'], required: false },
-      virtualFilters: { type: ['object'], required: false }
+      virtualFilters: { type: ['object'], required: false, default: {} }
     }, backframeOptions.plugins);
 
     (0, _options.validateOptions)('list route', userOptions, TYPES);
@@ -129,8 +129,8 @@ var buildListRoute = exports.buildListRoute = function buildListRoute(routeOptio
 
             case 3:
               columns = _context.sent;
-              whitelistedFilters = _lodash2.default.pick(req.query.$filter, [].concat((0, _toConsumableArray3.default)(options.filterParams), ['q']));
-              whitelistedVirtualFilters = _lodash2.default.pick(req.query.$filter, (0, _keys2.default)(options.virtualFilters));
+              whitelistedFilters = _lodash2.default.pick(req.query.$filter, [].concat((0, _toConsumableArray3.default)(routeOptions.filterParams), ['q']));
+              whitelistedVirtualFilters = _lodash2.default.pick(req.query.$filter, (0, _keys2.default)(routeOptions.virtualFilters));
               fetchOptions = routeOptions.withRelated ? { withRelated: (0, _core.coerceArray)(routeOptions.withRelated), transacting: trx } : { transacting: trx };
               limit = parseInt(_lodash2.default.get(req.query, '$page.limit') || routeOptions.defaultLimit);
               skip = parseInt(_lodash2.default.get(req.query, '$page.skip') || 0);
@@ -277,8 +277,6 @@ var filter = exports.filter = function filter(options, qb, filters, virtualFilte
   var tableName = options.model.extend().__super__.tableName;
 
   if (options.virtualFilters) {
-
-    console.log(options.VirtualFilters);
 
     (0, _keys2.default)(options.virtualFilters).map(function (key) {
 
