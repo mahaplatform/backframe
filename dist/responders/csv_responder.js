@@ -45,5 +45,10 @@ exports.default = function (message, pagination, result, req, res) {
     }).join(separator)]);
   }, [labels.join(separator)]).join('\n');
 
+  if (req.query.download) {
+    var datestamp = (0, _moment2.default)().format('YYYYMMDDHHmm');
+    res.setHeader('Content-disposition', 'attachment; filename=export-' + datestamp + '.csv');
+  }
+
   res.status(200).type('text/plain').send(output);
 };

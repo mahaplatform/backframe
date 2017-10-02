@@ -36,7 +36,7 @@ var _error2 = _interopRequireDefault(_error);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (buildRoute) {
+exports.default = function (buildRoute, options) {
 
   var alterRequest = function alterRequest(req, trx, options) {
 

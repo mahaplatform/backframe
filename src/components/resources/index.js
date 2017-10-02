@@ -35,6 +35,7 @@ export default (backframeOptions = {}) => (userOptions = {}) => {
     only: { type: ['string', 'string[]'], required: false },
     path: { type: 'string', required: true },
     pathPrefix: { type: 'string', required: false },
+    primaryKey: { type: ['string'], required: false },
     processor: { type: ['function','function{}'], required: false },
     query: { type: ['function','function{}'], required: false },
     renderer: { type: ['function','function{}'], required: false },
@@ -66,6 +67,7 @@ export const normalizeOptions = (userOptions, types) => {
 
   return {
     ...defaultOptions(types),
+    primaryKey: 'id',
     name: pluralize.singular(userOptions.model.extend().__super__.tableName),
     ...userOptions,
     ...mapOptionsToActions(userOptions, [...constants.BACKFRAME_LIFECYCLE, 'allowedParams','query','serializer','withRelated'])
@@ -124,7 +126,7 @@ export const buildStandardRoutes = (options, buildRoute) => {
 
   }).reduce((routes, action) => {
 
-    const route = actions[action](buildRoute)
+    const route = actions[action](buildRoute, options)
 
     return [
       ...routes,
@@ -151,7 +153,7 @@ export const buildSingleRoute = (name, options, route) => {
 
   const routeOptions = _.omit(mergedRouteOptions, [...constants.BACKFRAME_LIFECYCLE,'actions','except','only','pathPrefix'])
 
-  if(route.path.substr(0,4) == '/:id') {
+  if(route.path.search(`:${options.primaryKey}`) >=0) {
 
     route.handler.alterRequest = [
       ...coerceArray(route.handler.alterRequest),

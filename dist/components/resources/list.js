@@ -40,13 +40,15 @@ var _error2 = _interopRequireDefault(_error);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (buildRoute) {
+exports.default = function (buildRoute, options) {
 
   var beforeProcessor = function beforeProcessor(req, trx, options) {
 
     if (req.query.$filter) {
 
-      var allowed = [].concat((0, _toConsumableArray3.default)(options.filterParams), (0, _toConsumableArray3.default)((0, _keys2.default)(options.virtualFilters)), ['q']);
+      var virtualFilters = options.virtualFilters || {};
+
+      var allowed = [].concat((0, _toConsumableArray3.default)(options.filterParams), (0, _toConsumableArray3.default)((0, _keys2.default)(virtualFilters)), ['q']);
 
       (0, _options.checkPermitted)(req.query.$filter, allowed, 'Unable to filter on the keys {unpermitted}. Please add it to filterParams');
 

@@ -33,6 +33,11 @@ export default (message, pagination, result, req, res) => {
     ]
   }, [labels.join(separator)]).join('\n')
 
+  if(req.query.download) {
+    const datestamp = moment().format('YYYYMMDDHHmm')
+    res.setHeader('Content-disposition', `attachment; filename=export-${datestamp}.csv`);
+  }
+
   res.status(200).type('text/plain').send(output)
 
 }

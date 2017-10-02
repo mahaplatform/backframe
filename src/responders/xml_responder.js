@@ -39,6 +39,11 @@ export default (message, pagination, result, req, res) => {
     ] : [dataSegment]
   }, true)
 
+  if(req.query.download) {
+    const datestamp = moment().format('YYYYMMDDHHmm')
+    res.setHeader('Content-disposition', `attachment; filename=export-${datestamp}.xml`);
+  }
+
   res.status(200).type('application/xml').send(data)
 
 }

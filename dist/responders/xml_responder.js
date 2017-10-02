@@ -54,5 +54,10 @@ exports.default = function (message, pagination, result, req, res) {
     response: pagination ? [paginationSegment, dataSegment] : [dataSegment]
   }, true);
 
+  if (req.query.download) {
+    var datestamp = moment().format('YYYYMMDDHHmm');
+    res.setHeader('Content-disposition', 'attachment; filename=export-' + datestamp + '.xml');
+  }
+
   res.status(200).type('application/xml').send(data);
 };

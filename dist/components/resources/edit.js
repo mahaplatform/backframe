@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _utils = require('../../utils');
 
-exports.default = function (buildRoute) {
+exports.default = function (buildRoute, options) {
 
   var processor = function processor(req, trx, options) {
     return req.resource;
@@ -19,7 +19,7 @@ exports.default = function (buildRoute) {
   return buildRoute({
     action: 'edit',
     method: 'get',
-    path: '/:id/edit',
+    path: '/:' + options.primaryKey + '/edit',
     processor: processor,
     renderer: renderer,
     responder: (0, _utils.defaultResponder)('Successfully found record')

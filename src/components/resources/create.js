@@ -4,7 +4,7 @@ import { defaultParams, defaultRenderer, defaultResponder } from '../../utils'
 import { checkPermitted } from '../../utils/options'
 import BackframeError from '../../utils/error'
 
-export default (buildRoute) => {
+export default (buildRoute, options) => {
 
   const alterRequest = (req, trx, options) => {
 

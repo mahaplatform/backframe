@@ -2,7 +2,7 @@ import load from '../../utils/load'
 import { defaultResponder } from '../../utils'
 import BackframeError from '../../utils/error'
 
-export default (buildRoute) => {
+export default (buildRoute, options) => {
 
   const destroyRelated = (options, resource, trx) => {
 
@@ -55,7 +55,7 @@ export default (buildRoute) => {
   return buildRoute({
     action: 'destroy',
     method: 'delete',
-    path: '/:id',
+    path: `/:${options.primaryKey}`,
     processor,
     responder: defaultResponder('Successfully deleted record')
   })

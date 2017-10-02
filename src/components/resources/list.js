@@ -5,15 +5,17 @@ import { extractSort, filter } from '../list_route'
 import { checkPermitted } from '../../utils/options'
 import BackframeError from '../../utils/error'
 
-export default (buildRoute) => {
+export default (buildRoute, options) => {
 
   const beforeProcessor = (req, trx, options)  => {
 
     if(req.query.$filter) {
 
+      const virtualFilters = options.virtualFilters || {}
+
       const allowed = [
         ...options.filterParams,
-        ...Object.keys(options.virtualFilters),
+        ...Object.keys(virtualFilters),
         'q'
       ]
 

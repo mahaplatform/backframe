@@ -47,7 +47,7 @@ export const defaultRenderer = async (req, trx, result, options) => {
 
   const selector = selectFields(req.query.$select)
 
-  const transforms = (req.query.$select) ? [renderer, selector] : [render]
+  const transforms = (req.query.$select) ? [render, selector] : [render]
 
   const transform = async (req, trx, result, transforms, options) => {
 

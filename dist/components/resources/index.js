@@ -111,6 +111,7 @@ exports.default = function () {
       only: { type: ['string', 'string[]'], required: false },
       path: { type: 'string', required: true },
       pathPrefix: { type: 'string', required: false },
+      primaryKey: { type: ['string'], required: false },
       processor: { type: ['function', 'function{}'], required: false },
       query: { type: ['function', 'function{}'], required: false },
       renderer: { type: ['function', 'function{}'], required: false },
@@ -138,6 +139,7 @@ exports.default = function () {
 var normalizeOptions = exports.normalizeOptions = function normalizeOptions(userOptions, types) {
 
   return (0, _extends6.default)({}, (0, _options.defaultOptions)(types), {
+    primaryKey: 'id',
     name: _pluralize2.default.singular(userOptions.model.extend().__super__.tableName)
   }, userOptions, mapOptionsToActions(userOptions, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_LIFECYCLE), ['allowedParams', 'query', 'serializer', 'withRelated'])));
 };
@@ -180,7 +182,7 @@ var buildStandardRoutes = exports.buildStandardRoutes = function buildStandardRo
     return (0, _core.includeAction)(action, options.only, options.except);
   }).reduce(function (routes, action) {
 
-    var route = actions[action](buildRoute);
+    var route = actions[action](buildRoute, options);
 
     return [].concat((0, _toConsumableArray3.default)(routes), [buildSingleRoute(action, options, route)]);
   }, []);
@@ -220,7 +222,7 @@ var buildSingleRoute = exports.buildSingleRoute = function buildSingleRoute(name
 
   var routeOptions = _lodash2.default.omit(mergedRouteOptions, [].concat((0, _toConsumableArray3.default)(constants.BACKFRAME_LIFECYCLE), ['actions', 'except', 'only', 'pathPrefix']));
 
-  if (route.path.substr(0, 4) == '/:id') {
+  if (route.path.search(':' + options.primaryKey) >= 0) {
 
     route.handler.alterRequest = [].concat((0, _toConsumableArray3.default)((0, _core.coerceArray)(route.handler.alterRequest)), [loadResource]);
   }

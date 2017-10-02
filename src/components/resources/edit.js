@@ -1,6 +1,6 @@
 import { defaultResponder } from '../../utils'
 
-export default  (buildRoute) => {
+export default  (buildRoute, options) => {
 
   const processor = (req, trx, options) => req.resource
 
@@ -9,7 +9,7 @@ export default  (buildRoute) => {
   return buildRoute({
     action: 'edit',
     method: 'get',
-    path: '/:id/edit',
+    path: `/:${options.primaryKey}/edit`,
     processor,
     renderer,
     responder: defaultResponder('Successfully found record')

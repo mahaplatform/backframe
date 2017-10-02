@@ -97,7 +97,9 @@ var buildListRoute = exports.buildListRoute = function buildListRoute(routeOptio
 
     if (req.query.$filter) {
 
-      var allowed = [].concat((0, _toConsumableArray3.default)(routeOptions.filterParams), (0, _toConsumableArray3.default)((0, _keys2.default)(options.virtualFilters)), ['q']);
+      var virtualFilters = options.virtualFilters || {};
+
+      var allowed = [].concat((0, _toConsumableArray3.default)(routeOptions.filterParams), (0, _toConsumableArray3.default)((0, _keys2.default)(virtualFilters)), ['q']);
 
       (0, _options.checkPermitted)(req.query.$filter, allowed, 'Unable to filter on the keys {unpermitted}. Please add it to filterParams');
 
@@ -300,6 +302,15 @@ var filter = exports.filter = function filter(options, qb, filters, virtualFilte
       } else if (filters[key].$eq === 'not_null') {
 
         qb.whereNotNull(column);
+      } else if (filters[key].$eq === 'true') {
+
+        qb.where(column, true);
+      } else if (filters[key].$eq === 'false') {
+
+        qb.where(column, false);
+      } else if (filters[key].$eq.match(/^\d*$/)) {
+
+        qb.where(column, filters[key].$eq);
       } else {
 
         qb.whereRaw('lower(' + column + ') = ?', filters[key].$eq.toLowerCase());

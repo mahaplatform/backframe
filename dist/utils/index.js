@@ -96,7 +96,7 @@ var defaultRenderer = exports.defaultRenderer = function () {
 
           case 2:
             selector = (0, _core.selectFields)(req.query.$select);
-            transforms = req.query.$select ? [renderer, selector] : [_render2.default];
+            transforms = req.query.$select ? [_render2.default, selector] : [_render2.default];
 
             transform = function () {
               var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, result, transforms, options) {

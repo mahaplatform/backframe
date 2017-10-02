@@ -16,7 +16,7 @@ var _error2 = _interopRequireDefault(_error);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (buildRoute) {
+exports.default = function (buildRoute, options) {
 
   var processor = function processor(req, trx, options) {
     return req.resource;
@@ -25,7 +25,7 @@ exports.default = function (buildRoute) {
   return buildRoute({
     action: 'show',
     method: 'get',
-    path: '/:id',
+    path: '/:' + options.primaryKey,
     processor: processor,
     renderer: _utils.defaultRenderer,
     responder: (0, _utils.defaultResponder)('Successfully found record')

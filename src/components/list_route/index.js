@@ -47,9 +47,11 @@ export const buildListRoute = (routeOptions, buildRoute) => {
 
     if(req.query.$filter) {
 
+      const virtualFilters = options.virtualFilters || {}
+
       const allowed = [
         ...routeOptions.filterParams,
-        ...Object.keys(options.virtualFilters),
+        ...Object.keys(virtualFilters),
         'q'
       ]
 
@@ -237,10 +239,21 @@ export const filter = (options, qb, filters, virtualFilters) => {
 
         qb.whereNotNull(column)
 
+      } else if(filters[key].$eq === 'true') {
+
+        qb.where(column, true)
+
+      } else if(filters[key].$eq === 'false') {
+
+        qb.where(column, false)
+
+      } else if (filters[key].$eq.match(/^\d*$/)) {
+
+        qb.where(column, filters[key].$eq)
+
       } else {
 
         qb.whereRaw(`lower(${column}) = ?`, filters[key].$eq.toLowerCase())
-
       }
 
     } else if(filters[key].$ne) {

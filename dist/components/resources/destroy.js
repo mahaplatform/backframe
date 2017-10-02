@@ -30,7 +30,7 @@ var _error2 = _interopRequireDefault(_error);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (buildRoute) {
+exports.default = function (buildRoute, options) {
 
   var destroyRelated = function destroyRelated(options, resource, trx) {
 
@@ -122,7 +122,7 @@ exports.default = function (buildRoute) {
   return buildRoute({
     action: 'destroy',
     method: 'delete',
-    path: '/:id',
+    path: '/:' + options.primaryKey,
     processor: processor,
     responder: (0, _utils.defaultResponder)('Successfully deleted record')
   });

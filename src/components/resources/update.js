@@ -5,7 +5,7 @@ import load from '../../utils/load'
 import { checkPermitted } from '../../utils/options'
 import BackframeError from '../../utils/error'
 
-export default (buildRoute) => {
+export default (buildRoute, options) => {
 
   const alterRequest = (req, trx, options) => {
 
@@ -49,7 +49,7 @@ export default (buildRoute) => {
   return buildRoute({
     action: 'update',
     method: 'patch',
-    path: '/:id',
+    path: `/:${options.primaryKey}`,
     alterRequest,
     beforeProcessor,
     processor,
