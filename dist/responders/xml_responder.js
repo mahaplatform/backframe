@@ -12,19 +12,19 @@ var _keys = require('babel-runtime/core-js/object/keys');
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _xml = require('xml');
-
-var _xml2 = _interopRequireDefault(_xml);
+var _core = require('../utils/core');
 
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _core = require('../utils/core');
+var _xml = require('xml');
+
+var _xml2 = _interopRequireDefault(_xml);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (message, pagination, result, req, res) {
+var XmlResponder = function XmlResponder(message, pagination, result, req, res) {
 
   var toXML = function toXML(hash) {
 
@@ -55,9 +55,15 @@ exports.default = function (message, pagination, result, req, res) {
   }, true);
 
   if (req.query.download) {
+
+    var filename = req.query.filename || 'export';
+
     var datestamp = moment().format('YYYYMMDDHHmm');
-    res.setHeader('Content-disposition', 'attachment; filename=export-' + datestamp + '.xml');
+
+    res.setHeader('Content-disposition', 'attachment; filename=' + filename + '-' + datestamp + '.xml');
   }
 
   res.status(200).type('application/xml').send(data);
 };
+
+exports.default = XmlResponder;

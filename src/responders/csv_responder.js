@@ -1,8 +1,8 @@
-import _ from 'lodash'
-import moment from 'moment'
 import { coerceArray, selectedLabels, selectedKeys } from '../utils/core'
+import moment from 'moment'
+import _ from 'lodash'
 
-export default (message, pagination, result, req, res) => {
+const CsvResponder = (message, pagination, result, req, res) => {
 
   const separator = (req.params.format === 'tsv') ? '\t' : ','
 
@@ -34,10 +34,19 @@ export default (message, pagination, result, req, res) => {
   }, [labels.join(separator)]).join('\n')
 
   if(req.query.download) {
+
+    const filename = req.query.filename || 'export'
+
     const datestamp = moment().format('YYYYMMDDHHmm')
-    res.setHeader('Content-disposition', `attachment; filename=export-${datestamp}.csv`);
+
+    const ext = (req.params.format === 'tsv') ? 'tsv' : 'csv'
+
+    res.setHeader('Content-disposition', `attachment; filename=${filename}-${datestamp}.${ext}`)
+
   }
 
   res.status(200).type('text/plain').send(output)
 
 }
+
+export default CsvResponder

@@ -1,10 +1,10 @@
-import _ from 'lodash'
-import fs from 'fs'
+import { coerceArray, selectedLabels, selectedKeys } from '../utils/core'
 import tempfile from 'tempfile'
 import Excel from 'exceljs'
-import { coerceArray, selectedLabels, selectedKeys } from '../utils/core'
+import _ from 'lodash'
+import fs from 'fs'
 
-export default (message, pagination, result, req, res) => {
+const XlsxResponder = (message, pagination, result, req, res) => {
 
   const records = coerceArray(result)
 
@@ -40,3 +40,5 @@ export default (message, pagination, result, req, res) => {
   })
 
 }
+
+export default XlsxResponder

@@ -1,8 +1,8 @@
-import xml from 'xml'
-import _ from 'lodash'
 import { coerceArray } from '../utils/core'
+import _ from 'lodash'
+import xml from 'xml'
 
-export default (message, pagination, result, req, res) => {
+const XmlResponder = (message, pagination, result, req, res) => {
 
   const toXML = (hash) => {
 
@@ -40,10 +40,17 @@ export default (message, pagination, result, req, res) => {
   }, true)
 
   if(req.query.download) {
+
+    const filename = req.query.filename || 'export'
+
     const datestamp = moment().format('YYYYMMDDHHmm')
-    res.setHeader('Content-disposition', `attachment; filename=export-${datestamp}.xml`);
+
+    res.setHeader('Content-disposition', `attachment; filename=${filename}-${datestamp}.xml`)
+
   }
 
   res.status(200).type('application/xml').send(data)
 
 }
+
+export default XmlResponder

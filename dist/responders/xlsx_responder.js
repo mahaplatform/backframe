@@ -4,13 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
-var _fs = require('fs');
-
-var _fs2 = _interopRequireDefault(_fs);
+var _core = require('../utils/core');
 
 var _tempfile = require('tempfile');
 
@@ -20,11 +14,17 @@ var _exceljs = require('exceljs');
 
 var _exceljs2 = _interopRequireDefault(_exceljs);
 
-var _core = require('../utils/core');
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _fs = require('fs');
+
+var _fs2 = _interopRequireDefault(_fs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (message, pagination, result, req, res) {
+var XlsxResponder = function XlsxResponder(message, pagination, result, req, res) {
 
   var records = (0, _core.coerceArray)(result);
 
@@ -57,3 +57,5 @@ exports.default = function (message, pagination, result, req, res) {
     return null;
   });
 };
+
+exports.default = XlsxResponder;
