@@ -1,6 +1,6 @@
 {
   "name": "backframe",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Library for building REST API's for expressjs",
   "license": "ISC",
   "author": "Greg Kops <greg@thinktopography.com>",
