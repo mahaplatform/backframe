@@ -168,7 +168,9 @@ var buildCustomRoutes = exports.buildCustomRoutes = function buildCustomRoutes(a
 
     var namespaced = (0, _extends6.default)({}, action, { path: path });
 
-    return [].concat((0, _toConsumableArray3.default)(routes), [buildSingleRoute(name, options, namespaced)]);
+    var customOptions = _lodash2.default.omit(options, ['defaultQuery']);
+
+    return [].concat((0, _toConsumableArray3.default)(routes), [buildSingleRoute(name, customOptions, namespaced)]);
   }, []);
 };
 

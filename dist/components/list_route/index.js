@@ -139,7 +139,9 @@ var buildListRoute = exports.buildListRoute = function buildListRoute(routeOptio
 
               query = function query(qb) {
 
-                (0, _utils.defaultQuery)(req, trx, qb, routeOptions);
+                (0, _utils.defaultQuery)(req, trx, qb, (0, _extends3.default)({}, options, {
+                  defaultQuery: [].concat((0, _toConsumableArray3.default)((0, _core.coerceArray)(routeOptions.defaultQuery)), (0, _toConsumableArray3.default)((0, _core.coerceArray)(options.defaultQuery)))
+                }));
 
                 if (routeOptions.searchParams && whitelistedFilters && whitelistedFilters.q) {
 
@@ -170,7 +172,9 @@ var buildListRoute = exports.buildListRoute = function buildListRoute(routeOptio
 
               routeOptions.model.query(function (qb) {
 
-                (0, _utils.defaultQuery)(req, trx, qb, routeOptions);
+                (0, _utils.defaultQuery)(req, trx, qb, (0, _extends3.default)({}, options, {
+                  defaultQuery: [].concat((0, _toConsumableArray3.default)((0, _core.coerceArray)(routeOptions.defaultQuery)), (0, _toConsumableArray3.default)((0, _core.coerceArray)(options.defaultQuery)))
+                }));
 
                 if (routeOptions.softDelete) qb.whereNull('deleted_at');
 

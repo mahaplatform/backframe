@@ -91,7 +91,13 @@ export const buildListRoute = (routeOptions, buildRoute) => {
 
     const query = qb => {
 
-      defaultQuery(req, trx, qb, routeOptions)
+      defaultQuery(req, trx, qb, {
+        ...options,
+        defaultQuery: [
+          ...coerceArray(routeOptions.defaultQuery),
+          ...coerceArray(options.defaultQuery),
+        ]
+      })
 
       if(routeOptions.searchParams && whitelistedFilters && whitelistedFilters.q) {
 
@@ -126,7 +132,13 @@ export const buildListRoute = (routeOptions, buildRoute) => {
 
     routeOptions.model.query(qb => {
 
-      defaultQuery(req, trx, qb, routeOptions)
+      defaultQuery(req, trx, qb, {
+        ...options,
+        defaultQuery: [
+          ...coerceArray(routeOptions.defaultQuery),
+          ...coerceArray(options.defaultQuery),
+        ]
+      })
 
       if(routeOptions.softDelete) qb.whereNull('deleted_at')
 

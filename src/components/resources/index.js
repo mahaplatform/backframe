@@ -106,9 +106,11 @@ export const buildCustomRoutes = (actions, options, buildRoute, id) => {
 
     const namespaced = { ...action, path }
 
+    const customOptions = _.omit(options, ['defaultQuery'])
+
     return [
       ...routes,
-      buildSingleRoute(name, options, namespaced)
+      buildSingleRoute(name, customOptions, namespaced)
     ]
 
   }, [])
