@@ -6,6 +6,8 @@ const CsvResponder = (message, pagination, result, req, res) => {
 
   const separator = (req.params.format === 'tsv') ? '\t' : ','
 
+  const enclosure = req.query.enclosure || ''
+
   const records = coerceArray(result)
 
   const labels = selectedLabels(req.query.$select, records[0])
@@ -21,17 +23,17 @@ const CsvResponder = (message, pagination, result, req, res) => {
 
         if(_.isDate(value)) {
 
-          return moment(value).format('YYYY-MM-DDTHH:mm:ss.SSS')+'Z'
+          return wrapWithEnclosure(moment(value).format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z', enclosure)
 
         } else {
 
-          return value
+          return wrapWithEnclosure(value, enclosure)
 
         }
 
       }).join(separator)
     ]
-  }, [labels.join(separator)]).join('\n')
+  }, [labels.map(label => wrapWithEnclosure(label, enclosure)).join(separator)]).join('\n')
 
   if(req.query.download) {
 
@@ -47,6 +49,10 @@ const CsvResponder = (message, pagination, result, req, res) => {
 
   res.status(200).type('text/plain').send(output)
 
+}
+
+const wrapWithEnclosure = (value, enclosure) => {
+  return enclosure + value + enclosure
 }
 
 export default CsvResponder

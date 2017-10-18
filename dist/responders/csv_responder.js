@@ -24,6 +24,8 @@ var CsvResponder = function CsvResponder(message, pagination, result, req, res) 
 
   var separator = req.params.format === 'tsv' ? '\t' : ',';
 
+  var enclosure = req.query.enclosure || '';
+
   var records = (0, _core.coerceArray)(result);
 
   var labels = (0, _core.selectedLabels)(req.query.$select, records[0]);
@@ -37,13 +39,15 @@ var CsvResponder = function CsvResponder(message, pagination, result, req, res) 
 
       if (_lodash2.default.isDate(value)) {
 
-        return (0, _moment2.default)(value).format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z';
+        return wrapWithEnclosure((0, _moment2.default)(value).format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z', enclosure);
       } else {
 
-        return value;
+        return wrapWithEnclosure(value, enclosure);
       }
     }).join(separator)]);
-  }, [labels.join(separator)]).join('\n');
+  }, [labels.map(function (label) {
+    return wrapWithEnclosure(label, enclosure);
+  }).join(separator)]).join('\n');
 
   if (req.query.download) {
 
@@ -57,6 +61,10 @@ var CsvResponder = function CsvResponder(message, pagination, result, req, res) 
   }
 
   res.status(200).type('text/plain').send(output);
+};
+
+var wrapWithEnclosure = function wrapWithEnclosure(value, enclosure) {
+  return enclosure + value + enclosure;
 };
 
 exports.default = CsvResponder;

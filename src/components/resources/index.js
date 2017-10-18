@@ -198,7 +198,7 @@ export const mergeRouteOptions = (name, options, routeOptions) => {
 
   return _.omitBy({
     ...options,
-    ...mergeOptionsForAction(options, constants.BACKFRAME_HOOKS, name, ),
+    ...mergeOptionsForAction(options, constants.BACKFRAME_HOOKS, name),
     ...overrideOptionsForAction(options, [...constants.BACKFRAME_EVENTS,'allowedParams','query','serializer','withRelated'], name),
     ...routeOptions
   }, _.isNil)
