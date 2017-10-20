@@ -10,30 +10,9 @@ const CsvResponder = (message, pagination, result, req, res) => {
 
   const records = coerceArray(result)
 
-  const labels = selectedLabels(req.query.$select, records[0])
+  const matrix = (_.isPlainObject(records[0])) ? toMatrix(records) : records
 
-  const keys = selectedKeys(req.query.$select, records[0])
-
-  const output = records.reduce((output, record) => {
-    return [
-      ...output,
-      keys.map(key => {
-
-        const value = _.get(record, key)
-
-        if(_.isDate(value)) {
-
-          return wrapWithEnclosure(moment(value).format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z', enclosure)
-
-        } else {
-
-          return wrapWithEnclosure(value, enclosure)
-
-        }
-
-      }).join(separator)
-    ]
-  }, [labels.map(label => wrapWithEnclosure(label, enclosure)).join(separator)]).join('\n')
+  const output = matrix.map(row => row.join(separator)).join('\n')
 
   if(req.query.download) {
 
@@ -48,6 +27,30 @@ const CsvResponder = (message, pagination, result, req, res) => {
   }
 
   res.status(200).type('text/plain').send(output)
+
+}
+
+const toMatrix = (records) => {
+
+  const labels = selectedLabels(req.query.$select, records[0])
+
+  const keys = selectedKeys(req.query.$select, records[0])
+
+  return records.reduce((output, record) => [
+
+    ...output,
+
+    keys.map(key => {
+
+      const value = _.get(record, key)
+
+      if(_.isDate(value))  return wrapWithEnclosure(moment(value).format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z', enclosure)
+
+      return wrapWithEnclosure(value, enclosure)
+
+    })
+
+  ], [ labels.map(label => wrapWithEnclosure(label, enclosure)).join(separator) ])
 
 }
 

@@ -28,26 +28,11 @@ var CsvResponder = function CsvResponder(message, pagination, result, req, res) 
 
   var records = (0, _core.coerceArray)(result);
 
-  var labels = (0, _core.selectedLabels)(req.query.$select, records[0]);
+  var matrix = _lodash2.default.isPlainObject(records[0]) ? toMatrix(records) : records;
 
-  var keys = (0, _core.selectedKeys)(req.query.$select, records[0]);
-
-  var output = records.reduce(function (output, record) {
-    return [].concat((0, _toConsumableArray3.default)(output), [keys.map(function (key) {
-
-      var value = _lodash2.default.get(record, key);
-
-      if (_lodash2.default.isDate(value)) {
-
-        return wrapWithEnclosure((0, _moment2.default)(value).format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z', enclosure);
-      } else {
-
-        return wrapWithEnclosure(value, enclosure);
-      }
-    }).join(separator)]);
-  }, [labels.map(function (label) {
-    return wrapWithEnclosure(label, enclosure);
-  }).join(separator)]).join('\n');
+  var output = matrix.map(function (row) {
+    return row.join(separator);
+  }).join('\n');
 
   if (req.query.download) {
 
@@ -61,6 +46,26 @@ var CsvResponder = function CsvResponder(message, pagination, result, req, res) 
   }
 
   res.status(200).type('text/plain').send(output);
+};
+
+var toMatrix = function toMatrix(records) {
+
+  var labels = (0, _core.selectedLabels)(req.query.$select, records[0]);
+
+  var keys = (0, _core.selectedKeys)(req.query.$select, records[0]);
+
+  return records.reduce(function (output, record) {
+    return [].concat((0, _toConsumableArray3.default)(output), [keys.map(function (key) {
+
+      var value = _lodash2.default.get(record, key);
+
+      if (_lodash2.default.isDate(value)) return wrapWithEnclosure((0, _moment2.default)(value).format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z', enclosure);
+
+      return wrapWithEnclosure(value, enclosure);
+    })]);
+  }, [labels.map(function (label) {
+    return wrapWithEnclosure(label, enclosure);
+  }).join(separator)]);
 };
 
 var wrapWithEnclosure = function wrapWithEnclosure(value, enclosure) {
