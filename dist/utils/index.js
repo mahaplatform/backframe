@@ -9,13 +9,15 @@ var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
 var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
+
+var _bluebird = require('bluebird');
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var _lodash = require('lodash');
 
@@ -66,77 +68,33 @@ var defaultQuery = exports.defaultQuery = function defaultQuery(req, trx, qb, op
   }
 };
 
-var defaultParams = exports.defaultParams = function defaultParams(req, trx, options) {
-
-  if (options.defaultParams) {
-    return options.defaultParams.reduce(function (params, defaultParams) {
-      return (0, _extends3.default)({}, params, defaultParams(req, trx, options));
-    }, {});
-  }
-
-  return {};
-};
-var defaultProcessor = exports.defaultProcessor = function defaultProcessor(req, options) {
-  return null;
-};
-
-var defaultRenderer = exports.defaultRenderer = function () {
-  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, trx, result, options) {
-    var selector, transforms, transform;
+var defaultParams = exports.defaultParams = function () {
+  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, trx, options) {
     return _regenerator2.default.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            if (result) {
-              _context2.next = 2;
+            if (!options.defaultParams) {
+              _context2.next = 4;
               break;
             }
 
-            return _context2.abrupt('return', null);
-
-          case 2:
-            selector = (0, _core.selectFields)(req.query.$select);
-            transforms = req.query.$select ? [_render2.default, selector] : [_render2.default];
-
-            transform = function () {
-              var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, result, transforms, options) {
+            _context2.next = 3;
+            return (0, _bluebird.reduce)(options.defaultParams, function () {
+              var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(params, defaultParams) {
+                var defaults;
                 return _regenerator2.default.wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
-                        if (!result.records) {
-                          _context.next = 4;
-                          break;
-                        }
+                        _context.next = 2;
+                        return defaultParams(req, trx, options);
 
-                        _context.next = 3;
-                        return (0, _core.applyToRecords)(req, trx, result, transforms, options);
-
-                      case 3:
-                        return _context.abrupt('return', _context.sent);
+                      case 2:
+                        defaults = _context.sent;
+                        return _context.abrupt('return', (0, _extends3.default)({}, params, defaults));
 
                       case 4:
-                        _context.next = 6;
-                        return (0, _render2.default)(req, trx, result, options);
-
-                      case 6:
-                        result = _context.sent;
-
-                        if (req.query.$select) {
-                          _context.next = 9;
-                          break;
-                        }
-
-                        return _context.abrupt('return', result);
-
-                      case 9:
-                        _context.next = 11;
-                        return selector(req, trx, result);
-
-                      case 11:
-                        return _context.abrupt('return', _context.sent);
-
-                      case 12:
                       case 'end':
                         return _context.stop();
                     }
@@ -144,18 +102,18 @@ var defaultRenderer = exports.defaultRenderer = function () {
                 }, _callee, undefined);
               }));
 
-              return function transform(_x5, _x6, _x7, _x8, _x9) {
+              return function (_x4, _x5) {
                 return _ref2.apply(this, arguments);
               };
-            }();
+            }(), {});
 
-            _context2.next = 7;
-            return transform(req, trx, result, transforms, options);
-
-          case 7:
+          case 3:
             return _context2.abrupt('return', _context2.sent);
 
-          case 8:
+          case 4:
+            return _context2.abrupt('return', {});
+
+          case 5:
           case 'end':
             return _context2.stop();
         }
@@ -163,8 +121,100 @@ var defaultRenderer = exports.defaultRenderer = function () {
     }, _callee2, undefined);
   }));
 
-  return function defaultRenderer(_x, _x2, _x3, _x4) {
+  return function defaultParams(_x, _x2, _x3) {
     return _ref.apply(this, arguments);
+  };
+}();
+
+var defaultProcessor = exports.defaultProcessor = function defaultProcessor(req, options) {
+  return null;
+};
+
+var defaultRenderer = exports.defaultRenderer = function () {
+  var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(req, trx, result, options) {
+    var selector, transforms, transform;
+    return _regenerator2.default.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            if (result) {
+              _context4.next = 2;
+              break;
+            }
+
+            return _context4.abrupt('return', null);
+
+          case 2:
+            selector = (0, _core.selectFields)(req.query.$select);
+            transforms = req.query.$select ? [_render2.default, selector] : [_render2.default];
+
+            transform = function () {
+              var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(req, trx, result, transforms, options) {
+                return _regenerator2.default.wrap(function _callee3$(_context3) {
+                  while (1) {
+                    switch (_context3.prev = _context3.next) {
+                      case 0:
+                        if (!result.records) {
+                          _context3.next = 4;
+                          break;
+                        }
+
+                        _context3.next = 3;
+                        return (0, _core.applyToRecords)(req, trx, result, transforms, options);
+
+                      case 3:
+                        return _context3.abrupt('return', _context3.sent);
+
+                      case 4:
+                        _context3.next = 6;
+                        return (0, _render2.default)(req, trx, result, options);
+
+                      case 6:
+                        result = _context3.sent;
+
+                        if (req.query.$select) {
+                          _context3.next = 9;
+                          break;
+                        }
+
+                        return _context3.abrupt('return', result);
+
+                      case 9:
+                        _context3.next = 11;
+                        return selector(req, trx, result);
+
+                      case 11:
+                        return _context3.abrupt('return', _context3.sent);
+
+                      case 12:
+                      case 'end':
+                        return _context3.stop();
+                    }
+                  }
+                }, _callee3, undefined);
+              }));
+
+              return function transform(_x10, _x11, _x12, _x13, _x14) {
+                return _ref4.apply(this, arguments);
+              };
+            }();
+
+            _context4.next = 7;
+            return transform(req, trx, result, transforms, options);
+
+          case 7:
+            return _context4.abrupt('return', _context4.sent);
+
+          case 8:
+          case 'end':
+            return _context4.stop();
+        }
+      }
+    }, _callee4, undefined);
+  }));
+
+  return function defaultRenderer(_x6, _x7, _x8, _x9) {
+    return _ref3.apply(this, arguments);
   };
 }();
 

@@ -29,20 +29,26 @@ export default (buildRoute, options) => {
 
     try {
 
+      const defaults = await defaultParams(req, trx, options)
+
       const data = {
-        ...defaultParams(req, trx, options),
+        ...defaults,
         ..._.pick(req.data, options.allowedParams)
       }
 
-      req.resource = await options.model.forge(data).save(null, { transacting: trx })
+      const resource = await options.model.forge(data).save(null, { transacting: trx })
+
+      const fetchOptions = options.withRelated ? { withRelated: coerceArray(options.withRelated), transacting: trx } : { transacting: trx }
+
+      req.resource = await options.model.where({ id: resource.get('id') }).fetch(fetchOptions)
 
       return req.resource
 
     } catch(err) {
 
-        if(err.errors) throw new BackframeError({ code: 422, message: `Unable to create record`, errors: err.toJSON() })
+      if(err.errors) throw new BackframeError({ code: 422, message: `Unable to create record`, errors: err.toJSON() })
 
-        throw err
+      throw err
 
     }
 

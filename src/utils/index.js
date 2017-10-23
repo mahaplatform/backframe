@@ -27,18 +27,27 @@ export const defaultQuery = (req, trx, qb, options) => {
 
 }
 
-export const defaultParams = (req, trx, options) => {
+export const defaultParams = async (req, trx, options) => {
 
   if(options.defaultParams) {
-    return options.defaultParams.reduce((params, defaultParams) => ({
-      ...params,
-      ...defaultParams(req, trx, options)
-    }), {})
+
+    return await Promise.reduce(options.defaultParams, async (params, defaultParams) => {
+
+      const defaults = await defaultParams(req, trx, options)
+
+      return {
+        ...params,
+        ...defaults,
+      }
+
+    }, {})
+
   }
 
   return {}
 
 }
+
 export const defaultProcessor = (req, options) => null
 
 export const defaultRenderer = async (req, trx, result, options) => {

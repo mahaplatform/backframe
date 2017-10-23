@@ -54,40 +54,51 @@ exports.default = function (buildRoute, options) {
 
   var processor = function () {
     var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
-      var data;
+      var defaults, data, resource, fetchOptions;
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
-              data = (0, _extends3.default)({}, (0, _utils.defaultParams)(req, trx, options), _lodash2.default.pick(req.data, options.allowedParams));
-              _context.next = 4;
+              _context.next = 3;
+              return (0, _utils.defaultParams)(req, trx, options);
+
+            case 3:
+              defaults = _context.sent;
+              data = (0, _extends3.default)({}, defaults, _lodash2.default.pick(req.data, options.allowedParams));
+              _context.next = 7;
               return options.model.forge(data).save(null, { transacting: trx });
 
-            case 4:
+            case 7:
+              resource = _context.sent;
+              fetchOptions = options.withRelated ? { withRelated: (0, _core.coerceArray)(options.withRelated), transacting: trx } : { transacting: trx };
+              _context.next = 11;
+              return options.model.where({ id: resource.get('id') }).fetch(fetchOptions);
+
+            case 11:
               req.resource = _context.sent;
               return _context.abrupt('return', req.resource);
 
-            case 8:
-              _context.prev = 8;
+            case 15:
+              _context.prev = 15;
               _context.t0 = _context['catch'](0);
 
               if (!_context.t0.errors) {
-                _context.next = 12;
+                _context.next = 19;
                 break;
               }
 
               throw new _error2.default({ code: 422, message: 'Unable to create record', errors: _context.t0.toJSON() });
 
-            case 12:
+            case 19:
               throw _context.t0;
 
-            case 13:
+            case 20:
             case 'end':
               return _context.stop();
           }
         }
-      }, _callee, undefined, [[0, 8]]);
+      }, _callee, undefined, [[0, 15]]);
     }));
 
     return function processor(_x, _x2, _x3) {
