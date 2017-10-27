@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.daterange = exports.filter = exports.extractSort = exports.buildListRoute = exports.normalizeOptions = undefined;
+exports.between = exports.duration = exports.daterange = exports.filter = exports.extractSort = exports.buildListRoute = exports.normalizeOptions = undefined;
 
 var _regenerator = require('babel-runtime/regenerator');
 
@@ -395,6 +395,30 @@ var filter = exports.filter = function filter(options, qb, filters, virtualFilte
       } else if (filters[key].$dr === 'next_year') {
 
         daterange(qb, column, 1, 'year');
+      } else if (filters[key].$dr === 'last_30') {
+
+        duration(qb, column, -30, 'day');
+      } else if (filters[key].$dr === 'next_30') {
+
+        duration(qb, column, 30, 'day');
+      } else if (filters[key].$dr === 'last_60') {
+
+        duration(qb, column, -60, 'day');
+      } else if (filters[key].$dr === 'next_60') {
+
+        duration(qb, column, 60, 'day');
+      } else if (filters[key].$dr === 'last_90') {
+
+        duration(qb, column, -90, 'day');
+      } else if (filters[key].$dr === 'next_90') {
+
+        duration(qb, column, 90, 'day');
+      } else if (filters[key].$dr === 'ytd') {
+
+        between(qb, column, (0, _moment2.default)().startOf('year'), (0, _moment2.default)());
+      } else if (filters[key].$dr === 'ltd') {
+
+        between(qb, column, (0, _moment2.default)('2000-01-01'), (0, _moment2.default)());
       }
     }
   });
@@ -402,7 +426,19 @@ var filter = exports.filter = function filter(options, qb, filters, virtualFilte
 
 var daterange = exports.daterange = function daterange(qb, column, quantity, unit) {
 
-  qb.where(column, '>=', (0, _moment2.default)().add(quantity, unit).startOf(unit).format('YYYY-MM-DD'));
+  between(qb, column, (0, _moment2.default)().add(quantity, unit).startOf(unit), (0, _moment2.default)().add(quantity, unit).endOf(unit));
+};
 
-  qb.where(column, '<=', (0, _moment2.default)().add(quantity, unit).endOf(unit).format('YYYY-MM-DD'));
+var duration = exports.duration = function duration(qb, column, quantity, unit) {
+
+  if (quantity > 0) between(qb, column, (0, _moment2.default)().startOf(unit), (0, _moment2.default)().add(quantity, unit).endOf(unit));
+
+  if (quantity < 0) between(qb, column, (0, _moment2.default)().add(quantity, unit).endOf(unit), (0, _moment2.default)().startOf(unit));
+};
+
+var between = exports.between = function between(qb, column, start, end) {
+
+  qb.where(column, '>=', start.format('YYYY-MM-DD'));
+
+  qb.where(column, '<=', end.format('YYYY-MM-DD'));
 };

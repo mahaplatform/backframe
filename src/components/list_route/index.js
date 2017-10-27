@@ -364,6 +364,38 @@ export const filter = (options, qb, filters, virtualFilters) => {
 
         daterange(qb, column, 1, 'year')
 
+      } else if(filters[key].$dr === 'last_30') {
+
+        duration(qb, column, -30, 'day')
+
+      } else if(filters[key].$dr === 'next_30') {
+
+        duration(qb, column, 30, 'day')
+
+      } else if(filters[key].$dr === 'last_60') {
+
+        duration(qb, column, -60, 'day')
+
+      } else if(filters[key].$dr === 'next_60') {
+
+        duration(qb, column, 60, 'day')
+
+      } else if(filters[key].$dr === 'last_90') {
+
+        duration(qb, column, -90, 'day')
+
+      } else if(filters[key].$dr === 'next_90') {
+
+        duration(qb, column, 90, 'day')
+
+      } else if(filters[key].$dr === 'ytd') {
+
+        between(qb, column, moment().startOf('year'), moment())
+
+      } else if(filters[key].$dr === 'ltd') {
+
+        between(qb, column, moment('2000-01-01'), moment())
+
       }
 
     }
@@ -374,8 +406,22 @@ export const filter = (options, qb, filters, virtualFilters) => {
 
 export const daterange = (qb, column, quantity, unit) => {
 
-  qb.where(column, '>=', moment().add(quantity, unit).startOf(unit).format('YYYY-MM-DD'))
+  between(qb, column, moment().add(quantity, unit).startOf(unit), moment().add(quantity, unit).endOf(unit))
 
-  qb.where(column, '<=', moment().add(quantity, unit).endOf(unit).format('YYYY-MM-DD'))
+}
+
+export const duration = (qb, column, quantity, unit) => {
+
+  if(quantity > 0) between(qb, column, moment().startOf(unit), moment().add(quantity, unit).endOf(unit))
+
+  if(quantity < 0) between(qb, column, moment().add(quantity, unit).endOf(unit), moment().startOf(unit))
+
+}
+
+export const between = (qb, column, start, end) => {
+
+  qb.where(column, '>=', start.format('YYYY-MM-DD'))
+
+  qb.where(column, '<=', end.format('YYYY-MM-DD'))
 
 }
