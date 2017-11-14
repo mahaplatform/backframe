@@ -6,11 +6,9 @@ const CsvResponder = (message, pagination, result, req, res) => {
 
   const separator = (req.params.format === 'tsv') ? '\t' : ','
 
-  const enclosure = req.query.enclosure || ''
-
   const records = coerceArray(result)
 
-  const matrix = (_.isPlainObject(records[0])) ? toMatrix(records) : records
+  const matrix = (_.isPlainObject(records[0])) ? toMatrix(req, records) : records
 
   const output = matrix.map(row => row.join(separator)).join('\n')
 
@@ -30,7 +28,11 @@ const CsvResponder = (message, pagination, result, req, res) => {
 
 }
 
-const toMatrix = (records) => {
+const toMatrix = (req, records) => {
+
+  const separator = (req.params.format === 'tsv') ? '\t' : ','
+
+  const enclosure = req.query.enclosure || ''
 
   const labels = selectedLabels(req.query.$select, records[0])
 
@@ -50,7 +52,7 @@ const toMatrix = (records) => {
 
     })
 
-  ], [ labels.map(label => wrapWithEnclosure(label, enclosure)).join(separator) ])
+  ], [ labels.map(label => wrapWithEnclosure(label, enclosure)) ])
 
 }
 

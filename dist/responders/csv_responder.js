@@ -24,11 +24,9 @@ var CsvResponder = function CsvResponder(message, pagination, result, req, res) 
 
   var separator = req.params.format === 'tsv' ? '\t' : ',';
 
-  var enclosure = req.query.enclosure || '';
-
   var records = (0, _core.coerceArray)(result);
 
-  var matrix = _lodash2.default.isPlainObject(records[0]) ? toMatrix(records) : records;
+  var matrix = _lodash2.default.isPlainObject(records[0]) ? toMatrix(req, records) : records;
 
   var output = matrix.map(function (row) {
     return row.join(separator);
@@ -48,7 +46,11 @@ var CsvResponder = function CsvResponder(message, pagination, result, req, res) 
   res.status(200).type('text/plain').send(output);
 };
 
-var toMatrix = function toMatrix(records) {
+var toMatrix = function toMatrix(req, records) {
+
+  var separator = req.params.format === 'tsv' ? '\t' : ',';
+
+  var enclosure = req.query.enclosure || '';
 
   var labels = (0, _core.selectedLabels)(req.query.$select, records[0]);
 
@@ -65,7 +67,7 @@ var toMatrix = function toMatrix(records) {
     })]);
   }, [labels.map(function (label) {
     return wrapWithEnclosure(label, enclosure);
-  }).join(separator)]);
+  })]);
 };
 
 var wrapWithEnclosure = function wrapWithEnclosure(value, enclosure) {
