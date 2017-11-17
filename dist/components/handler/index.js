@@ -412,7 +412,7 @@ var runHooks = exports.runHooks = function runHooks(req, trx, options, hooks, re
 
   if (hooks.length === 1) return runner(hooks[0]);
 
-  return (0, _bluebird.map)(hooks, function (hook) {
+  return (0, _bluebird.mapSeries)(hooks, function (hook) {
     return runner(hook);
   });
 };

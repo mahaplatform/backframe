@@ -141,7 +141,7 @@ export const runHooks = (req, trx, options, hooks, result) => {
 
   if(hooks.length === 1) return runner(hooks[0])
 
-  return Promise.map(hooks, hook => runner(hook))
+  return Promise.mapSeries(hooks, hook => runner(hook))
 
 }
 
