@@ -1,20 +1,25 @@
-import load from '../../utils/load'
 import { defaultResponder } from '../../utils'
 import BackframeError from '../../utils/error'
 
 export default (buildRoute, options) => {
 
-  const destroyRelated = (options, resource, trx) => {
+  const destroyRelated = async (options, resource, trx) => {
 
     if(!options.dependents) return resource
 
-    return Promise.each(options.dependents, async (dependent, index, length) => {
+    await Promise.each(options.dependents, async (dependent, index, length) => {
 
-      const results = await dependent.model.where({ [dependent.foreignKey]: resource.get('id') }).fetchAll({ transacting: trx })
+      await resource.load([dependent.relationship], { transacting: trx })
+
+      const related_ids = resource.related(dependent.relationship).map(item => item.id)
+
+      if(related_ids.length === 0) return
+
+      const results = await resource.related(dependent.relationship).model.query(qb => qb.whereIn('id', related_ids)).fetchAll({ transacting: trx })
 
       const records = results.map(result => result)
 
-      return Promise.each(records, (record, index, length) => {
+      await Promise.each(records, (record, index, length) => {
 
         if(dependent.strategy === 'destroy') return record.destroy({ transacting: trx })
 
@@ -38,9 +43,16 @@ export default (buildRoute, options) => {
 
     try {
 
+      // create a frozen copy so that after hooks can still access properties
+      const frozen = Object.assign({}, req.resource.attributes)
+
       await destroyRelated(options, req.resource, trx)
 
-      return destroyResource(options, req.resource, trx)
+      await destroyResource(options, req.resource, trx)
+
+      return {
+        get: (value) => frozen[value]
+      }
 
     } catch(err) {
 
