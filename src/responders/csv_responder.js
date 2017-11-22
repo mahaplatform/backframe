@@ -4,13 +4,17 @@ import _ from 'lodash'
 
 const CsvResponder = (message, pagination, result, req, res) => {
 
-  const separator = (req.params.format === 'tsv') ? '\t' : ','
+  const separator = getSeparator(req)
+
+  const enclosure = getEnclosure(req)
 
   const records = coerceArray(result)
 
   const matrix = (_.isPlainObject(records[0])) ? toMatrix(req, records) : records
 
-  const output = matrix.map(row => row.join(separator)).join('\n')
+  const wrapped = matrix.map(row => row.map(col => wrapWithEnclosure(col, enclosure)))
+
+  const output = wrapped.map(row => row.join(separator)).join('\n')
 
   if(req.query.download) {
 
@@ -28,11 +32,30 @@ const CsvResponder = (message, pagination, result, req, res) => {
 
 }
 
+const getSeparator = (req) => {
+
+  if(req.query.separator) {
+
+    if(req.query.separator === 'tab') return '\t'
+
+    return req.query.separator
+  }
+
+  if(req.params.format === 'tsv') return '\t'
+
+  return ','
+
+}
+
+const getEnclosure = (req) => {
+
+  if(req.query.enclosure) return req.query.enclosure
+
+  return ''
+
+}
+
 const toMatrix = (req, records) => {
-
-  const separator = (req.params.format === 'tsv') ? '\t' : ','
-
-  const enclosure = req.query.enclosure || ''
 
   const labels = selectedLabels(req.query.$select, records[0])
 
@@ -46,13 +69,13 @@ const toMatrix = (req, records) => {
 
       const value = _.get(record, key)
 
-      if(_.isDate(value))  return wrapWithEnclosure(moment(value).format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z', enclosure)
+      if(_.isDate(value))  return moment(value).format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z'
 
-      return wrapWithEnclosure(value, enclosure)
+      return value
 
     })
 
-  ], [ labels.map(label => wrapWithEnclosure(label, enclosure)) ])
+  ], [ labels ])
 
 }
 

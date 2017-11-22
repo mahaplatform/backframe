@@ -22,13 +22,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var CsvResponder = function CsvResponder(message, pagination, result, req, res) {
 
-  var separator = req.params.format === 'tsv' ? '\t' : ',';
+  var separator = getSeparator(req);
+
+  var enclosure = getEnclosure(req);
 
   var records = (0, _core.coerceArray)(result);
 
   var matrix = _lodash2.default.isPlainObject(records[0]) ? toMatrix(req, records) : records;
 
-  var output = matrix.map(function (row) {
+  var wrapped = matrix.map(function (row) {
+    return row.map(function (col) {
+      return wrapWithEnclosure(col, enclosure);
+    });
+  });
+
+  var output = wrapped.map(function (row) {
     return row.join(separator);
   }).join('\n');
 
@@ -46,11 +54,28 @@ var CsvResponder = function CsvResponder(message, pagination, result, req, res) 
   res.status(200).type('text/plain').send(output);
 };
 
+var getSeparator = function getSeparator(req) {
+
+  if (req.query.separator) {
+
+    if (req.query.separator === 'tab') return '\t';
+
+    return req.query.separator;
+  }
+
+  if (req.params.format === 'tsv') return '\t';
+
+  return ',';
+};
+
+var getEnclosure = function getEnclosure(req) {
+
+  if (req.query.enclosure) return req.query.enclosure;
+
+  return '';
+};
+
 var toMatrix = function toMatrix(req, records) {
-
-  var separator = req.params.format === 'tsv' ? '\t' : ',';
-
-  var enclosure = req.query.enclosure || '';
 
   var labels = (0, _core.selectedLabels)(req.query.$select, records[0]);
 
@@ -61,13 +86,11 @@ var toMatrix = function toMatrix(req, records) {
 
       var value = _lodash2.default.get(record, key);
 
-      if (_lodash2.default.isDate(value)) return wrapWithEnclosure((0, _moment2.default)(value).format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z', enclosure);
+      if (_lodash2.default.isDate(value)) return (0, _moment2.default)(value).format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z';
 
-      return wrapWithEnclosure(value, enclosure);
+      return value;
     })]);
-  }, [labels.map(function (label) {
-    return wrapWithEnclosure(label, enclosure);
-  })]);
+  }, [labels]);
 };
 
 var wrapWithEnclosure = function wrapWithEnclosure(value, enclosure) {

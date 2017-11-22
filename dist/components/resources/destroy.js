@@ -129,6 +129,9 @@ exports.default = function (buildRoute, options) {
           switch (_context3.prev = _context3.next) {
             case 0:
               _context3.prev = 0;
+
+
+              // create a frozen copy so that after hooks can still access properties
               frozen = (0, _assign2.default)({}, req.resource.attributes);
               _context3.next = 4;
               return destroyRelated(options, req.resource, trx);
