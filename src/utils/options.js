@@ -122,7 +122,6 @@ export const getOperation = (type) => {
   if(type === 'integer') return _.isInteger
   if(type === 'object') return _.isObject
   if(type === 'string') return _.isString
-  console.log(type)
 }
 
 // extract option defualts

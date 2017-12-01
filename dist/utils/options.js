@@ -134,7 +134,6 @@ var getOperation = exports.getOperation = function getOperation(type) {
   if (type === 'integer') return _lodash2.default.isInteger;
   if (type === 'object') return _lodash2.default.isObject;
   if (type === 'string') return _lodash2.default.isString;
-  console.log(type);
 };
 
 // extract option defualts
