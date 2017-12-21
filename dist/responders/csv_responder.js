@@ -38,7 +38,7 @@ var CsvResponder = function CsvResponder(message, pagination, result, req, res) 
 
   var output = wrapped.map(function (row) {
     return row.join(separator);
-  }).join('\n');
+  }).join('\r\n');
 
   if (req.query.download) {
 

@@ -14,7 +14,7 @@ const CsvResponder = (message, pagination, result, req, res) => {
 
   const wrapped = matrix.map(row => row.map(col => wrapWithEnclosure(col, enclosure)))
 
-  const output = wrapped.map(row => row.join(separator)).join('\n')
+  const output = wrapped.map(row => row.join(separator)).join('\r\n')
 
   if(req.query.download) {
 
