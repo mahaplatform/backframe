@@ -261,7 +261,7 @@ var extractSort = exports.extractSort = function extractSort(query, defaults) {
 
   if (query) {
     query = (0, _core.coerceArray)(query).filter(function (item) {
-      return _lodash2.default.includes(allowedParams, item.replace('-', ''));
+      return _lodash2.default.includes(allowedParams, item.replace(/^-/, ''));
     });
   }
 
@@ -271,7 +271,7 @@ var extractSort = exports.extractSort = function extractSort(query, defaults) {
 
   return (0, _core.coerceArray)(sort).map(function (item) {
     return {
-      key: item.replace('-', ''),
+      key: item.replace(/^-/, ''),
       order: item[0] === '-' ? 'desc' : 'asc'
     };
   });

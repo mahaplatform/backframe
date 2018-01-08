@@ -206,7 +206,7 @@ export const buildListRoute = (routeOptions, buildRoute) => {
 export const extractSort = (query, defaults, allowedParams = []) => {
 
   if(query) {
-    query = coerceArray(query).filter(item => _.includes(allowedParams, item.replace('-', '')))
+    query = coerceArray(query).filter(item => _.includes(allowedParams, item.replace(/^-/, '')))
   }
 
   const sort = query || defaults || null
@@ -214,7 +214,7 @@ export const extractSort = (query, defaults, allowedParams = []) => {
   if(!sort) return null
 
   return coerceArray(sort).map(item => ({
-    key: item.replace('-', ''),
+    key: item.replace(/^-/, ''),
     order: (item[0] === '-') ? 'desc' : 'asc'
   }))
 
