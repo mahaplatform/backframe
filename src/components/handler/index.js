@@ -87,7 +87,7 @@ const withTransaction = async (req, res, trx, options) => {
 
     if(trx) await trx.commit(result)
 
-    await runHooks(req, options, afterCommit, result)
+    await runHooks(req, trx, options, afterCommit, result)
 
     return result
 
@@ -95,7 +95,7 @@ const withTransaction = async (req, res, trx, options) => {
 
     console.error(err.stack)
 
-    await runHooks(req, options, beforeRollback)
+    await runHooks(req, trx, options, beforeRollback)
 
     if(trx) await trx.rollback(err)
 
