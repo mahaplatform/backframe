@@ -218,6 +218,15 @@ var defaultRenderer = exports.defaultRenderer = function () {
   };
 }();
 
+var getPagination = function getPagination(result) {
+
+  if (result.next !== undefined) return _lodash2.default.pick(result, ['next', 'skip']);
+
+  if (result.all !== undefined) return _lodash2.default.pick(result, ['all', 'total', 'limit', 'skip']);
+
+  return null;
+};
+
 var defaultResponder = exports.defaultResponder = function defaultResponder(message) {
   return function (req, res, result, options) {
 
@@ -229,7 +238,7 @@ var defaultResponder = exports.defaultResponder = function defaultResponder(mess
 
     var hasRecords = _lodash2.default.get(result, 'records');
 
-    var pagination = hasRecords ? _lodash2.default.pick(result, ['all', 'total', 'limit', 'skip']) : null;
+    var pagination = hasRecords ? getPagination(result) : null;
 
     var data = hasRecords ? result.records : result;
 

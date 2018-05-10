@@ -74,6 +74,16 @@ export const defaultRenderer = async (req, trx, result, options) => {
 
 }
 
+const getPagination = (result) => {
+
+  if(result.next !== undefined) return _.pick(result, ['next','skip'])
+
+  if(result.all !== undefined) return _.pick(result, ['all','total','limit','skip'])
+
+  return null
+
+}
+
 export const defaultResponder = message => (req, res, result, options) => {
 
   const format = req.params && req.params.format ? req.params.format : options.defaultFormat
@@ -84,7 +94,7 @@ export const defaultResponder = message => (req, res, result, options) => {
 
   const hasRecords = _.get(result, 'records')
 
-  const pagination = hasRecords ? _.pick(result, ['all','total','limit','skip']) : null
+  const pagination = hasRecords ? getPagination(result) : null
 
   const data = hasRecords ? result.records : result
 
