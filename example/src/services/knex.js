@@ -1,17 +1,13 @@
-import './environment'
-import _ from 'lodash'
 import Knex from 'knex'
 
-const [,client,database] = process.env.DATABASE_URL.match(/(.*)\:\/\/\/?(.*)/)
-
-const connection = _.includes(['sqlite3','sqlite'], client) ? database : process.env.DATABASE_URL
-
-module.exports = new Knex({
-  client,
-  connection,
+const knex = new Knex({
+  client: 'postgresql',
+  connection: 'postgres://postgres@localhost:5432/maha',
+  useNullAsDefault: true,
   pool: {
-    min: 3,
-    max: 5
-  },
-  useNullAsDefault: true
+    min: 5,
+    max: 30
+  }
 })
+
+export default knex

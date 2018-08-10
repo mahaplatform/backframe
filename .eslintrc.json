@@ -6,7 +6,7 @@
     "es6": true,
     "mocha": true
   },
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended"],
   "parserOptions": {
     "ecmaVersion": 6,
     "ecmaFeatures": {
@@ -15,15 +15,15 @@
     },
     "sourceType": "module"
   },
-  "plugins": [
-    "react"
-  ],
+  "plugins": [],
   "globals": {
     "__dirname": true,
     "process": true,
     "before": true,
-    "after": true
-   },
+    "after": true,
+    "arguments": true,
+    "Buffer": true
+  },
   "rules": {
     "strict": 0,
     "comma-dangle": [
@@ -51,8 +51,6 @@
       "error",
       "single"
     ],
-    "react/jsx-uses-react":  "error",
-    "react/jsx-uses-vars":  "error",
     "semi": [
       "error",
       "never"
