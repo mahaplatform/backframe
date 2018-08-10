@@ -82,16 +82,13 @@ var Renderer = function () {
                 return _context.abrupt('return', _context.sent);
 
               case 7:
-
-                console.log(this.result);
-
-                _context.next = 10;
+                _context.next = 9;
                 return this._applyToRecord(this.req, this.trx, this.result, transforms, this.options);
 
-              case 10:
+              case 9:
                 return _context.abrupt('return', _context.sent);
 
-              case 11:
+              case 10:
               case 'end':
                 return _context.stop();
             }
@@ -262,13 +259,36 @@ var Renderer = function () {
   }, {
     key: '_selectFields',
     value: function _selectFields(select) {
+      var _this3 = this;
 
       return function (req, trx, record) {
 
-        var fields = selectedKeys(select, record);
+        var fields = _this3._selectedKeys(select, record);
 
         return select ? _lodash2.default.pick(record, fields) : record;
       };
+    }
+  }, {
+    key: '_selectedKeys',
+    value: function _selectedKeys(select, record) {
+
+      if (_lodash2.default.isPlainObject(select)) return Object.values(select);
+
+      if (_lodash2.default.isNil(select)) return this._flattenKeys(record);
+
+      return _lodash2.default.castArray(select);
+    }
+  }, {
+    key: '_flattenKeys',
+    value: function _flattenKeys(hash) {
+      var _this4 = this;
+
+      var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+
+      return Object.keys(hash).reduce(function (keys, key) {
+        return [].concat((0, _toConsumableArray3.default)(keys), (0, _toConsumableArray3.default)(_lodash2.default.isObject(hash[key]) ? _this4._flattenKeys(hash[key], '' + prefix + key + '.') : ['' + prefix + key]));
+      }, []);
     }
   }]);
   return Renderer;

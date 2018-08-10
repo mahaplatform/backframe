@@ -8,33 +8,51 @@ class UpdateRoute extends Route {
     super(config)
     this.setMethod('patch')
     this.setPath('/:id')
-    this.appendAlterRequest(this._alterRequest)
-    this.appendBeforeProcessor(this._beforeProcessor)
     this.setProcessor(this._processor)
+    if(config.allowedParams) this.setAllowedParams(config.allowedParams)
+    if(config.model) this.setModel(config.model)
+    if(config.virtualParams) this.setVirtualParams(config.virtualParams)
   }
 
-  _alterRequest(req, trx, options) {
+  setAllowedParams(allowedParams) {
+    this._setRouteParams('allowedParams', allowedParams)
+  }
 
-   req.data = _.assign(req.body, req.query)
+  setModel(model) {
+    this._setRouteParams('model', model)
+  }
 
-   return req
-
- }
-
-  _beforeProcessor(req, trx, options) {
-
-    const allowed = [
-     ...coerceArray(options.allowedParams),
-     ...coerceArray(options.virtualParams),
-    ]
-
-    checkPermitted(req.data, allowed, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams')
-
+  setVirtualParams(virtualParams) {
+    this._setRouteParams('virtualParams', virtualParams)
   }
 
   async _processor(req, trx, options) {
 
-    return req.resource
+    try {
+
+      const allowed = [
+        ..._.castArray(options.allowedParams),
+        ..._.castArray(options.virtualParams)
+      ]
+
+      const params = _.pick(req.body, allowed)
+
+      req.resource.save(params, {
+        patch: true,
+        transacting: trx
+      })
+
+      return req.resource
+
+    } catch(err) {
+
+      throw new BackframeError({
+        code: 422,
+        message: 'Unable to update record',
+        errors: err.errors ? err.toJSON() : err.message
+      })
+
+    }
 
   }
 

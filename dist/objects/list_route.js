@@ -42,10 +42,6 @@ var _route = require('./route');
 
 var _route2 = _interopRequireDefault(_route);
 
-var _moment = require('moment');
-
-var _moment2 = _interopRequireDefault(_moment);
-
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -65,7 +61,6 @@ var ListRoute = function (_Route) {
     _this.defaultSort = null;
     _this.filterParams = null;
     _this.model = null;
-    _this.serializer = null;
     _this.searchParams = null;
     _this.sortParams = null;
     _this.withRelated = null;
@@ -74,7 +69,6 @@ var ListRoute = function (_Route) {
     if (config.defaultSort) _this.setDefaultSort(config.defaultSort);
     if (config.filterParams) _this.setFilterParams(config.filterParams);
     if (config.model) _this.setModel(config.model);
-    if (config.serializer) _this.setSerializer(config.serializer);
     if (config.searchParams) _this.setSearchParams(config.searchParams);
     if (config.sortParams) _this.setSortParams(config.sortParams);
     if (config.withRelated) _this.setWithRelated(config.withRelated);
@@ -105,11 +99,6 @@ var ListRoute = function (_Route) {
       this._setRouteParams('filterParams', filterParams);
     }
   }, {
-    key: 'setSerializer',
-    value: function setSerializer(serializer) {
-      this._setRouteParams('serializer', serializer);
-    }
-  }, {
     key: 'setSearchParams',
     value: function setSearchParams(searchParams) {
       this._setRouteParams('searchParams', searchParams);
@@ -130,12 +119,11 @@ var ListRoute = function (_Route) {
       var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
         var _this2 = this;
 
-        var tableName, filterSort, limit, skip, all, count, paged, responses;
+        var filterSort, limit, skip, all, count, paged, responses;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                tableName = options.model.extend().__super__.tableName;
                 filterSort = new _filter_sort2.default(options);
                 limit = parseInt(_lodash2.default.get(req.query, '$page.limit') || options.defaultLimit);
                 skip = parseInt(_lodash2.default.get(req.query, '$page.skip') || 0);
@@ -160,10 +148,10 @@ var ListRoute = function (_Route) {
                   });
                 };
 
-                _context.next = 9;
+                _context.next = 8;
                 return (0, _bluebird.all)([all(), count(), paged()]);
 
-              case 9:
+              case 8:
                 responses = _context.sent;
                 return _context.abrupt('return', {
                   all: parseInt(responses[0].rows[0].count),
@@ -173,7 +161,7 @@ var ListRoute = function (_Route) {
                   skip: skip
                 });
 
-              case 11:
+              case 10:
               case 'end':
                 return _context.stop();
             }

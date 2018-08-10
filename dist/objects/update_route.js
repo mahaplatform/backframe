@@ -8,13 +8,13 @@ var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
 var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -57,44 +57,64 @@ var UpdateRoute = function (_Route) {
 
     _this.setMethod('patch');
     _this.setPath('/:id');
-    _this.appendAlterRequest(_this._alterRequest);
-    _this.appendBeforeProcessor(_this._beforeProcessor);
     _this.setProcessor(_this._processor);
+    if (config.allowedParams) _this.setAllowedParams(config.allowedParams);
+    if (config.model) _this.setModel(config.model);
+    if (config.virtualParams) _this.setVirtualParams(config.virtualParams);
     return _this;
   }
 
   (0, _createClass3.default)(UpdateRoute, [{
-    key: '_alterRequest',
-    value: function _alterRequest(req, trx, options) {
-
-      req.data = _lodash2.default.assign(req.body, req.query);
-
-      return req;
+    key: 'setAllowedParams',
+    value: function setAllowedParams(allowedParams) {
+      this._setRouteParams('allowedParams', allowedParams);
     }
   }, {
-    key: '_beforeProcessor',
-    value: function _beforeProcessor(req, trx, options) {
-
-      var allowed = [].concat((0, _toConsumableArray3.default)(coerceArray(options.allowedParams)), (0, _toConsumableArray3.default)(coerceArray(options.virtualParams)));
-
-      checkPermitted(req.data, allowed, 'Unable to create record with the values {unpermitted}. Please add it to allowedParams');
+    key: 'setModel',
+    value: function setModel(model) {
+      this._setRouteParams('model', model);
+    }
+  }, {
+    key: 'setVirtualParams',
+    value: function setVirtualParams(virtualParams) {
+      this._setRouteParams('virtualParams', virtualParams);
     }
   }, {
     key: '_processor',
     value: function () {
       var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
+        var allowed, params;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                _context.prev = 0;
+                allowed = [].concat((0, _toConsumableArray3.default)(_lodash2.default.castArray(options.allowedParams)), (0, _toConsumableArray3.default)(_lodash2.default.castArray(options.virtualParams)));
+                params = _lodash2.default.pick(req.body, allowed);
+
+
+                req.resource.save(params, {
+                  patch: true,
+                  transacting: trx
+                });
+
                 return _context.abrupt('return', req.resource);
 
-              case 1:
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context['catch'](0);
+                throw new _error2.default({
+                  code: 422,
+                  message: 'Unable to update record',
+                  errors: _context.t0.errors ? _context.t0.toJSON() : _context.t0.message
+                });
+
+              case 10:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this);
+        }, _callee, this, [[0, 7]]);
       }));
 
       function _processor(_x2, _x3, _x4) {

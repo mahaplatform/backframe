@@ -25,6 +25,7 @@ var Logger = function () {
     this.res = null;
     this.trx = null;
     this.log = null;
+    this.reporter = null;
     this.startTime = null;
   }
 
@@ -40,6 +41,11 @@ var Logger = function () {
       this.trx.on('query-response', this._endQuery.bind(this));
     }
   }, {
+    key: 'setReporter',
+    value: function setReporter(reporter) {
+      this.reporter = reporter;
+    }
+  }, {
     key: 'print',
     value: function print() {
 
@@ -48,16 +54,16 @@ var Logger = function () {
       var data = {
         duration: (diff[0] * 1e3 + diff[1] * 1e-6).toFixed(3),
         hostname: this.req.hostname,
-        method: this.req.method,
+        method: this.req.method.toUpperCase(),
         url: this.req.originalUrl.match(/^([^?]*)(.*)?$/)[1],
-        statusCode: this.res.statusCode,
+        status: this.res.statusCode,
         params: this.req.params,
         query: this.req.query,
         body: this.req.body,
         log: this.log
       };
 
-      console.log(data);
+      this.reporter.render(data);
     }
   }, {
     key: '_startQuery',

@@ -1,6 +1,5 @@
 import FilterSort from './filter_sort'
 import Route from './route'
-import moment from 'moment'
 import _ from 'lodash'
 
 class ListRoute extends Route {
@@ -12,8 +11,6 @@ class ListRoute extends Route {
   filterParams = null
 
   model = null
-
-  serializer = null
 
   searchParams = null
 
@@ -27,7 +24,6 @@ class ListRoute extends Route {
     if(config.defaultSort) this.setDefaultSort(config.defaultSort)
     if(config.filterParams) this.setFilterParams(config.filterParams)
     if(config.model) this.setModel(config.model)
-    if(config.serializer) this.setSerializer(config.serializer)
     if(config.searchParams) this.setSearchParams(config.searchParams)
     if(config.sortParams) this.setSortParams(config.sortParams)
     if(config.withRelated) this.setWithRelated(config.withRelated)
@@ -52,10 +48,6 @@ class ListRoute extends Route {
     this._setRouteParams('filterParams', filterParams)
   }
 
-  setSerializer(serializer) {
-    this._setRouteParams('serializer', serializer)
-  }
-
   setSearchParams(searchParams) {
     this._setRouteParams('searchParams', searchParams)
   }
@@ -69,8 +61,6 @@ class ListRoute extends Route {
   }
 
   async _processor(req, trx, options) {
-
-    const tableName = options.model.extend().__super__.tableName
 
     const filterSort = new FilterSort(options)
 

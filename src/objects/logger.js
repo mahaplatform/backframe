@@ -10,6 +10,8 @@ class Logger {
 
   log = null
 
+  reporter = null
+
   startTime = null
 
   init(req, res, trx) {
@@ -22,6 +24,10 @@ class Logger {
     this.trx.on('query-response', this._endQuery.bind(this))
   }
 
+  setReporter(reporter) {
+    this.reporter = reporter
+  }
+
   print() {
 
     const diff = process.hrtime(this.startTime)
@@ -29,16 +35,16 @@ class Logger {
     const data = {
       duration: (diff[0] * 1e3 + diff[1] * 1e-6).toFixed(3),
       hostname: this.req.hostname,
-      method: this.req.method,
+      method: this.req.method.toUpperCase(),
       url: this.req.originalUrl.match(/^([^?]*)(.*)?$/)[1],
-      statusCode: this.res.statusCode,
+      status: this.res.statusCode,
       params: this.req.params,
       query: this.req.query,
       body: this.req.body,
-      log: this.log,
+      log: this.log
     }
 
-    console.log(data)
+    this.reporter.render(data)
 
   }
 

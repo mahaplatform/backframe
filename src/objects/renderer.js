@@ -28,8 +28,6 @@ class Renderer {
 
     if(this.result.records) return await this._applyToRecords(this.req, this.trx, this.result, transforms, this.options)
 
-    console.log(this.result)
-
     return await this._applyToRecord(this.req, this.trx, this.result, transforms, this.options)
 
   }
@@ -73,11 +71,30 @@ class Renderer {
 
     return (req, trx, record) => {
 
-      const fields = selectedKeys(select, record)
+      const fields = this._selectedKeys(select, record)
 
       return select ? _.pick(record, fields) : record
 
     }
+
+  }
+
+  _selectedKeys(select, record) {
+
+    if(_.isPlainObject(select)) return Object.values(select)
+
+    if(_.isNil(select)) return this._flattenKeys(record)
+
+    return _.castArray(select)
+
+  }
+
+  _flattenKeys(hash, prefix = '') {
+
+    return Object.keys(hash).reduce((keys, key) => [
+      ...keys,
+      ..._.isObject(hash[key]) ? this._flattenKeys(hash[key], `${prefix}${key}.`) : [`${prefix}${key}`]
+    ], [])
 
   }
 

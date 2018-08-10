@@ -153,16 +153,12 @@ class Resources extends Component {
       transacting: trx
     })
 
-    if(!req.resource) {
+    if(req.resource) return req
 
-      throw new BackframeError({
-        code: 404,
-        message: 'Unable to load record'
-      })
-
-    }
-
-    return req
+    throw new BackframeError({
+      code: 404,
+      message: 'Unable to load record'
+    })
 
   }
 
@@ -184,6 +180,7 @@ class Resources extends Component {
       allowedParams: this._destructureParam('allowedParams', 'create'),
       model: this._destructureParam('model', 'create'),
       serializer: this._destructureParam('serializer', 'create'),
+      virtualParams: this._destructureParam('virtualParams', 'create')
     })
   }
 
@@ -191,7 +188,7 @@ class Resources extends Component {
     return new ShowRoute({
       alterRequest: this._fetchResource,
       model: this._destructureParam('model', 'show'),
-      serializer: this._destructureParam('serializer', 'show'),
+      serializer: this._destructureParam('serializer', 'show')
     })
   }
 
@@ -201,12 +198,15 @@ class Resources extends Component {
       allowedParams: this._destructureParam('allowedParams', 'update'),
       model: this._destructureParam('model', 'update'),
       serializer: this._destructureParam('serializer', 'update'),
+      virtualParams: this._destructureParam('virtualParams', 'update')
     })
   }
 
   _getDestroyRoute() {
     return new DestroyRoute({
-      alterRequest: this._fetchResource
+      alterRequest: this._fetchResource,
+      model: this._destructureParam('model', 'destroy'),
+      serializer: this._destructureParam('serializer', 'destroy')
     })
   }
 

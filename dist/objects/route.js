@@ -66,6 +66,10 @@ var _logger = require('./logger');
 
 var _logger2 = _interopRequireDefault(_logger);
 
+var _reporter = require('./reporter');
+
+var _reporter2 = _interopRequireDefault(_reporter);
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -87,10 +91,12 @@ var Route = function (_Component) {
     _this.processor = function () {};
 
     _this.routeOptions = {};
+    _this.serializer = null;
 
     if (config.method) _this.setMethod(config.method);
     if (config.path) _this.setPath(config.path);
     if (config.processor) _this.setProcessor(config.processor);
+    if (config.serializer) _this.setSerializer(config.serializer);
     return _this;
   }
 
@@ -115,6 +121,11 @@ var Route = function (_Component) {
       this.processor = processor;
     }
   }, {
+    key: 'setSerializer',
+    value: function setSerializer(serializer) {
+      this._setRouteParams('serializer', serializer);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -124,7 +135,11 @@ var Route = function (_Component) {
 
       var options = (0, _extends3.default)({}, this.routeOptions, routeOptions);
 
+      var reporter = new _reporter2.default();
+
       var logger = options.logger ? new options.logger() : new _logger2.default();
+
+      logger.setReporter(reporter);
 
       return {
 

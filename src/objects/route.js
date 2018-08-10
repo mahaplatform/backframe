@@ -6,6 +6,7 @@ import XmlResponder from './xml_responder'
 import Component from './component'
 import Renderer from './renderer'
 import Logger from './logger'
+import Reporter from './reporter'
 import _ from 'lodash'
 
 class Route extends Component {
@@ -18,11 +19,14 @@ class Route extends Component {
 
   routeOptions = {}
 
+  serializer = null
+
   constructor(config = {}) {
     super(config)
     if(config.method) this.setMethod(config.method)
     if(config.path) this.setPath(config.path)
     if(config.processor) this.setProcessor(config.processor)
+    if(config.serializer) this.setSerializer(config.serializer)
   }
 
   setMethod(method) {
@@ -41,6 +45,10 @@ class Route extends Component {
     this.processor = processor
   }
 
+  setSerializer(serializer) {
+    this._setRouteParams('serializer', serializer)
+  }
+
   render(routeOptions = {}) {
 
     const options = {
@@ -48,13 +56,17 @@ class Route extends Component {
       ...routeOptions
     }
 
+    const reporter = new Reporter()
+
     const logger = options.logger ? new options.logger() : new Logger()
+
+    logger.setReporter(reporter)
 
     return {
 
       method: this.method,
 
-      path: `${this.path.replace(':id',':id(\\d+)')}\.:format?`,
+      path: `${this.path.replace(':id',':id(\\d+)')}.:format?`,
 
       handler: (req, res, next) => {
 
@@ -67,7 +79,6 @@ class Route extends Component {
             return await hook(req, trx, options)
 
           }, req)
-
 
           try {
 

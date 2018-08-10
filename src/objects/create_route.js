@@ -8,26 +8,34 @@ class CreateRoute extends Route {
     super(config)
     this.setMethod('post')
     this.setPath('')
-    this.appendBeforeProcessor(this._beforeProcessor)
     this.setProcessor(this._processor)
+    if(config.allowedParams) this.setAllowedParams(config.allowedParams)
+    if(config.model) this.setModel(config.model)
+    if(config.virtualParams) this.setVirtualParams(config.virtualParams)
   }
 
-  _beforeProcessor(req, trx, options) {
+  setAllowedParams(allowedParams) {
+    this._setRouteParams('allowedParams', allowedParams)
+  }
 
-    const allowed = [
-      ..._.castArray(options.allowedParams),
-      ..._.castArray(options.virtualParams),
-    ]
+  setModel(model) {
+    this._setRouteParams('model', model)
+  }
 
+  setVirtualParams(virtualParams) {
+    this._setRouteParams('virtualParams', virtualParams)
   }
 
   async _processor(req, trx, options) {
 
     try {
 
-      const params = _.pick(req.body, options.allowedParams)
+      const allowed = [
+        ..._.castArray(options.allowedParams),
+        ..._.castArray(options.virtualParams)
+      ]
 
-      console.log(req.body, params, options.allowedParams)
+      const params = _.pick(req.body, allowed)
 
       req.resource = await options.model.forge({
         ...this._defaultParams(req, trx, options),
@@ -40,10 +48,10 @@ class CreateRoute extends Route {
 
     } catch(err) {
 
-      if(err.errors) throw new BackframeError({
+      throw new BackframeError({
         code: 422,
         message: 'Unable to create record',
-        errors: err.toJSON()
+        errors: err.errors ? err.toJSON() : err.message
       })
 
     }

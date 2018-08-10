@@ -32,10 +32,6 @@ var _route = require('./route');
 
 var _route2 = _interopRequireDefault(_route);
 
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ShowRoute = function (_Route) {
@@ -51,7 +47,6 @@ var ShowRoute = function (_Route) {
     _this.setPath('/:id');
     _this.setProcessor(_this._processor);
     if (config.model) _this.setModel(config.model);
-    if (config.serializer) _this.setSerializer(config.serializer);
     return _this;
   }
 
@@ -59,11 +54,6 @@ var ShowRoute = function (_Route) {
     key: 'setModel',
     value: function setModel(model) {
       this._setRouteParams('model', model);
-    }
-  }, {
-    key: 'setSerializer',
-    value: function setSerializer(serializer) {
-      this._setRouteParams('serializer', serializer);
     }
   }, {
     key: '_processor',

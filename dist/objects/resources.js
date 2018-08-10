@@ -235,18 +235,18 @@ var Resources = function (_Component) {
               case 2:
                 req.resource = _context.sent;
 
-                if (req.resource) {
+                if (!req.resource) {
                   _context.next = 5;
                   break;
                 }
 
+                return _context.abrupt('return', req);
+
+              case 5:
                 throw new _error2.default({
                   code: 404,
                   message: 'Unable to load record'
                 });
-
-              case 5:
-                return _context.abrupt('return', req);
 
               case 6:
               case 'end':
@@ -282,7 +282,8 @@ var Resources = function (_Component) {
       return new _create_route2.default({
         allowedParams: this._destructureParam('allowedParams', 'create'),
         model: this._destructureParam('model', 'create'),
-        serializer: this._destructureParam('serializer', 'create')
+        serializer: this._destructureParam('serializer', 'create'),
+        virtualParams: this._destructureParam('virtualParams', 'create')
       });
     }
   }, {
@@ -301,14 +302,17 @@ var Resources = function (_Component) {
         alterRequest: this._fetchResource,
         allowedParams: this._destructureParam('allowedParams', 'update'),
         model: this._destructureParam('model', 'update'),
-        serializer: this._destructureParam('serializer', 'update')
+        serializer: this._destructureParam('serializer', 'update'),
+        virtualParams: this._destructureParam('virtualParams', 'update')
       });
     }
   }, {
     key: '_getDestroyRoute',
     value: function _getDestroyRoute() {
       return new _destroy_route2.default({
-        alterRequest: this._fetchResource
+        alterRequest: this._fetchResource,
+        model: this._destructureParam('model', 'destroy'),
+        serializer: this._destructureParam('serializer', 'destroy')
       });
     }
   }, {
