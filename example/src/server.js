@@ -1,38 +1,33 @@
 import './services/environment'
-import { Backframe, Plugin, Resources, Route, Segment, ExpressTransport } from 'backframe'
+import { Backframe, BackframeError, Plugin, Resources, Route, Segment, ExpressTransport } from 'backframe'
 import UserSerializer from './serializers/user_serializer'
 import knex from './services/knex'
 import User from './models/user'
 
-const plugin1 = new Plugin()
+const authenticator = new Plugin({
+  name: 'authenticator',
+  options: ['authenticated'],
+  alterRequest: async (req, trx, options) => {
 
-plugin1.setName('plugin1')
+    if(!req.headers.authorization) {
+      throw new BackframeError({
+        code: 401,
+        message: 'Unauthenticated request'
+      })
+    }
 
-plugin1.appendBeforeProcessor((req) => console.log('plugin1 before processor'))
+    const [,id] = req.headers.authorization.match(/Bearer (.*)/)
 
-plugin1.appendAfterProcessor((req, result) => `${result} plus plugin1`)
+    const user = await User.where({ id }).fetch({
+      transacting: trx
+    })
 
-const plugin2 = new Plugin({
-  name: 'plugin2',
-  beforeProcessor: (req) => console.log('plugin2 before processor'),
-  afterProcessor: (req, result) => `${result} plus plugin2`
+  },
 })
 
-const route1 = new Route()
-
-route1.setPath('/a')
-
-route1.appendBeforeProcessor((req) => console.log('route1 before processor'))
-
-route1.appendAfterProcessor((req, result) => `${result} plus route`)
-
-route1.setProcessor((req, trx) => 'route1')
-
-const route2 = new Route({
-  method: 'get',
-  path: '/b',
-  beforeProcessor: () => console.log('route2 before processor'),
-  afterProcessor: () => console.log('route2 after processor'),
+const activate = new Route({
+  method: 'patch',
+  path: '/activate',
   processor: (req, trx) => 'route2'
 })
 
@@ -42,40 +37,52 @@ const users = new Resources({
   model: User,
   path: '/users',
   memberActions: [
-    new Route({
-      method: 'patch',
-      path: '/activate',
-      processor: (req, trx) => 'route2'
-    })
+    activate
   ],
   serializer: UserSerializer,
-  sortParams: ['id','first_name','last_name','email'],
+  sortParams: ['id','first_name','last_name','email']
 })
 
-const segment = new Segment()
+const nestedRoute1 = new Route()
+nestedRoute1.setMethod('get')
+nestedRoute1.setPath('/three')
+nestedRoute1.setProcessor((req, trx, options) => {
+  return {
+    records: [
+      'one',
+      'two',
+      'three'
+    ]
+  }
+})
 
-segment.setPath('/a')
+const nestedRoute2 = new Route()
+nestedRoute2.setMethod('get')
+nestedRoute2.setPath('/four')
+nestedRoute2.setProcessor((req, trx, options) => {
+  return 'one'
+})
 
-segment.appendBeforeProcessor(() => console.log('segment before processor'))
+const nestedSegment2 = new Segment()
+nestedSegment2.setPath('/two')
+nestedSegment2.appendRoute([
+  nestedRoute1,
+  nestedRoute2
+])
 
-segment.appendAfterProcessor((req, result) => `${result} plus segment`)
-
-segment.appendRoute(route1)
-
-segment.appendRoute(route2)
+const nestedSegment1 = new Segment()
+nestedSegment1.setPath('/one')
+nestedSegment1.appendRoute(nestedSegment2)
 
 const api = new Backframe({
   knex,
   path: '/api',
   plugins: [
-    plugin1,
-    plugin2
+    authenticator
   ],
-  beforeProcessor: () => console.log('backframe before processor'),
-  afterProcessor: (req, result) => `${result} plus backframe`,
-  segments: [
+  routes: [
     users,
-    segment
+    nestedSegment1
   ]
 })
 
