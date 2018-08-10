@@ -1,23 +1,23 @@
-export ExpressTransport from './objects/express_transport'
+export ExpressTransport from './transports/express_transport'
 
-export DestroyRoute from './objects/destroy_route'
+export DestroyRoute from './routes/destroy_route'
 
-export CreateRoute from './objects/create_route'
+export CreateRoute from './routes/create_route'
 
-export UpdateRoute from './objects/update_route'
+export UpdateRoute from './routes/update_route'
 
-export BackframeError from './objects/error'
+export ListRoute from './routes/list_route'
 
-export ListRoute from './objects/list_route'
+export ShowRoute from './routes/show_route'
 
-export ShowRoute from './objects/show_route'
+export BackframeError from './error'
 
-export Backframe from './objects/backframe'
+export Backframe from './backframe'
 
-export Resources from './objects/resources'
+export Resources from './resources'
 
-export Segment from './objects/segment'
+export Segment from './segment'
 
-export Plugin from './objects/plugin'
+export Plugin from './plugin'
 
-export Route from './objects/route'
+export Route from './route'
