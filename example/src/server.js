@@ -22,7 +22,7 @@ const authenticator = new Plugin({
       transacting: trx
     })
 
-  },
+  }
 })
 
 const activate = new Route({

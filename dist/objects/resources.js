@@ -191,6 +191,20 @@ var Resources = function (_Component) {
 
         if (_this2.path) route.prependPath(_this2.path);
 
+        if (_this2.alterRequest) route.prependAlterRequest(_this2.alterRequest);
+
+        if (_this2.beforeProcessor) route.prependBeforeProcessor(_this2.beforeProcessor);
+
+        if (_this2.afterProcessor) route.prependAfterProcessor(_this2.afterProcessor);
+
+        if (_this2.alterRecord) route.prependAlterRecord(_this2.alterRecord);
+
+        if (_this2.beforeCommit) route.prependBeforeCommit(_this2.beforeCommit);
+
+        if (_this2.afterCommit) route.prependAfterCommit(_this2.afterCommit);
+
+        if (_this2.beforeRollback) route.prependBeforeRollback(_this2.beforeRollback);
+
         return route.render(options);
       });
     }

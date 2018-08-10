@@ -150,248 +150,99 @@ var Route = function (_Component) {
         handler: function handler(req, res, next) {
 
           return options.knex.transaction(function () {
-            var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee8(trx) {
-              var result, renderer, rendered, responder, error_responder;
-              return _regenerator2.default.wrap(function _callee8$(_context8) {
+            var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(trx) {
+              var result, renderer, rendered, altered, responder, error_responder;
+              return _regenerator2.default.wrap(function _callee$(_context) {
                 while (1) {
-                  switch (_context8.prev = _context8.next) {
+                  switch (_context.prev = _context.next) {
                     case 0:
 
                       logger.init(req, res, trx);
 
-                      _context8.next = 3;
-                      return (0, _bluebird.reduce)(_this2.alterRequest, function () {
-                        var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, hook) {
-                          return _regenerator2.default.wrap(function _callee$(_context) {
-                            while (1) {
-                              switch (_context.prev = _context.next) {
-                                case 0:
-                                  _context.next = 2;
-                                  return hook(req, trx, options);
+                      _context.prev = 1;
+                      _context.next = 4;
+                      return _this2._alterRequest(req, trx, options, _this2.alterRequest);
 
-                                case 2:
-                                  return _context.abrupt('return', _context.sent);
+                    case 4:
+                      req = _context.sent;
+                      _context.next = 7;
+                      return _this2._runHooks(req, trx, null, options, _this2.beforeProcessor, false);
 
-                                case 3:
-                                case 'end':
-                                  return _context.stop();
-                              }
-                            }
-                          }, _callee, _this2);
-                        }));
-
-                        return function (_x4, _x5) {
-                          return _ref2.apply(this, arguments);
-                        };
-                      }(), req);
-
-                    case 3:
-                      _context8.prev = 3;
-                      _context8.next = 6;
-                      return (0, _bluebird.reduce)(_this2.alterRequest, function () {
-                        var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, hook) {
-                          return _regenerator2.default.wrap(function _callee2$(_context2) {
-                            while (1) {
-                              switch (_context2.prev = _context2.next) {
-                                case 0:
-                                  _context2.next = 2;
-                                  return hook(req, trx, options);
-
-                                case 2:
-                                  return _context2.abrupt('return', _context2.sent);
-
-                                case 3:
-                                case 'end':
-                                  return _context2.stop();
-                              }
-                            }
-                          }, _callee2, _this2);
-                        }));
-
-                        return function (_x6, _x7) {
-                          return _ref3.apply(this, arguments);
-                        };
-                      }(), req);
-
-                    case 6:
-                      req = _context8.sent;
-                      _context8.next = 9;
-                      return (0, _bluebird.mapSeries)(_this2.beforeProcessor, function () {
-                        var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(hook) {
-                          return _regenerator2.default.wrap(function _callee3$(_context3) {
-                            while (1) {
-                              switch (_context3.prev = _context3.next) {
-                                case 0:
-                                  _context3.next = 2;
-                                  return hook(req, trx, options);
-
-                                case 2:
-                                case 'end':
-                                  return _context3.stop();
-                              }
-                            }
-                          }, _callee3, _this2);
-                        }));
-
-                        return function (_x8) {
-                          return _ref4.apply(this, arguments);
-                        };
-                      }());
-
-                    case 9:
-                      _context8.next = 11;
+                    case 7:
+                      _context.next = 9;
                       return _this2.processor(req, trx, options);
 
-                    case 11:
-                      _context8.t0 = _context8.sent;
+                    case 9:
+                      _context.t0 = _context.sent;
 
-                      if (_context8.t0) {
-                        _context8.next = 14;
+                      if (_context.t0) {
+                        _context.next = 12;
                         break;
                       }
 
-                      _context8.t0 = null;
+                      _context.t0 = null;
 
-                    case 14:
-                      result = _context8.t0;
-                      _context8.next = 17;
-                      return (0, _bluebird.reduce)(_this2.afterProcessor, function () {
-                        var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(result, hook) {
-                          return _regenerator2.default.wrap(function _callee4$(_context4) {
-                            while (1) {
-                              switch (_context4.prev = _context4.next) {
-                                case 0:
-                                  _context4.next = 2;
-                                  return hook(req, trx, result, options);
+                    case 12:
+                      result = _context.t0;
+                      _context.next = 15;
+                      return _this2._runHooks(req, trx, result, options, _this2.afterProcessor, true);
 
-                                case 2:
-                                  return _context4.abrupt('return', _context4.sent);
-
-                                case 3:
-                                case 'end':
-                                  return _context4.stop();
-                              }
-                            }
-                          }, _callee4, _this2);
-                        }));
-
-                        return function (_x9, _x10) {
-                          return _ref5.apply(this, arguments);
-                        };
-                      }(), result);
-
-                    case 17:
-                      result = _context8.sent;
+                    case 15:
                       renderer = new _renderer2.default({ req: req, trx: trx, result: result, options: options });
-                      _context8.next = 21;
+                      _context.next = 18;
                       return renderer.render();
 
+                    case 18:
+                      rendered = _context.sent;
+                      _context.next = 21;
+                      return _this2._alterRecord(req, trx, rendered, options, _this2.alterRecord);
+
                     case 21:
-                      rendered = _context8.sent;
-                      responder = _this2._getResponder(req, res, options, rendered);
-                      _context8.next = 25;
+                      altered = _context.sent;
+                      responder = _this2._getResponder(req, res, altered, options);
+                      _context.next = 25;
                       return responder.render();
 
                     case 25:
-                      _context8.next = 27;
-                      return (0, _bluebird.mapSeries)(_this2.beforeCommit, function () {
-                        var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5(hook) {
-                          return _regenerator2.default.wrap(function _callee5$(_context5) {
-                            while (1) {
-                              switch (_context5.prev = _context5.next) {
-                                case 0:
-                                  _context5.next = 2;
-                                  return hook(req, trx, options);
-
-                                case 2:
-                                case 'end':
-                                  return _context5.stop();
-                              }
-                            }
-                          }, _callee5, _this2);
-                        }));
-
-                        return function (_x11) {
-                          return _ref6.apply(this, arguments);
-                        };
-                      }());
+                      _context.next = 27;
+                      return _this2._runHooks(req, trx, altered, options, _this2.beforeCommit, true);
 
                     case 27:
-                      _context8.next = 29;
+                      _context.next = 29;
                       return trx.commit(result);
 
                     case 29:
-                      _context8.next = 31;
-                      return (0, _bluebird.mapSeries)(_this2.afterCommit, function () {
-                        var _ref7 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6(hook) {
-                          return _regenerator2.default.wrap(function _callee6$(_context6) {
-                            while (1) {
-                              switch (_context6.prev = _context6.next) {
-                                case 0:
-                                  _context6.next = 2;
-                                  return hook(req, trx, options);
-
-                                case 2:
-                                case 'end':
-                                  return _context6.stop();
-                              }
-                            }
-                          }, _callee6, _this2);
-                        }));
-
-                        return function (_x12) {
-                          return _ref7.apply(this, arguments);
-                        };
-                      }());
+                      _context.next = 31;
+                      return _this2._runHooks(req, trx, altered, options, _this2.afterCommit, true);
 
                     case 31:
 
                       logger.print();
 
-                      _context8.next = 42;
+                      _context.next = 42;
                       break;
 
                     case 34:
-                      _context8.prev = 34;
-                      _context8.t1 = _context8['catch'](3);
-                      _context8.next = 38;
-                      return (0, _bluebird.mapSeries)(_this2.beforeRollback, function () {
-                        var _ref8 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee7(hook) {
-                          return _regenerator2.default.wrap(function _callee7$(_context7) {
-                            while (1) {
-                              switch (_context7.prev = _context7.next) {
-                                case 0:
-                                  _context7.next = 2;
-                                  return hook(req, trx, options);
-
-                                case 2:
-                                case 'end':
-                                  return _context7.stop();
-                              }
-                            }
-                          }, _callee7, _this2);
-                        }));
-
-                        return function (_x13) {
-                          return _ref8.apply(this, arguments);
-                        };
-                      }());
+                      _context.prev = 34;
+                      _context.t1 = _context['catch'](1);
+                      _context.next = 38;
+                      return _this2._runHooks(req, trx, null, options, _this2.beforeRollback, false);
 
                     case 38:
-                      error_responder = new _error_responder2.default({ res: res, error: _context8.t1 });
+                      error_responder = new _error_responder2.default({ res: res, error: _context.t1 });
 
 
                       error_responder.render();
 
-                      _context8.next = 42;
-                      return trx.rollback(_context8.t1);
+                      _context.next = 42;
+                      return trx.rollback(_context.t1);
 
                     case 42:
                     case 'end':
-                      return _context8.stop();
+                      return _context.stop();
                   }
                 }
-              }, _callee8, _this2, [[3, 34]]);
+              }, _callee, _this2, [[1, 34]]);
             }));
 
             return function (_x3) {
@@ -413,26 +264,324 @@ var Route = function (_Component) {
       this.routeOptions[key] = this[key] = value;
     }
   }, {
-    key: '_responderName',
-    value: function _responderName(req, options) {
+    key: '_alterRequest',
+    value: function () {
+      var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(req, trx, options, hooks) {
+        var _this3 = this;
+
+        return _regenerator2.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (hooks) {
+                  _context3.next = 2;
+                  break;
+                }
+
+                return _context3.abrupt('return', req);
+
+              case 2:
+                _context3.next = 4;
+                return (0, _bluebird.reduce)(hooks, function () {
+                  var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, hook) {
+                    return _regenerator2.default.wrap(function _callee2$(_context2) {
+                      while (1) {
+                        switch (_context2.prev = _context2.next) {
+                          case 0:
+                            _context2.next = 2;
+                            return hook(req, trx, options);
+
+                          case 2:
+                            _context2.t0 = _context2.sent;
+
+                            if (_context2.t0) {
+                              _context2.next = 5;
+                              break;
+                            }
+
+                            _context2.t0 = req;
+
+                          case 5:
+                            return _context2.abrupt('return', _context2.t0);
+
+                          case 6:
+                          case 'end':
+                            return _context2.stop();
+                        }
+                      }
+                    }, _callee2, _this3);
+                  }));
+
+                  return function (_x8, _x9) {
+                    return _ref3.apply(this, arguments);
+                  };
+                }(), req);
+
+              case 4:
+                return _context3.abrupt('return', _context3.sent);
+
+              case 5:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function _alterRequest(_x4, _x5, _x6, _x7) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return _alterRequest;
+    }()
+  }, {
+    key: '_runHooks',
+    value: function () {
+      var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5(req, trx, result, options, hooks, includeResult) {
+        var _this4 = this;
+
+        return _regenerator2.default.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                if (hooks) {
+                  _context5.next = 2;
+                  break;
+                }
+
+                return _context5.abrupt('return');
+
+              case 2:
+                _context5.next = 4;
+                return (0, _bluebird.mapSeries)(hooks, function () {
+                  var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(hook) {
+                    return _regenerator2.default.wrap(function _callee4$(_context4) {
+                      while (1) {
+                        switch (_context4.prev = _context4.next) {
+                          case 0:
+                            if (!includeResult) {
+                              _context4.next = 4;
+                              break;
+                            }
+
+                            _context4.next = 3;
+                            return hook(req, trx, result, options);
+
+                          case 3:
+                            return _context4.abrupt('return', _context4.sent);
+
+                          case 4:
+                            _context4.next = 6;
+                            return hook(req, trx, options);
+
+                          case 6:
+                          case 'end':
+                            return _context4.stop();
+                        }
+                      }
+                    }, _callee4, _this4);
+                  }));
+
+                  return function (_x16) {
+                    return _ref5.apply(this, arguments);
+                  };
+                }());
+
+              case 4:
+              case 'end':
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function _runHooks(_x10, _x11, _x12, _x13, _x14, _x15) {
+        return _ref4.apply(this, arguments);
+      }
+
+      return _runHooks;
+    }()
+  }, {
+    key: '_afterProcessor',
+    value: function () {
+      var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee7(req, trx, result, options, hooks) {
+        var _this5 = this;
+
+        return _regenerator2.default.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                if (hooks) {
+                  _context7.next = 2;
+                  break;
+                }
+
+                return _context7.abrupt('return', result);
+
+              case 2:
+                _context7.next = 4;
+                return (0, _bluebird.reduce)(hooks, function () {
+                  var _ref7 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6(result, hook) {
+                    return _regenerator2.default.wrap(function _callee6$(_context6) {
+                      while (1) {
+                        switch (_context6.prev = _context6.next) {
+                          case 0:
+                            _context6.next = 2;
+                            return hook(req, trx, result, options);
+
+                          case 2:
+                            _context6.t0 = _context6.sent;
+
+                            if (_context6.t0) {
+                              _context6.next = 5;
+                              break;
+                            }
+
+                            _context6.t0 = result;
+
+                          case 5:
+                            return _context6.abrupt('return', _context6.t0);
+
+                          case 6:
+                          case 'end':
+                            return _context6.stop();
+                        }
+                      }
+                    }, _callee6, _this5);
+                  }));
+
+                  return function (_x22, _x23) {
+                    return _ref7.apply(this, arguments);
+                  };
+                }(), result);
+
+              case 4:
+                return _context7.abrupt('return', _context7.sent);
+
+              case 5:
+              case 'end':
+                return _context7.stop();
+            }
+          }
+        }, _callee7, this);
+      }));
+
+      function _afterProcessor(_x17, _x18, _x19, _x20, _x21) {
+        return _ref6.apply(this, arguments);
+      }
+
+      return _afterProcessor;
+    }()
+  }, {
+    key: '_alterRecord',
+    value: function () {
+      var _ref8 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee9(req, trx, result, options, hooks) {
+        var _this6 = this;
+
+        var alterRecord, records;
+        return _regenerator2.default.wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                if (hooks) {
+                  _context9.next = 2;
+                  break;
+                }
+
+                return _context9.abrupt('return', result);
+
+              case 2:
+                alterRecord = function alterRecord(req, trx, record, options) {
+                  return (0, _bluebird.reduce)(hooks, function () {
+                    var _ref9 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee8(record, hook) {
+                      return _regenerator2.default.wrap(function _callee8$(_context8) {
+                        while (1) {
+                          switch (_context8.prev = _context8.next) {
+                            case 0:
+                              _context8.next = 2;
+                              return hook(req, trx, record, options);
+
+                            case 2:
+                              _context8.t0 = _context8.sent;
+
+                              if (_context8.t0) {
+                                _context8.next = 5;
+                                break;
+                              }
+
+                              _context8.t0 = record;
+
+                            case 5:
+                              return _context8.abrupt('return', _context8.t0);
+
+                            case 6:
+                            case 'end':
+                              return _context8.stop();
+                          }
+                        }
+                      }, _callee8, _this6);
+                    }));
+
+                    return function (_x29, _x30) {
+                      return _ref9.apply(this, arguments);
+                    };
+                  }(), record);
+                };
+
+                if (!(_lodash2.default.isPlainObject(result) && result.records)) {
+                  _context9.next = 8;
+                  break;
+                }
+
+                _context9.next = 6;
+                return (0, _bluebird.mapSeries)(result.records, function (record) {
+                  return alterRecord(req, trx, record, options);
+                });
+
+              case 6:
+                records = _context9.sent;
+                return _context9.abrupt('return', (0, _extends3.default)({}, result, {
+                  records: records
+                }));
+
+              case 8:
+                return _context9.abrupt('return', alterRecord(req, trx, result, options));
+
+              case 9:
+              case 'end':
+                return _context9.stop();
+            }
+          }
+        }, _callee9, this);
+      }));
+
+      function _alterRecord(_x24, _x25, _x26, _x27, _x28) {
+        return _ref8.apply(this, arguments);
+      }
+
+      return _alterRecord;
+    }()
+  }, {
+    key: '_getResponder',
+    value: function _getResponder(req, res, result, options) {
+
+      var responderClass = this._getResponderClass(req, options);
+
+      return new responderClass({ req: req, res: res, result: result, options: options });
+    }
+  }, {
+    key: '_getResponderClass',
+    value: function _getResponderClass(req, options) {
 
       var format = req.params && req.params.format ? req.params.format : options.defaultFormat;
 
-      if (!_lodash2.default.includes(['csv', 'tsv', 'xlsx', 'xml', 'json'], format)) return 'JsonResponder';
+      if (_lodash2.default.includes(['xml'], format)) return _xml_responder2.default;
 
-      return _lodash2.default.capitalize(format) + 'Responder';
-    }
-  }, {
-    key: '_getResponder',
-    value: function _getResponder(req, res, options, rendered) {
+      if (_lodash2.default.includes(['xls', 'xlsx'], format)) return _xlsx_responder2.default;
 
-      var responderName = this._responderName(req, options);
+      if (_lodash2.default.includes(['tsv', 'csv'], format)) return _csv_responder2.default;
 
-      var responders = { CsvResponder: _csv_responder2.default, JsonResponder: _json_responder2.default, TsvResponder: _csv_responder2.default, XlsxResponder: _xlsx_responder2.default, XmlResponder: _xml_responder2.default };
-
-      var responderClass = options[responderName] || responders[responderName];
-
-      return new responderClass({ req: req, res: res, options: options, rendered: rendered });
+      return _json_responder2.default;
     }
   }]);
   return Route;

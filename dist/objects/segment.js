@@ -4,9 +4,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends2 = require('babel-runtime/helpers/extends');
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
-var _extends3 = _interopRequireDefault(_extends2);
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -79,16 +79,26 @@ var Segment = function (_Component) {
       var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
 
-      return this.routes.map(function (route) {
+      return this.routes.reduce(function (routes, route) {
 
         if (_this2.path) route.prependPath(_this2.path);
+
+        if (_this2.alterRequest) route.prependAlterRequest(_this2.alterRequest);
 
         if (_this2.beforeProcessor) route.prependBeforeProcessor(_this2.beforeProcessor);
 
         if (_this2.afterProcessor) route.prependAfterProcessor(_this2.afterProcessor);
 
-        return route.render((0, _extends3.default)({}, options));
-      });
+        if (_this2.alterRecord) route.prependAlterRecord(_this2.alterRecord);
+
+        if (_this2.beforeCommit) route.prependBeforeCommit(_this2.beforeCommit);
+
+        if (_this2.afterCommit) route.prependAfterCommit(_this2.afterCommit);
+
+        if (_this2.beforeRollback) route.prependBeforeRollback(_this2.beforeRollback);
+
+        return [].concat((0, _toConsumableArray3.default)(routes), (0, _toConsumableArray3.default)(_lodash2.default.castArray(route.render(options))));
+      }, []);
     }
   }]);
   return Segment;

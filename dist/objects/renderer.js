@@ -228,21 +228,29 @@ var Renderer = function () {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                if (!(_lodash2.default.isPlainObject(result) || _lodash2.default.isNil(options.serializer))) {
+                if (result.toJSON) {
                   _context6.next = 2;
                   break;
                 }
 
-                return _context6.abrupt('return', result.toJSON());
+                return _context6.abrupt('return', result);
 
               case 2:
-                _context6.next = 4;
+                if (!options.serializer) {
+                  _context6.next = 6;
+                  break;
+                }
+
+                _context6.next = 5;
                 return options.serializer(req, trx, result);
 
-              case 4:
+              case 5:
                 return _context6.abrupt('return', _context6.sent);
 
-              case 5:
+              case 6:
+                return _context6.abrupt('return', result.toJSON());
+
+              case 7:
               case 'end':
                 return _context6.stop();
             }

@@ -61,9 +61,11 @@ class Renderer {
 
   async _renderRecord(req, trx, result, options) {
 
-    if(_.isPlainObject(result) || _.isNil(options.serializer)) return result.toJSON()
+    if(!result.toJSON) return result
 
-    return await options.serializer(req, trx, result)
+    if(options.serializer) return await options.serializer(req, trx, result)
+
+    return result.toJSON()
 
   }
 

@@ -51,9 +51,10 @@ var JsonResponder = function (_Responder) {
           success: true,
           status: _status_codes2.default[200],
           message: 'Success'
-        },
+        }
+      }, this.pagination ? { pagination: this.pagination } : {}, {
         data: this.data
-      }, this.pagination ? { pagination: this.pagination } : {}));
+      }));
     }
   }]);
   return JsonResponder;

@@ -11,8 +11,8 @@ class JsonResponder extends Responder {
         status: statusCodes[200],
         message: 'Success'
       },
-      data: this.data,
-      ...this.pagination ? { pagination: this.pagination } : {}
+      ...this.pagination ? { pagination: this.pagination } : {},
+      data: this.data
     })
 
   }

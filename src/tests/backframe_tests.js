@@ -9,7 +9,7 @@ describe('backframe', () => {
   const logger = 'bar'
   const path = '/foobar'
   const plugins = ['a', 'b']
-  const segments = ['a', 'b']
+  const routes = ['a', 'b']
 
   it('should be instantiated by an object', () => {
 
@@ -20,7 +20,7 @@ describe('backframe', () => {
       logger,
       path,
       plugins,
-      segments
+      routes
     })
 
     expect(backframe.defaultFormat).to.be.eql(defaultFormat)
@@ -29,7 +29,7 @@ describe('backframe', () => {
     expect(backframe.logger).to.be.eql(logger)
     expect(backframe.path).to.be.eql(path)
     expect(backframe.plugins).to.be.eql(plugins)
-    expect(backframe.segments).to.be.eql(segments)
+    expect(backframe.routes).to.be.eql(routes)
 
   })
 
@@ -127,47 +127,47 @@ describe('backframe', () => {
 
   })
 
-  it('should set segments', () => {
+  it('should set routes', () => {
 
     const backframe = new Backframe()
 
-    backframe.setSegments(segments)
+    backframe.setRoutes(routes)
 
-    expect(backframe.segments).to.be.eql(segments)
+    expect(backframe.routes).to.be.eql(routes)
 
   })
 
-  it('should append segments', () => {
+  it('should append routes', () => {
 
     const a = 1
     const b = 2
 
     const backframe = new Backframe({
-      segments: [a]
+      routes: [a]
     })
 
-    backframe.appendSegment(b)
+    backframe.appendRoute(b)
 
-    expect(backframe.segments.length).to.be.eql(2)
-    expect(backframe.segments[0]).to.be.eql(a)
-    expect(backframe.segments[1]).to.be.eql(b)
+    expect(backframe.routes.length).to.be.eql(2)
+    expect(backframe.routes[0]).to.be.eql(a)
+    expect(backframe.routes[1]).to.be.eql(b)
 
   })
 
-  it('should append segments', () => {
+  it('should prepend routes', () => {
 
     const a = 1
     const b = 2
 
     const backframe = new Backframe({
-      segments: [b]
+      routes: [b]
     })
 
-    backframe.prependSegment(a)
+    backframe.prependRoute(a)
 
-    expect(backframe.segments.length).to.be.eql(2)
-    expect(backframe.segments[0]).to.be.eql(a)
-    expect(backframe.segments[1]).to.be.eql(b)
+    expect(backframe.routes.length).to.be.eql(2)
+    expect(backframe.routes[0]).to.be.eql(a)
+    expect(backframe.routes[1]).to.be.eql(b)
 
   })
 })

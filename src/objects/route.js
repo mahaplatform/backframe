@@ -74,65 +74,37 @@ class Route extends Component {
 
           logger.init(req, res, trx)
 
-          await Promise.reduce(this.alterRequest, async (req, hook) => {
-
-            return await hook(req, trx, options)
-
-          }, req)
-
           try {
 
-            req = await Promise.reduce(this.alterRequest, async (req, hook) => {
+            req = await this._alterRequest(req, trx, options, this.alterRequest)
 
-              return await hook(req, trx, options)
+            await this._runHooks(req, trx, null, options, this.beforeProcessor, false)
 
-            }, req)
+            const result = await this.processor(req, trx, options) || null
 
-            await Promise.mapSeries(this.beforeProcessor, async (hook) => {
-
-              await hook(req, trx, options)
-
-            })
-
-            let result = await this.processor(req, trx, options) || null
-
-            result = await Promise.reduce(this.afterProcessor, async (result, hook) => {
-
-              return await hook(req, trx, result, options)
-
-            }, result)
+            await this._runHooks(req, trx, result, options, this.afterProcessor, true)
 
             const renderer = new Renderer({ req, trx, result, options })
 
             const rendered = await renderer.render()
 
-            const responder = this._getResponder(req, res, options, rendered)
+            const altered = await this._alterRecord(req, trx, rendered, options, this.alterRecord)
+
+            const responder = this._getResponder(req, res, altered, options)
 
             await responder.render()
 
-            await Promise.mapSeries(this.beforeCommit, async (hook) => {
-
-              await hook(req, trx, options)
-
-            })
+            await this._runHooks(req, trx, altered, options, this.beforeCommit, true)
 
             await trx.commit(result)
 
-            await Promise.mapSeries(this.afterCommit, async (hook) => {
-
-              await hook(req, trx, options)
-
-            })
+            await this._runHooks(req, trx, altered, options, this.afterCommit, true)
 
             logger.print()
 
           } catch(error) {
 
-            await Promise.mapSeries(this.beforeRollback, async (hook) => {
-
-              await hook(req, trx, options)
-
-            })
+            await this._runHooks(req, trx, null, options, this.beforeRollback, false)
 
             const error_responder = new ErrorResponder({ res, error })
 
@@ -160,25 +132,90 @@ class Route extends Component {
     this.routeOptions[key] = this[key] = value
   }
 
-  _responderName(req, options) {
+  async _alterRequest(req, trx, options, hooks) {
 
-    const format = req.params && req.params.format ? req.params.format : options.defaultFormat
+    if(!hooks) return req
 
-    if(!_.includes(['csv','tsv','xlsx','xml','json'], format)) return 'JsonResponder'
+    return await Promise.reduce(hooks, async (req, hook) => {
 
-    return `${_.capitalize(format)}Responder`
+      return await hook(req, trx, options) || req
+
+    }, req)
 
   }
 
-  _getResponder(req, res, options, rendered) {
+  async _runHooks(req, trx, result, options, hooks, includeResult) {
 
-    const responderName = this._responderName(req, options)
+    if(!hooks) return
 
-    const responders = { CsvResponder, JsonResponder, TsvResponder: CsvResponder, XlsxResponder, XmlResponder }
+    await Promise.mapSeries(hooks, async (hook) => {
 
-    const responderClass = options[responderName] || responders[responderName]
+      if(includeResult) return await hook(req, trx, result, options)
 
-    return new responderClass({ req, res, options, rendered })
+      await hook(req, trx, options)
+
+    })
+
+  }
+
+  async _afterProcessor(req, trx, result, options, hooks) {
+
+    if(!hooks) return result
+
+    return await Promise.reduce(hooks, async (result, hook) => {
+
+      return await hook(req, trx, result, options) || result
+
+    }, result)
+
+  }
+
+  async _alterRecord(req, trx, result, options, hooks) {
+
+    if(!hooks) return result
+
+    const alterRecord = (req, trx, record, options) => Promise.reduce(hooks, async (record, hook) => {
+
+      return await hook(req, trx, record, options) || record
+
+    }, record)
+
+    if(_.isPlainObject(result) && result.records) {
+
+      const records = await Promise.mapSeries(result.records, record => {
+        return alterRecord(req, trx, record, options)
+      })
+
+      return {
+        ...result,
+        records
+      }
+
+    }
+
+    return alterRecord(req, trx, result, options)
+
+  }
+
+  _getResponder(req, res, result, options) {
+
+    const responderClass = this._getResponderClass(req, options)
+
+    return new responderClass({ req, res, result, options })
+
+  }
+
+  _getResponderClass(req, options) {
+
+    const format = req.params && req.params.format ? req.params.format : options.defaultFormat
+
+    if(_.includes(['xml'], format)) return XmlResponder
+
+    if(_.includes(['xls','xlsx'], format)) return XlsxResponder
+
+    if(_.includes(['tsv','csv'], format)) return CsvResponder
+
+    return JsonResponder
 
   }
 

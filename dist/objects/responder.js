@@ -35,19 +35,31 @@ var Responder = function () {
     this.req = config.req;
     this.res = config.res;
     this.options = config.options;
-    this.pagination = config.rendered.records ? this._getPagination(config.rendered) : null;
-    this.data = config.rendered.records ? config.rendered.records : config.rendered;
+    this.pagination = this._getPagination(config.result);
+    this.data = this._getData(config.result);
   }
 
   (0, _createClass3.default)(Responder, [{
     key: '_getPagination',
     value: function _getPagination(result) {
 
+      if (!result || _lodash2.default.get(result, 'records')) return null;
+
       if (result.next !== undefined) return _lodash2.default.pick(result, ['next', 'skip']);
 
       if (result.all !== undefined) return _lodash2.default.pick(result, ['all', 'total', 'limit', 'skip']);
 
       return null;
+    }
+  }, {
+    key: '_getData',
+    value: function _getData(result) {
+
+      if (!result) return result;
+
+      if (_lodash2.default.get(result, 'records')) return result.records;
+
+      return result;
     }
   }, {
     key: '_selectedLabels',

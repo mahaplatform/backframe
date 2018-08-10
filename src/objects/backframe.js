@@ -1,6 +1,5 @@
 import NotFoundRoute from './not_found_route'
 import Component from './component'
-import Segment from './segment'
 import _ from 'lodash'
 
 class Backframe extends Component {
@@ -17,7 +16,7 @@ class Backframe extends Component {
 
   plugins = []
 
-  segments = []
+  routes = []
 
   constructor(config = {}) {
     super(config)
@@ -27,7 +26,7 @@ class Backframe extends Component {
     if(config.logger) this.setLogger(config.logger)
     if(config.path) this.setPath(config.path)
     if(config.plugins) this.appendPlugin(config.plugins)
-    if(config.segments) this.appendSegment(config.segments)
+    if(config.routes) this.appendRoute(config.routes)
   }
 
   setDefaultFormat(defaultFormat) {
@@ -62,16 +61,16 @@ class Backframe extends Component {
     this._prependItem('plugins', plugin)
   }
 
-  setSegments(segments) {
-    this.segments = segments
+  setRoutes(routes) {
+    this.routes = routes
   }
 
-  appendSegment(segment) {
-    this._appendItem('segments', segment)
+  appendRoute(route) {
+    this._appendItem('routes', route)
   }
 
-  prependSegment(segment) {
-    this._prependItem('segments', segment)
+  prependRoute(route) {
+    this._prependItem('routes', route)
   }
 
   render() {
@@ -91,18 +90,27 @@ class Backframe extends Component {
 
     return [
 
-      ...this.segments.reduce((routes, segment) => {
+      ...this.routes.reduce((routes, route) => {
 
-        if(this.path) segment.prependPath(this.path)
+        if(this.path) route.prependPath(this.path)
 
-        if(this.beforeProcessor) segment.prependBeforeProcessor(this.beforeProcessor)
+        if(this.alterRequest) route.prependAlterRequest(this.alterRequest)
 
-        if(this.afterProcessor) segment.prependAfterProcessor(this.afterProcessor)
+        if(this.beforeProcessor) route.prependBeforeProcessor(this.beforeProcessor)
 
+        if(this.afterProcessor) route.prependAfterProcessor(this.afterProcessor)
+
+        if(this.alterRecord) route.prependAlterRecord(this.alterRecord)
+
+        if(this.beforeCommit) route.prependBeforeCommit(this.beforeCommit)
+
+        if(this.afterCommit) route.prependAfterCommit(this.afterCommit)
+
+        if(this.beforeRollback) route.prependBeforeRollback(this.beforeRollback)
 
         return [
           ...routes,
-          ...segment.render(options)
+          ..._.castArray(route.render(options))
         ]
 
       }, []),

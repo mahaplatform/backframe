@@ -115,6 +115,20 @@ class Resources extends Component {
 
       if(this.path) route.prependPath(this.path)
 
+      if(this.alterRequest) route.prependAlterRequest(this.alterRequest)
+
+      if(this.beforeProcessor) route.prependBeforeProcessor(this.beforeProcessor)
+
+      if(this.afterProcessor) route.prependAfterProcessor(this.afterProcessor)
+
+      if(this.alterRecord) route.prependAlterRecord(this.alterRecord)
+
+      if(this.beforeCommit) route.prependBeforeCommit(this.beforeCommit)
+
+      if(this.afterCommit) route.prependAfterCommit(this.afterCommit)
+
+      if(this.beforeRollback) route.prependBeforeRollback(this.beforeRollback)
+
       return route.render(options)
 
     })

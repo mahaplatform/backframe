@@ -16,7 +16,7 @@ describe('backframe', function () {
   var logger = 'bar';
   var path = '/foobar';
   var plugins = ['a', 'b'];
-  var segments = ['a', 'b'];
+  var routes = ['a', 'b'];
 
   it('should be instantiated by an object', function () {
 
@@ -27,7 +27,7 @@ describe('backframe', function () {
       logger: logger,
       path: path,
       plugins: plugins,
-      segments: segments
+      routes: routes
     });
 
     (0, _chai.expect)(backframe.defaultFormat).to.be.eql(defaultFormat);
@@ -36,7 +36,7 @@ describe('backframe', function () {
     (0, _chai.expect)(backframe.logger).to.be.eql(logger);
     (0, _chai.expect)(backframe.path).to.be.eql(path);
     (0, _chai.expect)(backframe.plugins).to.be.eql(plugins);
-    (0, _chai.expect)(backframe.segments).to.be.eql(segments);
+    (0, _chai.expect)(backframe.routes).to.be.eql(routes);
   });
 
   it('should set defaultFormat', function () {
@@ -125,44 +125,44 @@ describe('backframe', function () {
     (0, _chai.expect)(backframe.plugins[1]).to.be.eql(b);
   });
 
-  it('should set segments', function () {
+  it('should set routes', function () {
 
     var backframe = new _backframe2.default();
 
-    backframe.setSegments(segments);
+    backframe.setRoutes(routes);
 
-    (0, _chai.expect)(backframe.segments).to.be.eql(segments);
+    (0, _chai.expect)(backframe.routes).to.be.eql(routes);
   });
 
-  it('should append segments', function () {
+  it('should append routes', function () {
 
     var a = 1;
     var b = 2;
 
     var backframe = new _backframe2.default({
-      segments: [a]
+      routes: [a]
     });
 
-    backframe.appendSegment(b);
+    backframe.appendRoute(b);
 
-    (0, _chai.expect)(backframe.segments.length).to.be.eql(2);
-    (0, _chai.expect)(backframe.segments[0]).to.be.eql(a);
-    (0, _chai.expect)(backframe.segments[1]).to.be.eql(b);
+    (0, _chai.expect)(backframe.routes.length).to.be.eql(2);
+    (0, _chai.expect)(backframe.routes[0]).to.be.eql(a);
+    (0, _chai.expect)(backframe.routes[1]).to.be.eql(b);
   });
 
-  it('should append segments', function () {
+  it('should prepend routes', function () {
 
     var a = 1;
     var b = 2;
 
     var backframe = new _backframe2.default({
-      segments: [b]
+      routes: [b]
     });
 
-    backframe.prependSegment(a);
+    backframe.prependRoute(a);
 
-    (0, _chai.expect)(backframe.segments.length).to.be.eql(2);
-    (0, _chai.expect)(backframe.segments[0]).to.be.eql(a);
-    (0, _chai.expect)(backframe.segments[1]).to.be.eql(b);
+    (0, _chai.expect)(backframe.routes.length).to.be.eql(2);
+    (0, _chai.expect)(backframe.routes[0]).to.be.eql(a);
+    (0, _chai.expect)(backframe.routes[1]).to.be.eql(b);
   });
 });

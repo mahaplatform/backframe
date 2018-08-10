@@ -16,17 +16,29 @@ class Responder {
     this.req = config.req
     this.res = config.res
     this.options = config.options
-    this.pagination = config.rendered.records ? this._getPagination(config.rendered) : null
-    this.data = config.rendered.records ? config.rendered.records : config.rendered
+    this.pagination = this._getPagination(config.result)
+    this.data = this._getData(config.result)
   }
 
   _getPagination(result) {
+
+    if(!result || _.get(result, 'records')) return null
 
     if(result.next !== undefined) return _.pick(result, ['next','skip'])
 
     if(result.all !== undefined) return _.pick(result, ['all','total','limit','skip'])
 
     return null
+
+  }
+
+  _getData(result) {
+
+    if(!result) return result
+
+    if(_.get(result, 'records')) return result.records
+
+    return result
 
   }
 

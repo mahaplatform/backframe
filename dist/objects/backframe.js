@@ -32,10 +32,6 @@ var _component = require('./component');
 
 var _component2 = _interopRequireDefault(_component);
 
-var _segment = require('./segment');
-
-var _segment2 = _interopRequireDefault(_segment);
-
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -57,7 +53,7 @@ var Backframe = function (_Component) {
     _this.logger = null;
     _this.path = null;
     _this.plugins = [];
-    _this.segments = [];
+    _this.routes = [];
 
     if (config.defaultFormat) _this.setDefaultFormat(config.defaultFormat);
     if (config.defaultLimit) _this.setDefaultLimit(config.defaultLimit);
@@ -65,7 +61,7 @@ var Backframe = function (_Component) {
     if (config.logger) _this.setLogger(config.logger);
     if (config.path) _this.setPath(config.path);
     if (config.plugins) _this.appendPlugin(config.plugins);
-    if (config.segments) _this.appendSegment(config.segments);
+    if (config.routes) _this.appendRoute(config.routes);
     return _this;
   }
 
@@ -110,19 +106,19 @@ var Backframe = function (_Component) {
       this._prependItem('plugins', plugin);
     }
   }, {
-    key: 'setSegments',
-    value: function setSegments(segments) {
-      this.segments = segments;
+    key: 'setRoutes',
+    value: function setRoutes(routes) {
+      this.routes = routes;
     }
   }, {
-    key: 'appendSegment',
-    value: function appendSegment(segment) {
-      this._appendItem('segments', segment);
+    key: 'appendRoute',
+    value: function appendRoute(route) {
+      this._appendItem('routes', route);
     }
   }, {
-    key: 'prependSegment',
-    value: function prependSegment(segment) {
-      this._prependItem('segments', segment);
+    key: 'prependRoute',
+    value: function prependRoute(route) {
+      this._prependItem('routes', route);
     }
   }, {
     key: 'render',
@@ -141,15 +137,25 @@ var Backframe = function (_Component) {
         defaultLimit: this.defaultLimit
       };
 
-      return [].concat((0, _toConsumableArray3.default)(this.segments.reduce(function (routes, segment) {
+      return [].concat((0, _toConsumableArray3.default)(this.routes.reduce(function (routes, route) {
 
-        if (_this2.path) segment.prependPath(_this2.path);
+        if (_this2.path) route.prependPath(_this2.path);
 
-        if (_this2.beforeProcessor) segment.prependBeforeProcessor(_this2.beforeProcessor);
+        if (_this2.alterRequest) route.prependAlterRequest(_this2.alterRequest);
 
-        if (_this2.afterProcessor) segment.prependAfterProcessor(_this2.afterProcessor);
+        if (_this2.beforeProcessor) route.prependBeforeProcessor(_this2.beforeProcessor);
 
-        return [].concat((0, _toConsumableArray3.default)(routes), (0, _toConsumableArray3.default)(segment.render(options)));
+        if (_this2.afterProcessor) route.prependAfterProcessor(_this2.afterProcessor);
+
+        if (_this2.alterRecord) route.prependAlterRecord(_this2.alterRecord);
+
+        if (_this2.beforeCommit) route.prependBeforeCommit(_this2.beforeCommit);
+
+        if (_this2.afterCommit) route.prependAfterCommit(_this2.afterCommit);
+
+        if (_this2.beforeRollback) route.prependBeforeRollback(_this2.beforeRollback);
+
+        return [].concat((0, _toConsumableArray3.default)(routes), (0, _toConsumableArray3.default)(_lodash2.default.castArray(route.render(options))));
       }, [])), [_not_found_route2.default.render(options)]);
     }
   }]);
