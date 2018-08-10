@@ -34,59 +34,59 @@ class Component {
   }
 
   appendAlterRequest(hook) {
-    this._appendHook('alterRequest', hook)
+    this._appendItem('alterRequest', hook)
   }
 
   prependAlterRequest(hook) {
-    this._prependHook('alterRequest', hook)
+    this._prependItem('alterRequest', hook)
   }
 
   appendBeforeProcessor(hook) {
-    this._appendHook('beforeProcessor', hook)
+    this._appendItem('beforeProcessor', hook)
   }
 
   prependBeforeProcessor(hook) {
-    this._prependHook('beforeProcessor', hook)
+    this._prependItem('beforeProcessor', hook)
   }
 
   appendAfterProcessor(hook) {
-    this._appendHook('afterProcessor', hook)
+    this._appendItem('afterProcessor', hook)
   }
 
   prependAfterProcessor(hook) {
-    this._prependHook('afterProcessor', hook)
+    this._prependItem('afterProcessor', hook)
   }
 
   appendAlterRecord(hook) {
-    this._appendHook('alterRecord', hook)
+    this._appendItem('alterRecord', hook)
   }
 
   prependAlterRecord(hook) {
-    this._prependHook('alterRecord', hook)
+    this._prependItem('alterRecord', hook)
   }
 
   appendBeforeCommit(hook) {
-    this._appendHook('beforeCommit', hook)
+    this._appendItem('beforeCommit', hook)
   }
 
   prependBeforeCommit(hook) {
-    this._prependHook('beforeCommit', hook)
+    this._prependItem('beforeCommit', hook)
   }
 
   appendAfterCommit(hook) {
-    this._appendHook('afterCommit', hook)
+    this._appendItem('afterCommit', hook)
   }
 
   prependAfterCommit(hook) {
-    this._prependHook('afterCommit', hook)
+    this._prependItem('afterCommit', hook)
   }
 
   appendBeforeRollback(hook) {
-    this._appendHook('beforeRollback', hook)
+    this._appendItem('beforeRollback', hook)
   }
 
   prependBeforeRollback(hook) {
-    this._prependHook('beforeRollback', hook)
+    this._prependItem('beforeRollback', hook)
   }
 
   setPath(path) {
@@ -97,14 +97,14 @@ class Component {
     this.path = `${path}${this.path || ''}`
   }
 
-  _appendHook(type, item) {
+  _appendItem(type, item) {
     this[type] = [
       ...this[type] || [],
       ..._.castArray(item)
     ]
   }
 
-  _prependHook(type, item) {
+  _prependItem(type, item) {
     this[type] = [
       ..._.castArray(item),
       ...this[type] || []
