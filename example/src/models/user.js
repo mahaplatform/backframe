@@ -1,14 +1,14 @@
-import bookshelf from '../services/bookshelf'
-import Checkit from  'checkit'
-import _ from 'lodash'
+import model from './model'
 
-const User = bookshelf.Model.extend({
-
-  hasTimestamps: true,
+const User = model.extend({
 
   tableName: 'maha_users',
 
-  rules: {},
+  rules: {
+    'first_name': ['required'],
+    'last_name': ['required'],
+    'email': ['required', 'email']
+  },
 
   virtuals: {}
 
