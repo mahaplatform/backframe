@@ -12,7 +12,8 @@ describe('component', () => {
       alterRecord: (req, record) => record,
       beforeCommit: (req, result) => {},
       afterCommit: (req, result) => {},
-      beforeRollback: (req, result) => {}
+      beforeRollback: (req, result) => {},
+      path: '/foo/bar'
     })
 
     expect(component.alterRequest.length).to.be.eql(1)
@@ -22,6 +23,7 @@ describe('component', () => {
     expect(component.beforeCommit.length).to.be.eql(1)
     expect(component.afterCommit.length).to.be.eql(1)
     expect(component.beforeRollback.length).to.be.eql(1)
+    expect(component.path).to.be.eql('/foo/bar')
 
   })
 
@@ -76,6 +78,52 @@ describe('component', () => {
     ])
 
     expect(component.alterRequest.length).to.be.eql(2)
+
+  })
+
+  it('sets the path', () => {
+
+    const component = new Component()
+
+    component.setPath('/foo/bar')
+
+    expect(component.path).to.be.eql('/foo/bar')
+
+  })
+
+  it('prepends an existing path', () => {
+
+    const component = new Component({
+      path: '/bar'
+    })
+
+    component.prependPath('/foo')
+
+    expect(component.path).to.be.eql('/foo/bar')
+
+  })
+
+  it('prepends a null path', () => {
+
+    const component = new Component()
+
+    component.prependPath('/foo')
+
+    expect(component.path).to.be.eql('/foo')
+
+  })
+
+  it('extracts customOptions', () => {
+
+    const component = new Component({
+      custom1: 'custom1',
+      custom2: 'custom2'
+    })
+
+    expect(component.customOptions).to.be.eql({
+      custom1: 'custom1',
+      custom2: 'custom2'
+    })
 
   })
 })
