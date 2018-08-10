@@ -28,33 +28,33 @@ describe('component', function () {
       beforeRollback: function beforeRollback(req, result) {}
     });
 
-    (0, _chai.expect)(component.alterRequest.length).to.be.equal(1);
-    (0, _chai.expect)(component.beforeProcessor.length).to.be.equal(1);
-    (0, _chai.expect)(component.afterProcessor.length).to.be.equal(1);
-    (0, _chai.expect)(component.alterRecord.length).to.be.equal(1);
-    (0, _chai.expect)(component.beforeCommit.length).to.be.equal(1);
-    (0, _chai.expect)(component.afterCommit.length).to.be.equal(1);
-    (0, _chai.expect)(component.beforeRollback.length).to.be.equal(1);
+    (0, _chai.expect)(component.alterRequest.length).to.be.eql(1);
+    (0, _chai.expect)(component.beforeProcessor.length).to.be.eql(1);
+    (0, _chai.expect)(component.afterProcessor.length).to.be.eql(1);
+    (0, _chai.expect)(component.alterRecord.length).to.be.eql(1);
+    (0, _chai.expect)(component.beforeCommit.length).to.be.eql(1);
+    (0, _chai.expect)(component.afterCommit.length).to.be.eql(1);
+    (0, _chai.expect)(component.beforeRollback.length).to.be.eql(1);
   });
 
   it('appends a single hook', function () {
 
     var component = new _component2.default();
 
-    (0, _chai.expect)(component.alterRequest.length).to.be.equal(0);
+    (0, _chai.expect)(component.alterRequest.length).to.be.eql(0);
 
     component.appendAlterRequest(function (req) {
       return req;
     });
 
-    (0, _chai.expect)(component.alterRequest.length).to.be.equal(1);
+    (0, _chai.expect)(component.alterRequest.length).to.be.eql(1);
   });
 
   it('appends multiple hooks', function () {
 
     var component = new _component2.default();
 
-    (0, _chai.expect)(component.alterRequest.length).to.be.equal(0);
+    (0, _chai.expect)(component.alterRequest.length).to.be.eql(0);
 
     component.appendAlterRequest([function (req) {
       return req;
@@ -62,27 +62,27 @@ describe('component', function () {
       return req;
     }]);
 
-    (0, _chai.expect)(component.alterRequest.length).to.be.equal(2);
+    (0, _chai.expect)(component.alterRequest.length).to.be.eql(2);
   });
 
   it('prepends a single hook', function () {
 
     var component = new _component2.default();
 
-    (0, _chai.expect)(component.alterRequest.length).to.be.equal(0);
+    (0, _chai.expect)(component.alterRequest.length).to.be.eql(0);
 
     component.prependAlterRequest(function (req) {
       return req;
     });
 
-    (0, _chai.expect)(component.alterRequest.length).to.be.equal(1);
+    (0, _chai.expect)(component.alterRequest.length).to.be.eql(1);
   });
 
   it('prepends multiple hooks', function () {
 
     var component = new _component2.default();
 
-    (0, _chai.expect)(component.alterRequest.length).to.be.equal(0);
+    (0, _chai.expect)(component.alterRequest.length).to.be.eql(0);
 
     component.prependAlterRequest([function (req) {
       return req;
@@ -90,6 +90,6 @@ describe('component', function () {
       return req;
     }]);
 
-    (0, _chai.expect)(component.alterRequest.length).to.be.equal(2);
+    (0, _chai.expect)(component.alterRequest.length).to.be.eql(2);
   });
 });

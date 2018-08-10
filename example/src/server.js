@@ -1,3 +1,4 @@
+import './services/environment'
 import { Backframe, Plugin, Resources, Route, Segment, ExpressTransport } from 'backframe'
 import UserSerializer from './serializers/user_serializer'
 import knex from './services/knex'

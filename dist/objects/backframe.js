@@ -95,6 +95,11 @@ var Backframe = function (_Component) {
       this.path = path;
     }
   }, {
+    key: 'setPlugins',
+    value: function setPlugins(plugins) {
+      this.plugins = plugins;
+    }
+  }, {
     key: 'appendPlugin',
     value: function appendPlugin(plugin) {
       this._appendItem('plugins', plugin);
@@ -103,6 +108,11 @@ var Backframe = function (_Component) {
     key: 'prependPlugin',
     value: function prependPlugin(plugin) {
       this._prependItem('plugins', plugin);
+    }
+  }, {
+    key: 'setSegments',
+    value: function setSegments(segments) {
+      this.segments = segments;
     }
   }, {
     key: 'appendSegment',
