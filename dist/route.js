@@ -103,7 +103,7 @@ var Route = function (_Component) {
   (0, _createClass3.default)(Route, [{
     key: 'setAction',
     value: function setAction(action) {
-      this.action = action;
+      this._setRouteParams('action', action);
     }
   }, {
     key: 'setMethod',
@@ -139,6 +139,10 @@ var Route = function (_Component) {
       return {
 
         method: this.method,
+
+        options: options,
+
+        hooks: _lodash2.default.pick(this, ['alterRequest', 'beforeProcessor', 'afterProcessor', 'alterRecord', 'beforeCommit', 'afterCommit', 'afterRollback']),
 
         path: this.path.replace(':id', ':id(\\d+)') + '.:format?',
 

@@ -30,7 +30,7 @@ class Route extends Component {
   }
 
   setAction(action) {
-    this.action = action
+    this._setRouteParams('action', action)
   }
 
   setMethod(method) {
@@ -61,6 +61,10 @@ class Route extends Component {
     return {
 
       method: this.method,
+
+      options,
+
+      hooks: _.pick(this, ['alterRequest','beforeProcessor','afterProcessor','alterRecord', 'beforeCommit', 'afterCommit', 'afterRollback']),
 
       path: `${this.path.replace(':id',':id(\\d+)')}.:format?`,
 
