@@ -1,29 +1,36 @@
+import reserved from './utils/reserved'
 import _ from 'lodash'
 
 class Component {
 
-  alterRequest = []
-
-  beforeProcessor = []
+  afterCommit = []
 
   afterProcessor = []
 
   alterRecord = []
 
+  alterRequest = []
+
   beforeCommit = []
 
-  afterCommit = []
+  beforeProcessor = []
 
   beforeRollback = []
 
+  customOptions = {}
+
+  path = null
+
   constructor(config = {}) {
-    if(config.alterRequest) this.appendAlterRequest(config.alterRequest)
-    if(config.beforeProcessor) this.appendBeforeProcessor(config.beforeProcessor)
+    if(config.afterCommit) this.appendAfterCommit(config.afterCommit)
     if(config.afterProcessor) this.appendAfterProcessor(config.afterProcessor)
     if(config.alterRecord) this.appendAlterRecord(config.alterRecord)
+    if(config.alterRequest) this.appendAlterRequest(config.alterRequest)
     if(config.beforeCommit) this.appendBeforeCommit(config.beforeCommit)
-    if(config.afterCommit) this.appendAfterCommit(config.afterCommit)
+    if(config.beforeProcessor) this.appendBeforeProcessor(config.beforeProcessor)
     if(config.beforeRollback) this.appendBeforeRollback(config.beforeRollback)
+    if(config.path) this.setPath(config.path)
+    this._setCustomOptions(config)
   }
 
   appendAlterRequest(hook) {
@@ -82,6 +89,14 @@ class Component {
     this._prependItem('beforeRollback', hook)
   }
 
+  setPath(path) {
+    this.path = path
+  }
+
+  prependPath(path) {
+    this.path = `${path}${this.path || ''}`
+  }
+
   _appendItem(type, item) {
     this[type] = [
       ...this[type],
@@ -94,6 +109,13 @@ class Component {
       ..._.castArray(item),
       ...this[type]
     ]
+  }
+
+  _setCustomOptions(options) {
+    this.customOptions = {
+      ...this.customOptions,
+      ..._.omit(options, reserved)
+    }
   }
 
 }

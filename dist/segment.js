@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
 var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
@@ -43,25 +47,13 @@ var Segment = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (Segment.__proto__ || Object.getPrototypeOf(Segment)).call(this, config));
 
-    _this.path = null;
     _this.routes = [];
 
-    if (config.path) _this.setPath(config.path);
     if (config.routes) _this.appendRoute(config.routes);
     return _this;
   }
 
   (0, _createClass3.default)(Segment, [{
-    key: 'setPath',
-    value: function setPath(path) {
-      this.path = path;
-    }
-  }, {
-    key: 'prependPath',
-    value: function prependPath(path) {
-      this.path = '' + path + this.path;
-    }
-  }, {
     key: 'appendRoute',
     value: function appendRoute(route) {
       this._appendItem('routes', route);
@@ -97,7 +89,7 @@ var Segment = function (_Component) {
 
         if (_this2.beforeRollback) route.prependBeforeRollback(_this2.beforeRollback);
 
-        return [].concat((0, _toConsumableArray3.default)(routes), (0, _toConsumableArray3.default)(_lodash2.default.castArray(route.render(options))));
+        return [].concat((0, _toConsumableArray3.default)(routes), (0, _toConsumableArray3.default)(_lodash2.default.castArray(route.render((0, _extends3.default)({}, options, _this2.customOptions)))));
       }, []);
     }
   }]);

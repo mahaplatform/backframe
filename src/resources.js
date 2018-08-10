@@ -20,11 +20,7 @@ class Resources extends Component {
 
   only = null
 
-  path = null
-
   except = null
-
-  resourceOptions = {}
 
   serializer = null
 
@@ -39,10 +35,8 @@ class Resources extends Component {
     if(config.memberActions) this.appendMemberAction(config.memberActions)
     if(config.model) this.setModel(config.model)
     if(config.only) this.setOnly(config.only)
-    if(config.path) this.setPath(config.path)
     if(config.serializer) this.setSerializer(config.serializer)
     if(config.sortParams) this.setSortParams(config.sortParams)
-    this._setResourceOptions(config)
   }
 
   setAllowedParams(allowedParams) {
@@ -63,14 +57,6 @@ class Resources extends Component {
 
   setOnly(only) {
     this.only = only
-  }
-
-  setPath(path) {
-    this.path = path
-  }
-
-  prependPath(path) {
-    this.path = `${path}${this.path}`
   }
 
   setSerializer(serializer) {
@@ -135,18 +121,11 @@ class Resources extends Component {
 
       return route.render({
         ...options,
-        ...this._getDestructuredOptions(this.resourceOptions, route.action)
+        ...this._getDestructuredOptions(this.customOptions, route.action)
       })
 
     })
 
-  }
-
-  _setResourceOptions(options) {
-    this.resourceOptions = {
-      ...this.resourceOptions,
-      ..._.omit(options, reserved)
-    }
   }
 
   _includeAction(action) {

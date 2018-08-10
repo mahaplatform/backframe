@@ -3,22 +3,11 @@ import _ from 'lodash'
 
 class Segment extends Component {
 
-  path = null
-
   routes = []
 
   constructor(config = {}) {
     super(config)
-    if(config.path) this.setPath(config.path)
     if(config.routes) this.appendRoute(config.routes)
-  }
-
-  setPath(path) {
-    this.path = path
-  }
-
-  prependPath(path) {
-    this.path = `${path}${this.path}`
   }
 
   appendRoute(route) {
@@ -51,7 +40,10 @@ class Segment extends Component {
 
       return [
         ...routes,
-        ..._.castArray(route.render(options))
+        ..._.castArray(route.render({
+          ...options,
+          ...this.customOptions
+        }))
       ]
 
     }, [])

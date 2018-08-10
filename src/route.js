@@ -15,8 +15,6 @@ class Route extends Component {
 
   method = 'get'
 
-  path = ''
-
   processor = () => {}
 
   routeOptions = {}
@@ -27,7 +25,6 @@ class Route extends Component {
     super(config)
     if(config.action) this.setAction(config.action)
     if(config.method) this.setMethod(config.method)
-    if(config.path) this.setPath(config.path)
     if(config.processor) this.setProcessor(config.processor)
     if(config.serializer) this.setSerializer(config.serializer)
   }
@@ -38,14 +35,6 @@ class Route extends Component {
 
   setMethod(method) {
     this.method = method
-  }
-
-  setPath(path) {
-    this.path = path
-  }
-
-  prependPath(path) {
-    this.path = `${path}${this.path}`
   }
 
   setProcessor(processor) {

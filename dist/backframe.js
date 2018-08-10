@@ -51,7 +51,6 @@ var Backframe = function (_Component) {
     _this.defaultLimit = 100;
     _this.knex = null;
     _this.logger = null;
-    _this.path = null;
     _this.plugins = [];
     _this.routes = [];
 
@@ -59,7 +58,6 @@ var Backframe = function (_Component) {
     if (config.defaultLimit) _this.setDefaultLimit(config.defaultLimit);
     if (config.knex) _this.setKnex(config.knex);
     if (config.logger) _this.setLogger(config.logger);
-    if (config.path) _this.setPath(config.path);
     if (config.plugins) _this.appendPlugin(config.plugins);
     if (config.routes) _this.appendRoute(config.routes);
     return _this;
@@ -84,11 +82,6 @@ var Backframe = function (_Component) {
     key: 'setLogger',
     value: function setLogger(logger) {
       this.logger = logger;
-    }
-  }, {
-    key: 'setPath',
-    value: function setPath(path) {
-      this.path = path;
     }
   }, {
     key: 'setPlugins',

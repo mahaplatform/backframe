@@ -88,9 +88,7 @@ var Resources = function (_Component) {
     _this.model = null;
     _this.memberActions = [];
     _this.only = null;
-    _this.path = null;
     _this.except = null;
-    _this.resourceOptions = {};
     _this.serializer = null;
     _this.sortParams = [];
 
@@ -101,10 +99,8 @@ var Resources = function (_Component) {
     if (config.memberActions) _this.appendMemberAction(config.memberActions);
     if (config.model) _this.setModel(config.model);
     if (config.only) _this.setOnly(config.only);
-    if (config.path) _this.setPath(config.path);
     if (config.serializer) _this.setSerializer(config.serializer);
     if (config.sortParams) _this.setSortParams(config.sortParams);
-    _this._setResourceOptions(config);
     return _this;
   }
 
@@ -132,16 +128,6 @@ var Resources = function (_Component) {
     key: 'setOnly',
     value: function setOnly(only) {
       this.only = only;
-    }
-  }, {
-    key: 'setPath',
-    value: function setPath(path) {
-      this.path = path;
-    }
-  }, {
-    key: 'prependPath',
-    value: function prependPath(path) {
-      this.path = '' + path + this.path;
     }
   }, {
     key: 'setSerializer',
@@ -219,13 +205,8 @@ var Resources = function (_Component) {
 
         if (_this2.beforeRollback) route.prependBeforeRollback(_this2.beforeRollback);
 
-        return route.render((0, _extends3.default)({}, options, _this2._getDestructuredOptions(_this2.resourceOptions, route.action)));
+        return route.render((0, _extends3.default)({}, options, _this2._getDestructuredOptions(_this2.customOptions, route.action)));
       });
-    }
-  }, {
-    key: '_setResourceOptions',
-    value: function _setResourceOptions(options) {
-      this.resourceOptions = (0, _extends3.default)({}, this.resourceOptions, _lodash2.default.omit(options, _reserved2.default));
     }
   }, {
     key: '_includeAction',

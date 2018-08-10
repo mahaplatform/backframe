@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
 var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
@@ -16,6 +20,10 @@ var _createClass2 = require('babel-runtime/helpers/createClass');
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
+var _reserved = require('./utils/reserved');
+
+var _reserved2 = _interopRequireDefault(_reserved);
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -26,21 +34,25 @@ var Component = function () {
   function Component() {
     var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     (0, _classCallCheck3.default)(this, Component);
-    this.alterRequest = [];
-    this.beforeProcessor = [];
+    this.afterCommit = [];
     this.afterProcessor = [];
     this.alterRecord = [];
+    this.alterRequest = [];
     this.beforeCommit = [];
-    this.afterCommit = [];
+    this.beforeProcessor = [];
     this.beforeRollback = [];
+    this.customOptions = {};
+    this.path = null;
 
-    if (config.alterRequest) this.appendAlterRequest(config.alterRequest);
-    if (config.beforeProcessor) this.appendBeforeProcessor(config.beforeProcessor);
+    if (config.afterCommit) this.appendAfterCommit(config.afterCommit);
     if (config.afterProcessor) this.appendAfterProcessor(config.afterProcessor);
     if (config.alterRecord) this.appendAlterRecord(config.alterRecord);
+    if (config.alterRequest) this.appendAlterRequest(config.alterRequest);
     if (config.beforeCommit) this.appendBeforeCommit(config.beforeCommit);
-    if (config.afterCommit) this.appendAfterCommit(config.afterCommit);
+    if (config.beforeProcessor) this.appendBeforeProcessor(config.beforeProcessor);
     if (config.beforeRollback) this.appendBeforeRollback(config.beforeRollback);
+    if (config.path) this.setPath(config.path);
+    this._setCustomOptions(config);
   }
 
   (0, _createClass3.default)(Component, [{
@@ -114,6 +126,16 @@ var Component = function () {
       this._prependItem('beforeRollback', hook);
     }
   }, {
+    key: 'setPath',
+    value: function setPath(path) {
+      this.path = path;
+    }
+  }, {
+    key: 'prependPath',
+    value: function prependPath(path) {
+      this.path = '' + path + (this.path || '');
+    }
+  }, {
     key: '_appendItem',
     value: function _appendItem(type, item) {
       this[type] = [].concat((0, _toConsumableArray3.default)(this[type]), (0, _toConsumableArray3.default)(_lodash2.default.castArray(item)));
@@ -122,6 +144,11 @@ var Component = function () {
     key: '_prependItem',
     value: function _prependItem(type, item) {
       this[type] = [].concat((0, _toConsumableArray3.default)(_lodash2.default.castArray(item)), (0, _toConsumableArray3.default)(this[type]));
+    }
+  }, {
+    key: '_setCustomOptions',
+    value: function _setCustomOptions(options) {
+      this.customOptions = (0, _extends3.default)({}, this.customOptions, _lodash2.default.omit(options, _reserved2.default));
     }
   }]);
   return Component;

@@ -12,8 +12,6 @@ class Backframe extends Component {
 
   logger = null
 
-  path = null
-
   plugins = []
 
   routes = []
@@ -24,7 +22,6 @@ class Backframe extends Component {
     if(config.defaultLimit) this.setDefaultLimit(config.defaultLimit)
     if(config.knex) this.setKnex(config.knex)
     if(config.logger) this.setLogger(config.logger)
-    if(config.path) this.setPath(config.path)
     if(config.plugins) this.appendPlugin(config.plugins)
     if(config.routes) this.appendRoute(config.routes)
   }
@@ -43,10 +40,6 @@ class Backframe extends Component {
 
   setLogger(logger) {
     this.logger = logger
-  }
-
-  setPath(path) {
-    this.path = path
   }
 
   setPlugins(plugins) {

@@ -87,7 +87,6 @@ var Route = function (_Component) {
 
     _this.action = null;
     _this.method = 'get';
-    _this.path = '';
 
     _this.processor = function () {};
 
@@ -96,7 +95,6 @@ var Route = function (_Component) {
 
     if (config.action) _this.setAction(config.action);
     if (config.method) _this.setMethod(config.method);
-    if (config.path) _this.setPath(config.path);
     if (config.processor) _this.setProcessor(config.processor);
     if (config.serializer) _this.setSerializer(config.serializer);
     return _this;
@@ -111,16 +109,6 @@ var Route = function (_Component) {
     key: 'setMethod',
     value: function setMethod(method) {
       this.method = method;
-    }
-  }, {
-    key: 'setPath',
-    value: function setPath(path) {
-      this.path = path;
-    }
-  }, {
-    key: 'prependPath',
-    value: function prependPath(path) {
-      this.path = '' + path + this.path;
     }
   }, {
     key: 'setProcessor',
