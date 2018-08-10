@@ -34,7 +34,6 @@ const activate = new Route({
 })
 
 const users = new Resources({
-  authenticated: true,
   allowedParams: ['first_name','last_name','email','created_at'],
   filterParams: ['id','first_name','last_name','email','created_at'],
   model: User,
@@ -77,6 +76,14 @@ const nestedSegment1 = new Segment()
 nestedSegment1.setPath('/one')
 nestedSegment1.appendRoute(nestedSegment2)
 
+const authenticated = new Segment({
+  authenticated: true,
+  routes: [
+    users,
+    nestedSegment1
+  ]
+})
+
 const api = new Backframe({
   knex,
   path: '/api',
@@ -84,12 +91,13 @@ const api = new Backframe({
     authenticator
   ],
   routes: [
-    users,
-    nestedSegment1
+    authenticated
   ]
 })
 
 const routes = api.render()
+
+console.log(routes)
 
 const transport = new ExpressTransport(routes)
 
