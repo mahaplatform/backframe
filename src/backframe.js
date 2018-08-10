@@ -1,4 +1,4 @@
-import NotFoundRoute from './routes/not_found_route'
+import NotFoundRoute from './not_found_route'
 import Component from './component'
 import _ from 'lodash'
 

@@ -4,13 +4,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _regenerator = require('babel-runtime/regenerator');
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
 var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
 
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
@@ -57,7 +57,7 @@ var UpdateRoute = function (_Route) {
 
     _this.setAction('update');
     _this.setMethod('patch');
-    _this.setPath('/:id');
+    _this.setPath('');
     _this.setProcessor(_this._processor);
     if (config.allowedParams) _this.setAllowedParams(config.allowedParams);
     if (config.model) _this.setModel(config.model);
@@ -84,14 +84,13 @@ var UpdateRoute = function (_Route) {
     key: '_processor',
     value: function () {
       var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
-        var allowed, params;
+        var params;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                allowed = [].concat((0, _toConsumableArray3.default)(_lodash2.default.castArray(options.allowedParams)), (0, _toConsumableArray3.default)(_lodash2.default.castArray(options.virtualParams)));
-                params = _lodash2.default.pick(req.body, allowed);
+                params = this._allowedParams(req.body, options.allowedParams, options.virtualParams);
 
 
                 req.resource.save(params, {
@@ -101,8 +100,8 @@ var UpdateRoute = function (_Route) {
 
                 return _context.abrupt('return', req.resource);
 
-              case 7:
-                _context.prev = 7;
+              case 6:
+                _context.prev = 6;
                 _context.t0 = _context['catch'](0);
                 throw new _error2.default({
                   code: 422,
@@ -110,12 +109,12 @@ var UpdateRoute = function (_Route) {
                   errors: _context.t0.errors ? _context.t0.toJSON() : _context.t0.message
                 });
 
-              case 10:
+              case 9:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 7]]);
+        }, _callee, this, [[0, 6]]);
       }));
 
       function _processor(_x2, _x3, _x4) {
@@ -124,6 +123,14 @@ var UpdateRoute = function (_Route) {
 
       return _processor;
     }()
+  }, {
+    key: '_allowedParams',
+    value: function _allowedParams(body, allowedParams, virtualParams) {
+
+      var allowed = [].concat((0, _toConsumableArray3.default)(_lodash2.default.castArray(allowedParams)), (0, _toConsumableArray3.default)(_lodash2.default.castArray(virtualParams)));
+
+      return _lodash2.default.pick(body, allowed);
+    }
   }]);
   return UpdateRoute;
 }(_route2.default);

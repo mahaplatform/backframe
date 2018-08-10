@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
 var _bluebird = require('bluebird');
 
 var _regenerator = require('babel-runtime/regenerator');
@@ -13,10 +17,6 @@ var _regenerator2 = _interopRequireDefault(_regenerator);
 var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
-
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
@@ -90,25 +90,22 @@ var CreateRoute = function (_Route) {
     key: '_processor',
     value: function () {
       var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
-        var allowed, params;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                allowed = [].concat((0, _toConsumableArray3.default)(_lodash2.default.castArray(options.allowedParams)), (0, _toConsumableArray3.default)(_lodash2.default.castArray(options.virtualParams)));
-                params = _lodash2.default.pick(req.body, allowed);
-                _context.next = 5;
-                return options.model.forge((0, _extends3.default)({}, this._defaultParams(req, trx, options), params)).save(null, {
+                _context.next = 3;
+                return options.model.forge((0, _extends3.default)({}, this._defaultParams(req, trx, options), this._allowedParams(req.body, options.allowedParams, options.virtualParams))).save(null, {
                   transacting: trx
                 });
 
-              case 5:
+              case 3:
                 req.resource = _context.sent;
                 return _context.abrupt('return', req.resource);
 
-              case 9:
-                _context.prev = 9;
+              case 7:
+                _context.prev = 7;
                 _context.t0 = _context['catch'](0);
                 throw new _error2.default({
                   code: 422,
@@ -116,12 +113,12 @@ var CreateRoute = function (_Route) {
                   errors: _context.t0.errors ? _context.t0.toJSON() : _context.t0.message
                 });
 
-              case 12:
+              case 10:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 9]]);
+        }, _callee, this, [[0, 7]]);
       }));
 
       function _processor(_x2, _x3, _x4) {
@@ -195,6 +192,14 @@ var CreateRoute = function (_Route) {
 
       return _defaultParams;
     }()
+  }, {
+    key: '_allowedParams',
+    value: function _allowedParams(body, allowedParams, virtualParams) {
+
+      var allowed = [].concat((0, _toConsumableArray3.default)(_lodash2.default.castArray(allowedParams)), (0, _toConsumableArray3.default)(_lodash2.default.castArray(virtualParams)));
+
+      return _lodash2.default.pick(body, allowed);
+    }
   }]);
   return CreateRoute;
 }(_route2.default);

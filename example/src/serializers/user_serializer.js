@@ -8,6 +8,8 @@ const user_serializer = (req, trx, record, options) => ({
 
   email: record.get('email'),
 
+  photo: record.related('photo').get('file_name'),
+
   created_at: record.get('created_at'),
 
   updated_at: record.get('updated_at')

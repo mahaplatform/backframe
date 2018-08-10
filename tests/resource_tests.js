@@ -1,7 +1,7 @@
 import { expect } from 'chai'
-import Resources from '../src/resources'
+import Resource from '../src/resource'
 
-describe('resources', () => {
+describe('resource', () => {
 
   it('should include all actions by default')
 

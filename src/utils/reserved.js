@@ -25,7 +25,10 @@ const reserved = [
   'resourceOptions',
   'routes',
   'serializer',
-  'sortParams'
+  'searchParams',
+  'sortParams',
+  'virtualFilters',
+  'virtualParams'
 ]
 
 export default reserved

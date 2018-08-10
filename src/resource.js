@@ -1,74 +1,30 @@
-import DestroyRoute from './resources/destroy_route'
-import CreateRoute from './resources/create_route'
-import UpdateRoute from './resources/update_route'
-import ListRoute from './resources/list_route'
-import ShowRoute from './resources/show_route'
+import DestroyRoute from './resource/destroy_route'
+import CreateRoute from './resource/create_route'
+import UpdateRoute from './resource/update_route'
+import ShowRoute from './resource/show_route'
 import Collection from './collection'
 import BackframeError from './error'
 import _ from 'lodash'
 
 class Resources extends Collection {
 
-  collectionActions = null
-
-  filterParams = null
-
-  memberActions = null
-
-  searchParams = null
-
-  sortParams = null
-
-  virtualFilters = null
+  actions = null
 
   constructor(config = {}) {
     super(config)
-    if(config.collectionActions) this.appendCollectionAction(config.collectionActions)
-    if(config.filterParams) this.setFilterParams(config.filterParams)
-    if(config.memberActions) this.appendMemberAction(config.memberActions)
-    if(config.searchParams) this.setSearchParams(config.searchParams)
-    if(config.sortParams) this.setSortParams(config.sortParams)
-    if(config.virtualFilters) this.setVirtualFilters(config.virtualFilters)
+    if(config.actions) this.appendAction(config.actions)
   }
 
-  setFilterParams(params) {
-    this.filterParams = _.castArray(params)
+  setActions(actions) {
+    this.actions = _.castArray(actions)
   }
 
-  setSearchParams(params) {
-    this.searchParams = _.castArray(params)
+  appendAction(action) {
+    this._appendItem('actions', action)
   }
 
-  setSortParams(params) {
-    this.sortParams = _.castArray(params)
-  }
-
-  setVirtualFilters(virtualFilters) {
-    this.virtualFilters = virtualFilters
-  }
-
-  setCollectionActions(actions) {
-    this.collectionActions = _.castArray(actions)
-  }
-
-  appendCollectionAction(action) {
-    this._appendItem('collectionActions', action)
-  }
-
-  prependCollectionAction(action) {
-    this._prependItem('collectionActions', action)
-  }
-
-  setMemberActions(actions) {
-    this.memberActions = _.castArray(actions)
-  }
-
-  appendMemberAction(action) {
-    this._appendItem('memberActions', action)
-  }
-
-  prependMemberAction(action) {
-    this._prependItem('memberActions', action)
+  prependAction(action) {
+    this._prependItem('actions', action)
   }
 
   render(options = {}) {
@@ -103,7 +59,7 @@ class Resources extends Collection {
   async _fetchResource(req, trx, options) {
 
     req.resource = await options.model.where({
-      id: req.params.id
+      id: 1
     }).fetch({
       transacting: trx
     })
@@ -121,15 +77,13 @@ class Resources extends Collection {
 
     const routes = []
 
-    if(this._includeAction('list')) routes.push(this._getListRoute())
+    if(this.actions) {
 
-    if(this._includeAction('create')) routes.push(this._getCreateRoute())
-
-    if(this.collectionActions) {
-
-      this.collectionActions.map(route => routes.push(this._getCollectionRoute(route)))
+      this.actions.map(route => routes.push(this._getCollectionRoute(route)))
 
     }
+
+    if(this._includeAction('create')) routes.push(this._getCreateRoute())
 
     if(this._includeAction('show')) routes.push(this._getShowRoute())
 
@@ -137,27 +91,8 @@ class Resources extends Collection {
 
     if(this._includeAction('destroy')) routes.push(this._getDestroyRoute())
 
-    if(this.memberActions) {
-
-      this.memberActions.map(route => routes.push(this._getMemberRoute(route)))
-
-    }
-
     return routes
 
-  }
-
-  _getListRoute() {
-    return new ListRoute({
-      defaultQuery: this._getDestructuredOption(this, 'defaultQuery', 'list'),
-      defaultSort: this._getDestructuredOption(this, 'defaultSort', 'list'),
-      filterParams: this._getDestructuredOption(this, 'filterParams', 'list'),
-      model: this._getDestructuredOption(this, 'model', 'list'),
-      serializer: this._getDestructuredOption(this, 'serializer', 'list'),
-      searchParams: this._getDestructuredOption(this, 'searchParams', 'list'),
-      sortParams: this._getDestructuredOption(this, 'sortParams', 'list'),
-      withRelated: this._getDestructuredOption(this, 'withRelated', 'list')
-    })
   }
 
   _getCreateRoute() {

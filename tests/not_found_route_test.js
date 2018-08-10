@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import NotFoundRoute from '../../src/routes/not_found_route'
+import NotFoundRoute from '../src/not_found_route'
 
 describe('not_found_route', () => {
 

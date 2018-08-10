@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import CreateRoute from '../../src/routes/create_route'
+import CreateRoute from '../../src/resources/create_route'
 
 describe('create_route', () => {
 

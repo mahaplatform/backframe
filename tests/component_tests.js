@@ -31,8 +31,6 @@ describe('component', () => {
 
     const component = new Component()
 
-    expect(component.alterRequest.length).to.be.eql(0)
-
     component.appendAlterRequest((req) => req)
 
     expect(component.alterRequest.length).to.be.eql(1)
@@ -42,8 +40,6 @@ describe('component', () => {
   it('appends multiple hooks', () => {
 
     const component = new Component()
-
-    expect(component.alterRequest.length).to.be.eql(0)
 
     component.appendAlterRequest([
       (req) => req,
@@ -58,8 +54,6 @@ describe('component', () => {
 
     const component = new Component()
 
-    expect(component.alterRequest.length).to.be.eql(0)
-
     component.prependAlterRequest((req) => req)
 
     expect(component.alterRequest.length).to.be.eql(1)
@@ -69,8 +63,6 @@ describe('component', () => {
   it('prepends multiple hooks', () => {
 
     const component = new Component()
-
-    expect(component.alterRequest.length).to.be.eql(0)
 
     component.prependAlterRequest([
       (req) => req,

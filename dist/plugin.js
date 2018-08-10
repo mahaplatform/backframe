@@ -36,10 +36,8 @@ var Plugin = function (_Component) {
     var _this = (0, _possibleConstructorReturn3.default)(this, (Plugin.__proto__ || Object.getPrototypeOf(Plugin)).call(this, config));
 
     _this.name = null;
-    _this.options = [];
 
     if (config.name) _this.setName(config.name);
-    if (config.options) _this.setOptions(config.options);
     return _this;
   }
 
@@ -47,11 +45,6 @@ var Plugin = function (_Component) {
     key: 'setName',
     value: function setName(name) {
       this.name = name;
-    }
-  }, {
-    key: 'setOptions',
-    value: function setOptions(options) {
-      this.options = options;
     }
   }, {
     key: 'apply',

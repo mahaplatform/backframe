@@ -4,11 +4,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _error = require('../error');
+var _error = require('./error');
 
 var _error2 = _interopRequireDefault(_error);
 
-var _route = require('../route');
+var _route = require('./route');
 
 var _route2 = _interopRequireDefault(_route);
 

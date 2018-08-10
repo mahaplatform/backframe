@@ -46,7 +46,7 @@ var JsonResponder = function (_Responder) {
     key: 'render',
     value: function render() {
 
-      this.res.status(200).json((0, _extends3.default)({
+      this.res.status(200).send((0, _extends3.default)({
         meta: {
           success: true,
           status: _status_codes2.default[200],

@@ -2,13 +2,13 @@ import BackframeError from '../error'
 import Route from '../route'
 import _ from 'lodash'
 
-class CreateRoute extends Route {
+class UpdateRoute extends Route {
 
   constructor(config = {}) {
     super(config)
-    this.setAction('create')
-    this.setMethod('post')
-    this.setPath('')
+    this.setAction('update')
+    this.setMethod('patch')
+    this.setPath('/:id')
     this.setProcessor(this._processor)
     if(config.allowedParams) this.setAllowedParams(config.allowedParams)
     if(config.model) this.setModel(config.model)
@@ -31,17 +31,10 @@ class CreateRoute extends Route {
 
     try {
 
-      const allowed = [
-        ..._.castArray(options.allowedParams),
-        ..._.castArray(options.virtualParams)
-      ]
+      const params = this._allowedParams(req.body, options.allowedParams, options.virtualParams)
 
-      const params = _.pick(req.body, allowed)
-
-      req.resource = await options.model.forge({
-        ...this._defaultParams(req, trx, options),
-        ...params
-      }).save(null, {
+      req.resource.save(params, {
+        patch: true,
         transacting: trx
       })
 
@@ -51,7 +44,7 @@ class CreateRoute extends Route {
 
       throw new BackframeError({
         code: 422,
-        message: 'Unable to create record',
+        message: 'Unable to update record',
         errors: err.errors ? err.toJSON() : err.message
       })
 
@@ -59,17 +52,17 @@ class CreateRoute extends Route {
 
   }
 
-  async _defaultParams(req, trx, options) {
+  _allowedParams(body, allowedParams, virtualParams) {
 
-    if(!options.defaultParams) return {}
+    const allowed = [
+      ..._.castArray(allowedParams),
+      ..._.castArray(virtualParams)
+    ]
 
-    return await Promise.reduce(options.defaultParams, async (params, defaultParams) => ({
-      ...params,
-      ...await defaultParams(req, trx, options)
-    }), {})
+    return _.pick(body, allowed)
 
   }
-
+  
 }
 
-export default CreateRoute
+export default UpdateRoute

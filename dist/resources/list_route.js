@@ -61,8 +61,9 @@ var ListRoute = function (_Route) {
     _this.defaultSort = null;
     _this.filterParams = null;
     _this.model = null;
-    _this.searchParams = null;
-    _this.sortParams = null;
+    _this.searchParams = [];
+    _this.sortParams = [];
+    _this.virtualFilters = [];
     _this.withRelated = null;
 
     if (config.defaultQuery) _this.setDefaultQuery(config.defaultQuery);
@@ -112,7 +113,7 @@ var ListRoute = function (_Route) {
   }, {
     key: 'setWithRelated',
     value: function setWithRelated(withRelated) {
-      this.routeOptions.withRelated = this.withRelated = withRelated;
+      this._setRouteParams('withRelated', withRelated);
     }
   }, {
     key: '_processor',

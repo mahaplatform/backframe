@@ -8,7 +8,7 @@ class UpdateRoute extends Route {
     super(config)
     this.setAction('update')
     this.setMethod('patch')
-    this.setPath('/:id')
+    this.setPath('')
     this.setProcessor(this._processor)
     if(config.allowedParams) this.setAllowedParams(config.allowedParams)
     if(config.model) this.setModel(config.model)
@@ -31,12 +31,7 @@ class UpdateRoute extends Route {
 
     try {
 
-      const allowed = [
-        ..._.castArray(options.allowedParams),
-        ..._.castArray(options.virtualParams)
-      ]
-
-      const params = _.pick(req.body, allowed)
+      const params = this._allowedParams(req.body, options.allowedParams, options.virtualParams)
 
       req.resource.save(params, {
         patch: true,
@@ -54,6 +49,17 @@ class UpdateRoute extends Route {
       })
 
     }
+
+  }
+
+  _allowedParams(body, allowedParams, virtualParams) {
+
+    const allowed = [
+      ..._.castArray(allowedParams),
+      ..._.castArray(virtualParams)
+    ]
+
+    return _.pick(body, allowed)
 
   }
 

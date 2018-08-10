@@ -24,7 +24,7 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _not_found_route = require('./routes/not_found_route');
+var _not_found_route = require('./not_found_route');
 
 var _not_found_route2 = _interopRequireDefault(_not_found_route);
 

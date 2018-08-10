@@ -1,12 +1,11 @@
 import './services/environment'
-import { Backframe, BackframeError, Plugin, Resources, Route, Segment, ExpressTransport } from 'backframe'
+import { Backframe, BackframeError, Plugin, Resources, Resource, Route, Segment, ExpressTransport } from 'backframe'
 import UserSerializer from './serializers/user_serializer'
 import knex from './services/knex'
 import User from './models/user'
 
 const authenticator = new Plugin({
   name: 'authenticator',
-  options: ['authenticated'],
   alterRequest: async (req, trx, options) => {
 
     if(!options.authenticated) return
@@ -42,7 +41,18 @@ const users = new Resources({
     activate
   ],
   serializer: UserSerializer,
-  sortParams: ['id','first_name','last_name','email']
+  sortParams: ['id','first_name','last_name','email'],
+  withRelated: ['photo']
+})
+
+const user = new Resource({
+  allowedParams: ['first_name','last_name','email','created_at'],
+  model: User,
+  path: '/user',
+  actions: [
+    activate
+  ],
+  serializer: UserSerializer
 })
 
 const nestedRoute1 = new Route()
@@ -80,6 +90,7 @@ const authenticated = new Segment({
   authenticated: true,
   routes: [
     users,
+    user,
     nestedSegment1
   ]
 })
@@ -87,17 +98,13 @@ const authenticated = new Segment({
 const api = new Backframe({
   knex,
   path: '/api',
-  plugins: [
-    authenticator
-  ],
+  plugins: [],
   routes: [
     authenticated
   ]
 })
 
 const routes = api.render()
-
-console.log(routes)
 
 const transport = new ExpressTransport(routes)
 

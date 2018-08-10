@@ -5,7 +5,7 @@ class JsonResponder extends Responder {
 
   render() {
 
-    this.res.status(200).json({
+    this.res.status(200).send({
       meta: {
         success: true,
         status: statusCodes[200],

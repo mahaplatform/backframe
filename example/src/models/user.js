@@ -1,4 +1,5 @@
 import model from './model'
+import Asset from './asset'
 
 const User = model.extend({
 
@@ -10,7 +11,11 @@ const User = model.extend({
     'email': ['required', 'email']
   },
 
-  virtuals: {}
+  virtuals: {},
+
+  photo: function() {
+    return this.belongsTo(Asset, 'photo_id')
+  }
 
 })
 

@@ -3,21 +3,21 @@ import _ from 'lodash'
 
 class Component {
 
-  afterCommit = []
+  afterCommit = null
 
-  afterProcessor = []
+  afterProcessor = null
 
-  alterRecord = []
+  alterRecord = null
 
-  alterRequest = []
+  alterRequest = null
 
-  beforeCommit = []
+  beforeCommit = null
 
-  beforeProcessor = []
+  beforeProcessor = null
 
-  beforeRollback = []
+  beforeRollback = null
 
-  customOptions = {}
+  customOptions = null
 
   path = null
 
@@ -99,7 +99,7 @@ class Component {
 
   _appendItem(type, item) {
     this[type] = [
-      ...this[type],
+      ...this[type] || [],
       ..._.castArray(item)
     ]
   }
@@ -107,13 +107,13 @@ class Component {
   _prependItem(type, item) {
     this[type] = [
       ..._.castArray(item),
-      ...this[type]
+      ...this[type] || []
     ]
   }
 
   _setCustomOptions(options) {
     this.customOptions = {
-      ...this.customOptions,
+      ...this.customOptions || {},
       ..._.omit(options, reserved)
     }
   }

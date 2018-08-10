@@ -34,14 +34,14 @@ var Component = function () {
   function Component() {
     var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     (0, _classCallCheck3.default)(this, Component);
-    this.afterCommit = [];
-    this.afterProcessor = [];
-    this.alterRecord = [];
-    this.alterRequest = [];
-    this.beforeCommit = [];
-    this.beforeProcessor = [];
-    this.beforeRollback = [];
-    this.customOptions = {};
+    this.afterCommit = null;
+    this.afterProcessor = null;
+    this.alterRecord = null;
+    this.alterRequest = null;
+    this.beforeCommit = null;
+    this.beforeProcessor = null;
+    this.beforeRollback = null;
+    this.customOptions = null;
     this.path = null;
 
     if (config.afterCommit) this.appendAfterCommit(config.afterCommit);
@@ -138,17 +138,17 @@ var Component = function () {
   }, {
     key: '_appendItem',
     value: function _appendItem(type, item) {
-      this[type] = [].concat((0, _toConsumableArray3.default)(this[type]), (0, _toConsumableArray3.default)(_lodash2.default.castArray(item)));
+      this[type] = [].concat((0, _toConsumableArray3.default)(this[type] || []), (0, _toConsumableArray3.default)(_lodash2.default.castArray(item)));
     }
   }, {
     key: '_prependItem',
     value: function _prependItem(type, item) {
-      this[type] = [].concat((0, _toConsumableArray3.default)(_lodash2.default.castArray(item)), (0, _toConsumableArray3.default)(this[type]));
+      this[type] = [].concat((0, _toConsumableArray3.default)(_lodash2.default.castArray(item)), (0, _toConsumableArray3.default)(this[type] || []));
     }
   }, {
     key: '_setCustomOptions',
     value: function _setCustomOptions(options) {
-      this.customOptions = (0, _extends3.default)({}, this.customOptions, _lodash2.default.omit(options, _reserved2.default));
+      this.customOptions = (0, _extends3.default)({}, this.customOptions || {}, _lodash2.default.omit(options, _reserved2.default));
     }
   }]);
   return Component;

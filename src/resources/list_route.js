@@ -12,9 +12,11 @@ class ListRoute extends Route {
 
   model = null
 
-  searchParams = null
+  searchParams = []
 
-  sortParams = null
+  sortParams = []
+
+  virtualFilters = []
 
   withRelated = null
 
@@ -58,7 +60,7 @@ class ListRoute extends Route {
   }
 
   setWithRelated(withRelated) {
-    this.routeOptions.withRelated = this.withRelated = withRelated
+    this._setRouteParams('withRelated', withRelated)
   }
 
   async _processor(req, trx, options) {

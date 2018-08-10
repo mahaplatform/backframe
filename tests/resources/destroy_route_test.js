@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import DestroyRoute from '../../src/routes/destroy_route'
+import DestroyRoute from '../../src/resources/destroy_route'
 
 describe('destroy_route', () => {
 

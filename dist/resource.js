@@ -32,23 +32,19 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _destroy_route = require('./resources/destroy_route');
+var _destroy_route = require('./resource/destroy_route');
 
 var _destroy_route2 = _interopRequireDefault(_destroy_route);
 
-var _create_route = require('./resources/create_route');
+var _create_route = require('./resource/create_route');
 
 var _create_route2 = _interopRequireDefault(_create_route);
 
-var _update_route = require('./resources/update_route');
+var _update_route = require('./resource/update_route');
 
 var _update_route2 = _interopRequireDefault(_update_route);
 
-var _list_route = require('./resources/list_route');
-
-var _list_route2 = _interopRequireDefault(_list_route);
-
-var _show_route = require('./resources/show_route');
+var _show_route = require('./resource/show_route');
 
 var _show_route2 = _interopRequireDefault(_show_route);
 
@@ -75,71 +71,26 @@ var Resources = function (_Collection) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (Resources.__proto__ || Object.getPrototypeOf(Resources)).call(this, config));
 
-    _this.collectionActions = null;
-    _this.filterParams = null;
-    _this.memberActions = null;
-    _this.searchParams = null;
-    _this.sortParams = null;
-    _this.virtualFilters = null;
+    _this.actions = null;
 
-    if (config.collectionActions) _this.appendCollectionAction(config.collectionActions);
-    if (config.filterParams) _this.setFilterParams(config.filterParams);
-    if (config.memberActions) _this.appendMemberAction(config.memberActions);
-    if (config.searchParams) _this.setSearchParams(config.searchParams);
-    if (config.sortParams) _this.setSortParams(config.sortParams);
-    if (config.virtualFilters) _this.setVirtualFilters(config.virtualFilters);
+    if (config.actions) _this.appendAction(config.actions);
     return _this;
   }
 
   (0, _createClass3.default)(Resources, [{
-    key: 'setFilterParams',
-    value: function setFilterParams(params) {
-      this.filterParams = _lodash2.default.castArray(params);
+    key: 'setActions',
+    value: function setActions(actions) {
+      this.actions = _lodash2.default.castArray(actions);
     }
   }, {
-    key: 'setSearchParams',
-    value: function setSearchParams(params) {
-      this.searchParams = _lodash2.default.castArray(params);
+    key: 'appendAction',
+    value: function appendAction(action) {
+      this._appendItem('actions', action);
     }
   }, {
-    key: 'setSortParams',
-    value: function setSortParams(params) {
-      this.sortParams = _lodash2.default.castArray(params);
-    }
-  }, {
-    key: 'setVirtualFilters',
-    value: function setVirtualFilters(virtualFilters) {
-      this.virtualFilters = virtualFilters;
-    }
-  }, {
-    key: 'setCollectionActions',
-    value: function setCollectionActions(actions) {
-      this.collectionActions = _lodash2.default.castArray(actions);
-    }
-  }, {
-    key: 'appendCollectionAction',
-    value: function appendCollectionAction(action) {
-      this._appendItem('collectionActions', action);
-    }
-  }, {
-    key: 'prependCollectionAction',
-    value: function prependCollectionAction(action) {
-      this._prependItem('collectionActions', action);
-    }
-  }, {
-    key: 'setMemberActions',
-    value: function setMemberActions(actions) {
-      this.memberActions = _lodash2.default.castArray(actions);
-    }
-  }, {
-    key: 'appendMemberAction',
-    value: function appendMemberAction(action) {
-      this._appendItem('memberActions', action);
-    }
-  }, {
-    key: 'prependMemberAction',
-    value: function prependMemberAction(action) {
-      this._prependItem('memberActions', action);
+    key: 'prependAction',
+    value: function prependAction(action) {
+      this._prependItem('actions', action);
     }
   }, {
     key: 'render',
@@ -180,7 +131,7 @@ var Resources = function (_Collection) {
               case 0:
                 _context.next = 2;
                 return options.model.where({
-                  id: req.params.id
+                  id: 1
                 }).fetch({
                   transacting: trx
                 });
@@ -222,16 +173,14 @@ var Resources = function (_Collection) {
 
       var routes = [];
 
-      if (this._includeAction('list')) routes.push(this._getListRoute());
+      if (this.actions) {
 
-      if (this._includeAction('create')) routes.push(this._getCreateRoute());
-
-      if (this.collectionActions) {
-
-        this.collectionActions.map(function (route) {
+        this.actions.map(function (route) {
           return routes.push(_this3._getCollectionRoute(route));
         });
       }
+
+      if (this._includeAction('create')) routes.push(this._getCreateRoute());
 
       if (this._includeAction('show')) routes.push(this._getShowRoute());
 
@@ -239,28 +188,7 @@ var Resources = function (_Collection) {
 
       if (this._includeAction('destroy')) routes.push(this._getDestroyRoute());
 
-      if (this.memberActions) {
-
-        this.memberActions.map(function (route) {
-          return routes.push(_this3._getMemberRoute(route));
-        });
-      }
-
       return routes;
-    }
-  }, {
-    key: '_getListRoute',
-    value: function _getListRoute() {
-      return new _list_route2.default({
-        defaultQuery: this._getDestructuredOption(this, 'defaultQuery', 'list'),
-        defaultSort: this._getDestructuredOption(this, 'defaultSort', 'list'),
-        filterParams: this._getDestructuredOption(this, 'filterParams', 'list'),
-        model: this._getDestructuredOption(this, 'model', 'list'),
-        serializer: this._getDestructuredOption(this, 'serializer', 'list'),
-        searchParams: this._getDestructuredOption(this, 'searchParams', 'list'),
-        sortParams: this._getDestructuredOption(this, 'sortParams', 'list'),
-        withRelated: this._getDestructuredOption(this, 'withRelated', 'list')
-      });
     }
   }, {
     key: '_getCreateRoute',

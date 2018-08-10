@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import ListRoute from '../../src/routes/list_route'
+import ListRoute from '../../src/resources/list_route'
 
 describe('list_route', () => {
 
