@@ -2,6 +2,7 @@ import BackframeError from '../error'
 import Route from '../route'
 
 const NotFoundRoute = new Route({
+  action: 'not_found',
   method: 'use',
   path: '*',
   processor: (req, trx, options) => {

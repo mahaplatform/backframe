@@ -61,6 +61,7 @@ var CreateRoute = function (_Route) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (CreateRoute.__proto__ || Object.getPrototypeOf(CreateRoute)).call(this, config));
 
+    _this.setAction('create');
     _this.setMethod('post');
     _this.setPath('');
     _this.setProcessor(_this._processor);

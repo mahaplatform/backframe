@@ -85,6 +85,7 @@ var Route = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (Route.__proto__ || Object.getPrototypeOf(Route)).call(this, config));
 
+    _this.action = null;
     _this.method = 'get';
     _this.path = '';
 
@@ -93,6 +94,7 @@ var Route = function (_Component) {
     _this.routeOptions = {};
     _this.serializer = null;
 
+    if (config.action) _this.setAction(config.action);
     if (config.method) _this.setMethod(config.method);
     if (config.path) _this.setPath(config.path);
     if (config.processor) _this.setProcessor(config.processor);
@@ -101,6 +103,11 @@ var Route = function (_Component) {
   }
 
   (0, _createClass3.default)(Route, [{
+    key: 'setAction',
+    value: function setAction(action) {
+      this.action = action;
+    }
+  }, {
     key: 'setMethod',
     value: function setMethod(method) {
       this.method = method;

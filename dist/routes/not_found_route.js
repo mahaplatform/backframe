@@ -15,6 +15,7 @@ var _route2 = _interopRequireDefault(_route);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var NotFoundRoute = new _route2.default({
+  action: 'not_found',
   method: 'use',
   path: '*',
   processor: function processor(req, trx, options) {

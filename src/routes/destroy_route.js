@@ -6,6 +6,7 @@ class DestroyRoute extends Route {
 
   constructor(config = {}) {
     super(config)
+    this.setAction('destroy')
     this.setMethod('delete')
     this.setPath('/:id')
     this.setProcessor(this._processor)

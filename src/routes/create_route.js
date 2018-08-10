@@ -6,6 +6,7 @@ class CreateRoute extends Route {
 
   constructor(config = {}) {
     super(config)
+    this.setAction('create')
     this.setMethod('post')
     this.setPath('')
     this.setProcessor(this._processor)

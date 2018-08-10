@@ -4,6 +4,7 @@ class ShowRoute extends Route {
 
   constructor(config = {}) {
     super(config)
+    this.setAction('show')
     this.setMethod('get')
     this.setPath('/:id')
     this.setProcessor(this._processor)

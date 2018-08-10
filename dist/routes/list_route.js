@@ -72,6 +72,7 @@ var ListRoute = function (_Route) {
     if (config.searchParams) _this.setSearchParams(config.searchParams);
     if (config.sortParams) _this.setSortParams(config.sortParams);
     if (config.withRelated) _this.setWithRelated(config.withRelated);
+    _this.setAction('list');
     _this.setMethod('get');
     _this.setPath('');
     _this.setProcessor(_this._processor);

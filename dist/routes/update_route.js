@@ -55,6 +55,7 @@ var UpdateRoute = function (_Route) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (UpdateRoute.__proto__ || Object.getPrototypeOf(UpdateRoute)).call(this, config));
 
+    _this.setAction('update');
     _this.setMethod('patch');
     _this.setPath('/:id');
     _this.setProcessor(_this._processor);

@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 class Backframe extends Component {
 
- defaultFormat = 'json'
+  defaultFormat = 'json'
 
   defaultLimit = 100
 

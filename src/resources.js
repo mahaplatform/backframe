@@ -3,6 +3,7 @@ import CreateRoute from './routes/create_route'
 import UpdateRoute from './routes/update_route'
 import ListRoute from './routes/list_route'
 import ShowRoute from './routes/show_route'
+import reserved from './utils/reserved'
 import BackframeError from './error'
 import Component from './component'
 import _ from 'lodash'
@@ -23,6 +24,8 @@ class Resources extends Component {
 
   except = null
 
+  resourceOptions = {}
+
   serializer = null
 
   sortParams = []
@@ -39,6 +42,7 @@ class Resources extends Component {
     if(config.path) this.setPath(config.path)
     if(config.serializer) this.setSerializer(config.serializer)
     if(config.sortParams) this.setSortParams(config.sortParams)
+    this._setResourceOptions(config)
   }
 
   setAllowedParams(allowedParams) {
@@ -129,10 +133,20 @@ class Resources extends Component {
 
       if(this.beforeRollback) route.prependBeforeRollback(this.beforeRollback)
 
-      return route.render(options)
+      return route.render({
+        ...options,
+        ...this._getDestructuredOptions(this.resourceOptions, route.action)
+      })
 
     })
 
+  }
+
+  _setResourceOptions(options) {
+    this.resourceOptions = {
+      ...this.resourceOptions,
+      ..._.omit(options, reserved)
+    }
   }
 
   _includeAction(action) {
@@ -145,17 +159,36 @@ class Resources extends Component {
 
   }
 
-  _destructureParam(key, action) {
+  _getDestructuredOptions(options, action) {
 
-    if(_.isPlainObject(this[key])) {
+    return Object.keys(options).reduce((destructured, option) => {
 
-      if(this[key][action]) return this[key][action]
+      const value = this._getDestructuredOption(options, option, action)
 
-      if(this[key].all) return this[key].all
+      return {
+        ...destructured,
+        ...value ? { [option]: value } : {}
+      }
+
+    }, {})
+
+  }
+
+  _getDestructuredOption(options, option, action) {
+
+    if(_.isPlainObject(options[option])) {
+
+      if(options[option][action]) return options[option][action]
+
+      if(options[option].all) return options[option].all
+
+      const defaultActions = ['all','list','create','show','update','destroy']
+
+      if(_.intersection(defaultActions, Object.keys(options[option])).length > 0) return null
 
     }
 
-    return this[key]
+    return options[option]
 
   }
 
@@ -178,49 +211,49 @@ class Resources extends Component {
 
   _getListRoute() {
     return new ListRoute({
-      defaultQuery: this._destructureParam('defaultQuery', 'list'),
-      defaultSort: this._destructureParam('defaultSort', 'list'),
-      filterParams: this._destructureParam('filterParams', 'list'),
-      model: this._destructureParam('model', 'list'),
-      serializer: this._destructureParam('serializer', 'list'),
-      searchParams: this._destructureParam('searchParams', 'list'),
-      sortParams: this._destructureParam('sortParams', 'list'),
-      withRelated: this._destructureParam('withRelated', 'list')
+      defaultQuery: this._getDestructuredOption(this, 'defaultQuery', 'list'),
+      defaultSort: this._getDestructuredOption(this, 'defaultSort', 'list'),
+      filterParams: this._getDestructuredOption(this, 'filterParams', 'list'),
+      model: this._getDestructuredOption(this, 'model', 'list'),
+      serializer: this._getDestructuredOption(this, 'serializer', 'list'),
+      searchParams: this._getDestructuredOption(this, 'searchParams', 'list'),
+      sortParams: this._getDestructuredOption(this, 'sortParams', 'list'),
+      withRelated: this._getDestructuredOption(this, 'withRelated', 'list')
     })
   }
 
   _getCreateRoute() {
     return new CreateRoute({
-      allowedParams: this._destructureParam('allowedParams', 'create'),
-      model: this._destructureParam('model', 'create'),
-      serializer: this._destructureParam('serializer', 'create'),
-      virtualParams: this._destructureParam('virtualParams', 'create')
+      allowedParams: this._getDestructuredOption(this, 'allowedParams', 'create'),
+      model: this._getDestructuredOption(this, 'model', 'create'),
+      serializer: this._getDestructuredOption(this, 'serializer', 'create'),
+      virtualParams: this._getDestructuredOption(this, 'virtualParams', 'create')
     })
   }
 
   _getShowRoute() {
     return new ShowRoute({
       alterRequest: this._fetchResource,
-      model: this._destructureParam('model', 'show'),
-      serializer: this._destructureParam('serializer', 'show')
+      model: this._getDestructuredOption(this, 'model', 'show'),
+      serializer: this._getDestructuredOption(this, 'serializer', 'show')
     })
   }
 
   _getUpdateRoute() {
     return new UpdateRoute({
       alterRequest: this._fetchResource,
-      allowedParams: this._destructureParam('allowedParams', 'update'),
-      model: this._destructureParam('model', 'update'),
-      serializer: this._destructureParam('serializer', 'update'),
-      virtualParams: this._destructureParam('virtualParams', 'update')
+      allowedParams: this._getDestructuredOption(this, 'allowedParams', 'update'),
+      model: this._getDestructuredOption(this, 'model', 'update'),
+      serializer: this._getDestructuredOption(this, 'serializer', 'update'),
+      virtualParams: this._getDestructuredOption(this, 'virtualParams', 'update')
     })
   }
 
   _getDestroyRoute() {
     return new DestroyRoute({
       alterRequest: this._fetchResource,
-      model: this._destructureParam('model', 'destroy'),
-      serializer: this._destructureParam('serializer', 'destroy')
+      model: this._getDestructuredOption(this, 'model', 'destroy'),
+      serializer: this._getDestructuredOption(this, 'serializer', 'destroy')
     })
   }
 

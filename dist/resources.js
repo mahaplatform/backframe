@@ -12,6 +12,14 @@ var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -48,6 +56,10 @@ var _show_route = require('./routes/show_route');
 
 var _show_route2 = _interopRequireDefault(_show_route);
 
+var _reserved = require('./utils/reserved');
+
+var _reserved2 = _interopRequireDefault(_reserved);
+
 var _error = require('./error');
 
 var _error2 = _interopRequireDefault(_error);
@@ -78,6 +90,7 @@ var Resources = function (_Component) {
     _this.only = null;
     _this.path = null;
     _this.except = null;
+    _this.resourceOptions = {};
     _this.serializer = null;
     _this.sortParams = [];
 
@@ -91,6 +104,7 @@ var Resources = function (_Component) {
     if (config.path) _this.setPath(config.path);
     if (config.serializer) _this.setSerializer(config.serializer);
     if (config.sortParams) _this.setSortParams(config.sortParams);
+    _this._setResourceOptions(config);
     return _this;
   }
 
@@ -205,8 +219,13 @@ var Resources = function (_Component) {
 
         if (_this2.beforeRollback) route.prependBeforeRollback(_this2.beforeRollback);
 
-        return route.render(options);
+        return route.render((0, _extends3.default)({}, options, _this2._getDestructuredOptions(_this2.resourceOptions, route.action)));
       });
+    }
+  }, {
+    key: '_setResourceOptions',
+    value: function _setResourceOptions(options) {
+      this.resourceOptions = (0, _extends3.default)({}, this.resourceOptions, _lodash2.default.omit(options, _reserved2.default));
     }
   }, {
     key: '_includeAction',
@@ -219,22 +238,38 @@ var Resources = function (_Component) {
       return true;
     }
   }, {
-    key: '_destructureParam',
-    value: function _destructureParam(key, action) {
+    key: '_getDestructuredOptions',
+    value: function _getDestructuredOptions(options, action) {
+      var _this3 = this;
 
-      if (_lodash2.default.isPlainObject(this[key])) {
+      return Object.keys(options).reduce(function (destructured, option) {
 
-        if (this[key][action]) return this[key][action];
+        var value = _this3._getDestructuredOption(options, option, action);
 
-        if (this[key].all) return this[key].all;
+        return (0, _extends3.default)({}, destructured, value ? (0, _defineProperty3.default)({}, option, value) : {});
+      }, {});
+    }
+  }, {
+    key: '_getDestructuredOption',
+    value: function _getDestructuredOption(options, option, action) {
+
+      if (_lodash2.default.isPlainObject(options[option])) {
+
+        if (options[option][action]) return options[option][action];
+
+        if (options[option].all) return options[option].all;
+
+        var defaultActions = ['all', 'list', 'create', 'show', 'update', 'destroy'];
+
+        if (_lodash2.default.intersection(defaultActions, Object.keys(options[option])).length > 0) return null;
       }
 
-      return this[key];
+      return options[option];
     }
   }, {
     key: '_fetchResource',
     value: function () {
-      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
+      var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -271,7 +306,7 @@ var Resources = function (_Component) {
       }));
 
       function _fetchResource(_x3, _x4, _x5) {
-        return _ref.apply(this, arguments);
+        return _ref2.apply(this, arguments);
       }
 
       return _fetchResource;
@@ -280,24 +315,24 @@ var Resources = function (_Component) {
     key: '_getListRoute',
     value: function _getListRoute() {
       return new _list_route2.default({
-        defaultQuery: this._destructureParam('defaultQuery', 'list'),
-        defaultSort: this._destructureParam('defaultSort', 'list'),
-        filterParams: this._destructureParam('filterParams', 'list'),
-        model: this._destructureParam('model', 'list'),
-        serializer: this._destructureParam('serializer', 'list'),
-        searchParams: this._destructureParam('searchParams', 'list'),
-        sortParams: this._destructureParam('sortParams', 'list'),
-        withRelated: this._destructureParam('withRelated', 'list')
+        defaultQuery: this._getDestructuredOption(this, 'defaultQuery', 'list'),
+        defaultSort: this._getDestructuredOption(this, 'defaultSort', 'list'),
+        filterParams: this._getDestructuredOption(this, 'filterParams', 'list'),
+        model: this._getDestructuredOption(this, 'model', 'list'),
+        serializer: this._getDestructuredOption(this, 'serializer', 'list'),
+        searchParams: this._getDestructuredOption(this, 'searchParams', 'list'),
+        sortParams: this._getDestructuredOption(this, 'sortParams', 'list'),
+        withRelated: this._getDestructuredOption(this, 'withRelated', 'list')
       });
     }
   }, {
     key: '_getCreateRoute',
     value: function _getCreateRoute() {
       return new _create_route2.default({
-        allowedParams: this._destructureParam('allowedParams', 'create'),
-        model: this._destructureParam('model', 'create'),
-        serializer: this._destructureParam('serializer', 'create'),
-        virtualParams: this._destructureParam('virtualParams', 'create')
+        allowedParams: this._getDestructuredOption(this, 'allowedParams', 'create'),
+        model: this._getDestructuredOption(this, 'model', 'create'),
+        serializer: this._getDestructuredOption(this, 'serializer', 'create'),
+        virtualParams: this._getDestructuredOption(this, 'virtualParams', 'create')
       });
     }
   }, {
@@ -305,8 +340,8 @@ var Resources = function (_Component) {
     value: function _getShowRoute() {
       return new _show_route2.default({
         alterRequest: this._fetchResource,
-        model: this._destructureParam('model', 'show'),
-        serializer: this._destructureParam('serializer', 'show')
+        model: this._getDestructuredOption(this, 'model', 'show'),
+        serializer: this._getDestructuredOption(this, 'serializer', 'show')
       });
     }
   }, {
@@ -314,10 +349,10 @@ var Resources = function (_Component) {
     value: function _getUpdateRoute() {
       return new _update_route2.default({
         alterRequest: this._fetchResource,
-        allowedParams: this._destructureParam('allowedParams', 'update'),
-        model: this._destructureParam('model', 'update'),
-        serializer: this._destructureParam('serializer', 'update'),
-        virtualParams: this._destructureParam('virtualParams', 'update')
+        allowedParams: this._getDestructuredOption(this, 'allowedParams', 'update'),
+        model: this._getDestructuredOption(this, 'model', 'update'),
+        serializer: this._getDestructuredOption(this, 'serializer', 'update'),
+        virtualParams: this._getDestructuredOption(this, 'virtualParams', 'update')
       });
     }
   }, {
@@ -325,8 +360,8 @@ var Resources = function (_Component) {
     value: function _getDestroyRoute() {
       return new _destroy_route2.default({
         alterRequest: this._fetchResource,
-        model: this._destructureParam('model', 'destroy'),
-        serializer: this._destructureParam('serializer', 'destroy')
+        model: this._getDestructuredOption(this, 'model', 'destroy'),
+        serializer: this._getDestructuredOption(this, 'serializer', 'destroy')
       });
     }
   }, {

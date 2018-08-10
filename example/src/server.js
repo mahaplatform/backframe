@@ -9,6 +9,8 @@ const authenticator = new Plugin({
   options: ['authenticated'],
   alterRequest: async (req, trx, options) => {
 
+    if(!options.authenticated) return
+
     if(!req.headers.authorization) {
       throw new BackframeError({
         code: 401,
@@ -32,6 +34,7 @@ const activate = new Route({
 })
 
 const users = new Resources({
+  authenticated: true,
   allowedParams: ['first_name','last_name','email','created_at'],
   filterParams: ['id','first_name','last_name','email','created_at'],
   model: User,

@@ -27,6 +27,7 @@ class ListRoute extends Route {
     if(config.searchParams) this.setSearchParams(config.searchParams)
     if(config.sortParams) this.setSortParams(config.sortParams)
     if(config.withRelated) this.setWithRelated(config.withRelated)
+    this.setAction('list')
     this.setMethod('get')
     this.setPath('')
     this.setProcessor(this._processor)

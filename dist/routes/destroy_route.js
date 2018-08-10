@@ -55,6 +55,7 @@ var DestroyRoute = function (_Route) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (DestroyRoute.__proto__ || Object.getPrototypeOf(DestroyRoute)).call(this, config));
 
+    _this.setAction('destroy');
     _this.setMethod('delete');
     _this.setPath('/:id');
     _this.setProcessor(_this._processor);

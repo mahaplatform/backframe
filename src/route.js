@@ -11,6 +11,8 @@ import _ from 'lodash'
 
 class Route extends Component {
 
+  action = null
+
   method = 'get'
 
   path = ''
@@ -23,10 +25,15 @@ class Route extends Component {
 
   constructor(config = {}) {
     super(config)
+    if(config.action) this.setAction(config.action)
     if(config.method) this.setMethod(config.method)
     if(config.path) this.setPath(config.path)
     if(config.processor) this.setProcessor(config.processor)
     if(config.serializer) this.setSerializer(config.serializer)
+  }
+
+  setAction(action) {
+    this.action = action
   }
 
   setMethod(method) {

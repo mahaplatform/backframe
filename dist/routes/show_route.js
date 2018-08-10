@@ -43,6 +43,7 @@ var ShowRoute = function (_Route) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (ShowRoute.__proto__ || Object.getPrototypeOf(ShowRoute)).call(this, config));
 
+    _this.setAction('show');
     _this.setMethod('get');
     _this.setPath('/:id');
     _this.setProcessor(_this._processor);
