@@ -13,21 +13,9 @@ class Plugin extends Component {
     this.name = name
   }
 
-  apply(backframe) {
+  apply(hooks) {
 
-    if(this.alterRequest) backframe.prependAlterRequest(this.alterRequest)
-
-    if(this.beforeProcessor) backframe.prependBeforeProcessor(this.beforeProcessor)
-
-    if(this.afterProcessor) backframe.prependAfterProcessor(this.afterProcessor)
-
-    if(this.alterRecord) backframe.prependAlterRecord(this.alterRecord)
-
-    if(this.beforeCommit) backframe.prependBeforeCommit(this.beforeCommit)
-
-    if(this.afterCommit) backframe.prependAfterCommit(this.afterCommit)
-
-    if(this.beforeRollback) backframe.prependBeforeRollback(this.beforeRollback)
+    return this._mergeHooks(hooks, this.hooks)
 
   }
 

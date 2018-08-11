@@ -93,7 +93,7 @@ describe('backframe', () => {
 
   })
 
-  it('should append plugins', () => {
+  it('should add plugins', () => {
 
     const a = 1
     const b = 2
@@ -102,24 +102,7 @@ describe('backframe', () => {
       plugins: [a]
     })
 
-    backframe.appendPlugin(b)
-
-    expect(backframe.plugins.length).to.be.eql(2)
-    expect(backframe.plugins[0]).to.be.eql(a)
-    expect(backframe.plugins[1]).to.be.eql(b)
-
-  })
-
-  it('should append plugins', () => {
-
-    const a = 1
-    const b = 2
-
-    const backframe = new Backframe({
-      plugins: [b]
-    })
-
-    backframe.prependPlugin(a)
+    backframe.addPlugin(b)
 
     expect(backframe.plugins.length).to.be.eql(2)
     expect(backframe.plugins[0]).to.be.eql(a)
@@ -137,7 +120,7 @@ describe('backframe', () => {
 
   })
 
-  it('should append routes', () => {
+  it('should add routes', () => {
 
     const a = 1
     const b = 2
@@ -146,7 +129,7 @@ describe('backframe', () => {
       routes: [a]
     })
 
-    backframe.appendRoute(b)
+    backframe.addRoute(b)
 
     expect(backframe.routes.length).to.be.eql(2)
     expect(backframe.routes[0]).to.be.eql(a)
@@ -154,20 +137,4 @@ describe('backframe', () => {
 
   })
 
-  it('should prepend routes', () => {
-
-    const a = 1
-    const b = 2
-
-    const backframe = new Backframe({
-      routes: [b]
-    })
-
-    backframe.prependRoute(a)
-
-    expect(backframe.routes.length).to.be.eql(2)
-    expect(backframe.routes[0]).to.be.eql(a)
-    expect(backframe.routes[1]).to.be.eql(b)
-
-  })
 })

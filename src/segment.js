@@ -7,43 +7,33 @@ class Segment extends Component {
 
   constructor(config = {}) {
     super(config)
-    if(config.routes) this.appendRoute(config.routes)
+    if(config.routes) this.setRoutes(config.routes)
   }
 
-  appendRoute(route) {
-    this._appendItem('routes', route)
+  setRoutes(routes) {
+    this.routes = routes
   }
 
-  prependRoute(route) {
-    this._prependItem('routes', route)
+  addRoute(route) {
+    this._addItem('routes', route)
   }
 
-  render(options = {}) {
+  render(segmentPath = '', segmentOptions = {}, segmentHooks = []) {
 
     return this.routes.reduce((routes, route) => {
 
-      if(this.path) route.prependPath(this.path)
+      const path = `${segmentPath || ''}${this.path || ''}`
 
-      if(this.alterRequest) route.prependAlterRequest(this.alterRequest)
+      const options = {
+        ...segmentOptions,
+        ...this.customOptions
+      }
 
-      if(this.beforeProcessor) route.prependBeforeProcessor(this.beforeProcessor)
-
-      if(this.afterProcessor) route.prependAfterProcessor(this.afterProcessor)
-
-      if(this.alterRecord) route.prependAlterRecord(this.alterRecord)
-
-      if(this.beforeCommit) route.prependBeforeCommit(this.beforeCommit)
-
-      if(this.afterCommit) route.prependAfterCommit(this.afterCommit)
-
-      if(this.beforeRollback) route.prependBeforeRollback(this.beforeRollback)
+      const hooks = this._mergeHooks(segmentHooks, this.hooks)
 
       return [
         ...routes,
-        ..._.castArray(route.render({
-          ...options,
-          ...this.customOptions
-        }))
+        ..._.castArray(route.render(path, options, hooks))
       ]
 
     }, [])

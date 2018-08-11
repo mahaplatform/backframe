@@ -123,12 +123,19 @@ var Route = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var routePath = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
       var _this2 = this;
 
-      var routeOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var routeOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var routeHooks = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
 
-      var options = (0, _extends3.default)({}, this.routeOptions, routeOptions);
+      var path = '' + (routePath || '') + (this.path || '');
+
+      var options = (0, _extends3.default)({}, routeOptions, this.routeOptions);
+
+      var hooks = this._mergeHooks(routeHooks, this.hooks);
 
       var reporter = new _reporter2.default();
 
@@ -142,9 +149,9 @@ var Route = function (_Component) {
 
         options: options,
 
-        hooks: _lodash2.default.pick(this, ['alterRequest', 'beforeProcessor', 'afterProcessor', 'alterRecord', 'beforeCommit', 'afterCommit', 'afterRollback']),
+        hooks: hooks,
 
-        path: this.path.replace(':id', ':id(\\d+)') + '.:format?',
+        path: path.replace(':id', ':id(\\d+)') + '.:format?',
 
         handler: function handler(req, res, next) {
 
@@ -160,12 +167,12 @@ var Route = function (_Component) {
 
                       _context.prev = 1;
                       _context.next = 4;
-                      return _this2._alterRequest(req, trx, options, _this2.alterRequest);
+                      return _this2._alterRequest(req, trx, options, hooks.alterRequest);
 
                     case 4:
                       req = _context.sent;
                       _context.next = 7;
-                      return _this2._runHooks(req, trx, null, options, _this2.beforeProcessor, false);
+                      return _this2._runHooks(req, trx, null, options, hooks.beforeProcessor, false);
 
                     case 7:
                       _context.next = 9;
@@ -184,7 +191,7 @@ var Route = function (_Component) {
                     case 12:
                       result = _context.t0;
                       _context.next = 15;
-                      return _this2._runHooks(req, trx, result, options, _this2.afterProcessor, true);
+                      return _this2._runHooks(req, trx, result, options, hooks.afterProcessor, true);
 
                     case 15:
                       renderer = new _renderer2.default({ req: req, trx: trx, result: result, options: options });
@@ -194,7 +201,7 @@ var Route = function (_Component) {
                     case 18:
                       rendered = _context.sent;
                       _context.next = 21;
-                      return _this2._alterRecord(req, trx, rendered, options, _this2.alterRecord);
+                      return _this2._alterRecord(req, trx, rendered, options, hooks.alterRecord);
 
                     case 21:
                       altered = _context.sent;
@@ -204,7 +211,7 @@ var Route = function (_Component) {
 
                     case 25:
                       _context.next = 27;
-                      return _this2._runHooks(req, trx, altered, options, _this2.beforeCommit, true);
+                      return _this2._runHooks(req, trx, altered, options, hooks.beforeCommit, true);
 
                     case 27:
                       _context.next = 29;
@@ -212,7 +219,7 @@ var Route = function (_Component) {
 
                     case 29:
                       _context.next = 31;
-                      return _this2._runHooks(req, trx, altered, options, _this2.afterCommit, true);
+                      return _this2._runHooks(req, trx, altered, options, hooks.afterCommit, true);
 
                     case 31:
 
@@ -225,7 +232,7 @@ var Route = function (_Component) {
                       _context.prev = 34;
                       _context.t1 = _context['catch'](1);
                       _context.next = 38;
-                      return _this2._runHooks(req, trx, null, options, _this2.beforeRollback, false);
+                      return _this2._runHooks(req, trx, null, options, hooks.beforeRollback, false);
 
                     case 38:
                       error_responder = new _error_responder2.default({ res: res, error: _context.t1 });
@@ -244,7 +251,7 @@ var Route = function (_Component) {
               }, _callee, _this2, [[1, 34]]);
             }));
 
-            return function (_x3) {
+            return function (_x5) {
               return _ref.apply(this, arguments);
             };
           }()).catch(function (error) {
@@ -272,15 +279,7 @@ var Route = function (_Component) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                if (hooks) {
-                  _context3.next = 2;
-                  break;
-                }
-
-                return _context3.abrupt('return', req);
-
-              case 2:
-                _context3.next = 4;
+                _context3.next = 2;
                 return (0, _bluebird.reduce)(hooks, function () {
                   var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(req, hook) {
                     return _regenerator2.default.wrap(function _callee2$(_context2) {
@@ -311,15 +310,15 @@ var Route = function (_Component) {
                     }, _callee2, _this3);
                   }));
 
-                  return function (_x8, _x9) {
+                  return function (_x10, _x11) {
                     return _ref3.apply(this, arguments);
                   };
                 }(), req);
 
-              case 4:
+              case 2:
                 return _context3.abrupt('return', _context3.sent);
 
-              case 5:
+              case 3:
               case 'end':
                 return _context3.stop();
             }
@@ -327,7 +326,7 @@ var Route = function (_Component) {
         }, _callee3, this);
       }));
 
-      function _alterRequest(_x4, _x5, _x6, _x7) {
+      function _alterRequest(_x6, _x7, _x8, _x9) {
         return _ref2.apply(this, arguments);
       }
 
@@ -343,15 +342,7 @@ var Route = function (_Component) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                if (hooks) {
-                  _context5.next = 2;
-                  break;
-                }
-
-                return _context5.abrupt('return');
-
-              case 2:
-                _context5.next = 4;
+                _context5.next = 2;
                 return (0, _bluebird.mapSeries)(hooks, function () {
                   var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(hook) {
                     return _regenerator2.default.wrap(function _callee4$(_context4) {
@@ -381,12 +372,12 @@ var Route = function (_Component) {
                     }, _callee4, _this4);
                   }));
 
-                  return function (_x16) {
+                  return function (_x18) {
                     return _ref5.apply(this, arguments);
                   };
                 }());
 
-              case 4:
+              case 2:
               case 'end':
                 return _context5.stop();
             }
@@ -394,7 +385,7 @@ var Route = function (_Component) {
         }, _callee5, this);
       }));
 
-      function _runHooks(_x10, _x11, _x12, _x13, _x14, _x15) {
+      function _runHooks(_x12, _x13, _x14, _x15, _x16, _x17) {
         return _ref4.apply(this, arguments);
       }
 
@@ -410,15 +401,7 @@ var Route = function (_Component) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                if (hooks) {
-                  _context7.next = 2;
-                  break;
-                }
-
-                return _context7.abrupt('return', result);
-
-              case 2:
-                _context7.next = 4;
+                _context7.next = 2;
                 return (0, _bluebird.reduce)(hooks, function () {
                   var _ref7 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6(result, hook) {
                     return _regenerator2.default.wrap(function _callee6$(_context6) {
@@ -449,15 +432,15 @@ var Route = function (_Component) {
                     }, _callee6, _this5);
                   }));
 
-                  return function (_x22, _x23) {
+                  return function (_x24, _x25) {
                     return _ref7.apply(this, arguments);
                   };
                 }(), result);
 
-              case 4:
+              case 2:
                 return _context7.abrupt('return', _context7.sent);
 
-              case 5:
+              case 3:
               case 'end':
                 return _context7.stop();
             }
@@ -465,7 +448,7 @@ var Route = function (_Component) {
         }, _callee7, this);
       }));
 
-      function _afterProcessor(_x17, _x18, _x19, _x20, _x21) {
+      function _afterProcessor(_x19, _x20, _x21, _x22, _x23) {
         return _ref6.apply(this, arguments);
       }
 
@@ -482,14 +465,6 @@ var Route = function (_Component) {
           while (1) {
             switch (_context9.prev = _context9.next) {
               case 0:
-                if (hooks) {
-                  _context9.next = 2;
-                  break;
-                }
-
-                return _context9.abrupt('return', result);
-
-              case 2:
                 alterRecord = function alterRecord(req, trx, record, options) {
                   return (0, _bluebird.reduce)(hooks, function () {
                     var _ref9 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee8(record, hook) {
@@ -521,32 +496,32 @@ var Route = function (_Component) {
                       }, _callee8, _this6);
                     }));
 
-                    return function (_x29, _x30) {
+                    return function (_x31, _x32) {
                       return _ref9.apply(this, arguments);
                     };
                   }(), record);
                 };
 
                 if (!(_lodash2.default.isPlainObject(result) && result.records)) {
-                  _context9.next = 8;
+                  _context9.next = 6;
                   break;
                 }
 
-                _context9.next = 6;
+                _context9.next = 4;
                 return (0, _bluebird.mapSeries)(result.records, function (record) {
                   return alterRecord(req, trx, record, options);
                 });
 
-              case 6:
+              case 4:
                 records = _context9.sent;
                 return _context9.abrupt('return', (0, _extends3.default)({}, result, {
                   records: records
                 }));
 
-              case 8:
+              case 6:
                 return _context9.abrupt('return', alterRecord(req, trx, result, options));
 
-              case 9:
+              case 7:
               case 'end':
                 return _context9.stop();
             }
@@ -554,7 +529,7 @@ var Route = function (_Component) {
         }, _callee9, this);
       }));
 
-      function _alterRecord(_x24, _x25, _x26, _x27, _x28) {
+      function _alterRecord(_x26, _x27, _x28, _x29, _x30) {
         return _ref8.apply(this, arguments);
       }
 

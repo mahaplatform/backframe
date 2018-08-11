@@ -73,7 +73,7 @@ var Resources = function (_Collection) {
 
     _this.actions = null;
 
-    if (config.actions) _this.appendAction(config.actions);
+    if (config.actions) _this.setActions(config.actions);
     return _this;
   }
 
@@ -83,42 +83,30 @@ var Resources = function (_Collection) {
       this.actions = _lodash2.default.castArray(actions);
     }
   }, {
-    key: 'appendAction',
-    value: function appendAction(action) {
-      this._appendItem('actions', action);
-    }
-  }, {
-    key: 'prependAction',
-    value: function prependAction(action) {
-      this._prependItem('actions', action);
+    key: 'addAction',
+    value: function addAction(action) {
+      this._addItem('actions', action);
     }
   }, {
     key: 'render',
     value: function render() {
+      var resourcePath = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
       var _this2 = this;
 
-      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var resourceOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var resourceHooks = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
 
       return this._getRoutes().map(function (route) {
 
-        if (_this2.path) route.prependPath(_this2.path);
+        var path = '' + (resourcePath || '') + (_this2.path || '');
 
-        if (_this2.alterRequest) route.prependAlterRequest(_this2.alterRequest);
+        var options = (0, _extends3.default)({}, resourceOptions, _this2._getDestructuredOptions(_this2.customOptions, route.action));
 
-        if (_this2.beforeProcessor) route.prependBeforeProcessor(_this2.beforeProcessor);
+        var hooks = _this2._mergeHooks(resourceHooks, _this2.hooks);
 
-        if (_this2.afterProcessor) route.prependAfterProcessor(_this2.afterProcessor);
-
-        if (_this2.alterRecord) route.prependAlterRecord(_this2.alterRecord);
-
-        if (_this2.beforeCommit) route.prependBeforeCommit(_this2.beforeCommit);
-
-        if (_this2.afterCommit) route.prependAfterCommit(_this2.afterCommit);
-
-        if (_this2.beforeRollback) route.prependBeforeRollback(_this2.beforeRollback);
-
-        return route.render((0, _extends3.default)({}, options, _this2._getDestructuredOptions(_this2.customOptions, route.action)));
+        return route.render(path, options, hooks);
       });
     }
   }, {
@@ -160,7 +148,7 @@ var Resources = function (_Collection) {
         }, _callee, this);
       }));
 
-      function _fetchResource(_x3, _x4, _x5) {
+      function _fetchResource(_x5, _x6, _x7) {
         return _ref.apply(this, arguments);
       }
 

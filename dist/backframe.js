@@ -52,14 +52,16 @@ var Backframe = function (_Component) {
     _this.knex = null;
     _this.logger = null;
     _this.plugins = [];
+    _this.reorter = null;
     _this.routes = [];
 
     if (config.defaultFormat) _this.setDefaultFormat(config.defaultFormat);
     if (config.defaultLimit) _this.setDefaultLimit(config.defaultLimit);
     if (config.knex) _this.setKnex(config.knex);
     if (config.logger) _this.setLogger(config.logger);
-    if (config.plugins) _this.appendPlugin(config.plugins);
-    if (config.routes) _this.appendRoute(config.routes);
+    if (config.plugins) _this.setPlugins(config.plugins);
+    if (config.routes) _this.setRoutes(config.routes);
+    if (config.reporter) _this.setReporter(config.reporter);
     return _this;
   }
 
@@ -89,14 +91,14 @@ var Backframe = function (_Component) {
       this.plugins = plugins;
     }
   }, {
-    key: 'appendPlugin',
-    value: function appendPlugin(plugin) {
-      this._appendItem('plugins', plugin);
+    key: 'addPlugin',
+    value: function addPlugin(plugin) {
+      this._addItem('plugins', plugin);
     }
   }, {
-    key: 'prependPlugin',
-    value: function prependPlugin(plugin) {
-      this._prependItem('plugins', plugin);
+    key: 'setReporter',
+    value: function setReporter(reporter) {
+      this.reporter = reporter;
     }
   }, {
     key: 'setRoutes',
@@ -104,24 +106,19 @@ var Backframe = function (_Component) {
       this.routes = routes;
     }
   }, {
-    key: 'appendRoute',
-    value: function appendRoute(route) {
-      this._appendItem('routes', route);
-    }
-  }, {
-    key: 'prependRoute',
-    value: function prependRoute(route) {
-      this._prependItem('routes', route);
+    key: 'addRoute',
+    value: function addRoute(route) {
+      this._addItem('routes', route);
     }
   }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      this.plugins.map(function (plugin) {
+      var hooks = this.plugins.reduce(function (hooks, plugin) {
 
-        plugin.apply(_this2);
-      });
+        return plugin.apply(hooks);
+      }, this.hooks);
 
       var options = {
         knex: this.knex,
@@ -131,25 +128,8 @@ var Backframe = function (_Component) {
       };
 
       return [].concat((0, _toConsumableArray3.default)(this.routes.reduce(function (routes, route) {
-
-        if (_this2.path) route.prependPath(_this2.path);
-
-        if (_this2.alterRequest) route.prependAlterRequest(_this2.alterRequest);
-
-        if (_this2.beforeProcessor) route.prependBeforeProcessor(_this2.beforeProcessor);
-
-        if (_this2.afterProcessor) route.prependAfterProcessor(_this2.afterProcessor);
-
-        if (_this2.alterRecord) route.prependAlterRecord(_this2.alterRecord);
-
-        if (_this2.beforeCommit) route.prependBeforeCommit(_this2.beforeCommit);
-
-        if (_this2.afterCommit) route.prependAfterCommit(_this2.afterCommit);
-
-        if (_this2.beforeRollback) route.prependBeforeRollback(_this2.beforeRollback);
-
-        return [].concat((0, _toConsumableArray3.default)(routes), (0, _toConsumableArray3.default)(_lodash2.default.castArray(route.render(options))));
-      }, [])), [_not_found_route2.default.render(options)]);
+        return [].concat((0, _toConsumableArray3.default)(routes), (0, _toConsumableArray3.default)(_lodash2.default.castArray(route.render(_this2.path, options, hooks))));
+      }, [])), [_not_found_route2.default.render('', options, [])]);
     }
   }]);
   return Backframe;

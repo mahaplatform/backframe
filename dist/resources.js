@@ -82,9 +82,9 @@ var Resources = function (_Collection) {
     _this.sortParams = null;
     _this.virtualFilters = null;
 
-    if (config.collectionActions) _this.appendCollectionAction(config.collectionActions);
+    if (config.collectionActions) _this.setCollectionActions(config.collectionActions);
     if (config.filterParams) _this.setFilterParams(config.filterParams);
-    if (config.memberActions) _this.appendMemberAction(config.memberActions);
+    if (config.memberActions) _this.setMemberActions(config.memberActions);
     if (config.searchParams) _this.setSearchParams(config.searchParams);
     if (config.sortParams) _this.setSortParams(config.sortParams);
     if (config.virtualFilters) _this.setVirtualFilters(config.virtualFilters);
@@ -117,14 +117,9 @@ var Resources = function (_Collection) {
       this.collectionActions = _lodash2.default.castArray(actions);
     }
   }, {
-    key: 'appendCollectionAction',
-    value: function appendCollectionAction(action) {
-      this._appendItem('collectionActions', action);
-    }
-  }, {
-    key: 'prependCollectionAction',
-    value: function prependCollectionAction(action) {
-      this._prependItem('collectionActions', action);
+    key: 'addCollectionAction',
+    value: function addCollectionAction(action) {
+      this._addItem('collectionActions', action);
     }
   }, {
     key: 'setMemberActions',
@@ -132,42 +127,30 @@ var Resources = function (_Collection) {
       this.memberActions = _lodash2.default.castArray(actions);
     }
   }, {
-    key: 'appendMemberAction',
-    value: function appendMemberAction(action) {
-      this._appendItem('memberActions', action);
-    }
-  }, {
-    key: 'prependMemberAction',
-    value: function prependMemberAction(action) {
-      this._prependItem('memberActions', action);
+    key: 'addMemberAction',
+    value: function addMemberAction(action) {
+      this._addItem('memberActions', action);
     }
   }, {
     key: 'render',
     value: function render() {
+      var resourcesPath = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
       var _this2 = this;
 
-      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var resourcesOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var resourcesHooks = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
 
       return this._getRoutes().map(function (route) {
 
-        if (_this2.path) route.prependPath(_this2.path);
+        var path = '' + (resourcesPath || '') + (_this2.path || '');
 
-        if (_this2.alterRequest) route.prependAlterRequest(_this2.alterRequest);
+        var options = (0, _extends3.default)({}, resourcesOptions, _this2._getDestructuredOptions(_this2.customOptions, route.action));
 
-        if (_this2.beforeProcessor) route.prependBeforeProcessor(_this2.beforeProcessor);
+        var hooks = _this2._mergeHooks(resourcesHooks, _this2.hooks);
 
-        if (_this2.afterProcessor) route.prependAfterProcessor(_this2.afterProcessor);
-
-        if (_this2.alterRecord) route.prependAlterRecord(_this2.alterRecord);
-
-        if (_this2.beforeCommit) route.prependBeforeCommit(_this2.beforeCommit);
-
-        if (_this2.afterCommit) route.prependAfterCommit(_this2.afterCommit);
-
-        if (_this2.beforeRollback) route.prependBeforeRollback(_this2.beforeRollback);
-
-        return route.render((0, _extends3.default)({}, options, _this2._getDestructuredOptions(_this2.customOptions, route.action)));
+        return route.render(path, options, hooks);
       });
     }
   }, {
@@ -209,7 +192,7 @@ var Resources = function (_Collection) {
         }, _callee, this);
       }));
 
-      function _fetchResource(_x3, _x4, _x5) {
+      function _fetchResource(_x5, _x6, _x7) {
         return _ref.apply(this, arguments);
       }
 
@@ -309,8 +292,9 @@ var Resources = function (_Collection) {
   }, {
     key: '_getMemberRoute',
     value: function _getMemberRoute(route) {
-      route.prependPath('/:id');
-      route.prependAlterRequest(this._fetchResource);
+      // theres a better way to do this
+      route.path = '/:id' + route.path;
+      route.hooks.alterRequest.push(this._fetchResource);
       return route;
     }
   }]);

@@ -12,45 +12,31 @@ class Resources extends Collection {
 
   constructor(config = {}) {
     super(config)
-    if(config.actions) this.appendAction(config.actions)
+    if(config.actions) this.setActions(config.actions)
   }
 
   setActions(actions) {
     this.actions = _.castArray(actions)
   }
 
-  appendAction(action) {
-    this._appendItem('actions', action)
+  addAction(action) {
+    this._addItem('actions', action)
   }
 
-  prependAction(action) {
-    this._prependItem('actions', action)
-  }
-
-  render(options = {}) {
+  render(resourcePath = '', resourceOptions = {}, resourceHooks = []) {
 
     return this._getRoutes().map(route => {
 
-      if(this.path) route.prependPath(this.path)
+      const path = `${resourcePath || ''}${this.path || ''}`
 
-      if(this.alterRequest) route.prependAlterRequest(this.alterRequest)
-
-      if(this.beforeProcessor) route.prependBeforeProcessor(this.beforeProcessor)
-
-      if(this.afterProcessor) route.prependAfterProcessor(this.afterProcessor)
-
-      if(this.alterRecord) route.prependAlterRecord(this.alterRecord)
-
-      if(this.beforeCommit) route.prependBeforeCommit(this.beforeCommit)
-
-      if(this.afterCommit) route.prependAfterCommit(this.afterCommit)
-
-      if(this.beforeRollback) route.prependBeforeRollback(this.beforeRollback)
-
-      return route.render({
-        ...options,
+      const options = {
+        ...resourceOptions,
         ...this._getDestructuredOptions(this.customOptions, route.action)
-      })
+      }
+
+      const hooks = this._mergeHooks(resourceHooks, this.hooks)
+
+      return route.render(path, options, hooks)
 
     })
 

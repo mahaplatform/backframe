@@ -4,13 +4,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends2 = require('babel-runtime/helpers/extends');
-
-var _extends3 = _interopRequireDefault(_extends2);
-
 var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -49,47 +49,40 @@ var Segment = function (_Component) {
 
     _this.routes = [];
 
-    if (config.routes) _this.appendRoute(config.routes);
+    if (config.routes) _this.setRoutes(config.routes);
     return _this;
   }
 
   (0, _createClass3.default)(Segment, [{
-    key: 'appendRoute',
-    value: function appendRoute(route) {
-      this._appendItem('routes', route);
+    key: 'setRoutes',
+    value: function setRoutes(routes) {
+      this.routes = routes;
     }
   }, {
-    key: 'prependRoute',
-    value: function prependRoute(route) {
-      this._prependItem('routes', route);
+    key: 'addRoute',
+    value: function addRoute(route) {
+      this._addItem('routes', route);
     }
   }, {
     key: 'render',
     value: function render() {
+      var segmentPath = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
       var _this2 = this;
 
-      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var segmentOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var segmentHooks = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
 
       return this.routes.reduce(function (routes, route) {
 
-        if (_this2.path) route.prependPath(_this2.path);
+        var path = '' + (segmentPath || '') + (_this2.path || '');
 
-        if (_this2.alterRequest) route.prependAlterRequest(_this2.alterRequest);
+        var options = (0, _extends3.default)({}, segmentOptions, _this2.customOptions);
 
-        if (_this2.beforeProcessor) route.prependBeforeProcessor(_this2.beforeProcessor);
+        var hooks = _this2._mergeHooks(segmentHooks, _this2.hooks);
 
-        if (_this2.afterProcessor) route.prependAfterProcessor(_this2.afterProcessor);
-
-        if (_this2.alterRecord) route.prependAlterRecord(_this2.alterRecord);
-
-        if (_this2.beforeCommit) route.prependBeforeCommit(_this2.beforeCommit);
-
-        if (_this2.afterCommit) route.prependAfterCommit(_this2.afterCommit);
-
-        if (_this2.beforeRollback) route.prependBeforeRollback(_this2.beforeRollback);
-
-        return [].concat((0, _toConsumableArray3.default)(routes), (0, _toConsumableArray3.default)(_lodash2.default.castArray(route.render((0, _extends3.default)({}, options, _this2.customOptions)))));
+        return [].concat((0, _toConsumableArray3.default)(routes), (0, _toConsumableArray3.default)(_lodash2.default.castArray(route.render(path, options, hooks))));
       }, []);
     }
   }]);

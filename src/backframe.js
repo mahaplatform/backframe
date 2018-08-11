@@ -14,6 +14,8 @@ class Backframe extends Component {
 
   plugins = []
 
+  reorter = null
+
   routes = []
 
   constructor(config = {}) {
@@ -22,8 +24,9 @@ class Backframe extends Component {
     if(config.defaultLimit) this.setDefaultLimit(config.defaultLimit)
     if(config.knex) this.setKnex(config.knex)
     if(config.logger) this.setLogger(config.logger)
-    if(config.plugins) this.appendPlugin(config.plugins)
-    if(config.routes) this.appendRoute(config.routes)
+    if(config.plugins) this.setPlugins(config.plugins)
+    if(config.routes) this.setRoutes(config.routes)
+    if(config.reporter) this.setReporter(config.reporter)
   }
 
   setDefaultFormat(defaultFormat) {
@@ -46,33 +49,29 @@ class Backframe extends Component {
     this.plugins = plugins
   }
 
-  appendPlugin(plugin) {
-    this._appendItem('plugins', plugin)
+  addPlugin(plugin) {
+    this._addItem('plugins', plugin)
   }
 
-  prependPlugin(plugin) {
-    this._prependItem('plugins', plugin)
+  setReporter(reporter) {
+    this.reporter = reporter
   }
 
   setRoutes(routes) {
     this.routes = routes
   }
 
-  appendRoute(route) {
-    this._appendItem('routes', route)
-  }
-
-  prependRoute(route) {
-    this._prependItem('routes', route)
+  addRoute(route) {
+    this._addItem('routes', route)
   }
 
   render() {
 
-    this.plugins.map(plugin => {
+    const hooks = this.plugins.reduce((hooks, plugin) => {
 
-      plugin.apply(this)
+      return plugin.apply(hooks)
 
-    })
+    }, this.hooks)
 
     const options = {
       knex: this.knex,
@@ -83,32 +82,12 @@ class Backframe extends Component {
 
     return [
 
-      ...this.routes.reduce((routes, route) => {
+      ...this.routes.reduce((routes, route) => [
+        ...routes,
+        ..._.castArray(route.render(this.path, options, hooks))
+      ], []),
 
-        if(this.path) route.prependPath(this.path)
-
-        if(this.alterRequest) route.prependAlterRequest(this.alterRequest)
-
-        if(this.beforeProcessor) route.prependBeforeProcessor(this.beforeProcessor)
-
-        if(this.afterProcessor) route.prependAfterProcessor(this.afterProcessor)
-
-        if(this.alterRecord) route.prependAlterRecord(this.alterRecord)
-
-        if(this.beforeCommit) route.prependBeforeCommit(this.beforeCommit)
-
-        if(this.afterCommit) route.prependAfterCommit(this.afterCommit)
-
-        if(this.beforeRollback) route.prependBeforeRollback(this.beforeRollback)
-
-        return [
-          ...routes,
-          ..._.castArray(route.render(options))
-        ]
-
-      }, []),
-
-      NotFoundRoute.render(options)
+      NotFoundRoute.render('', options, [])
 
     ]
   }

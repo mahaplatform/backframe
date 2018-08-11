@@ -81,14 +81,14 @@ nestedRoute2.setProcessor((req, trx, options) => {
 
 const nestedSegment2 = new Segment()
 nestedSegment2.setPath('/two')
-nestedSegment2.appendRoute([
+nestedSegment2.addRoute([
   nestedRoute1,
   nestedRoute2
 ])
 
 const nestedSegment1 = new Segment()
 nestedSegment1.setPath('/one')
-nestedSegment1.appendRoute(nestedSegment2)
+nestedSegment1.addRoute(nestedSegment2)
 
 const authenticated = new Segment({
   routes: [

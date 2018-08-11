@@ -23,9 +23,9 @@ class Resources extends Collection {
 
   constructor(config = {}) {
     super(config)
-    if(config.collectionActions) this.appendCollectionAction(config.collectionActions)
+    if(config.collectionActions) this.setCollectionActions(config.collectionActions)
     if(config.filterParams) this.setFilterParams(config.filterParams)
-    if(config.memberActions) this.appendMemberAction(config.memberActions)
+    if(config.memberActions) this.setMemberActions(config.memberActions)
     if(config.searchParams) this.setSearchParams(config.searchParams)
     if(config.sortParams) this.setSortParams(config.sortParams)
     if(config.virtualFilters) this.setVirtualFilters(config.virtualFilters)
@@ -51,50 +51,32 @@ class Resources extends Collection {
     this.collectionActions = _.castArray(actions)
   }
 
-  appendCollectionAction(action) {
-    this._appendItem('collectionActions', action)
-  }
-
-  prependCollectionAction(action) {
-    this._prependItem('collectionActions', action)
+  addCollectionAction(action) {
+    this._addItem('collectionActions', action)
   }
 
   setMemberActions(actions) {
     this.memberActions = _.castArray(actions)
   }
 
-  appendMemberAction(action) {
-    this._appendItem('memberActions', action)
+  addMemberAction(action) {
+    this._addItem('memberActions', action)
   }
 
-  prependMemberAction(action) {
-    this._prependItem('memberActions', action)
-  }
-
-  render(options = {}) {
+  render(resourcesPath = '', resourcesOptions = {}, resourcesHooks = []) {
 
     return this._getRoutes().map(route => {
 
-      if(this.path) route.prependPath(this.path)
+      const path = `${resourcesPath || ''}${this.path || ''}`
 
-      if(this.alterRequest) route.prependAlterRequest(this.alterRequest)
-
-      if(this.beforeProcessor) route.prependBeforeProcessor(this.beforeProcessor)
-
-      if(this.afterProcessor) route.prependAfterProcessor(this.afterProcessor)
-
-      if(this.alterRecord) route.prependAlterRecord(this.alterRecord)
-
-      if(this.beforeCommit) route.prependBeforeCommit(this.beforeCommit)
-
-      if(this.afterCommit) route.prependAfterCommit(this.afterCommit)
-
-      if(this.beforeRollback) route.prependBeforeRollback(this.beforeRollback)
-
-      return route.render({
-        ...options,
+      const options = {
+        ...resourcesOptions,
         ...this._getDestructuredOptions(this.customOptions, route.action)
-      })
+      }
+
+      const hooks = this._mergeHooks(resourcesHooks, this.hooks)
+
+      return route.render(path, options, hooks)
 
     })
 
@@ -200,8 +182,9 @@ class Resources extends Collection {
   }
 
   _getMemberRoute(route) {
-    route.prependPath('/:id')
-    route.prependAlterRequest(this._fetchResource)
+    // theres a better way to do this
+    route.path = `/:id${route.path}`
+    route.hooks.alterRequest.push(this._fetchResource)
     return route
   }
 

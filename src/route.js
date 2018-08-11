@@ -45,12 +45,16 @@ class Route extends Component {
     this._setRouteParams('serializer', serializer)
   }
 
-  render(routeOptions = {}) {
+  render(routePath = '', routeOptions = {}, routeHooks = []) {
+
+    const path = `${routePath || ''}${this.path || ''}`
 
     const options = {
-      ...this.routeOptions,
-      ...routeOptions
+      ...routeOptions,
+      ...this.routeOptions
     }
+
+    const hooks = this._mergeHooks(routeHooks, this.hooks)
 
     const reporter = new Reporter()
 
@@ -64,9 +68,9 @@ class Route extends Component {
 
       options,
 
-      hooks: _.pick(this, ['alterRequest','beforeProcessor','afterProcessor','alterRecord', 'beforeCommit', 'afterCommit', 'afterRollback']),
+      hooks,
 
-      path: `${this.path.replace(':id',':id(\\d+)')}.:format?`,
+      path: `${path.replace(':id',':id(\\d+)')}.:format?`,
 
       handler: (req, res, next) => {
 
@@ -76,35 +80,35 @@ class Route extends Component {
 
           try {
 
-            req = await this._alterRequest(req, trx, options, this.alterRequest)
+            req = await this._alterRequest(req, trx, options, hooks.alterRequest)
 
-            await this._runHooks(req, trx, null, options, this.beforeProcessor, false)
+            await this._runHooks(req, trx, null, options, hooks.beforeProcessor, false)
 
             const result = await this.processor(req, trx, options) || null
 
-            await this._runHooks(req, trx, result, options, this.afterProcessor, true)
+            await this._runHooks(req, trx, result, options, hooks.afterProcessor, true)
 
             const renderer = new Renderer({ req, trx, result, options })
 
             const rendered = await renderer.render()
 
-            const altered = await this._alterRecord(req, trx, rendered, options, this.alterRecord)
+            const altered = await this._alterRecord(req, trx, rendered, options, hooks.alterRecord)
 
             const responder = this._getResponder(req, res, altered, options)
 
             await responder.render()
 
-            await this._runHooks(req, trx, altered, options, this.beforeCommit, true)
+            await this._runHooks(req, trx, altered, options, hooks.beforeCommit, true)
 
             await trx.commit(result)
 
-            await this._runHooks(req, trx, altered, options, this.afterCommit, true)
+            await this._runHooks(req, trx, altered, options, hooks.afterCommit, true)
 
             logger.print()
 
           } catch(error) {
 
-            await this._runHooks(req, trx, null, options, this.beforeRollback, false)
+            await this._runHooks(req, trx, null, options, hooks.beforeRollback, false)
 
             const error_responder = new ErrorResponder({ res, error })
 
@@ -134,8 +138,6 @@ class Route extends Component {
 
   async _alterRequest(req, trx, options, hooks) {
 
-    if(!hooks) return req
-
     return await Promise.reduce(hooks, async (req, hook) => {
 
       return await hook(req, trx, options) || req
@@ -145,8 +147,6 @@ class Route extends Component {
   }
 
   async _runHooks(req, trx, result, options, hooks, includeResult) {
-
-    if(!hooks) return
 
     await Promise.mapSeries(hooks, async (hook) => {
 
@@ -160,8 +160,6 @@ class Route extends Component {
 
   async _afterProcessor(req, trx, result, options, hooks) {
 
-    if(!hooks) return result
-
     return await Promise.reduce(hooks, async (result, hook) => {
 
       return await hook(req, trx, result, options) || result
@@ -171,8 +169,6 @@ class Route extends Component {
   }
 
   async _alterRecord(req, trx, result, options, hooks) {
-
-    if(!hooks) return result
 
     const alterRecord = (req, trx, record, options) => Promise.reduce(hooks, async (record, hook) => {
 
