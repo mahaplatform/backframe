@@ -75,9 +75,9 @@ var Resources = function (_Collection) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (Resources.__proto__ || Object.getPrototypeOf(Resources)).call(this, config));
 
-    _this.collectionActions = null;
+    _this.collectionActions = [];
     _this.filterParams = null;
-    _this.memberActions = null;
+    _this.memberActions = [];
     _this.searchParams = null;
     _this.sortParams = null;
     _this.virtualFilters = null;
@@ -209,12 +209,9 @@ var Resources = function (_Collection) {
 
       if (this._includeAction('create')) routes.push(this._getCreateRoute());
 
-      if (this.collectionActions) {
-
-        this.collectionActions.map(function (route) {
-          return routes.push(_this3._getCollectionRoute(route));
-        });
-      }
+      this.collectionActions.map(function (route) {
+        return routes.push(_this3._getCollectionRoute(route));
+      });
 
       if (this._includeAction('show')) routes.push(this._getShowRoute());
 
@@ -222,12 +219,9 @@ var Resources = function (_Collection) {
 
       if (this._includeAction('destroy')) routes.push(this._getDestroyRoute());
 
-      if (this.memberActions) {
-
-        this.memberActions.map(function (route) {
-          return routes.push(_this3._getMemberRoute(route));
-        });
-      }
+      this.memberActions.map(function (route) {
+        return routes.push(_this3._getMemberRoute(route));
+      });
 
       return routes;
     }

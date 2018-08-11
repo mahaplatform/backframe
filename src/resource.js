@@ -63,11 +63,7 @@ class Resources extends Collection {
 
     const routes = []
 
-    if(this.actions) {
-
-      this.actions.map(route => routes.push(this._getCollectionRoute(route)))
-
-    }
+    this.actions.map(route => routes.push(this._getCollectionRoute(route)))
 
     if(this._includeAction('create')) routes.push(this._getCreateRoute())
 

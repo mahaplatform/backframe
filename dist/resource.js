@@ -161,12 +161,9 @@ var Resources = function (_Collection) {
 
       var routes = [];
 
-      if (this.actions) {
-
-        this.actions.map(function (route) {
-          return routes.push(_this3._getCollectionRoute(route));
-        });
-      }
+      this.actions.map(function (route) {
+        return routes.push(_this3._getCollectionRoute(route));
+      });
 
       if (this._includeAction('create')) routes.push(this._getCreateRoute());
 

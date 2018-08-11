@@ -158,16 +158,6 @@ class Route extends Component {
 
   }
 
-  async _afterProcessor(req, trx, result, options, hooks) {
-
-    return await Promise.reduce(hooks, async (result, hook) => {
-
-      return await hook(req, trx, result, options) || result
-
-    }, result)
-
-  }
-
   async _alterRecord(req, trx, result, options, hooks) {
 
     const alterRecord = (req, trx, record, options) => Promise.reduce(hooks, async (record, hook) => {

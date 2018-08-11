@@ -392,55 +392,73 @@ var Route = function (_Component) {
       return _runHooks;
     }()
   }, {
-    key: '_afterProcessor',
+    key: '_alterRecord',
     value: function () {
       var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee7(req, trx, result, options, hooks) {
         var _this5 = this;
 
+        var alterRecord, records;
         return _regenerator2.default.wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                _context7.next = 2;
-                return (0, _bluebird.reduce)(hooks, function () {
-                  var _ref7 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6(result, hook) {
-                    return _regenerator2.default.wrap(function _callee6$(_context6) {
-                      while (1) {
-                        switch (_context6.prev = _context6.next) {
-                          case 0:
-                            _context6.next = 2;
-                            return hook(req, trx, result, options);
+                alterRecord = function alterRecord(req, trx, record, options) {
+                  return (0, _bluebird.reduce)(hooks, function () {
+                    var _ref7 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6(record, hook) {
+                      return _regenerator2.default.wrap(function _callee6$(_context6) {
+                        while (1) {
+                          switch (_context6.prev = _context6.next) {
+                            case 0:
+                              _context6.next = 2;
+                              return hook(req, trx, record, options);
 
-                          case 2:
-                            _context6.t0 = _context6.sent;
+                            case 2:
+                              _context6.t0 = _context6.sent;
 
-                            if (_context6.t0) {
-                              _context6.next = 5;
-                              break;
-                            }
+                              if (_context6.t0) {
+                                _context6.next = 5;
+                                break;
+                              }
 
-                            _context6.t0 = result;
+                              _context6.t0 = record;
 
-                          case 5:
-                            return _context6.abrupt('return', _context6.t0);
+                            case 5:
+                              return _context6.abrupt('return', _context6.t0);
 
-                          case 6:
-                          case 'end':
-                            return _context6.stop();
+                            case 6:
+                            case 'end':
+                              return _context6.stop();
+                          }
                         }
-                      }
-                    }, _callee6, _this5);
-                  }));
+                      }, _callee6, _this5);
+                    }));
 
-                  return function (_x24, _x25) {
-                    return _ref7.apply(this, arguments);
-                  };
-                }(), result);
+                    return function (_x24, _x25) {
+                      return _ref7.apply(this, arguments);
+                    };
+                  }(), record);
+                };
 
-              case 2:
-                return _context7.abrupt('return', _context7.sent);
+                if (!(_lodash2.default.isPlainObject(result) && result.records)) {
+                  _context7.next = 6;
+                  break;
+                }
 
-              case 3:
+                _context7.next = 4;
+                return (0, _bluebird.mapSeries)(result.records, function (record) {
+                  return alterRecord(req, trx, record, options);
+                });
+
+              case 4:
+                records = _context7.sent;
+                return _context7.abrupt('return', (0, _extends3.default)({}, result, {
+                  records: records
+                }));
+
+              case 6:
+                return _context7.abrupt('return', alterRecord(req, trx, result, options));
+
+              case 7:
               case 'end':
                 return _context7.stop();
             }
@@ -448,89 +466,8 @@ var Route = function (_Component) {
         }, _callee7, this);
       }));
 
-      function _afterProcessor(_x19, _x20, _x21, _x22, _x23) {
+      function _alterRecord(_x19, _x20, _x21, _x22, _x23) {
         return _ref6.apply(this, arguments);
-      }
-
-      return _afterProcessor;
-    }()
-  }, {
-    key: '_alterRecord',
-    value: function () {
-      var _ref8 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee9(req, trx, result, options, hooks) {
-        var _this6 = this;
-
-        var alterRecord, records;
-        return _regenerator2.default.wrap(function _callee9$(_context9) {
-          while (1) {
-            switch (_context9.prev = _context9.next) {
-              case 0:
-                alterRecord = function alterRecord(req, trx, record, options) {
-                  return (0, _bluebird.reduce)(hooks, function () {
-                    var _ref9 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee8(record, hook) {
-                      return _regenerator2.default.wrap(function _callee8$(_context8) {
-                        while (1) {
-                          switch (_context8.prev = _context8.next) {
-                            case 0:
-                              _context8.next = 2;
-                              return hook(req, trx, record, options);
-
-                            case 2:
-                              _context8.t0 = _context8.sent;
-
-                              if (_context8.t0) {
-                                _context8.next = 5;
-                                break;
-                              }
-
-                              _context8.t0 = record;
-
-                            case 5:
-                              return _context8.abrupt('return', _context8.t0);
-
-                            case 6:
-                            case 'end':
-                              return _context8.stop();
-                          }
-                        }
-                      }, _callee8, _this6);
-                    }));
-
-                    return function (_x31, _x32) {
-                      return _ref9.apply(this, arguments);
-                    };
-                  }(), record);
-                };
-
-                if (!(_lodash2.default.isPlainObject(result) && result.records)) {
-                  _context9.next = 6;
-                  break;
-                }
-
-                _context9.next = 4;
-                return (0, _bluebird.mapSeries)(result.records, function (record) {
-                  return alterRecord(req, trx, record, options);
-                });
-
-              case 4:
-                records = _context9.sent;
-                return _context9.abrupt('return', (0, _extends3.default)({}, result, {
-                  records: records
-                }));
-
-              case 6:
-                return _context9.abrupt('return', alterRecord(req, trx, result, options));
-
-              case 7:
-              case 'end':
-                return _context9.stop();
-            }
-          }
-        }, _callee9, this);
-      }));
-
-      function _alterRecord(_x26, _x27, _x28, _x29, _x30) {
-        return _ref8.apply(this, arguments);
       }
 
       return _alterRecord;

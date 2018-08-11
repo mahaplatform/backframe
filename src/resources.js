@@ -9,11 +9,11 @@ import _ from 'lodash'
 
 class Resources extends Collection {
 
-  collectionActions = null
+  collectionActions = []
 
   filterParams = null
 
-  memberActions = null
+  memberActions = []
 
   searchParams = null
 
@@ -107,11 +107,7 @@ class Resources extends Collection {
 
     if(this._includeAction('create')) routes.push(this._getCreateRoute())
 
-    if(this.collectionActions) {
-
-      this.collectionActions.map(route => routes.push(this._getCollectionRoute(route)))
-
-    }
+    this.collectionActions.map(route => routes.push(this._getCollectionRoute(route)))
 
     if(this._includeAction('show')) routes.push(this._getShowRoute())
 
@@ -119,11 +115,7 @@ class Resources extends Collection {
 
     if(this._includeAction('destroy')) routes.push(this._getDestroyRoute())
 
-    if(this.memberActions) {
-
-      this.memberActions.map(route => routes.push(this._getMemberRoute(route)))
-
-    }
+    this.memberActions.map(route => routes.push(this._getMemberRoute(route)))
 
     return routes
 
