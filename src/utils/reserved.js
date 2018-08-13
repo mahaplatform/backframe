@@ -1,13 +1,5 @@
 const reserved = [
-  'action',
-  'afterCommit',
-  'afterProcessor',
   'allowedParams',
-  'alterRecord',
-  'alterRequest',
-  'beforeCommit',
-  'beforeProcessor',
-  'beforeRollback',
   'collectionActions',
   'defaultFormat',
   'defaultLimit',

@@ -63,17 +63,23 @@ class Resources extends Collection {
     this._addItem('memberActions', action)
   }
 
-  render(resourcesPath = '', resourcesOptions = {}, resourcesHooks = []) {
+  render(resourcesPath = '', resourcesOptions = {}, resourcesHooks = {}) {
 
     return this._getRoutes().map(route => {
 
       const path = this._mergePaths(resourcesPath, this.path)
 
-      const customOptions = this._getDestructuredOptions(this.customOptions, route.action)
+      const actionOptions = this._getDestructuredOptions(this.customOptions, route.action)
 
-      const options = this._mergeOptions(resourcesOptions, customOptions)
+      const options = this._mergeOptions(resourcesOptions, actionOptions)
 
-      const hooks = this._mergeHooks(resourcesHooks, this.hooks)
+      const actionHooks = Object.keys(this.hooks).reduce((hooks, hook) => ({
+        ...hooks,
+        [hook]: this._getDestructuredOptions(this.hooks[hook], route.action)
+
+      }), {})
+
+      const hooks = this._mergeHooks(resourcesHooks, actionHooks)
 
       return route.render(path, options, hooks)
 

@@ -12,6 +12,14 @@ var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends3 = require('babel-runtime/helpers/extends');
+
+var _extends4 = _interopRequireDefault(_extends3);
+
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -135,18 +143,22 @@ var Resources = function (_Collection) {
       var _this2 = this;
 
       var resourcesOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      var resourcesHooks = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+      var resourcesHooks = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
 
       return this._getRoutes().map(function (route) {
 
         var path = _this2._mergePaths(resourcesPath, _this2.path);
 
-        var customOptions = _this2._getDestructuredOptions(_this2.customOptions, route.action);
+        var actionOptions = _this2._getDestructuredOptions(_this2.customOptions, route.action);
 
-        var options = _this2._mergeOptions(resourcesOptions, customOptions);
+        var options = _this2._mergeOptions(resourcesOptions, actionOptions);
 
-        var hooks = _this2._mergeHooks(resourcesHooks, _this2.hooks);
+        var actionHooks = Object.keys(_this2.hooks).reduce(function (hooks, hook) {
+          return (0, _extends4.default)({}, hooks, (0, _defineProperty3.default)({}, hook, _this2._getDestructuredOptions(_this2.hooks[hook], route.action)));
+        }, {});
+
+        var hooks = _this2._mergeHooks(resourcesHooks, actionHooks);
 
         return route.render(path, options, hooks);
       });

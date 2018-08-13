@@ -128,7 +128,7 @@ var Route = function (_Component) {
       var _this2 = this;
 
       var routeOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      var routeHooks = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+      var routeHooks = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
 
       var path = this._mergePaths(routePath, this.path);

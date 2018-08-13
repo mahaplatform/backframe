@@ -45,7 +45,7 @@ class Route extends Component {
     this._setRouteParams('serializer', serializer)
   }
 
-  render(routePath = '', routeOptions = {}, routeHooks = []) {
+  render(routePath = '', routeOptions = {}, routeHooks = {}) {
 
     const path = this._mergePaths(routePath, this.path)
 

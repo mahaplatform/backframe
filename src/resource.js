@@ -23,7 +23,7 @@ class Resources extends Collection {
     this._addItem('actions', action)
   }
 
-  render(resourcePath = '', resourceOptions = {}, resourceHooks = []) {
+  render(resourcePath = '', resourceOptions = {}, resourceHooks = {}) {
 
     return this._getRoutes().map(route => {
 

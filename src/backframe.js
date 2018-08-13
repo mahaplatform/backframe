@@ -87,7 +87,7 @@ class Backframe extends Component {
         ..._.castArray(route.render(this.path, options, hooks))
       ], []),
 
-      NotFoundRoute.render('', options, [])
+      NotFoundRoute.render('', options)
 
     ]
   }
