@@ -87,6 +87,18 @@ var Component = function () {
       this.customOptions = (0, _extends4.default)({}, this.customOptions || {}, _lodash2.default.omit(options, _reserved2.default));
     }
   }, {
+    key: '_mergePaths',
+    value: function _mergePaths(first, second) {
+
+      return '' + (first || '') + (second || '');
+    }
+  }, {
+    key: '_mergeOptions',
+    value: function _mergeOptions(first, second) {
+
+      return (0, _extends4.default)({}, first, second);
+    }
+  }, {
     key: '_mergeHooks',
     value: function _mergeHooks(first, second) {
 

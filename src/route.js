@@ -47,12 +47,9 @@ class Route extends Component {
 
   render(routePath = '', routeOptions = {}, routeHooks = []) {
 
-    const path = `${routePath || ''}${this.path || ''}`
+    const path = this._mergePaths(routePath, this.path)
 
-    const options = {
-      ...routeOptions,
-      ...this.routeOptions
-    }
+    const options = this._mergeOptions(routeOptions, this.routeOptions)
 
     const hooks = this._mergeHooks(routeHooks, this.hooks)
 

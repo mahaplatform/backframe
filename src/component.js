@@ -58,6 +58,21 @@ class Component {
     }
   }
 
+  _mergePaths(first, second) {
+
+    return `${first || ''}${second || ''}`
+
+  }
+
+  _mergeOptions(first, second) {
+
+    return {
+      ...first,
+      ...second
+    }
+
+  }
+
   _mergeHooks(first, second) {
 
     const hooks = ['afterCommit','afterProcessor','alterRecord','alterRequest','beforeCommit','beforeProcessor','beforeRollback']

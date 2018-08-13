@@ -67,12 +67,11 @@ class Resources extends Collection {
 
     return this._getRoutes().map(route => {
 
-      const path = `${resourcesPath || ''}${this.path || ''}`
+      const path = this._mergePaths(resourcesPath, this.path)
 
-      const options = {
-        ...resourcesOptions,
-        ...this._getDestructuredOptions(this.customOptions, route.action)
-      }
+      const customOptions = this._getDestructuredOptions(this.customOptions, route.action)
+
+      const options = this._mergeOptions(resourcesOptions, customOptions)
 
       const hooks = this._mergeHooks(resourcesHooks, this.hooks)
 

@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
 var _bluebird = require('bluebird');
 
 var _regenerator = require('babel-runtime/regenerator');
@@ -13,10 +17,6 @@ var _regenerator2 = _interopRequireDefault(_regenerator);
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
-var _extends2 = require('babel-runtime/helpers/extends');
-
-var _extends3 = _interopRequireDefault(_extends2);
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -131,9 +131,9 @@ var Route = function (_Component) {
       var routeHooks = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
 
-      var path = '' + (routePath || '') + (this.path || '');
+      var path = this._mergePaths(routePath, this.path);
 
-      var options = (0, _extends3.default)({}, routeOptions, this.routeOptions);
+      var options = this._mergeOptions(routeOptions, this.routeOptions);
 
       var hooks = this._mergeHooks(routeHooks, this.hooks);
 

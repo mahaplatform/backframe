@@ -12,10 +12,6 @@ var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _extends2 = require('babel-runtime/helpers/extends');
-
-var _extends3 = _interopRequireDefault(_extends2);
-
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -144,9 +140,11 @@ var Resources = function (_Collection) {
 
       return this._getRoutes().map(function (route) {
 
-        var path = '' + (resourcesPath || '') + (_this2.path || '');
+        var path = _this2._mergePaths(resourcesPath, _this2.path);
 
-        var options = (0, _extends3.default)({}, resourcesOptions, _this2._getDestructuredOptions(_this2.customOptions, route.action));
+        var customOptions = _this2._getDestructuredOptions(_this2.customOptions, route.action);
+
+        var options = _this2._mergeOptions(resourcesOptions, customOptions);
 
         var hooks = _this2._mergeHooks(resourcesHooks, _this2.hooks);
 

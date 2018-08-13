@@ -22,12 +22,9 @@ class Segment extends Component {
 
     return this.routes.reduce((routes, route) => {
 
-      const path = `${segmentPath || ''}${this.path || ''}`
+      const path = this._mergePaths(segmentPath, this.path)
 
-      const options = {
-        ...segmentOptions,
-        ...this.customOptions
-      }
+      const options = this._mergeOptions(segmentOptions, this.customOptions)
 
       const hooks = this._mergeHooks(segmentHooks, this.hooks)
 

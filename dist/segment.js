@@ -8,10 +8,6 @@ var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _extends2 = require('babel-runtime/helpers/extends');
-
-var _extends3 = _interopRequireDefault(_extends2);
-
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -76,9 +72,9 @@ var Segment = function (_Component) {
 
       return this.routes.reduce(function (routes, route) {
 
-        var path = '' + (segmentPath || '') + (_this2.path || '');
+        var path = _this2._mergePaths(segmentPath, _this2.path);
 
-        var options = (0, _extends3.default)({}, segmentOptions, _this2.customOptions);
+        var options = _this2._mergeOptions(segmentOptions, _this2.customOptions);
 
         var hooks = _this2._mergeHooks(segmentHooks, _this2.hooks);
 
