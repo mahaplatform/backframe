@@ -43,7 +43,7 @@ var Responder = function () {
     key: '_getPagination',
     value: function _getPagination(result) {
 
-      if (!result || _lodash2.default.get(result, 'records')) return null;
+      if (!result || !_lodash2.default.get(result, 'records')) return null;
 
       if (result.next !== undefined) return _lodash2.default.pick(result, ['next', 'skip']);
 

@@ -5,7 +5,6 @@ const reserved = [
   'defaultLimit',
   'except',
   'filterParams',
-  'knex',
   'logger',
   'memberActions',
   'method',

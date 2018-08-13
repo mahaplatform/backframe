@@ -14,6 +14,8 @@ class Backframe extends Component {
 
   plugins = []
 
+  redis = null
+
   reorter = null
 
   routes = []
@@ -25,6 +27,7 @@ class Backframe extends Component {
     if(config.knex) this.setKnex(config.knex)
     if(config.logger) this.setLogger(config.logger)
     if(config.plugins) this.setPlugins(config.plugins)
+    if(config.redis) this.setRedis(config.redis)
     if(config.routes) this.setRoutes(config.routes)
     if(config.reporter) this.setReporter(config.reporter)
   }
@@ -47,6 +50,10 @@ class Backframe extends Component {
 
   setPlugins(plugins) {
     this.plugins = plugins
+  }
+
+  setRedis(redis) {
+    this.redis = redis
   }
 
   addPlugin(plugin) {
@@ -73,12 +80,15 @@ class Backframe extends Component {
 
     }, this.hooks)
 
-    const options = {
+    const backframeOptions = {
+      defaultFormat: this.defaultFormat,
+      defaultLimit: this.defaultLimit,
       knex: this.knex,
       logger: this.logger,
-      defaultFormat: this.defaultFormat,
-      defaultLimit: this.defaultLimit
+      redis: this.redis
     }
+
+    const options = this._mergeOptions(backframeOptions, this.customOptions)
 
     return [
 

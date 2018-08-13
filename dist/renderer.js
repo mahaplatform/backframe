@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _bluebird = require('bluebird');
 
+var _bluebird2 = _interopRequireDefault(_bluebird);
+
 var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
@@ -29,6 +31,10 @@ var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 var _createClass2 = require('babel-runtime/helpers/createClass');
 
 var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
 
 var _lodash = require('lodash');
 
@@ -68,7 +74,7 @@ var Renderer = function () {
                 return _context.abrupt('return', null);
 
               case 2:
-                transforms = [this._renderRecord].concat((0, _toConsumableArray3.default)(this.req.query.$select ? [this._selectFields(this.req.query.$select)] : []));
+                transforms = [this._renderRecord.bind(this)].concat((0, _toConsumableArray3.default)(this.req.query.$select ? [this._selectFields(this.req.query.$select)] : []));
 
                 if (!this.result.records) {
                   _context.next = 7;
@@ -122,7 +128,7 @@ var Renderer = function () {
 
               case 2:
                 _context3.next = 4;
-                return (0, _bluebird.map)(result.records, function () {
+                return (0, _bluebird.mapSeries)(result.records, function () {
                   var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(record) {
                     return _regenerator2.default.wrap(function _callee2$(_context2) {
                       while (1) {
@@ -221,36 +227,75 @@ var Renderer = function () {
       return _applyToRecord;
     }()
   }, {
-    key: '_renderRecord',
+    key: '_getCacheKey',
+    value: function _getCacheKey(req, record) {
+
+      if (!record.get('updated_at')) return null;
+
+      var route = req.path.substr(1).replace(/\//g, '-');
+
+      var timestamp = (0, _moment2.default)(record.get('updated_at')).format('x');
+
+      return route + '-' + timestamp;
+    }
+  }, {
+    key: '_cache',
     value: function () {
-      var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6(req, trx, result, options) {
+      var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6(key, options, fn) {
+        var value, rendered;
         return _regenerator2.default.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                if (result.toJSON) {
-                  _context6.next = 2;
+                if (!(!options.cache || !options.redis || !key)) {
+                  _context6.next = 4;
                   break;
                 }
 
-                return _context6.abrupt('return', result);
+                _context6.next = 3;
+                return fn();
 
-              case 2:
-                if (!options.serializer) {
-                  _context6.next = 6;
-                  break;
-                }
-
-                _context6.next = 5;
-                return options.serializer(req, trx, result);
-
-              case 5:
+              case 3:
                 return _context6.abrupt('return', _context6.sent);
 
-              case 6:
-                return _context6.abrupt('return', result.toJSON());
+              case 4:
+                _context6.next = 6;
+                return new _bluebird2.default(function (resolve, reject) {
 
-              case 7:
+                  options.redis.get(key, function (err, data) {
+
+                    if (err) reject(err);
+
+                    resolve(data);
+                  });
+                });
+
+              case 6:
+                value = _context6.sent;
+
+
+                console.log(value ? 'hit' : 'miss');
+
+                if (!value) {
+                  _context6.next = 10;
+                  break;
+                }
+
+                return _context6.abrupt('return', JSON.parse(value));
+
+              case 10:
+                _context6.next = 12;
+                return fn();
+
+              case 12:
+                rendered = _context6.sent;
+                _context6.next = 15;
+                return options.redis.set(key, JSON.stringify(rendered), 'EX', 24 * 60 * 60);
+
+              case 15:
+                return _context6.abrupt('return', rendered);
+
+              case 16:
               case 'end':
                 return _context6.stop();
             }
@@ -258,8 +303,87 @@ var Renderer = function () {
         }, _callee6, this);
       }));
 
-      function _renderRecord(_x15, _x16, _x17, _x18) {
+      function _cache(_x15, _x16, _x17) {
         return _ref6.apply(this, arguments);
+      }
+
+      return _cache;
+    }()
+  }, {
+    key: '_renderRecord',
+    value: function () {
+      var _ref7 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee8(req, trx, record, options) {
+        var _this3 = this;
+
+        var key, fn;
+        return _regenerator2.default.wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                if (record.toJSON) {
+                  _context8.next = 2;
+                  break;
+                }
+
+                return _context8.abrupt('return', record);
+
+              case 2:
+                key = this._getCacheKey(req, record);
+
+                fn = function () {
+                  var _ref8 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee7() {
+                    return _regenerator2.default.wrap(function _callee7$(_context7) {
+                      while (1) {
+                        switch (_context7.prev = _context7.next) {
+                          case 0:
+                            if (!options.serializer) {
+                              _context7.next = 6;
+                              break;
+                            }
+
+                            _context7.next = 3;
+                            return options.serializer(req, trx, record);
+
+                          case 3:
+                            _context7.t0 = _context7.sent;
+                            _context7.next = 7;
+                            break;
+
+                          case 6:
+                            _context7.t0 = record.toJSON();
+
+                          case 7:
+                            return _context7.abrupt('return', _context7.t0);
+
+                          case 8:
+                          case 'end':
+                            return _context7.stop();
+                        }
+                      }
+                    }, _callee7, _this3);
+                  }));
+
+                  return function fn() {
+                    return _ref8.apply(this, arguments);
+                  };
+                }();
+
+                _context8.next = 6;
+                return this._cache(key, options, fn);
+
+              case 6:
+                return _context8.abrupt('return', _context8.sent);
+
+              case 7:
+              case 'end':
+                return _context8.stop();
+            }
+          }
+        }, _callee8, this);
+      }));
+
+      function _renderRecord(_x18, _x19, _x20, _x21) {
+        return _ref7.apply(this, arguments);
       }
 
       return _renderRecord;
@@ -267,11 +391,11 @@ var Renderer = function () {
   }, {
     key: '_selectFields',
     value: function _selectFields(select) {
-      var _this3 = this;
+      var _this4 = this;
 
       return function (req, trx, record) {
 
-        var fields = _this3._selectedKeys(select, record);
+        var fields = _this4._selectedKeys(select, record);
 
         return select ? _lodash2.default.pick(record, fields) : record;
       };
@@ -289,13 +413,13 @@ var Renderer = function () {
   }, {
     key: '_flattenKeys',
     value: function _flattenKeys(hash) {
-      var _this4 = this;
+      var _this5 = this;
 
       var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
 
       return Object.keys(hash).reduce(function (keys, key) {
-        return [].concat((0, _toConsumableArray3.default)(keys), (0, _toConsumableArray3.default)(_lodash2.default.isObject(hash[key]) ? _this4._flattenKeys(hash[key], '' + prefix + key + '.') : ['' + prefix + key]));
+        return [].concat((0, _toConsumableArray3.default)(keys), (0, _toConsumableArray3.default)(_lodash2.default.isObject(hash[key]) ? _this5._flattenKeys(hash[key], '' + prefix + key + '.') : ['' + prefix + key]));
       }, []);
     }
   }]);

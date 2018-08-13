@@ -22,7 +22,7 @@ class Responder {
 
   _getPagination(result) {
 
-    if(!result || _.get(result, 'records')) return null
+    if(!result || !_.get(result, 'records')) return null
 
     if(result.next !== undefined) return _.pick(result, ['next','skip'])
 

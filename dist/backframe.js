@@ -52,6 +52,7 @@ var Backframe = function (_Component) {
     _this.knex = null;
     _this.logger = null;
     _this.plugins = [];
+    _this.redis = null;
     _this.reorter = null;
     _this.routes = [];
 
@@ -60,6 +61,7 @@ var Backframe = function (_Component) {
     if (config.knex) _this.setKnex(config.knex);
     if (config.logger) _this.setLogger(config.logger);
     if (config.plugins) _this.setPlugins(config.plugins);
+    if (config.redis) _this.setRedis(config.redis);
     if (config.routes) _this.setRoutes(config.routes);
     if (config.reporter) _this.setReporter(config.reporter);
     return _this;
@@ -91,6 +93,11 @@ var Backframe = function (_Component) {
       this.plugins = plugins;
     }
   }, {
+    key: 'setRedis',
+    value: function setRedis(redis) {
+      this.redis = redis;
+    }
+  }, {
     key: 'addPlugin',
     value: function addPlugin(plugin) {
       this._addItem('plugins', plugin);
@@ -120,12 +127,15 @@ var Backframe = function (_Component) {
         return plugin.apply(hooks);
       }, this.hooks);
 
-      var options = {
+      var backframeOptions = {
+        defaultFormat: this.defaultFormat,
+        defaultLimit: this.defaultLimit,
         knex: this.knex,
         logger: this.logger,
-        defaultFormat: this.defaultFormat,
-        defaultLimit: this.defaultLimit
+        redis: this.redis
       };
+
+      var options = this._mergeOptions(backframeOptions, this.customOptions);
 
       return [].concat((0, _toConsumableArray3.default)(this.routes.reduce(function (routes, route) {
         return [].concat((0, _toConsumableArray3.default)(routes), (0, _toConsumableArray3.default)(_lodash2.default.castArray(route.render(_this2.path, options, hooks))));

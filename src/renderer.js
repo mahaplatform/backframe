@@ -1,3 +1,4 @@
+import moment from 'moment'
 import _ from 'lodash'
 
 class Renderer {
@@ -22,7 +23,7 @@ class Renderer {
     if(!this.result) return null
 
     const transforms = [
-      this._renderRecord,
+      this._renderRecord.bind(this),
       ...this.req.query.$select ? [this._selectFields(this.req.query.$select)] : []
     ]
 
@@ -36,7 +37,7 @@ class Renderer {
 
     if(!operations) return result
 
-    const records = await Promise.map(result.records, async (record) => {
+    const records = await Promise.mapSeries(result.records, async (record) => {
 
       return await this._applyToRecord(req, trx, record, operations, options)
 
@@ -59,13 +60,53 @@ class Renderer {
 
   }
 
-  async _renderRecord(req, trx, result, options) {
+  _getCacheKey(req, record) {
 
-    if(!result.toJSON) return result
+    if(!record.get('updated_at')) return null
 
-    if(options.serializer) return await options.serializer(req, trx, result)
+    return `${req.path.substr(1).replace(/\//g, '-')}-${moment(record.get('updated_at')).format('x')}`
 
-    return result.toJSON()
+  }
+
+  async _cache(key, options, fn) {
+
+    if(!options.cache || !options.redis || !key) return await fn()
+
+    const value = await new Promise((resolve, reject) => {
+
+      options.redis.get(key, (err, data) => {
+
+        if(err) reject(err)
+
+        resolve(data)
+
+      })
+
+    })
+
+    if(value) return JSON.parse(value)
+
+    const rendered = await fn()
+
+    await options.redis.set(key, JSON.stringify(rendered), 'EX', 24 * 60 * 60)
+
+    return rendered
+
+  }
+
+  async _renderRecord(req, trx, record, options) {
+
+    if(!record.toJSON) return record
+
+    const key = this._getCacheKey(req, record)
+
+    const fn = async () => {
+
+      return options.serializer ? await options.serializer(req, trx, record) : record.toJSON()
+
+    }
+
+    return await this._cache(key, options, fn)
 
   }
 
