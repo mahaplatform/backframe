@@ -51,19 +51,12 @@ var Logger = function () {
 
       var diff = process.hrtime(this.startTime);
 
-      var data = {
+      this.reporter.render({
         duration: (diff[0] * 1e3 + diff[1] * 1e-6).toFixed(3),
-        hostname: this.req.hostname,
-        method: this.req.method.toUpperCase(),
-        url: this.req.originalUrl.match(/^([^?]*)(.*)?$/)[1],
-        status: this.res.statusCode,
-        params: this.req.params,
-        query: this.req.query,
-        body: this.req.body,
+        req: this.req,
+        res: this.res,
         log: this.log
-      };
-
-      this.reporter.render(data);
+      });
     }
   }, {
     key: '_startQuery',

@@ -30,12 +30,12 @@ var Reporter = function () {
   (0, _createClass3.default)(Reporter, [{
     key: 'render',
     value: function render(data) {
-      this._writeKeyValue('REQUEST', data.method + ' ' + data.url);
-      this._writeKeyValue('HOST', data.hostname);
-      if (!_lodash2.default.isEmpty(data.params)) this._writeKeyValue('PARAMS', JSON.stringify(data.params));
-      if (!_lodash2.default.isEmpty(data.query)) this._writeKeyValue('QUERY', JSON.stringify(data.query));
-      if (!_lodash2.default.isEmpty(data.body)) this._writeKeyValue('BODY', JSON.stringify(data.body));
-      this._writeKeyValue('RESPONSE', data.status + ' in ' + data.duration + ' ms');
+      this._writeKeyValue('REQUEST', data.req.method.toUpperCase() + ' ' + data.req.originalUrl.match(/^([^?]*)(.*)?$/)[1]);
+      this._writeKeyValue('HOST', data.req.hostname);
+      if (!_lodash2.default.isEmpty(data.params)) this._writeKeyValue('PARAMS', JSON.stringify(data.req.params));
+      if (!_lodash2.default.isEmpty(data.query)) this._writeKeyValue('QUERY', JSON.stringify(data.req.query));
+      if (!_lodash2.default.isEmpty(data.body)) this._writeKeyValue('BODY', JSON.stringify(data.req.body));
+      this._writeKeyValue('RESPONSE', data.res.statusCode + ' in ' + data.duration + ' ms');
       data.log.map(function (entry) {
         process.stdout.write(_chalk2.default.green('SQL: ') + _chalk2.default.hex('#DDDDDD')(entry.sql) + _chalk2.default.magenta(' {' + entry.bindings.join(', ') + '} ') + entry.duration + 'ms\n');
       });
