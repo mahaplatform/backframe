@@ -92,28 +92,27 @@ var Component = function () {
     }
   }, {
     key: '_mergePaths',
-    value: function _mergePaths(first, second) {
-
-      return '' + (first || '') + (second || '');
+    value: function _mergePaths() {
+      return Array.prototype.slice.call(arguments).reduce(function (full, argument) {
+        return '' + full + (argument || '');
+      }, '');
     }
   }, {
     key: '_mergeOptions',
-    value: function _mergeOptions(first) {
-      var second = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      var third = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-
-      return (0, _extends4.default)({}, first, second, third);
+    value: function _mergeOptions() {
+      return Array.prototype.slice.call(arguments).reduce(function (full, argument) {
+        return (0, _extends4.default)({}, full, argument || {});
+      }, {});
     }
   }, {
     key: '_mergeHooks',
-    value: function _mergeHooks(first) {
-      var second = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      var third = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
+    value: function _mergeHooks() {
+      var _arguments = arguments;
 
       return _hooks2.default.reduce(function (hooks, hook) {
-        return (0, _extends4.default)({}, hooks, (0, _defineProperty3.default)({}, hook, [].concat((0, _toConsumableArray3.default)(first[hook] || []), (0, _toConsumableArray3.default)(second[hook] || []), (0, _toConsumableArray3.default)(third[hook] || []))));
+        return (0, _extends4.default)({}, hooks, (0, _defineProperty3.default)({}, hook, Array.prototype.slice.call(_arguments).reduce(function (full, argument) {
+          return [].concat((0, _toConsumableArray3.default)(full), (0, _toConsumableArray3.default)(argument[hook] || []));
+        }, [])));
       }, {});
     }
   }]);

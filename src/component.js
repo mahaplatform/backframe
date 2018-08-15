@@ -59,33 +59,27 @@ class Component {
     }
   }
 
-  _mergePaths(first, second) {
-
-    return `${first || ''}${second || ''}`
-
+  _mergePaths() {
+    return Array.prototype.slice.call(arguments).reduce((full, argument) => {
+      return `${full}${argument || ''}`
+    }, '')
   }
 
-  _mergeOptions(first, second = {}, third = {}) {
-
-    return {
-      ...first,
-      ...second,
-      ...third
-    }
-
+  _mergeOptions() {
+    return Array.prototype.slice.call(arguments).reduce((full, argument) => ({
+      ...full,
+      ...argument || {}
+    }), {})
   }
 
-  _mergeHooks(first, second = {}, third = {}) {
-
+  _mergeHooks() {
     return hooks.reduce((hooks, hook) => ({
       ...hooks,
-      [hook]: [
-        ...first[hook] || [],
-        ...second[hook] || [],
-        ...third[hook] || []
-      ]
+      [hook]: Array.prototype.slice.call(arguments).reduce((full, argument) => [
+        ...full,
+        ...argument[hook] || []
+      ], [])
     }), {})
-
   }
 
 }
