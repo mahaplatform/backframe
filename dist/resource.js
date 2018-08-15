@@ -12,6 +12,14 @@ var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends3 = require('babel-runtime/helpers/extends');
+
+var _extends4 = _interopRequireDefault(_extends3);
+
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -71,7 +79,7 @@ var Resources = function (_Collection) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (Resources.__proto__ || Object.getPrototypeOf(Resources)).call(this, config));
 
-    _this.actions = null;
+    _this.actions = [];
 
     if (config.actions) _this.setActions(config.actions);
     return _this;
@@ -81,11 +89,6 @@ var Resources = function (_Collection) {
     key: 'setActions',
     value: function setActions(actions) {
       this.actions = _lodash2.default.castArray(actions);
-    }
-  }, {
-    key: 'addAction',
-    value: function addAction(action) {
-      this._addItem('actions', action);
     }
   }, {
     key: 'render',
@@ -102,11 +105,15 @@ var Resources = function (_Collection) {
 
         var path = _this2._mergePaths(resourcePath, _this2.path);
 
-        var customOptions = _this2._getDestructuredOptions(_this2.customOptions, route.action);
+        var actionOptions = _this2._getDestructuredOptions(_this2.options, route.action);
 
-        var options = _this2._mergeOptions(resourceOptions, customOptions);
+        var options = _this2._mergeOptions(resourceOptions, actionOptions);
 
-        var hooks = _this2._mergeHooks(resourceHooks, _this2.hooks);
+        var actionHooks = Object.keys(_this2.hooks).reduce(function (hooks, hook) {
+          return (0, _extends4.default)({}, hooks, (0, _defineProperty3.default)({}, hook, _this2._getDestructuredOptions(_this2.hooks[hook], route.action)));
+        }, {});
+
+        var hooks = _this2._mergeHooks(resourceHooks, actionHooks);
 
         return route.render(path, options, hooks);
       });
@@ -182,49 +189,34 @@ var Resources = function (_Collection) {
   }, {
     key: '_getCreateRoute',
     value: function _getCreateRoute() {
-      return new _create_route2.default({
-        allowedParams: this._getDestructuredOption(this, 'allowedParams', 'create'),
-        model: this._getDestructuredOption(this, 'model', 'create'),
-        serializer: this._getDestructuredOption(this, 'serializer', 'create'),
-        virtualParams: this._getDestructuredOption(this, 'virtualParams', 'create')
-      });
+      return new _create_route2.default();
     }
   }, {
     key: '_getShowRoute',
     value: function _getShowRoute() {
       return new _show_route2.default({
-        alterRequest: this._fetchResource,
-        model: this._getDestructuredOption(this, 'model', 'show'),
-        serializer: this._getDestructuredOption(this, 'serializer', 'show')
+        alterRequest: this._fetchResource
       });
     }
   }, {
     key: '_getEditRoute',
     value: function _getEditRoute() {
       return new _edit_route2.default({
-        alterRequest: this._fetchResource,
-        model: this._getDestructuredOption(this, 'model', 'edit'),
-        serializer: this._getDestructuredOption(this, 'serializer', 'edit')
+        alterRequest: this._fetchResource
       });
     }
   }, {
     key: '_getUpdateRoute',
     value: function _getUpdateRoute() {
       return new _update_route2.default({
-        alterRequest: this._fetchResource,
-        allowedParams: this._getDestructuredOption(this, 'allowedParams', 'update'),
-        model: this._getDestructuredOption(this, 'model', 'update'),
-        serializer: this._getDestructuredOption(this, 'serializer', 'update'),
-        virtualParams: this._getDestructuredOption(this, 'virtualParams', 'update')
+        alterRequest: this._fetchResource
       });
     }
   }, {
     key: '_getDestroyRoute',
     value: function _getDestroyRoute() {
       return new _destroy_route2.default({
-        alterRequest: this._fetchResource,
-        model: this._getDestructuredOption(this, 'model', 'destroy'),
-        serializer: this._getDestructuredOption(this, 'serializer', 'destroy')
+        alterRequest: this._fetchResource
       });
     }
   }, {

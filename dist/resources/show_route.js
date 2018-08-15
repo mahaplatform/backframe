@@ -54,7 +54,7 @@ var ShowRoute = function (_Route) {
   (0, _createClass3.default)(ShowRoute, [{
     key: 'setModel',
     value: function setModel(model) {
-      this._setRouteParams('model', model);
+      this._setOption('model', model);
     }
   }, {
     key: '_processor',

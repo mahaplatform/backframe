@@ -74,7 +74,7 @@ var Segment = function (_Component) {
 
         var path = _this2._mergePaths(segmentPath, _this2.path);
 
-        var options = _this2._mergeOptions(segmentOptions, _this2.customOptions);
+        var options = _this2._mergeOptions(segmentOptions, _this2.options);
 
         var hooks = _this2._mergeHooks(segmentHooks, _this2.hooks);
 

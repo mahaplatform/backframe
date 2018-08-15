@@ -47,17 +47,11 @@ var Backframe = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (Backframe.__proto__ || Object.getPrototypeOf(Backframe)).call(this, config));
 
-    _this.defaultFormat = 'json';
-    _this.defaultLimit = 100;
-    _this.knex = null;
-    _this.logger = null;
     _this.plugins = [];
-    _this.redis = null;
-    _this.reorter = null;
     _this.routes = [];
 
-    if (config.defaultFormat) _this.setDefaultFormat(config.defaultFormat);
-    if (config.defaultLimit) _this.setDefaultLimit(config.defaultLimit);
+    _this.setDefaultFormat(config.defaultFormat || 'json');
+    _this.setDefaultLimit(config.defaultLimit || 100);
     if (config.knex) _this.setKnex(config.knex);
     if (config.logger) _this.setLogger(config.logger);
     if (config.plugins) _this.setPlugins(config.plugins);
@@ -70,22 +64,22 @@ var Backframe = function (_Component) {
   (0, _createClass3.default)(Backframe, [{
     key: 'setDefaultFormat',
     value: function setDefaultFormat(defaultFormat) {
-      this.defaultFormat = defaultFormat;
+      this._setOption('defaultFormat', defaultFormat);
     }
   }, {
     key: 'setDefaultLimit',
     value: function setDefaultLimit(defaultLimit) {
-      this.defaultLimit = defaultLimit;
+      this._setOption('defaultLimit', defaultLimit);
     }
   }, {
     key: 'setKnex',
     value: function setKnex(knex) {
-      this.knex = knex;
+      this._setOption('knex', knex);
     }
   }, {
     key: 'setLogger',
     value: function setLogger(logger) {
-      this.logger = logger;
+      this._setOption('logger', logger);
     }
   }, {
     key: 'setPlugins',
@@ -93,19 +87,19 @@ var Backframe = function (_Component) {
       this.plugins = plugins;
     }
   }, {
-    key: 'setRedis',
-    value: function setRedis(redis) {
-      this.redis = redis;
-    }
-  }, {
     key: 'addPlugin',
     value: function addPlugin(plugin) {
       this._addItem('plugins', plugin);
     }
   }, {
+    key: 'setRedis',
+    value: function setRedis(redis) {
+      this._setOption('redis', redis);
+    }
+  }, {
     key: 'setReporter',
     value: function setReporter(reporter) {
-      this.reporter = reporter;
+      this._setOption('reporter', reporter);
     }
   }, {
     key: 'setRoutes',
@@ -122,20 +116,16 @@ var Backframe = function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      var hooks = this.plugins.reduce(function (hooks, plugin) {
+      var plugins = this.plugins.reduce(function (items, plugin) {
+        return {
+          hooks: _this2._mergeHooks(items.hooks, plugin.hooks),
+          options: _this2._mergeOptions(items.options, plugin.options)
+        };
+      }, { hooks: [], options: options });
 
-        return plugin.apply(hooks);
-      }, this.hooks);
+      var options = this._mergeOptions(this.options, plugins.options);
 
-      var backframeOptions = {
-        defaultFormat: this.defaultFormat,
-        defaultLimit: this.defaultLimit,
-        knex: this.knex,
-        logger: this.logger,
-        redis: this.redis
-      };
-
-      var options = this._mergeOptions(backframeOptions, this.customOptions);
+      var hooks = this._mergeHooks(this.options, plugins.hooks);
 
       return [].concat((0, _toConsumableArray3.default)(this.routes.reduce(function (routes, route) {
         return [].concat((0, _toConsumableArray3.default)(routes), (0, _toConsumableArray3.default)(_lodash2.default.castArray(route.render(_this2.path, options, hooks))));

@@ -12,15 +12,7 @@ class Resources extends Collection {
 
   collectionActions = []
 
-  filterParams = null
-
   memberActions = []
-
-  searchParams = null
-
-  sortParams = null
-
-  virtualFilters = null
 
   constructor(config = {}) {
     super(config)
@@ -32,36 +24,28 @@ class Resources extends Collection {
     if(config.virtualFilters) this.setVirtualFilters(config.virtualFilters)
   }
 
-  setFilterParams(params) {
-    this.filterParams = _.castArray(params)
+  setFilterParams(filterParams) {
+    this._setOption('filterParams', _.castArray(filterParams))
   }
 
-  setSearchParams(params) {
-    this.searchParams = _.castArray(params)
+  setSearchParams(searchParams) {
+    this._setOption('searchParams', _.castArray(searchParams))
   }
 
-  setSortParams(params) {
-    this.sortParams = _.castArray(params)
+  setSortParams(sortParams) {
+    this._setOption('sortParams', _.castArray(sortParams))
   }
 
   setVirtualFilters(virtualFilters) {
-    this.virtualFilters = virtualFilters
+    this._setOption('virtualFilters', _.castArray(virtualFilters))
   }
 
-  setCollectionActions(actions) {
-    this.collectionActions = _.castArray(actions)
+  setCollectionActions(collectionActions) {
+    this.collectionActions = _.castArray(collectionActions)
   }
 
-  addCollectionAction(action) {
-    this._addItem('collectionActions', action)
-  }
-
-  setMemberActions(actions) {
-    this.memberActions = _.castArray(actions)
-  }
-
-  addMemberAction(action) {
-    this._addItem('memberActions', action)
+  setMemberActions(memberActions) {
+    this.memberActions = _.castArray(memberActions)
   }
 
   render(resourcesPath = '', resourcesOptions = {}, resourcesHooks = {}) {
@@ -70,14 +54,13 @@ class Resources extends Collection {
 
       const path = this._mergePaths(resourcesPath, this.path)
 
-      const actionOptions = this._getDestructuredOptions(this.customOptions, route.action)
+      const actionOptions = this._getDestructuredOptions(this.options, route.action)
 
       const options = this._mergeOptions(resourcesOptions, actionOptions)
 
       const actionHooks = Object.keys(this.hooks).reduce((hooks, hook) => ({
         ...hooks,
         [hook]: this._getDestructuredOptions(this.hooks[hook], route.action)
-
       }), {})
 
       const hooks = this._mergeHooks(resourcesHooks, actionHooks)
@@ -130,58 +113,36 @@ class Resources extends Collection {
   }
 
   _getListRoute() {
-    return new ListRoute({
-      defaultQuery: this._getDestructuredOption(this, 'defaultQuery', 'list'),
-      defaultSort: this._getDestructuredOption(this, 'defaultSort', 'list'),
-      filterParams: this._getDestructuredOption(this, 'filterParams', 'list'),
-      model: this._getDestructuredOption(this, 'model', 'list'),
-      serializer: this._getDestructuredOption(this, 'serializer', 'list'),
-      searchParams: this._getDestructuredOption(this, 'searchParams', 'list'),
-      sortParams: this._getDestructuredOption(this, 'sortParams', 'list'),
-      withRelated: this._getDestructuredOption(this, 'withRelated', 'list')
-    })
+    return new ListRoute()
   }
 
   _getCreateRoute() {
-    return new CreateRoute({
-      allowedParams: this._getDestructuredOption(this, 'allowedParams', 'create'),
-      model: this._getDestructuredOption(this, 'model', 'create'),
-      serializer: this._getDestructuredOption(this, 'serializer', 'create'),
-      virtualParams: this._getDestructuredOption(this, 'virtualParams', 'create')
-    })
+    return new CreateRoute()
   }
 
   _getShowRoute() {
     return new ShowRoute({
-      alterRequest: this._fetchResource,
-      model: this._getDestructuredOption(this, 'model', 'show'),
-      serializer: this._getDestructuredOption(this, 'serializer', 'show')
+      alterRequest: this._fetchResource
     })
   }
 
   _getEditRoute() {
     return new EditRoute({
-      alterRequest: this._fetchResource,
-      model: this._getDestructuredOption(this, 'model', 'edit'),
-      serializer: this._getDestructuredOption(this, 'serializer', 'edit')
+      alterRequest: this._fetchResource
     })
   }
 
   _getUpdateRoute() {
     return new UpdateRoute({
-      alterRequest: this._fetchResource,
-      allowedParams: this._getDestructuredOption(this, 'allowedParams', 'update'),
-      model: this._getDestructuredOption(this, 'model', 'update'),
-      serializer: this._getDestructuredOption(this, 'serializer', 'update'),
-      virtualParams: this._getDestructuredOption(this, 'virtualParams', 'update')
+      alterRequest: this._fetchResource
     })
   }
 
   _getDestroyRoute() {
     return new DestroyRoute({
       alterRequest: this._fetchResource,
-      model: this._getDestructuredOption(this, 'model', 'destroy'),
-      serializer: this._getDestructuredOption(this, 'serializer', 'destroy')
+      model: this._getDestructuredOption(this.options, 'model', 'destroy'),
+      serializer: this._getDestructuredOption(this.options, 'serializer', 'destroy')
     })
   }
 
@@ -190,7 +151,7 @@ class Resources extends Collection {
   }
 
   _getMemberRoute(route) {
-    route.setPath(`/:id${route.path}`) 
+    route.setPath(`/:id${route.path}`)
     route.addHook('alterRequest', this._fetchResource)
     return route
   }

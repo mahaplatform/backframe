@@ -74,17 +74,17 @@ var CreateRoute = function (_Route) {
   (0, _createClass3.default)(CreateRoute, [{
     key: 'setAllowedParams',
     value: function setAllowedParams(allowedParams) {
-      this._setRouteParams('allowedParams', allowedParams);
+      this._setOption('allowedParams', allowedParams);
     }
   }, {
     key: 'setModel',
     value: function setModel(model) {
-      this._setRouteParams('model', model);
+      this._setOption('model', model);
     }
   }, {
     key: 'setVirtualParams',
     value: function setVirtualParams(virtualParams) {
-      this._setRouteParams('virtualParams', virtualParams);
+      this._setOption('virtualParams', virtualParams);
     }
   }, {
     key: '_processor',

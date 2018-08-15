@@ -4,22 +4,6 @@ import _ from 'lodash'
 
 class ListRoute extends Route {
 
-  defaultQuery = null
-
-  defaultSort = null
-
-  filterParams = null
-
-  model = null
-
-  searchParams = []
-
-  sortParams = []
-
-  virtualFilters = []
-
-  withRelated = null
-
   constructor(config = {}) {
     super(config)
     if(config.defaultQuery) this.setDefaultQuery(config.defaultQuery)
@@ -36,31 +20,31 @@ class ListRoute extends Route {
   }
 
   setDefaultQuery(defaultQuery) {
-    this._setRouteParams('defaultQuery', defaultQuery)
+    this._setOption('defaultQuery', _.castArray(defaultQuery))
   }
 
   setDefaultSort(defaultSort) {
-    this._setRouteParams('defaultSort', defaultSort)
+    this._setOption('defaultSort', _.castArray(defaultSort))
   }
 
   setModel(model) {
-    this._setRouteParams('model', model)
+    this._setOption('model', model)
   }
 
   setFilterParams(filterParams) {
-    this._setRouteParams('filterParams', filterParams)
+    this._setOption('filterParams', _.castArray(filterParams))
   }
 
   setSearchParams(searchParams) {
-    this._setRouteParams('searchParams', searchParams)
+    this._setOption('searchParams', _.castArray(searchParams))
   }
 
   setSortParams(sortParams) {
-    this._setRouteParams('sortParams', sortParams)
+    this._setOption('sortParams', _.castArray(sortParams))
   }
 
   setWithRelated(withRelated) {
-    this._setRouteParams('withRelated', withRelated)
+    this._setOption('withRelated', _.castArray(withRelated))
   }
 
   async _processor(req, trx, options) {
@@ -96,13 +80,6 @@ class ListRoute extends Route {
       skip
     }
 
-  }
-
-  _mergeOptions(options) {
-    return {
-      ...options,
-      ..._.pick(this, ['defaultQuery','defaultSort','filterParams','model','serializer','searchParams','sortParams','withRelated'])
-    }
   }
 
   _countRecords(req, trx, filter, fn, options) {

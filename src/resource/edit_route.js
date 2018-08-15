@@ -14,7 +14,7 @@ class EditRoute extends Route {
   }
 
   setModel(model) {
-    this._setRouteParams('model', model)
+    this._setOption('model', model)
   }
 
   async _processor(req, trx, options) {

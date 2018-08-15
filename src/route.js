@@ -15,11 +15,7 @@ class Route extends Component {
 
   method = 'get'
 
-  processor = () => {}
-
-  routeOptions = {}
-
-  serializer = null
+  processor = _.noop
 
   constructor(config = {}) {
     super(config)
@@ -30,7 +26,7 @@ class Route extends Component {
   }
 
   setAction(action) {
-    this._setRouteParams('action', action)
+    this.action = action
   }
 
   setMethod(method) {
@@ -42,14 +38,14 @@ class Route extends Component {
   }
 
   setSerializer(serializer) {
-    this._setRouteParams('serializer', serializer)
+    this._setOption('serializer', serializer)
   }
 
   render(routePath = '', routeOptions = {}, routeHooks = {}) {
 
     const path = this._mergePaths(routePath, this.path)
 
-    const options = this._mergeOptions(routeOptions, this.customOptions, this.routeOptions)
+    const options = this._mergeOptions(routeOptions, this.options)
 
     const hooks = this._mergeHooks(routeHooks, this.hooks)
 
@@ -117,16 +113,12 @@ class Route extends Component {
 
     return {
       method: this.method,
+      path: `${path.replace(':id',':id(\\d+)')}.:format?`,
       options,
       hooks,
-      path: `${path.replace(':id',':id(\\d+)')}.:format?`,
       handler
     }
 
-  }
-
-  _setRouteParams(key, value) {
-    this.routeOptions[key] = this[key] = value
   }
 
   async _alterRequest(req, trx, options, hooks) {

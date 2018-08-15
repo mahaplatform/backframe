@@ -24,7 +24,7 @@ class Segment extends Component {
 
       const path = this._mergePaths(segmentPath, this.path)
 
-      const options = this._mergeOptions(segmentOptions, this.customOptions)
+      const options = this._mergeOptions(segmentOptions, this.options)
 
       const hooks = this._mergeHooks(segmentHooks, this.hooks)
 

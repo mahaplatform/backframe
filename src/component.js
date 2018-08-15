@@ -1,37 +1,30 @@
-import reserved from './utils/reserved'
 import hooks from './utils/hooks'
 import _ from 'lodash'
 
 class Component {
 
-  hooks = {
-    afterCommit: [],
-    afterProcessor: [],
-    alterRecord: [],
-    alterRequest: [],
-    beforeCommit: [],
-    beforeProcessor: [],
-    beforeRollback: []
-  }
+  hooks = {}
 
-  customOptions = null
+  options = {}
 
-  path = null
+  path = ''
 
   constructor(config = {}) {
-    if(config.afterCommit) this.setHooks('afterCommit', config.afterCommit)
-    if(config.afterProcessor) this.setHooks('afterProcessor', config.afterProcessor)
-    if(config.alterRecord) this.setHooks('alterRecord', config.alterRecord)
-    if(config.alterRequest) this.setHooks('alterRequest', config.alterRequest)
-    if(config.beforeCommit) this.setHooks('beforeCommit', config.beforeCommit)
-    if(config.beforeProcessor) this.setHooks('beforeProcessor', config.beforeProcessor)
-    if(config.beforeRollback) this.setHooks('beforeRollback', config.beforeRollback)
+    hooks.map(hook => this.setHooks(hook, config[hook]))
     if(config.path) this.setPath(config.path)
-    this._setCustomOptions(config)
+    this._setOptions(_.omit(config, [...hooks, 'path']))
   }
 
-  setHooks(ev, hooks) {
-    this.hooks[ev] = _.castArray(hooks)
+  setPath(path) {
+    this.path = path
+  }
+
+  setHooks(name, hook) {
+    if(!hook) return
+    this.hooks[name] = [
+      ...this.hooks[name] || [],
+      ..._.castArray(hook)
+    ]
   }
 
   addHook(ev, hook) {
@@ -41,9 +34,6 @@ class Component {
     ]
   }
 
-  setPath(path) {
-    this.path = path
-  }
 
   _addItem(type, item) {
     this[type] = [
@@ -52,11 +42,14 @@ class Component {
     ]
   }
 
-  _setCustomOptions(options) {
-    this.customOptions = {
-      ...this.customOptions || {},
-      ..._.omit(options, reserved)
-    }
+  _setOptions(options) {
+    Object.keys(options).map(key => {
+      this._setOption(key, options[key])
+    })
+  }
+
+  _setOption(key, value) {
+    this.options[key] = value
   }
 
   _mergePaths() {
@@ -66,10 +59,25 @@ class Component {
   }
 
   _mergeOptions() {
-    return Array.prototype.slice.call(arguments).reduce((full, argument) => ({
-      ...full,
-      ...argument || {}
-    }), {})
+    return Array.prototype.slice.call(arguments).reduce((full, argument) => {
+      if(!argument) return full
+      return Object.keys(argument).reduce((accumulated, key) => ({
+        ...accumulated,
+        ...this._mergeOption(key, accumulated[key], argument[key])
+      }), full)
+    }, {})
+  }
+
+  _mergeOption(key, accumulated, value) {
+    if(!accumulated && !value) return {}
+    const append = ['defaultQuery']
+    if(!_.includes(append, key)) return { [key]: value || accumulated }
+    return {
+      [key]: [
+        ...accumulated || [],
+        ...value || []
+      ]
+    }
   }
 
   _mergeHooks() {

@@ -84,11 +84,7 @@ var Resources = function (_Collection) {
     var _this = (0, _possibleConstructorReturn3.default)(this, (Resources.__proto__ || Object.getPrototypeOf(Resources)).call(this, config));
 
     _this.collectionActions = [];
-    _this.filterParams = null;
     _this.memberActions = [];
-    _this.searchParams = null;
-    _this.sortParams = null;
-    _this.virtualFilters = null;
 
     if (config.collectionActions) _this.setCollectionActions(config.collectionActions);
     if (config.filterParams) _this.setFilterParams(config.filterParams);
@@ -101,43 +97,33 @@ var Resources = function (_Collection) {
 
   (0, _createClass3.default)(Resources, [{
     key: 'setFilterParams',
-    value: function setFilterParams(params) {
-      this.filterParams = _lodash2.default.castArray(params);
+    value: function setFilterParams(filterParams) {
+      this._setOption('filterParams', _lodash2.default.castArray(filterParams));
     }
   }, {
     key: 'setSearchParams',
-    value: function setSearchParams(params) {
-      this.searchParams = _lodash2.default.castArray(params);
+    value: function setSearchParams(searchParams) {
+      this._setOption('searchParams', _lodash2.default.castArray(searchParams));
     }
   }, {
     key: 'setSortParams',
-    value: function setSortParams(params) {
-      this.sortParams = _lodash2.default.castArray(params);
+    value: function setSortParams(sortParams) {
+      this._setOption('sortParams', _lodash2.default.castArray(sortParams));
     }
   }, {
     key: 'setVirtualFilters',
     value: function setVirtualFilters(virtualFilters) {
-      this.virtualFilters = virtualFilters;
+      this._setOption('virtualFilters', _lodash2.default.castArray(virtualFilters));
     }
   }, {
     key: 'setCollectionActions',
-    value: function setCollectionActions(actions) {
-      this.collectionActions = _lodash2.default.castArray(actions);
-    }
-  }, {
-    key: 'addCollectionAction',
-    value: function addCollectionAction(action) {
-      this._addItem('collectionActions', action);
+    value: function setCollectionActions(collectionActions) {
+      this.collectionActions = _lodash2.default.castArray(collectionActions);
     }
   }, {
     key: 'setMemberActions',
-    value: function setMemberActions(actions) {
-      this.memberActions = _lodash2.default.castArray(actions);
-    }
-  }, {
-    key: 'addMemberAction',
-    value: function addMemberAction(action) {
-      this._addItem('memberActions', action);
+    value: function setMemberActions(memberActions) {
+      this.memberActions = _lodash2.default.castArray(memberActions);
     }
   }, {
     key: 'render',
@@ -154,7 +140,7 @@ var Resources = function (_Collection) {
 
         var path = _this2._mergePaths(resourcesPath, _this2.path);
 
-        var actionOptions = _this2._getDestructuredOptions(_this2.customOptions, route.action);
+        var actionOptions = _this2._getDestructuredOptions(_this2.options, route.action);
 
         var options = _this2._mergeOptions(resourcesOptions, actionOptions);
 
@@ -244,54 +230,32 @@ var Resources = function (_Collection) {
   }, {
     key: '_getListRoute',
     value: function _getListRoute() {
-      return new _list_route2.default({
-        defaultQuery: this._getDestructuredOption(this, 'defaultQuery', 'list'),
-        defaultSort: this._getDestructuredOption(this, 'defaultSort', 'list'),
-        filterParams: this._getDestructuredOption(this, 'filterParams', 'list'),
-        model: this._getDestructuredOption(this, 'model', 'list'),
-        serializer: this._getDestructuredOption(this, 'serializer', 'list'),
-        searchParams: this._getDestructuredOption(this, 'searchParams', 'list'),
-        sortParams: this._getDestructuredOption(this, 'sortParams', 'list'),
-        withRelated: this._getDestructuredOption(this, 'withRelated', 'list')
-      });
+      return new _list_route2.default();
     }
   }, {
     key: '_getCreateRoute',
     value: function _getCreateRoute() {
-      return new _create_route2.default({
-        allowedParams: this._getDestructuredOption(this, 'allowedParams', 'create'),
-        model: this._getDestructuredOption(this, 'model', 'create'),
-        serializer: this._getDestructuredOption(this, 'serializer', 'create'),
-        virtualParams: this._getDestructuredOption(this, 'virtualParams', 'create')
-      });
+      return new _create_route2.default();
     }
   }, {
     key: '_getShowRoute',
     value: function _getShowRoute() {
       return new _show_route2.default({
-        alterRequest: this._fetchResource,
-        model: this._getDestructuredOption(this, 'model', 'show'),
-        serializer: this._getDestructuredOption(this, 'serializer', 'show')
+        alterRequest: this._fetchResource
       });
     }
   }, {
     key: '_getEditRoute',
     value: function _getEditRoute() {
       return new _edit_route2.default({
-        alterRequest: this._fetchResource,
-        model: this._getDestructuredOption(this, 'model', 'edit'),
-        serializer: this._getDestructuredOption(this, 'serializer', 'edit')
+        alterRequest: this._fetchResource
       });
     }
   }, {
     key: '_getUpdateRoute',
     value: function _getUpdateRoute() {
       return new _update_route2.default({
-        alterRequest: this._fetchResource,
-        allowedParams: this._getDestructuredOption(this, 'allowedParams', 'update'),
-        model: this._getDestructuredOption(this, 'model', 'update'),
-        serializer: this._getDestructuredOption(this, 'serializer', 'update'),
-        virtualParams: this._getDestructuredOption(this, 'virtualParams', 'update')
+        alterRequest: this._fetchResource
       });
     }
   }, {
@@ -299,8 +263,8 @@ var Resources = function (_Collection) {
     value: function _getDestroyRoute() {
       return new _destroy_route2.default({
         alterRequest: this._fetchResource,
-        model: this._getDestructuredOption(this, 'model', 'destroy'),
-        serializer: this._getDestructuredOption(this, 'serializer', 'destroy')
+        model: this._getDestructuredOption(this.options, 'model', 'destroy'),
+        serializer: this._getDestructuredOption(this.options, 'serializer', 'destroy')
       });
     }
   }, {

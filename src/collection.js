@@ -3,29 +3,13 @@ import _ from 'lodash'
 
 class Collection extends Component {
 
-  allowedParams = null
-
-  defaultParams = null
-
-  defaultQuery = null
-
-  except = null
-
-  model = null
-
-  only = null
-
-  serializer = null
-
-  virtualParams = null
-
-  withRelated = null
-
   constructor(config = {}) {
     super(config)
+    if(config.path) this.setPath(config.path)
     if(config.allowedParams) this.setAllowedParams(config.allowedParams)
     if(config.defaultQuery) this.setDefaultQuery(config.defaultQuery)
     if(config.defaultParams) this.setDefaultParams(config.defaultParams)
+    if(config.defaultSort) this.setDefaultSort(config.defaultSort)
     if(config.except) this.setExcept(config.except)
     if(config.model) this.setModel(config.model)
     if(config.only) this.setOnly(config.only)
@@ -34,40 +18,44 @@ class Collection extends Component {
     if(config.withRelated) this.setWithRelated(config.withRelated)
   }
 
-  setAllowedParams(params) {
-    this.allowedParams = _.castArray(params)
+  setAllowedParams(allowedParams) {
+    this._setOption('allowedParams', _.castArray(allowedParams))
   }
 
   setDefaultQuery(defaultQuery) {
-    this.defaultQuery = defaultQuery
+    this._setOption('defaultQuery', _.castArray(defaultQuery))
   }
 
-  setDefaultParams(params) {
-    this.defaultParams = _.castArray(params)
+  setDefaultParams(defaultParams) {
+    this._setOption('defaultParams', _.castArray(defaultParams))
+  }
+
+  setDefaultSort(defaultSort) {
+    this._setOption('defaultSort', _.castArray(defaultSort))
   }
 
   setExcept(except) {
-    this.except = except
+    this._setOption('except', _.castArray(except))
   }
 
   setModel(model) {
-    this.model = model
+    this._setOption('model', model)
   }
 
   setOnly(only) {
-    this.only = only
+    this._setOption('only', _.castArray(only))
   }
 
   setSerializer(serializer) {
-    this.serializer = serializer
+    this._setOption('serializer', serializer)
   }
 
-  setVirtualParams(params) {
-    this.virtualParams = _.castArray(params)
+  setVirtualParams(virtualParams) {
+    this._setOption('virtualParams', _.castArray(virtualParams))
   }
 
   setWithRelated(withRelated) {
-    this.withRelated = withRelated
+    this._setOption('withRelated', _.castArray(withRelated))
   }
 
   _includeAction(action) {

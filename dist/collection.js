@@ -47,19 +47,11 @@ var Collection = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (Collection.__proto__ || Object.getPrototypeOf(Collection)).call(this, config));
 
-    _this.allowedParams = null;
-    _this.defaultParams = null;
-    _this.defaultQuery = null;
-    _this.except = null;
-    _this.model = null;
-    _this.only = null;
-    _this.serializer = null;
-    _this.virtualParams = null;
-    _this.withRelated = null;
-
+    if (config.path) _this.setPath(config.path);
     if (config.allowedParams) _this.setAllowedParams(config.allowedParams);
     if (config.defaultQuery) _this.setDefaultQuery(config.defaultQuery);
     if (config.defaultParams) _this.setDefaultParams(config.defaultParams);
+    if (config.defaultSort) _this.setDefaultSort(config.defaultSort);
     if (config.except) _this.setExcept(config.except);
     if (config.model) _this.setModel(config.model);
     if (config.only) _this.setOnly(config.only);
@@ -71,48 +63,53 @@ var Collection = function (_Component) {
 
   (0, _createClass3.default)(Collection, [{
     key: 'setAllowedParams',
-    value: function setAllowedParams(params) {
-      this.allowedParams = _lodash2.default.castArray(params);
+    value: function setAllowedParams(allowedParams) {
+      this._setOption('allowedParams', _lodash2.default.castArray(allowedParams));
     }
   }, {
     key: 'setDefaultQuery',
     value: function setDefaultQuery(defaultQuery) {
-      this.defaultQuery = defaultQuery;
+      this._setOption('defaultQuery', _lodash2.default.castArray(defaultQuery));
     }
   }, {
     key: 'setDefaultParams',
-    value: function setDefaultParams(params) {
-      this.defaultParams = _lodash2.default.castArray(params);
+    value: function setDefaultParams(defaultParams) {
+      this._setOption('defaultParams', _lodash2.default.castArray(defaultParams));
+    }
+  }, {
+    key: 'setDefaultSort',
+    value: function setDefaultSort(defaultSort) {
+      this._setOption('defaultSort', _lodash2.default.castArray(defaultSort));
     }
   }, {
     key: 'setExcept',
     value: function setExcept(except) {
-      this.except = except;
+      this._setOption('except', _lodash2.default.castArray(except));
     }
   }, {
     key: 'setModel',
     value: function setModel(model) {
-      this.model = model;
+      this._setOption('model', model);
     }
   }, {
     key: 'setOnly',
     value: function setOnly(only) {
-      this.only = only;
+      this._setOption('only', _lodash2.default.castArray(only));
     }
   }, {
     key: 'setSerializer',
     value: function setSerializer(serializer) {
-      this.serializer = serializer;
+      this._setOption('serializer', serializer);
     }
   }, {
     key: 'setVirtualParams',
-    value: function setVirtualParams(params) {
-      this.virtualParams = _lodash2.default.castArray(params);
+    value: function setVirtualParams(virtualParams) {
+      this._setOption('virtualParams', _lodash2.default.castArray(virtualParams));
     }
   }, {
     key: 'setWithRelated',
     value: function setWithRelated(withRelated) {
-      this.withRelated = withRelated;
+      this._setOption('withRelated', _lodash2.default.castArray(withRelated));
     }
   }, {
     key: '_includeAction',

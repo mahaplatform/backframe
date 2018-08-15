@@ -16,15 +16,15 @@ class CreateRoute extends Route {
   }
 
   setAllowedParams(allowedParams) {
-    this._setRouteParams('allowedParams', allowedParams)
+    this._setOption('allowedParams', allowedParams)
   }
 
   setModel(model) {
-    this._setRouteParams('model', model)
+    this._setOption('model', model)
   }
 
   setVirtualParams(virtualParams) {
-    this._setRouteParams('virtualParams', virtualParams)
+    this._setOption('virtualParams', virtualParams)
   }
 
   async _processor(req, trx, options) {

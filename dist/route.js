@@ -87,11 +87,7 @@ var Route = function (_Component) {
 
     _this.action = null;
     _this.method = 'get';
-
-    _this.processor = function () {};
-
-    _this.routeOptions = {};
-    _this.serializer = null;
+    _this.processor = _lodash2.default.noop;
 
     if (config.action) _this.setAction(config.action);
     if (config.method) _this.setMethod(config.method);
@@ -103,7 +99,7 @@ var Route = function (_Component) {
   (0, _createClass3.default)(Route, [{
     key: 'setAction',
     value: function setAction(action) {
-      this._setRouteParams('action', action);
+      this.action = action;
     }
   }, {
     key: 'setMethod',
@@ -118,7 +114,7 @@ var Route = function (_Component) {
   }, {
     key: 'setSerializer',
     value: function setSerializer(serializer) {
-      this._setRouteParams('serializer', serializer);
+      this._setOption('serializer', serializer);
     }
   }, {
     key: 'render',
@@ -133,7 +129,7 @@ var Route = function (_Component) {
 
       var path = this._mergePaths(routePath, this.path);
 
-      var options = this._mergeOptions(routeOptions, this.customOptions, this.routeOptions);
+      var options = this._mergeOptions(routeOptions, this.options);
 
       var hooks = this._mergeHooks(routeHooks, this.hooks);
 
@@ -254,16 +250,11 @@ var Route = function (_Component) {
 
       return {
         method: this.method,
+        path: path.replace(':id', ':id(\\d+)') + '.:format?',
         options: options,
         hooks: hooks,
-        path: path.replace(':id', ':id(\\d+)') + '.:format?',
         handler: handler
       };
-    }
-  }, {
-    key: '_setRouteParams',
-    value: function _setRouteParams(key, value) {
-      this.routeOptions[key] = this[key] = value;
     }
   }, {
     key: '_alterRequest',

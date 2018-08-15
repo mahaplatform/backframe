@@ -4,26 +4,14 @@ import _ from 'lodash'
 
 class Backframe extends Component {
 
-  defaultFormat = 'json'
-
-  defaultLimit = 100
-
-  knex = null
-
-  logger = null
-
   plugins = []
-
-  redis = null
-
-  reorter = null
 
   routes = []
 
   constructor(config = {}) {
     super(config)
-    if(config.defaultFormat) this.setDefaultFormat(config.defaultFormat)
-    if(config.defaultLimit) this.setDefaultLimit(config.defaultLimit)
+    this.setDefaultFormat(config.defaultFormat || 'json')
+    this.setDefaultLimit(config.defaultLimit || 100)
     if(config.knex) this.setKnex(config.knex)
     if(config.logger) this.setLogger(config.logger)
     if(config.plugins) this.setPlugins(config.plugins)
@@ -33,35 +21,35 @@ class Backframe extends Component {
   }
 
   setDefaultFormat(defaultFormat) {
-    this.defaultFormat = defaultFormat
+    this._setOption('defaultFormat', defaultFormat)
   }
 
   setDefaultLimit(defaultLimit) {
-    this.defaultLimit = defaultLimit
+    this._setOption('defaultLimit', defaultLimit)
   }
 
   setKnex(knex) {
-    this.knex = knex
+    this._setOption('knex', knex)
   }
 
   setLogger(logger) {
-    this.logger = logger
+    this._setOption('logger', logger)
   }
 
   setPlugins(plugins) {
     this.plugins = plugins
   }
 
-  setRedis(redis) {
-    this.redis = redis
-  }
-
   addPlugin(plugin) {
     this._addItem('plugins', plugin)
   }
 
+  setRedis(redis) {
+    this._setOption('redis', redis)
+  }
+
   setReporter(reporter) {
-    this.reporter = reporter
+    this._setOption('reporter', reporter)
   }
 
   setRoutes(routes) {
@@ -74,32 +62,23 @@ class Backframe extends Component {
 
   render() {
 
-    const hooks = this.plugins.reduce((hooks, plugin) => {
+    const plugins = this.plugins.reduce((items, plugin) => ({
+      hooks: this._mergeHooks(items.hooks, plugin.hooks),
+      options: this._mergeOptions(items.options, plugin.options)
+    }), { hooks: [], options })
 
-      return plugin.apply(hooks)
+    const options = this._mergeOptions(this.options, plugins.options)
 
-    }, this.hooks)
-
-    const backframeOptions = {
-      defaultFormat: this.defaultFormat,
-      defaultLimit: this.defaultLimit,
-      knex: this.knex,
-      logger: this.logger,
-      redis: this.redis
-    }
-
-    const options = this._mergeOptions(backframeOptions, this.customOptions)
+    const hooks = this._mergeHooks(this.options, plugins.hooks)
 
     return [
-
       ...this.routes.reduce((routes, route) => [
         ...routes,
         ..._.castArray(route.render(this.path, options, hooks))
       ], []),
-
       NotFoundRoute.render('', options)
-
     ]
+
   }
 
 }

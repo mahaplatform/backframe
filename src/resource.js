@@ -9,7 +9,7 @@ import _ from 'lodash'
 
 class Resources extends Collection {
 
-  actions = null
+  actions = []
 
   constructor(config = {}) {
     super(config)
@@ -20,21 +20,22 @@ class Resources extends Collection {
     this.actions = _.castArray(actions)
   }
 
-  addAction(action) {
-    this._addItem('actions', action)
-  }
-
   render(resourcePath = '', resourceOptions = {}, resourceHooks = {}) {
 
     return this._getRoutes().map(route => {
 
       const path = this._mergePaths(resourcePath, this.path)
 
-      const customOptions = this._getDestructuredOptions(this.customOptions, route.action)
+      const actionOptions = this._getDestructuredOptions(this.options, route.action)
 
-      const options = this._mergeOptions(resourceOptions, customOptions)
+      const options = this._mergeOptions(resourceOptions, actionOptions)
 
-      const hooks = this._mergeHooks(resourceHooks, this.hooks)
+      const actionHooks = Object.keys(this.hooks).reduce((hooks, hook) => ({
+        ...hooks,
+        [hook]: this._getDestructuredOptions(this.hooks[hook], route.action)
+      }), {})
+
+      const hooks = this._mergeHooks(resourceHooks, actionHooks)
 
       return route.render(path, options, hooks)
 
@@ -80,45 +81,30 @@ class Resources extends Collection {
   }
 
   _getCreateRoute() {
-    return new CreateRoute({
-      allowedParams: this._getDestructuredOption(this, 'allowedParams', 'create'),
-      model: this._getDestructuredOption(this, 'model', 'create'),
-      serializer: this._getDestructuredOption(this, 'serializer', 'create'),
-      virtualParams: this._getDestructuredOption(this, 'virtualParams', 'create')
-    })
+    return new CreateRoute()
   }
 
   _getShowRoute() {
     return new ShowRoute({
-      alterRequest: this._fetchResource,
-      model: this._getDestructuredOption(this, 'model', 'show'),
-      serializer: this._getDestructuredOption(this, 'serializer', 'show')
+      alterRequest: this._fetchResource
     })
   }
 
   _getEditRoute() {
     return new EditRoute({
-      alterRequest: this._fetchResource,
-      model: this._getDestructuredOption(this, 'model', 'edit'),
-      serializer: this._getDestructuredOption(this, 'serializer', 'edit')
+      alterRequest: this._fetchResource
     })
   }
 
   _getUpdateRoute() {
     return new UpdateRoute({
-      alterRequest: this._fetchResource,
-      allowedParams: this._getDestructuredOption(this, 'allowedParams', 'update'),
-      model: this._getDestructuredOption(this, 'model', 'update'),
-      serializer: this._getDestructuredOption(this, 'serializer', 'update'),
-      virtualParams: this._getDestructuredOption(this, 'virtualParams', 'update')
+      alterRequest: this._fetchResource
     })
   }
 
   _getDestroyRoute() {
     return new DestroyRoute({
-      alterRequest: this._fetchResource,
-      model: this._getDestructuredOption(this, 'model', 'destroy'),
-      serializer: this._getDestructuredOption(this, 'serializer', 'destroy')
+      alterRequest: this._fetchResource
     })
   }
 

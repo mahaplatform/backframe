@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends2 = require('babel-runtime/helpers/extends');
-
-var _extends3 = _interopRequireDefault(_extends2);
-
 var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
@@ -57,15 +53,6 @@ var ListRoute = function (_Route) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (ListRoute.__proto__ || Object.getPrototypeOf(ListRoute)).call(this, config));
 
-    _this.defaultQuery = null;
-    _this.defaultSort = null;
-    _this.filterParams = null;
-    _this.model = null;
-    _this.searchParams = [];
-    _this.sortParams = [];
-    _this.virtualFilters = [];
-    _this.withRelated = null;
-
     if (config.defaultQuery) _this.setDefaultQuery(config.defaultQuery);
     if (config.defaultSort) _this.setDefaultSort(config.defaultSort);
     if (config.filterParams) _this.setFilterParams(config.filterParams);
@@ -83,37 +70,37 @@ var ListRoute = function (_Route) {
   (0, _createClass3.default)(ListRoute, [{
     key: 'setDefaultQuery',
     value: function setDefaultQuery(defaultQuery) {
-      this._setRouteParams('defaultQuery', defaultQuery);
+      this._setOption('defaultQuery', _lodash2.default.castArray(defaultQuery));
     }
   }, {
     key: 'setDefaultSort',
     value: function setDefaultSort(defaultSort) {
-      this._setRouteParams('defaultSort', defaultSort);
+      this._setOption('defaultSort', _lodash2.default.castArray(defaultSort));
     }
   }, {
     key: 'setModel',
     value: function setModel(model) {
-      this._setRouteParams('model', model);
+      this._setOption('model', model);
     }
   }, {
     key: 'setFilterParams',
     value: function setFilterParams(filterParams) {
-      this._setRouteParams('filterParams', filterParams);
+      this._setOption('filterParams', _lodash2.default.castArray(filterParams));
     }
   }, {
     key: 'setSearchParams',
     value: function setSearchParams(searchParams) {
-      this._setRouteParams('searchParams', searchParams);
+      this._setOption('searchParams', _lodash2.default.castArray(searchParams));
     }
   }, {
     key: 'setSortParams',
     value: function setSortParams(sortParams) {
-      this._setRouteParams('sortParams', sortParams);
+      this._setOption('sortParams', _lodash2.default.castArray(sortParams));
     }
   }, {
     key: 'setWithRelated',
     value: function setWithRelated(withRelated) {
-      this._setRouteParams('withRelated', withRelated);
+      this._setOption('withRelated', _lodash2.default.castArray(withRelated));
     }
   }, {
     key: '_processor',
@@ -177,11 +164,6 @@ var ListRoute = function (_Route) {
 
       return _processor;
     }()
-  }, {
-    key: '_mergeOptions',
-    value: function _mergeOptions(options) {
-      return (0, _extends3.default)({}, options, _lodash2.default.pick(this, ['defaultQuery', 'defaultSort', 'filterParams', 'model', 'serializer', 'searchParams', 'sortParams', 'withRelated']));
-    }
   }, {
     key: '_countRecords',
     value: function _countRecords(req, trx, filter, fn, options) {

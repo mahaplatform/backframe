@@ -59,7 +59,7 @@ var EditRoute = function (_Route) {
   (0, _createClass3.default)(EditRoute, [{
     key: 'setModel',
     value: function setModel(model) {
-      this._setRouteParams('model', model);
+      this._setOption('model', model);
     }
   }, {
     key: '_processor',

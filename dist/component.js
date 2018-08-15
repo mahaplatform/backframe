@@ -24,10 +24,6 @@ var _createClass2 = require('babel-runtime/helpers/createClass');
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _reserved = require('./utils/reserved');
-
-var _reserved2 = _interopRequireDefault(_reserved);
-
 var _hooks = require('./utils/hooks');
 
 var _hooks2 = _interopRequireDefault(_hooks);
@@ -40,35 +36,31 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Component = function () {
   function Component() {
+    var _this = this;
+
     var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     (0, _classCallCheck3.default)(this, Component);
-    this.hooks = {
-      afterCommit: [],
-      afterProcessor: [],
-      alterRecord: [],
-      alterRequest: [],
-      beforeCommit: [],
-      beforeProcessor: [],
-      beforeRollback: []
-    };
-    this.customOptions = null;
-    this.path = null;
+    this.hooks = {};
+    this.options = {};
+    this.path = '';
 
-    if (config.afterCommit) this.setHooks('afterCommit', config.afterCommit);
-    if (config.afterProcessor) this.setHooks('afterProcessor', config.afterProcessor);
-    if (config.alterRecord) this.setHooks('alterRecord', config.alterRecord);
-    if (config.alterRequest) this.setHooks('alterRequest', config.alterRequest);
-    if (config.beforeCommit) this.setHooks('beforeCommit', config.beforeCommit);
-    if (config.beforeProcessor) this.setHooks('beforeProcessor', config.beforeProcessor);
-    if (config.beforeRollback) this.setHooks('beforeRollback', config.beforeRollback);
+    _hooks2.default.map(function (hook) {
+      return _this.setHooks(hook, config[hook]);
+    });
     if (config.path) this.setPath(config.path);
-    this._setCustomOptions(config);
+    this._setOptions(_lodash2.default.omit(config, [].concat((0, _toConsumableArray3.default)(_hooks2.default), ['path'])));
   }
 
   (0, _createClass3.default)(Component, [{
+    key: 'setPath',
+    value: function setPath(path) {
+      this.path = path;
+    }
+  }, {
     key: 'setHooks',
-    value: function setHooks(ev, hooks) {
-      this.hooks[ev] = _lodash2.default.castArray(hooks);
+    value: function setHooks(name, hook) {
+      if (!hook) return;
+      this.hooks[name] = [].concat((0, _toConsumableArray3.default)(this.hooks[name] || []), (0, _toConsumableArray3.default)(_lodash2.default.castArray(hook)));
     }
   }, {
     key: 'addHook',
@@ -76,19 +68,23 @@ var Component = function () {
       this.hooks[ev] = [].concat((0, _toConsumableArray3.default)(this.hooks[ev] || []), (0, _toConsumableArray3.default)(_lodash2.default.castArray(hook)));
     }
   }, {
-    key: 'setPath',
-    value: function setPath(path) {
-      this.path = path;
-    }
-  }, {
     key: '_addItem',
     value: function _addItem(type, item) {
       this[type] = [].concat((0, _toConsumableArray3.default)(this[type] || []), (0, _toConsumableArray3.default)(_lodash2.default.castArray(item)));
     }
   }, {
-    key: '_setCustomOptions',
-    value: function _setCustomOptions(options) {
-      this.customOptions = (0, _extends4.default)({}, this.customOptions || {}, _lodash2.default.omit(options, _reserved2.default));
+    key: '_setOptions',
+    value: function _setOptions(options) {
+      var _this2 = this;
+
+      Object.keys(options).map(function (key) {
+        _this2._setOption(key, options[key]);
+      });
+    }
+  }, {
+    key: '_setOption',
+    value: function _setOption(key, value) {
+      this.options[key] = value;
     }
   }, {
     key: '_mergePaths',
@@ -100,9 +96,22 @@ var Component = function () {
   }, {
     key: '_mergeOptions',
     value: function _mergeOptions() {
+      var _this3 = this;
+
       return Array.prototype.slice.call(arguments).reduce(function (full, argument) {
-        return (0, _extends4.default)({}, full, argument || {});
+        if (!argument) return full;
+        return Object.keys(argument).reduce(function (accumulated, key) {
+          return (0, _extends4.default)({}, accumulated, _this3._mergeOption(key, accumulated[key], argument[key]));
+        }, full);
       }, {});
+    }
+  }, {
+    key: '_mergeOption',
+    value: function _mergeOption(key, accumulated, value) {
+      if (!accumulated && !value) return {};
+      var append = ['defaultQuery'];
+      if (!_lodash2.default.includes(append, key)) return (0, _defineProperty3.default)({}, key, value || accumulated);
+      return (0, _defineProperty3.default)({}, key, [].concat((0, _toConsumableArray3.default)(accumulated || []), (0, _toConsumableArray3.default)(value || [])));
     }
   }, {
     key: '_mergeHooks',
