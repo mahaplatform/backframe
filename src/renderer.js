@@ -27,7 +27,11 @@ class Renderer {
       ...this.req.query.$select ? [this._selectFields(this.req.query.$select)] : []
     ]
 
-    if(this.result.records) return await this._applyToRecords(this.req, this.trx, this.result, transforms, this.options)
+    if(this.result.records) {
+
+      return await this._applyToRecords(this.req, this.trx, this.result, transforms, this.options)
+
+    }
 
     return await this._applyToRecord(this.req, this.trx, this.result, transforms, this.options)
 
@@ -108,7 +112,7 @@ class Renderer {
 
     const fn = async () => {
 
-      return options.serializer ? await options.serializer(req, trx, record) : record.toJSON()
+      return options.serializer ? await options.serializer(req, trx, record, options) : record.toJSON()
 
     }
 

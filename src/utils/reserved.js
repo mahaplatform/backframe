@@ -8,7 +8,6 @@ const reserved = [
   'logger',
   'memberActions',
   'method',
-  'model',
   'only',
   'path',
   'plugins',

@@ -49,11 +49,11 @@ class FilterSort {
 
     if(virtualFilters) this._filterVirtual(qb, virtualFilters)
 
-    if(filters.q && this.searchParams) this._filterSearch(qb, this.searchParams, filters.q)
+    if(filters.q && this.searchParams) this._filterSearch(qb, tableName, this.searchParams, filters.q)
 
-    if(req.query.$exclude_ids) this._filterExcludeIds(qb, tablename, req.query.$exclude_ids)
+    if(req.query.$exclude_ids) this._filterExcludeIds(qb, tableName, req.query.$exclude_ids)
 
-    if(req.query.$ids) this._filterIncludeIds(qb, tablename, req.query.$ids)
+    if(req.query.$ids) this._filterIncludeIds(qb, tableName, req.query.$ids)
 
     this._filterShared(req, trx, qb, options)
 
@@ -105,7 +105,7 @@ class FilterSort {
 
   }
 
-  _filterSearch(qb, searchParams, q) {
+  _filterSearch(qb, tableName, searchParams, q) {
 
     if(!q) return
 
@@ -121,15 +121,15 @@ class FilterSort {
 
   }
 
-  _filterExcludeIds(qb, tablename, exclude_ids) {
+  _filterExcludeIds(qb, tableName, ids) {
 
-    qb.whereNotIn(`${tableName}.id`, req.query.$exclude_ids)
+    qb.whereNotIn(`${tableName}.id`, ids)
 
   }
 
-  _filterIncludeIds(qb, tablename, exclude_ids) {
+  _filterIncludeIds(qb, tableName, ids) {
 
-    qb.whereIn(`${tableName}.id`, req.query.$ids)
+    qb.whereIn(`${tableName}.id`, ids)
 
   }
 
@@ -250,7 +250,9 @@ class FilterSort {
     if(!_.includes(value, 'null')) return qb.whereIn(column, inArray)
 
     qb.where(function() {
-      this.whereIn(column, inArray).orWhereNull(key)
+
+      this.whereIn(column, inArray).orWhereNull(column)
+
     })
 
   }
@@ -262,7 +264,9 @@ class FilterSort {
     if(!_.includes(value, 'null')) return qb.whereNotIn(column, inArray)
 
     qb.where(function() {
-      this.whereNotIn(column, inArray).orWhereNotNull(key)
+
+      this.whereNotIn(column, inArray).orWhereNotNull(column)
+
     })
 
   }

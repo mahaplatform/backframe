@@ -201,7 +201,7 @@ var Route = function (_Component) {
 
                   case 25:
                     _context.next = 27;
-                    return _this2._runHooks(req, trx, altered, options, hooks.beforeCommit, true);
+                    return _this2._runHooks(req, trx, result, options, hooks.beforeCommit, true);
 
                   case 27:
                     _context.next = 29;
@@ -209,7 +209,7 @@ var Route = function (_Component) {
 
                   case 29:
                     _context.next = 31;
-                    return _this2._runHooks(req, trx, altered, options, hooks.afterCommit, true);
+                    return _this2._runHooks(req, trx, result, options, hooks.afterCommit, true);
 
                   case 31:
 

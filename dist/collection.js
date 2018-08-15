@@ -48,6 +48,8 @@ var Collection = function (_Component) {
     var _this = (0, _possibleConstructorReturn3.default)(this, (Collection.__proto__ || Object.getPrototypeOf(Collection)).call(this, config));
 
     _this.allowedParams = null;
+    _this.defaultParams = null;
+    _this.defaultQuery = null;
     _this.except = null;
     _this.model = null;
     _this.only = null;
@@ -56,11 +58,13 @@ var Collection = function (_Component) {
     _this.withRelated = null;
 
     if (config.allowedParams) _this.setAllowedParams(config.allowedParams);
+    if (config.defaultQuery) _this.setDefaultQuery(config.defaultQuery);
+    if (config.defaultParams) _this.setDefaultParams(config.defaultParams);
     if (config.except) _this.setExcept(config.except);
     if (config.model) _this.setModel(config.model);
     if (config.only) _this.setOnly(config.only);
     if (config.serializer) _this.setSerializer(config.serializer);
-    if (config.virtualParams) _this.setAllowedParams(config.virtualParams);
+    if (config.virtualParams) _this.setVirtualParams(config.virtualParams);
     if (config.withRelated) _this.setWithRelated(config.withRelated);
     return _this;
   }
@@ -69,6 +73,16 @@ var Collection = function (_Component) {
     key: 'setAllowedParams',
     value: function setAllowedParams(params) {
       this.allowedParams = _lodash2.default.castArray(params);
+    }
+  }, {
+    key: 'setDefaultQuery',
+    value: function setDefaultQuery(defaultQuery) {
+      this.defaultQuery = defaultQuery;
+    }
+  }, {
+    key: 'setDefaultParams',
+    value: function setDefaultParams(params) {
+      this.defaultParams = _lodash2.default.castArray(params);
     }
   }, {
     key: 'setExcept',
@@ -93,7 +107,7 @@ var Collection = function (_Component) {
   }, {
     key: 'setVirtualParams',
     value: function setVirtualParams(params) {
-      this.allowedParams = _lodash2.default.castArray(params);
+      this.virtualParams = _lodash2.default.castArray(params);
     }
   }, {
     key: 'setWithRelated',

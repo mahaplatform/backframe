@@ -85,11 +85,11 @@ class Route extends Component {
 
           await responder.render()
 
-          await this._runHooks(req, trx, altered, options, hooks.beforeCommit, true)
+          await this._runHooks(req, trx, result, options, hooks.beforeCommit, true)
 
           await trx.commit(result)
 
-          await this._runHooks(req, trx, altered, options, hooks.afterCommit, true)
+          await this._runHooks(req, trx, result, options, hooks.afterCommit, true)
 
           logger.print()
 

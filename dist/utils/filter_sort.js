@@ -69,11 +69,11 @@ var FilterSort = function () {
 
       if (virtualFilters) this._filterVirtual(qb, virtualFilters);
 
-      if (filters.q && this.searchParams) this._filterSearch(qb, this.searchParams, filters.q);
+      if (filters.q && this.searchParams) this._filterSearch(qb, tableName, this.searchParams, filters.q);
 
-      if (req.query.$exclude_ids) this._filterExcludeIds(qb, tablename, req.query.$exclude_ids);
+      if (req.query.$exclude_ids) this._filterExcludeIds(qb, tableName, req.query.$exclude_ids);
 
-      if (req.query.$ids) this._filterIncludeIds(qb, tablename, req.query.$ids);
+      if (req.query.$ids) this._filterIncludeIds(qb, tableName, req.query.$ids);
 
       this._filterShared(req, trx, qb, options);
 
@@ -123,7 +123,7 @@ var FilterSort = function () {
     }
   }, {
     key: '_filterSearch',
-    value: function _filterSearch(qb, searchParams, q) {
+    value: function _filterSearch(qb, tableName, searchParams, q) {
       var _this = this;
 
       if (!q) return;
@@ -139,15 +139,15 @@ var FilterSort = function () {
     }
   }, {
     key: '_filterExcludeIds',
-    value: function _filterExcludeIds(qb, tablename, exclude_ids) {
+    value: function _filterExcludeIds(qb, tableName, ids) {
 
-      qb.whereNotIn(tableName + '.id', req.query.$exclude_ids);
+      qb.whereNotIn(tableName + '.id', ids);
     }
   }, {
     key: '_filterIncludeIds',
-    value: function _filterIncludeIds(qb, tablename, exclude_ids) {
+    value: function _filterIncludeIds(qb, tableName, ids) {
 
-      qb.whereIn(tableName + '.id', req.query.$ids);
+      qb.whereIn(tableName + '.id', ids);
     }
   }, {
     key: '_filterShared',
@@ -259,7 +259,8 @@ var FilterSort = function () {
       if (!_lodash2.default.includes(value, 'null')) return qb.whereIn(column, inArray);
 
       qb.where(function () {
-        this.whereIn(column, inArray).orWhereNull(key);
+
+        this.whereIn(column, inArray).orWhereNull(column);
       });
     }
   }, {
@@ -271,7 +272,8 @@ var FilterSort = function () {
       if (!_lodash2.default.includes(value, 'null')) return qb.whereNotIn(column, inArray);
 
       qb.where(function () {
-        this.whereNotIn(column, inArray).orWhereNotNull(key);
+
+        this.whereNotIn(column, inArray).orWhereNotNull(column);
       });
     }
   }, {

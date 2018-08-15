@@ -26,7 +26,7 @@ class CsvResponder extends Responder {
 
       const ext = (this.req.params.format === 'tsv') ? 'tsv' : 'csv'
 
-      res.setHeader('Content-disposition', `attachment; filename=${filename}-${datestamp}.${ext}`)
+      this.res.setHeader('Content-disposition', `attachment; filename=${filename}-${datestamp}.${ext}`)
 
     }
 
@@ -66,17 +66,17 @@ class CsvResponder extends Responder {
 
     return records.reduce((output, record) => [
 
-     ...output,
+      ...output,
 
-     keys.map(key => {
+      keys.map(key => {
 
-       const value = _.get(record, key)
+        const value = _.get(record, key)
 
-       if(_.isDate(value))  return moment(value).format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z'
+        if(_.isDate(value))  return moment(value).format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z'
 
-       return value
+        return value
 
-     })
+      })
 
     ], [ labels ])
 

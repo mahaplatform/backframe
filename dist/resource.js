@@ -44,6 +44,10 @@ var _show_route = require('./resource/show_route');
 
 var _show_route2 = _interopRequireDefault(_show_route);
 
+var _edit_route = require('./resource/edit_route');
+
+var _edit_route2 = _interopRequireDefault(_edit_route);
+
 var _collection = require('./collection');
 
 var _collection2 = _interopRequireDefault(_collection);
@@ -167,6 +171,8 @@ var Resources = function (_Collection) {
 
       if (this._includeAction('show')) routes.push(this._getShowRoute());
 
+      if (this._includeAction('edit')) routes.push(this._getEditRoute());
+
       if (this._includeAction('update')) routes.push(this._getUpdateRoute());
 
       if (this._includeAction('destroy')) routes.push(this._getDestroyRoute());
@@ -190,6 +196,15 @@ var Resources = function (_Collection) {
         alterRequest: this._fetchResource,
         model: this._getDestructuredOption(this, 'model', 'show'),
         serializer: this._getDestructuredOption(this, 'serializer', 'show')
+      });
+    }
+  }, {
+    key: '_getEditRoute',
+    value: function _getEditRoute() {
+      return new _edit_route2.default({
+        alterRequest: this._fetchResource,
+        model: this._getDestructuredOption(this, 'model', 'edit'),
+        serializer: this._getDestructuredOption(this, 'serializer', 'edit')
       });
     }
   }, {

@@ -91,17 +91,17 @@ var UpdateRoute = function (_Route) {
               case 0:
                 _context.prev = 0;
                 params = this._allowedParams(req.body, options.allowedParams, options.virtualParams);
-
-
-                req.resource.save(params, {
+                _context.next = 4;
+                return req.resource.save(params, {
                   patch: true,
                   transacting: trx
                 });
 
+              case 4:
                 return _context.abrupt('return', req.resource);
 
-              case 6:
-                _context.prev = 6;
+              case 7:
+                _context.prev = 7;
                 _context.t0 = _context['catch'](0);
                 throw new _error2.default({
                   code: 422,
@@ -109,12 +109,12 @@ var UpdateRoute = function (_Route) {
                   errors: _context.t0.errors ? _context.t0.toJSON() : _context.t0.message
                 });
 
-              case 9:
+              case 10:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 6]]);
+        }, _callee, this, [[0, 7]]);
       }));
 
       function _processor(_x2, _x3, _x4) {

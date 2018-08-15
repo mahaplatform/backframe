@@ -3,6 +3,7 @@ import CreateRoute from './resources/create_route'
 import UpdateRoute from './resources/update_route'
 import ListRoute from './resources/list_route'
 import ShowRoute from './resources/show_route'
+import EditRoute from './resources/edit_route'
 import Collection from './collection'
 import BackframeError from './error'
 import _ from 'lodash'
@@ -116,6 +117,8 @@ class Resources extends Collection {
 
     if(this._includeAction('show')) routes.push(this._getShowRoute())
 
+    if(this._includeAction('edit')) routes.push(this._getEditRoute())
+
     if(this._includeAction('update')) routes.push(this._getUpdateRoute())
 
     if(this._includeAction('destroy')) routes.push(this._getDestroyRoute())
@@ -156,6 +159,14 @@ class Resources extends Collection {
     })
   }
 
+  _getEditRoute() {
+    return new EditRoute({
+      alterRequest: this._fetchResource,
+      model: this._getDestructuredOption(this, 'model', 'edit'),
+      serializer: this._getDestructuredOption(this, 'serializer', 'edit')
+    })
+  }
+
   _getUpdateRoute() {
     return new UpdateRoute({
       alterRequest: this._fetchResource,
@@ -179,9 +190,8 @@ class Resources extends Collection {
   }
 
   _getMemberRoute(route) {
-    // theres a better way to do this
-    route.path = `/:id${route.path}`
-    route.hooks.alterRequest.push(this._fetchResource)
+    route.setPath(`/:id${route.path}`) 
+    route.addHook('alterRequest', this._fetchResource)
     return route
   }
 

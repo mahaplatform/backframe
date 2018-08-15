@@ -5,6 +5,10 @@ class Collection extends Component {
 
   allowedParams = null
 
+  defaultParams = null
+
+  defaultQuery = null
+
   except = null
 
   model = null
@@ -20,16 +24,26 @@ class Collection extends Component {
   constructor(config = {}) {
     super(config)
     if(config.allowedParams) this.setAllowedParams(config.allowedParams)
+    if(config.defaultQuery) this.setDefaultQuery(config.defaultQuery)
+    if(config.defaultParams) this.setDefaultParams(config.defaultParams)
     if(config.except) this.setExcept(config.except)
     if(config.model) this.setModel(config.model)
     if(config.only) this.setOnly(config.only)
     if(config.serializer) this.setSerializer(config.serializer)
-    if(config.virtualParams) this.setAllowedParams(config.virtualParams)
+    if(config.virtualParams) this.setVirtualParams(config.virtualParams)
     if(config.withRelated) this.setWithRelated(config.withRelated)
   }
 
   setAllowedParams(params) {
     this.allowedParams = _.castArray(params)
+  }
+
+  setDefaultQuery(defaultQuery) {
+    this.defaultQuery = defaultQuery
+  }
+
+  setDefaultParams(params) {
+    this.defaultParams = _.castArray(params)
   }
 
   setExcept(except) {
@@ -49,7 +63,7 @@ class Collection extends Component {
   }
 
   setVirtualParams(params) {
-    this.allowedParams = _.castArray(params)
+    this.virtualParams = _.castArray(params)
   }
 
   setWithRelated(withRelated) {

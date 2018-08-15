@@ -32,7 +32,7 @@ class XmlResponder extends Responder {
 
     const value = hash[key]
 
-    return { [key]: (_.isPlainObject(value) ? toXML(value) : value) }
+    return { [key]: (_.isPlainObject(value) ? this._toXML(value) : value) }
 
   })
 

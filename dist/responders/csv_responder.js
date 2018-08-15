@@ -77,7 +77,7 @@ var CsvResponder = function (_Responder) {
 
         var ext = this.req.params.format === 'tsv' ? 'tsv' : 'csv';
 
-        res.setHeader('Content-disposition', 'attachment; filename=' + filename + '-' + datestamp + '.' + ext);
+        this.res.setHeader('Content-disposition', 'attachment; filename=' + filename + '-' + datestamp + '.' + ext);
       }
 
       this.res.status(200).type('text/plain').send(output);

@@ -33,7 +33,7 @@ class UpdateRoute extends Route {
 
       const params = this._allowedParams(req.body, options.allowedParams, options.virtualParams)
 
-      req.resource.save(params, {
+      await req.resource.save(params, {
         patch: true,
         transacting: trx
       })

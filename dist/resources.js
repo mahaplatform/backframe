@@ -56,6 +56,10 @@ var _show_route = require('./resources/show_route');
 
 var _show_route2 = _interopRequireDefault(_show_route);
 
+var _edit_route = require('./resources/edit_route');
+
+var _edit_route2 = _interopRequireDefault(_edit_route);
+
 var _collection = require('./collection');
 
 var _collection2 = _interopRequireDefault(_collection);
@@ -225,6 +229,8 @@ var Resources = function (_Collection) {
 
       if (this._includeAction('show')) routes.push(this._getShowRoute());
 
+      if (this._includeAction('edit')) routes.push(this._getEditRoute());
+
       if (this._includeAction('update')) routes.push(this._getUpdateRoute());
 
       if (this._includeAction('destroy')) routes.push(this._getDestroyRoute());
@@ -269,6 +275,15 @@ var Resources = function (_Collection) {
       });
     }
   }, {
+    key: '_getEditRoute',
+    value: function _getEditRoute() {
+      return new _edit_route2.default({
+        alterRequest: this._fetchResource,
+        model: this._getDestructuredOption(this, 'model', 'edit'),
+        serializer: this._getDestructuredOption(this, 'serializer', 'edit')
+      });
+    }
+  }, {
     key: '_getUpdateRoute',
     value: function _getUpdateRoute() {
       return new _update_route2.default({
@@ -296,9 +311,8 @@ var Resources = function (_Collection) {
   }, {
     key: '_getMemberRoute',
     value: function _getMemberRoute(route) {
-      // theres a better way to do this
-      route.path = '/:id' + route.path;
-      route.hooks.alterRequest.push(this._fetchResource);
+      route.setPath('/:id' + route.path);
+      route.addHook('alterRequest', this._fetchResource);
       return route;
     }
   }]);

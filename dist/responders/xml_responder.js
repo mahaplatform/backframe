@@ -61,7 +61,7 @@ var XmlResponder = function (_Responder) {
 
         var value = hash[key];
 
-        return (0, _defineProperty3.default)({}, key, _lodash2.default.isPlainObject(value) ? toXML(value) : value);
+        return (0, _defineProperty3.default)({}, key, _lodash2.default.isPlainObject(value) ? _this._toXML(value) : value);
       });
     }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }

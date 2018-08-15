@@ -343,7 +343,7 @@ var Renderer = function () {
                             }
 
                             _context7.next = 3;
-                            return options.serializer(req, trx, record);
+                            return options.serializer(req, trx, record, options);
 
                           case 3:
                             _context7.t0 = _context7.sent;
