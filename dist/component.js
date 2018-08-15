@@ -28,6 +28,10 @@ var _reserved = require('./utils/reserved');
 
 var _reserved2 = _interopRequireDefault(_reserved);
 
+var _hooks = require('./utils/hooks');
+
+var _hooks2 = _interopRequireDefault(_hooks);
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -94,18 +98,22 @@ var Component = function () {
     }
   }, {
     key: '_mergeOptions',
-    value: function _mergeOptions(first, second) {
+    value: function _mergeOptions(first) {
+      var second = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var third = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
-      return (0, _extends4.default)({}, first, second);
+
+      return (0, _extends4.default)({}, first, second, third);
     }
   }, {
     key: '_mergeHooks',
-    value: function _mergeHooks(first, second) {
+    value: function _mergeHooks(first) {
+      var second = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var third = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
-      var hooks = ['afterCommit', 'afterProcessor', 'alterRecord', 'alterRequest', 'beforeCommit', 'beforeProcessor', 'beforeRollback'];
 
-      return hooks.reduce(function (hooks, hook) {
-        return (0, _extends4.default)({}, hooks, (0, _defineProperty3.default)({}, hook, [].concat((0, _toConsumableArray3.default)(first[hook] || []), (0, _toConsumableArray3.default)(second[hook] || []))));
+      return _hooks2.default.reduce(function (hooks, hook) {
+        return (0, _extends4.default)({}, hooks, (0, _defineProperty3.default)({}, hook, [].concat((0, _toConsumableArray3.default)(first[hook] || []), (0, _toConsumableArray3.default)(second[hook] || []), (0, _toConsumableArray3.default)(third[hook] || []))));
       }, {});
     }
   }]);

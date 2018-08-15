@@ -1,4 +1,5 @@
 import reserved from './utils/reserved'
+import hooks from './utils/hooks'
 import _ from 'lodash'
 
 class Component {
@@ -64,24 +65,24 @@ class Component {
 
   }
 
-  _mergeOptions(first, second) {
+  _mergeOptions(first, second = {}, third = {}) {
 
     return {
       ...first,
-      ...second
+      ...second,
+      ...third
     }
 
   }
 
-  _mergeHooks(first, second) {
-
-    const hooks = ['afterCommit','afterProcessor','alterRecord','alterRequest','beforeCommit','beforeProcessor','beforeRollback']
+  _mergeHooks(first, second = {}, third = {}) {
 
     return hooks.reduce((hooks, hook) => ({
       ...hooks,
       [hook]: [
         ...first[hook] || [],
-        ...second[hook] || []
+        ...second[hook] || [],
+        ...third[hook] || []
       ]
     }), {})
 

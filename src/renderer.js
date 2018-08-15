@@ -64,7 +64,13 @@ class Renderer {
 
     if(!record.get('updated_at')) return null
 
-    return `${req.path.substr(1).replace(/\//g, '-')}-${moment(record.get('updated_at')).format('x')}`
+    const url = req.path.substr(1).replace(/\//g, '-')
+
+    const id = record.get('id')
+
+    const timestamp = moment(record.get('updated_at')).format('x')
+
+    return [url, id, timestamp].filter(item => item !== null).join('-')
 
   }
 

@@ -133,7 +133,7 @@ var Route = function (_Component) {
 
       var path = this._mergePaths(routePath, this.path);
 
-      var options = this._mergeOptions(routeOptions, this.routeOptions);
+      var options = this._mergeOptions(routeOptions, this.customOptions, this.routeOptions);
 
       var hooks = this._mergeHooks(routeHooks, this.hooks);
 
@@ -143,125 +143,121 @@ var Route = function (_Component) {
 
       logger.setReporter(reporter);
 
-      return {
+      var handler = function handler(req, res, next) {
 
-        method: this.method,
+        return options.knex.transaction(function () {
+          var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(trx) {
+            var result, renderer, rendered, altered, responder, error_responder;
+            return _regenerator2.default.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
 
-        options: options,
+                    logger.init(req, res, trx);
 
-        hooks: hooks,
+                    _context.prev = 1;
+                    _context.next = 4;
+                    return _this2._alterRequest(req, trx, options, hooks.alterRequest);
 
-        path: path.replace(':id', ':id(\\d+)') + '.:format?',
+                  case 4:
+                    req = _context.sent;
+                    _context.next = 7;
+                    return _this2._runHooks(req, trx, null, options, hooks.beforeProcessor, false);
 
-        handler: function handler(req, res, next) {
+                  case 7:
+                    _context.next = 9;
+                    return _this2.processor(req, trx, options);
 
-          return options.knex.transaction(function () {
-            var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(trx) {
-              var result, renderer, rendered, altered, responder, error_responder;
-              return _regenerator2.default.wrap(function _callee$(_context) {
-                while (1) {
-                  switch (_context.prev = _context.next) {
-                    case 0:
+                  case 9:
+                    _context.t0 = _context.sent;
 
-                      logger.init(req, res, trx);
-
-                      _context.prev = 1;
-                      _context.next = 4;
-                      return _this2._alterRequest(req, trx, options, hooks.alterRequest);
-
-                    case 4:
-                      req = _context.sent;
-                      _context.next = 7;
-                      return _this2._runHooks(req, trx, null, options, hooks.beforeProcessor, false);
-
-                    case 7:
-                      _context.next = 9;
-                      return _this2.processor(req, trx, options);
-
-                    case 9:
-                      _context.t0 = _context.sent;
-
-                      if (_context.t0) {
-                        _context.next = 12;
-                        break;
-                      }
-
-                      _context.t0 = null;
-
-                    case 12:
-                      result = _context.t0;
-                      _context.next = 15;
-                      return _this2._runHooks(req, trx, result, options, hooks.afterProcessor, true);
-
-                    case 15:
-                      renderer = new _renderer2.default({ req: req, trx: trx, result: result, options: options });
-                      _context.next = 18;
-                      return renderer.render();
-
-                    case 18:
-                      rendered = _context.sent;
-                      _context.next = 21;
-                      return _this2._alterRecord(req, trx, rendered, options, hooks.alterRecord);
-
-                    case 21:
-                      altered = _context.sent;
-                      responder = _this2._getResponder(req, res, altered, options);
-                      _context.next = 25;
-                      return responder.render();
-
-                    case 25:
-                      _context.next = 27;
-                      return _this2._runHooks(req, trx, altered, options, hooks.beforeCommit, true);
-
-                    case 27:
-                      _context.next = 29;
-                      return trx.commit(result);
-
-                    case 29:
-                      _context.next = 31;
-                      return _this2._runHooks(req, trx, altered, options, hooks.afterCommit, true);
-
-                    case 31:
-
-                      logger.print();
-
-                      _context.next = 42;
+                    if (_context.t0) {
+                      _context.next = 12;
                       break;
+                    }
 
-                    case 34:
-                      _context.prev = 34;
-                      _context.t1 = _context['catch'](1);
-                      _context.next = 38;
-                      return _this2._runHooks(req, trx, null, options, hooks.beforeRollback, false);
+                    _context.t0 = null;
 
-                    case 38:
-                      error_responder = new _error_responder2.default({ res: res, error: _context.t1 });
+                  case 12:
+                    result = _context.t0;
+                    _context.next = 15;
+                    return _this2._runHooks(req, trx, result, options, hooks.afterProcessor, true);
+
+                  case 15:
+                    renderer = new _renderer2.default({ req: req, trx: trx, result: result, options: options });
+                    _context.next = 18;
+                    return renderer.render();
+
+                  case 18:
+                    rendered = _context.sent;
+                    _context.next = 21;
+                    return _this2._alterRecord(req, trx, rendered, options, hooks.alterRecord);
+
+                  case 21:
+                    altered = _context.sent;
+                    responder = _this2._getResponder(req, res, altered, options);
+                    _context.next = 25;
+                    return responder.render();
+
+                  case 25:
+                    _context.next = 27;
+                    return _this2._runHooks(req, trx, altered, options, hooks.beforeCommit, true);
+
+                  case 27:
+                    _context.next = 29;
+                    return trx.commit(result);
+
+                  case 29:
+                    _context.next = 31;
+                    return _this2._runHooks(req, trx, altered, options, hooks.afterCommit, true);
+
+                  case 31:
+
+                    logger.print();
+
+                    _context.next = 42;
+                    break;
+
+                  case 34:
+                    _context.prev = 34;
+                    _context.t1 = _context['catch'](1);
+                    _context.next = 38;
+                    return _this2._runHooks(req, trx, null, options, hooks.beforeRollback, false);
+
+                  case 38:
+                    error_responder = new _error_responder2.default({ res: res, error: _context.t1 });
 
 
-                      error_responder.render();
+                    error_responder.render();
 
-                      _context.next = 42;
-                      return trx.rollback(_context.t1);
+                    _context.next = 42;
+                    return trx.rollback(_context.t1);
 
-                    case 42:
-                    case 'end':
-                      return _context.stop();
-                  }
+                  case 42:
+                  case 'end':
+                    return _context.stop();
                 }
-              }, _callee, _this2, [[1, 34]]);
-            }));
+              }
+            }, _callee, _this2, [[1, 34]]);
+          }));
 
-            return function (_x5) {
-              return _ref.apply(this, arguments);
-            };
-          }()).catch(function (error) {
+          return function (_x5) {
+            return _ref.apply(this, arguments);
+          };
+        }()).catch(function (error) {
 
-            logger.print();
+          logger.print();
 
-            if (process.env.NODE_ENV !== 'production') console.log(error);
-          });
-        }
+          if (process.env.NODE_ENV !== 'production') console.log(error);
+        });
+      };
 
+      return {
+        method: this.method,
+        options: options,
+        hooks: hooks,
+        path: path.replace(':id', ':id(\\d+)') + '.:format?',
+        handler: handler
       };
     }
   }, {

@@ -49,7 +49,7 @@ class Route extends Component {
 
     const path = this._mergePaths(routePath, this.path)
 
-    const options = this._mergeOptions(routeOptions, this.routeOptions)
+    const options = this._mergeOptions(routeOptions, this.customOptions, this.routeOptions)
 
     const hooks = this._mergeHooks(routeHooks, this.hooks)
 
@@ -59,72 +59,68 @@ class Route extends Component {
 
     logger.setReporter(reporter)
 
-    return {
+    const handler = (req, res, next) => {
 
-      method: this.method,
+      return options.knex.transaction(async trx => {
 
-      options,
+        logger.init(req, res, trx)
 
-      hooks,
+        try {
 
-      path: `${path.replace(':id',':id(\\d+)')}.:format?`,
+          req = await this._alterRequest(req, trx, options, hooks.alterRequest)
 
-      handler: (req, res, next) => {
+          await this._runHooks(req, trx, null, options, hooks.beforeProcessor, false)
 
-        return options.knex.transaction(async trx => {
+          const result = await this.processor(req, trx, options) || null
 
-          logger.init(req, res, trx)
+          await this._runHooks(req, trx, result, options, hooks.afterProcessor, true)
 
-          try {
+          const renderer = new Renderer({ req, trx, result, options })
 
-            req = await this._alterRequest(req, trx, options, hooks.alterRequest)
+          const rendered = await renderer.render()
 
-            await this._runHooks(req, trx, null, options, hooks.beforeProcessor, false)
+          const altered = await this._alterRecord(req, trx, rendered, options, hooks.alterRecord)
 
-            const result = await this.processor(req, trx, options) || null
+          const responder = this._getResponder(req, res, altered, options)
 
-            await this._runHooks(req, trx, result, options, hooks.afterProcessor, true)
+          await responder.render()
 
-            const renderer = new Renderer({ req, trx, result, options })
+          await this._runHooks(req, trx, altered, options, hooks.beforeCommit, true)
 
-            const rendered = await renderer.render()
+          await trx.commit(result)
 
-            const altered = await this._alterRecord(req, trx, rendered, options, hooks.alterRecord)
-
-            const responder = this._getResponder(req, res, altered, options)
-
-            await responder.render()
-
-            await this._runHooks(req, trx, altered, options, hooks.beforeCommit, true)
-
-            await trx.commit(result)
-
-            await this._runHooks(req, trx, altered, options, hooks.afterCommit, true)
-
-            logger.print()
-
-          } catch(error) {
-
-            await this._runHooks(req, trx, null, options, hooks.beforeRollback, false)
-
-            const error_responder = new ErrorResponder({ res, error })
-
-            error_responder.render()
-
-            await trx.rollback(error)
-
-          }
-
-        }).catch((error) => {
+          await this._runHooks(req, trx, altered, options, hooks.afterCommit, true)
 
           logger.print()
 
-          if(process.env.NODE_ENV !== 'production') console.log(error)
+        } catch(error) {
 
-        })
+          await this._runHooks(req, trx, null, options, hooks.beforeRollback, false)
 
-      }
+          const error_responder = new ErrorResponder({ res, error })
 
+          error_responder.render()
+
+          await trx.rollback(error)
+
+        }
+
+      }).catch((error) => {
+
+        logger.print()
+
+        if(process.env.NODE_ENV !== 'production') console.log(error)
+
+      })
+
+    }
+
+    return {
+      method: this.method,
+      options,
+      hooks,
+      path: `${path.replace(':id',':id(\\d+)')}.:format?`,
+      handler
     }
 
   }

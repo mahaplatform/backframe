@@ -232,11 +232,15 @@ var Renderer = function () {
 
       if (!record.get('updated_at')) return null;
 
-      var route = req.path.substr(1).replace(/\//g, '-');
+      var url = req.path.substr(1).replace(/\//g, '-');
+
+      var id = record.get('id');
 
       var timestamp = (0, _moment2.default)(record.get('updated_at')).format('x');
 
-      return route + '-' + timestamp;
+      return [url, id, timestamp].filter(function (item) {
+        return item !== null;
+      }).join('-');
     }
   }, {
     key: '_cache',
@@ -273,29 +277,26 @@ var Renderer = function () {
               case 6:
                 value = _context6.sent;
 
-
-                console.log(value ? 'hit' : 'miss');
-
                 if (!value) {
-                  _context6.next = 10;
+                  _context6.next = 9;
                   break;
                 }
 
                 return _context6.abrupt('return', JSON.parse(value));
 
-              case 10:
-                _context6.next = 12;
+              case 9:
+                _context6.next = 11;
                 return fn();
 
-              case 12:
+              case 11:
                 rendered = _context6.sent;
-                _context6.next = 15;
+                _context6.next = 14;
                 return options.redis.set(key, JSON.stringify(rendered), 'EX', 24 * 60 * 60);
 
-              case 15:
+              case 14:
                 return _context6.abrupt('return', rendered);
 
-              case 16:
+              case 15:
               case 'end':
                 return _context6.stop();
             }
