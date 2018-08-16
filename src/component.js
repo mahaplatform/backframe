@@ -70,14 +70,18 @@ class Component {
 
   _mergeOption(key, accumulated, value) {
     if(!accumulated && !value) return {}
-    const append = ['defaultQuery']
-    if(!_.includes(append, key)) return { [key]: value || accumulated }
-    return {
-      [key]: [
-        ...accumulated || [],
-        ...value || []
-      ]
+    const append = ['defaultQuery','defaultParams']
+    if(_.includes(append, key)) {
+      return {
+        [key]: [
+          ...accumulated || [],
+          ...value || []
+        ]
+      }
     }
+    if(!_.isNil(value)) return { [key]: value }
+    if(!_.isNil(accumulated)) return { [key]: accumulated }
+    return {}
   }
 
   _mergeHooks() {

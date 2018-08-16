@@ -90,22 +90,45 @@ var CreateRoute = function (_Route) {
     key: '_processor',
     value: function () {
       var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
+        var defaults, allowed;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return options.model.forge((0, _extends3.default)({}, this._defaultParams(req, trx, options), this._allowedParams(req.body, options.allowedParams, options.virtualParams))).save(null, {
+                return this._defaultParams(req, trx, options);
+
+              case 3:
+                defaults = _context.sent;
+                _context.next = 6;
+                return this._allowedParams(req.body, options.allowedParams, options.virtualParams);
+
+              case 6:
+                allowed = _context.sent;
+                _context.next = 9;
+                return options.model.forge((0, _extends3.default)({}, defaults, allowed)).save(null, {
                   transacting: trx
                 });
 
-              case 3:
+              case 9:
                 req.resource = _context.sent;
+
+                if (!options.withRelated) {
+                  _context.next = 13;
+                  break;
+                }
+
+                _context.next = 13;
+                return req.resource.load(_lodash2.default.castArray(options.withRelated), {
+                  transacting: trx
+                });
+
+              case 13:
                 return _context.abrupt('return', req.resource);
 
-              case 7:
-                _context.prev = 7;
+              case 16:
+                _context.prev = 16;
                 _context.t0 = _context['catch'](0);
                 throw new _error2.default({
                   code: 422,
@@ -113,12 +136,12 @@ var CreateRoute = function (_Route) {
                   errors: _context.t0.errors ? _context.t0.toJSON() : _context.t0.message
                 });
 
-              case 10:
+              case 19:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 7]]);
+        }, _callee, this, [[0, 16]]);
       }));
 
       function _processor(_x2, _x3, _x4) {

@@ -4,11 +4,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _bluebird = require('bluebird');
+
 var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-var _bluebird = require('bluebird');
 
 var _regenerator = require('babel-runtime/regenerator');
 
@@ -90,35 +90,46 @@ var CreateRoute = function (_Route) {
     key: '_processor',
     value: function () {
       var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
+        var defaults, allowed;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return options.model.forge((0, _extends3.default)({}, this._defaultParams(req, trx, options), this._allowedParams(req.body, options.allowedParams, options.virtualParams))).save(null, {
+                _context.next = 2;
+                return this._defaultParams(req, trx, options);
+
+              case 2:
+                defaults = _context.sent;
+                _context.next = 5;
+                return this._allowedParams(req.body, options.allowedParams, options.virtualParams);
+
+              case 5:
+                allowed = _context.sent;
+                _context.prev = 6;
+                _context.next = 9;
+                return options.model.forge((0, _extends3.default)({}, defaults, allowed)).save(null, {
                   transacting: trx
                 });
 
-              case 3:
+              case 9:
                 req.resource = _context.sent;
                 return _context.abrupt('return', req.resource);
 
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context['catch'](0);
+              case 13:
+                _context.prev = 13;
+                _context.t0 = _context['catch'](6);
                 throw new _error2.default({
                   code: 422,
                   message: 'Unable to create record',
                   errors: _context.t0.errors ? _context.t0.toJSON() : _context.t0.message
                 });
 
-              case 10:
+              case 16:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 7]]);
+        }, _callee, this, [[6, 13]]);
       }));
 
       function _processor(_x2, _x3, _x4) {
@@ -127,6 +138,14 @@ var CreateRoute = function (_Route) {
 
       return _processor;
     }()
+  }, {
+    key: '_allowedParams',
+    value: function _allowedParams(body, allowedParams, virtualParams) {
+
+      var allowed = [].concat((0, _toConsumableArray3.default)(_lodash2.default.castArray(allowedParams)), (0, _toConsumableArray3.default)(_lodash2.default.castArray(virtualParams)));
+
+      return _lodash2.default.pick(body, allowed);
+    }
   }, {
     key: '_defaultParams',
     value: function () {
@@ -192,14 +211,6 @@ var CreateRoute = function (_Route) {
 
       return _defaultParams;
     }()
-  }, {
-    key: '_allowedParams',
-    value: function _allowedParams(body, allowedParams, virtualParams) {
-
-      var allowed = [].concat((0, _toConsumableArray3.default)(_lodash2.default.castArray(allowedParams)), (0, _toConsumableArray3.default)(_lodash2.default.castArray(virtualParams)));
-
-      return _lodash2.default.pick(body, allowed);
-    }
   }]);
   return CreateRoute;
 }(_route2.default);

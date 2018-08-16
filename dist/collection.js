@@ -115,9 +115,9 @@ var Collection = function (_Component) {
     key: '_includeAction',
     value: function _includeAction(action) {
 
-      if (this.only && !_lodash2.default.includes(this.only, action)) return false;
+      if (this.options.only) return _lodash2.default.includes(this.options.only, action);
 
-      if (this.except && _lodash2.default.includes(this.except, action)) return false;
+      if (this.options.except) return !_lodash2.default.includes(this.options.except, action);
 
       return true;
     }
@@ -130,7 +130,7 @@ var Collection = function (_Component) {
 
         var value = _this2._getDestructuredOption(options, option, action);
 
-        return (0, _extends3.default)({}, destructured, value ? (0, _defineProperty3.default)({}, option, value) : {});
+        return (0, _extends3.default)({}, destructured, !_lodash2.default.isNil(value) ? (0, _defineProperty3.default)({}, option, value) : {});
       }, {});
     }
   }, {

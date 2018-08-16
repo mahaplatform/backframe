@@ -109,9 +109,13 @@ var Component = function () {
     key: '_mergeOption',
     value: function _mergeOption(key, accumulated, value) {
       if (!accumulated && !value) return {};
-      var append = ['defaultQuery'];
-      if (!_lodash2.default.includes(append, key)) return (0, _defineProperty3.default)({}, key, value || accumulated);
-      return (0, _defineProperty3.default)({}, key, [].concat((0, _toConsumableArray3.default)(accumulated || []), (0, _toConsumableArray3.default)(value || [])));
+      var append = ['defaultQuery', 'defaultParams'];
+      if (_lodash2.default.includes(append, key)) {
+        return (0, _defineProperty3.default)({}, key, [].concat((0, _toConsumableArray3.default)(accumulated || []), (0, _toConsumableArray3.default)(value || [])));
+      }
+      if (!_lodash2.default.isNil(value)) return (0, _defineProperty3.default)({}, key, value);
+      if (!_lodash2.default.isNil(accumulated)) return (0, _defineProperty3.default)({}, key, accumulated);
+      return {};
     }
   }, {
     key: '_mergeHooks',

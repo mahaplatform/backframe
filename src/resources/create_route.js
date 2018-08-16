@@ -31,12 +31,24 @@ class CreateRoute extends Route {
 
     try {
 
+      const defaults = await this._defaultParams(req, trx, options)
+
+      const allowed = await this._allowedParams(req.body, options.allowedParams, options.virtualParams)
+
       req.resource = await options.model.forge({
-        ...this._defaultParams(req, trx, options),
-        ...this._allowedParams(req.body, options.allowedParams, options.virtualParams)
+        ...defaults,
+        ...allowed
       }).save(null, {
         transacting: trx
       })
+
+      if(options.withRelated) {
+
+        await req.resource.load(_.castArray(options.withRelated), {
+          transacting: trx
+        })
+
+      }
 
       return req.resource
 

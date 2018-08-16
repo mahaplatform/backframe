@@ -165,7 +165,8 @@ var Resources = function (_Collection) {
                 return options.model.where({
                   id: req.params.id
                 }).fetch({
-                  transacting: trx
+                  transacting: trx,
+                  withRelated: options.withRelated ? _lodash2.default.castArray(options.withRelated) : []
                 });
 
               case 2:

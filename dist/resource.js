@@ -128,9 +128,10 @@ var Resources = function (_Collection) {
               case 0:
                 _context.next = 2;
                 return options.model.where({
-                  id: 1
+                  id: req.params.id
                 }).fetch({
-                  transacting: trx
+                  transacting: trx,
+                  withRelated: options.withRelated ? _lodash2.default.castArray(options.withRelated) : []
                 });
 
               case 2:

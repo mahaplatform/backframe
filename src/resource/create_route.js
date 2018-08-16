@@ -29,11 +29,15 @@ class CreateRoute extends Route {
 
   async _processor(req, trx, options) {
 
+    const defaults = await this._defaultParams(req, trx, options)
+
+    const allowed = await this._allowedParams(req.body, options.allowedParams, options.virtualParams)
+
     try {
 
       req.resource = await options.model.forge({
-        ...this._defaultParams(req, trx, options),
-        ...this._allowedParams(req.body, options.allowedParams, options.virtualParams)
+        ...defaults,
+        ...allowed
       }).save(null, {
         transacting: trx
       })
@@ -52,17 +56,6 @@ class CreateRoute extends Route {
 
   }
 
-  async _defaultParams(req, trx, options) {
-
-    if(!options.defaultParams) return {}
-
-    return await Promise.reduce(options.defaultParams, async (params, defaultParams) => ({
-      ...params,
-      ...await defaultParams(req, trx, options)
-    }), {})
-
-  }
-
   _allowedParams(body, allowedParams, virtualParams) {
 
     const allowed = [
@@ -71,6 +64,17 @@ class CreateRoute extends Route {
     ]
 
     return _.pick(body, allowed)
+
+  }
+
+  async _defaultParams(req, trx, options) {
+
+    if(!options.defaultParams) return {}
+
+    return await Promise.reduce(options.defaultParams, async (params, defaultParams) => ({
+      ...params,
+      ...await defaultParams(req, trx, options)
+    }), {})
 
   }
 

@@ -76,7 +76,8 @@ class Resources extends Collection {
     req.resource = await options.model.where({
       id: req.params.id
     }).fetch({
-      transacting: trx
+      transacting: trx,
+      withRelated: options.withRelated ? _.castArray(options.withRelated): []
     })
 
     if(req.resource) return req

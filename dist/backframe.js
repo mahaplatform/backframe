@@ -129,7 +129,7 @@ var Backframe = function (_Component) {
 
       return [].concat((0, _toConsumableArray3.default)(this.routes.reduce(function (routes, route) {
         return [].concat((0, _toConsumableArray3.default)(routes), (0, _toConsumableArray3.default)(_lodash2.default.castArray(route.render(_this2.path, options, hooks))));
-      }, [])), [_not_found_route2.default.render('', options)]);
+      }, [])));
     }
   }]);
   return Backframe;

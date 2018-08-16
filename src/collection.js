@@ -60,9 +60,9 @@ class Collection extends Component {
 
   _includeAction(action) {
 
-    if(this.only && !_.includes(this.only, action)) return false
+    if(this.options.only) return _.includes(this.options.only, action)
 
-    if(this.except && _.includes(this.except, action)) return false
+    if(this.options.except) return !_.includes(this.options.except, action)
 
     return true
 
@@ -76,7 +76,7 @@ class Collection extends Component {
 
       return {
         ...destructured,
-        ...value ? { [option]: value } : {}
+        ...!_.isNil(value) ? { [option]: value } : {}
       }
 
     }, {})
