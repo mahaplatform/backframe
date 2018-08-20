@@ -49,6 +49,8 @@ class FilterSort {
 
     if(virtualFilters) this._filterVirtual(qb, virtualFilters)
 
+    console.log(filters.q, req.query.$filter)
+
     if(filters.q && this.searchParams) this._filterSearch(qb, tableName, this.searchParams, filters.q)
 
     if(req.query.$exclude_ids) this._filterExcludeIds(qb, tableName, req.query.$exclude_ids)
@@ -65,9 +67,7 @@ class FilterSort {
 
   }
 
-  _getAllowedFilters(filters, filterParams) {
-
-    if(!filterParams || !filters) return {}
+  _getAllowedFilters(filters, filterParams = []) {
 
     return _.pick(filters, [...filterParams, 'q'])
 

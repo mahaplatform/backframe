@@ -69,6 +69,8 @@ var FilterSort = function () {
 
       if (virtualFilters) this._filterVirtual(qb, virtualFilters);
 
+      console.log(filters.q, req.query.$filter);
+
       if (filters.q && this.searchParams) this._filterSearch(qb, tableName, this.searchParams, filters.q);
 
       if (req.query.$exclude_ids) this._filterExcludeIds(qb, tableName, req.query.$exclude_ids);
@@ -85,9 +87,9 @@ var FilterSort = function () {
     }
   }, {
     key: '_getAllowedFilters',
-    value: function _getAllowedFilters(filters, filterParams) {
+    value: function _getAllowedFilters(filters) {
+      var filterParams = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
-      if (!filterParams || !filters) return {};
 
       return _lodash2.default.pick(filters, [].concat((0, _toConsumableArray3.default)(filterParams), ['q']));
     }
