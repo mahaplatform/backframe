@@ -32,6 +32,10 @@ var _component = require('./component');
 
 var _component2 = _interopRequireDefault(_component);
 
+var _hooks = require('./utils/hooks');
+
+var _hooks2 = _interopRequireDefault(_hooks);
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -47,6 +51,11 @@ var Collection = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (Collection.__proto__ || Object.getPrototypeOf(Collection)).call(this, config));
 
+    _this.collectionHooks = {};
+
+    _hooks2.default.map(function (hook) {
+      return _this.setCollectionHooks(hook, config[hook]);
+    });
     if (config.path) _this.setPath(config.path);
     if (config.allowedParams) _this.setAllowedParams(config.allowedParams);
     if (config.defaultQuery) _this.setDefaultQuery(config.defaultQuery);
@@ -62,6 +71,12 @@ var Collection = function (_Component) {
   }
 
   (0, _createClass3.default)(Collection, [{
+    key: 'setCollectionHooks',
+    value: function setCollectionHooks(name, hook) {
+      if (!hook) return;
+      this.collectionHooks[name] = hook;
+    }
+  }, {
     key: 'setAllowedParams',
     value: function setAllowedParams(allowedParams) {
       this._setOption('allowedParams', _lodash2.default.castArray(allowedParams));

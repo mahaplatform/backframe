@@ -124,7 +124,7 @@ var Component = function () {
 
       return _hooks2.default.reduce(function (hooks, hook) {
         return (0, _extends4.default)({}, hooks, (0, _defineProperty3.default)({}, hook, Array.prototype.slice.call(_arguments).reduce(function (full, argument) {
-          return [].concat((0, _toConsumableArray3.default)(full), (0, _toConsumableArray3.default)(argument[hook] || []));
+          return [].concat((0, _toConsumableArray3.default)(full), (0, _toConsumableArray3.default)(!_lodash2.default.isNil(argument[hook]) ? _lodash2.default.castArray(argument[hook]) : []));
         }, [])));
       }, {});
     }

@@ -30,10 +30,16 @@ class Resources extends Collection {
 
       const options = this._mergeOptions(resourceOptions, actionOptions)
 
-      const actionHooks = Object.keys(this.hooks).reduce((hooks, hook) => ({
-        ...hooks,
-        [hook]: this._getDestructuredOptions(this.hooks[hook], route.action)
-      }), {})
+      const actionHooks = Object.keys(this.collectionHooks).reduce((hooks, hook) => {
+
+        const actionHooks = this._getDestructuredOption(this.collectionHooks, hook, route.action)
+
+        return {
+          ...hooks,
+          ...actionHooks ? { [hook]: actionHooks } : {}
+        }
+
+      }, {})
 
       const hooks = this._mergeHooks(resourceHooks, actionHooks)
 

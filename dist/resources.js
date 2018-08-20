@@ -16,9 +16,9 @@ var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _extends3 = require('babel-runtime/helpers/extends');
+var _extends2 = require('babel-runtime/helpers/extends');
 
-var _extends4 = _interopRequireDefault(_extends3);
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -144,11 +144,16 @@ var Resources = function (_Collection) {
 
         var options = _this2._mergeOptions(resourcesOptions, actionOptions);
 
-        var actionHooks = Object.keys(_this2.hooks).reduce(function (hooks, hook) {
-          return (0, _extends4.default)({}, hooks, (0, _defineProperty3.default)({}, hook, _this2._getDestructuredOptions(_this2.hooks[hook], route.action)));
+        var actionHooks = Object.keys(_this2.collectionHooks).reduce(function (hooks, hook) {
+
+          var actionHooks = _this2._getDestructuredOption(_this2.collectionHooks, hook, route.action);
+
+          return (0, _extends3.default)({}, hooks, actionHooks ? (0, _defineProperty3.default)({}, hook, actionHooks) : {});
         }, {});
 
         var hooks = _this2._mergeHooks(resourcesHooks, actionHooks);
+
+        if (_this2.path === '/expenses' && route.action === 'update') console.log(resourcesHooks, actionHooks, hooks);
 
         return route.render(path, options, hooks);
       });
@@ -156,7 +161,7 @@ var Resources = function (_Collection) {
   }, {
     key: '_fetchResource',
     value: function () {
-      var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
+      var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -194,7 +199,7 @@ var Resources = function (_Collection) {
       }));
 
       function _fetchResource(_x5, _x6, _x7) {
-        return _ref.apply(this, arguments);
+        return _ref2.apply(this, arguments);
       }
 
       return _fetchResource;

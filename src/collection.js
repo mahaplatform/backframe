@@ -1,10 +1,14 @@
 import Component from './component'
+import hooks from './utils/hooks'
 import _ from 'lodash'
 
 class Collection extends Component {
 
+  collectionHooks = {}
+
   constructor(config = {}) {
     super(config)
+    hooks.map(hook => this.setCollectionHooks(hook, config[hook]))
     if(config.path) this.setPath(config.path)
     if(config.allowedParams) this.setAllowedParams(config.allowedParams)
     if(config.defaultQuery) this.setDefaultQuery(config.defaultQuery)
@@ -16,6 +20,11 @@ class Collection extends Component {
     if(config.serializer) this.setSerializer(config.serializer)
     if(config.virtualParams) this.setVirtualParams(config.virtualParams)
     if(config.withRelated) this.setWithRelated(config.withRelated)
+  }
+
+  setCollectionHooks(name, hook) {
+    if(!hook) return
+    this.collectionHooks[name] = hook
   }
 
   setAllowedParams(allowedParams) {

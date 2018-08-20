@@ -89,7 +89,7 @@ class Component {
       ...hooks,
       [hook]: Array.prototype.slice.call(arguments).reduce((full, argument) => [
         ...full,
-        ...argument[hook] || []
+        ...!_.isNil(argument[hook]) ? _.castArray(argument[hook]) : []
       ], [])
     }), {})
   }
