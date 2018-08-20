@@ -31,7 +31,7 @@ class UpdateRoute extends Route {
 
     try {
 
-      const params = this._allowedParams(req.body, options.allowedParams, options.virtualParams)
+      const params = this._allowedParams(req.body, options.allowedParams)
 
       await req.resource.save(params, {
         patch: true,
@@ -52,12 +52,9 @@ class UpdateRoute extends Route {
 
   }
 
-  _allowedParams(body, allowedParams, virtualParams) {
+  _allowedParams(body, allowedParams) {
 
-    const allowed = [
-      ..._.castArray(allowedParams),
-      ..._.castArray(virtualParams)
-    ]
+    const allowed = _.castArray(allowedParams)
 
     return _.pick(body, allowed)
 

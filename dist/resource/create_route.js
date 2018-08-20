@@ -6,10 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _bluebird = require('bluebird');
 
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
 var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
@@ -101,7 +97,7 @@ var CreateRoute = function (_Route) {
               case 2:
                 defaults = _context.sent;
                 _context.next = 5;
-                return this._allowedParams(req.body, options.allowedParams, options.virtualParams);
+                return this._allowedParams(req.body, options.allowedParams);
 
               case 5:
                 allowed = _context.sent;
@@ -140,9 +136,9 @@ var CreateRoute = function (_Route) {
     }()
   }, {
     key: '_allowedParams',
-    value: function _allowedParams(body, allowedParams, virtualParams) {
+    value: function _allowedParams(body, allowedParams) {
 
-      var allowed = [].concat((0, _toConsumableArray3.default)(_lodash2.default.castArray(allowedParams)), (0, _toConsumableArray3.default)(_lodash2.default.castArray(virtualParams)));
+      var allowed = _lodash2.default.castArray(allowedParams);
 
       return _lodash2.default.pick(body, allowed);
     }

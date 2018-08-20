@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
 var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
@@ -90,7 +86,7 @@ var UpdateRoute = function (_Route) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                params = this._allowedParams(req.body, options.allowedParams, options.virtualParams);
+                params = this._allowedParams(req.body, options.allowedParams);
                 _context.next = 4;
                 return req.resource.save(params, {
                   patch: true,
@@ -125,9 +121,9 @@ var UpdateRoute = function (_Route) {
     }()
   }, {
     key: '_allowedParams',
-    value: function _allowedParams(body, allowedParams, virtualParams) {
+    value: function _allowedParams(body, allowedParams) {
 
-      var allowed = [].concat((0, _toConsumableArray3.default)(_lodash2.default.castArray(allowedParams)), (0, _toConsumableArray3.default)(_lodash2.default.castArray(virtualParams)));
+      var allowed = _lodash2.default.castArray(allowedParams);
 
       return _lodash2.default.pick(body, allowed);
     }

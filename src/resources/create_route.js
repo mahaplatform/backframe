@@ -33,7 +33,7 @@ class CreateRoute extends Route {
 
       const defaults = await this._defaultParams(req, trx, options)
 
-      const allowed = await this._allowedParams(req.body, options.allowedParams, options.virtualParams)
+      const allowed = await this._allowedParams(req.body, options.allowedParams)
 
       req.resource = await options.model.forge({
         ...defaults,
@@ -64,12 +64,9 @@ class CreateRoute extends Route {
 
   }
 
-  _allowedParams(body, allowedParams, virtualParams) {
+  _allowedParams(body, allowedParams) {
 
-    const allowed = [
-      ..._.castArray(allowedParams),
-      ..._.castArray(virtualParams)
-    ]
+    const allowed = _.castArray(allowedParams)
 
     return _.pick(body, allowed)
 
