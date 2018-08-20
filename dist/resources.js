@@ -153,8 +153,6 @@ var Resources = function (_Collection) {
 
         var hooks = _this2._mergeHooks(resourcesHooks, actionHooks);
 
-        if (_this2.path === '/expenses' && route.action === 'update') console.log(resourcesHooks, actionHooks, hooks);
-
         return route.render(path, options, hooks);
       });
     }
