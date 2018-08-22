@@ -68,7 +68,8 @@ var Logger = function () {
         uid: query.__knexQueryUid,
         sql: query.sql,
         bindings: query.bindings,
-        startTime: process.hrtime()
+        startTime: process.hrtime(),
+        duration: 0
       });
     }
   }, {
@@ -78,6 +79,8 @@ var Logger = function () {
       if (!query.__knexQueryUid) return;
 
       var index = _lodash2.default.findIndex(this.log, { uid: query.__knexQueryUid });
+
+      if (!this.log[index]) return;
 
       var diff = process.hrtime(this.log[index].startTime);
 

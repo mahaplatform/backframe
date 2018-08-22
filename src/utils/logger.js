@@ -49,7 +49,8 @@ class Logger {
       uid: query.__knexQueryUid,
       sql: query.sql,
       bindings: query.bindings,
-      startTime: process.hrtime()
+      startTime: process.hrtime(),
+      duration: 0
     })
 
   }
@@ -59,6 +60,8 @@ class Logger {
     if(!query.__knexQueryUid) return
 
     const index = _.findIndex(this.log, { uid: query.__knexQueryUid })
+
+    if(!this.log[index]) return
 
     const diff = process.hrtime(this.log[index].startTime)
 
