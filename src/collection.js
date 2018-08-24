@@ -14,6 +14,7 @@ class Collection extends Component {
     if(config.defaultQuery) this.setDefaultQuery(config.defaultQuery)
     if(config.defaultParams) this.setDefaultParams(config.defaultParams)
     if(config.defaultSort) this.setDefaultSort(config.defaultSort)
+    if(config.dependents) this.setDependents(config.dependents)
     if(config.except) this.setExcept(config.except)
     if(config.model) this.setModel(config.model)
     if(config.only) this.setOnly(config.only)
@@ -41,6 +42,10 @@ class Collection extends Component {
 
   setDefaultSort(defaultSort) {
     this._setOption('defaultSort', _.castArray(defaultSort))
+  }
+
+  setDependents(dependents) {
+    this._setOption('dependents', _.castArray(dependents))
   }
 
   setExcept(except) {

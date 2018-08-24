@@ -1,6 +1,7 @@
 import BackframeError from '../error'
 import moment from 'moment'
 import Route from '../route'
+import _ from 'lodash'
 
 class DestroyRoute extends Route {
 
@@ -21,16 +22,18 @@ class DestroyRoute extends Route {
 
     try {
 
-      const frozen = { ...req.resource.attributes }
+      const frozen = await options.model.where({
+        id: req.params.id
+      }).fetch({
+        transacting: trx,
+        withRelated: options.withRelated ? _.castArray(options.withRelated): []
+      })
 
-      if(!options.dependents) await this._destroyRelated(options, req.resource, trx)
+      if(options.dependents) await this._destroyRelated(req, trx, options)
 
       await this._destroyResource(options, req.resource, trx)
 
-      return {
-        toJSON: () => frozen,
-        get: (value) => frozen[value]
-      }
+      return frozen
 
     } catch(err) {
 
@@ -43,7 +46,25 @@ class DestroyRoute extends Route {
     }
   }
 
-  _destroyRelated() {
+  async _destroyRelated(req, trx, options) {
+
+    await Promise.map(options.dependents, async (dependent) => {
+
+      await req.resource.load([dependent.relationship], { transacting: trx })
+
+      const results = req.resource.related(dependent.relationship)
+
+      if(results.length === 0) return
+
+      await Promise.map(results.toArray(), async (record) => {
+
+        if(dependent.strategy === 'destroy') return await record.destroy({ transacting: trx })
+
+        await record.save({ [dependent.foreignKey]: null }, { patch: true, transacting: trx })
+
+      })
+
+    })
 
   }
 

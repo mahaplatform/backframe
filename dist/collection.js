@@ -61,6 +61,7 @@ var Collection = function (_Component) {
     if (config.defaultQuery) _this.setDefaultQuery(config.defaultQuery);
     if (config.defaultParams) _this.setDefaultParams(config.defaultParams);
     if (config.defaultSort) _this.setDefaultSort(config.defaultSort);
+    if (config.dependents) _this.setDependents(config.dependents);
     if (config.except) _this.setExcept(config.except);
     if (config.model) _this.setModel(config.model);
     if (config.only) _this.setOnly(config.only);
@@ -95,6 +96,11 @@ var Collection = function (_Component) {
     key: 'setDefaultSort',
     value: function setDefaultSort(defaultSort) {
       this._setOption('defaultSort', _lodash2.default.castArray(defaultSort));
+    }
+  }, {
+    key: 'setDependents',
+    value: function setDependents(dependents) {
+      this._setOption('dependents', _lodash2.default.castArray(dependents));
     }
   }, {
     key: 'setExcept',
