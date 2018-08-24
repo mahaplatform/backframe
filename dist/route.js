@@ -92,6 +92,7 @@ var Route = function (_Component) {
     if (config.action) _this.setAction(config.action);
     if (config.method) _this.setMethod(config.method);
     if (config.processor) _this.setProcessor(config.processor);
+    if (config.responder) _this.setResponder(config.responder);
     if (config.serializer) _this.setSerializer(config.serializer);
     return _this;
   }
@@ -115,6 +116,11 @@ var Route = function (_Component) {
     key: 'setSerializer',
     value: function setSerializer(serializer) {
       this._setOption('serializer', serializer);
+    }
+  }, {
+    key: 'setResponder',
+    value: function setResponder(responder) {
+      this._setOption('responder', responder);
     }
   }, {
     key: 'render',
@@ -470,6 +476,8 @@ var Route = function (_Component) {
   }, {
     key: '_getResponderClass',
     value: function _getResponderClass(req, options) {
+
+      if (options.responder) return options.responder;
 
       var format = req.params && req.params.format ? req.params.format : options.defaultFormat;
 

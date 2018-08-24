@@ -22,6 +22,7 @@ class Route extends Component {
     if(config.action) this.setAction(config.action)
     if(config.method) this.setMethod(config.method)
     if(config.processor) this.setProcessor(config.processor)
+    if(config.responder) this.setResponder(config.responder)
     if(config.serializer) this.setSerializer(config.serializer)
   }
 
@@ -39,6 +40,10 @@ class Route extends Component {
 
   setSerializer(serializer) {
     this._setOption('serializer', serializer)
+  }
+
+  setResponder(responder) {
+    this._setOption('responder', responder)
   }
 
   render(routePath = '', routeOptions = {}, routeHooks = {}) {
@@ -177,6 +182,8 @@ class Route extends Component {
   }
 
   _getResponderClass(req, options) {
+
+    if(options.responder) return options.responder
 
     const format = req.params && req.params.format ? req.params.format : options.defaultFormat
 

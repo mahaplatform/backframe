@@ -2,6 +2,8 @@ export ExpressTransport from './transports/express_transport'
 
 export ListRoute from './resources/list_route'
 
+export Responder from './responders/responder'
+
 export BackframeError from './error'
 
 export Resources from './resources'

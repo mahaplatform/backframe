@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Backframe = exports.Route = exports.Plugin = exports.Segment = exports.Resource = exports.Resources = exports.BackframeError = exports.ListRoute = exports.ExpressTransport = undefined;
+exports.Backframe = exports.Route = exports.Plugin = exports.Segment = exports.Resource = exports.Resources = exports.BackframeError = exports.Responder = exports.ListRoute = exports.ExpressTransport = undefined;
 
 var _express_transport = require('./transports/express_transport');
 
@@ -12,6 +12,10 @@ var _express_transport2 = _interopRequireDefault(_express_transport);
 var _list_route = require('./resources/list_route');
 
 var _list_route2 = _interopRequireDefault(_list_route);
+
+var _responder = require('./responders/responder');
+
+var _responder2 = _interopRequireDefault(_responder);
 
 var _error = require('./error');
 
@@ -45,6 +49,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.ExpressTransport = _express_transport2.default;
 exports.ListRoute = _list_route2.default;
+exports.Responder = _responder2.default;
 exports.BackframeError = _error2.default;
 exports.Resources = _resources2.default;
 exports.Resource = _resource2.default;
