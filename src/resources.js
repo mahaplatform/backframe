@@ -19,6 +19,7 @@ class Resources extends Collection {
     if(config.collectionActions) this.setCollectionActions(config.collectionActions)
     if(config.filterParams) this.setFilterParams(config.filterParams)
     if(config.memberActions) this.setMemberActions(config.memberActions)
+    if(config.primaryKey) this.setPrimaryKey(config.primaryKey)
     if(config.searchParams) this.setSearchParams(config.searchParams)
     if(config.sortParams) this.setSortParams(config.sortParams)
     if(config.virtualFilters) this.setVirtualFilters(config.virtualFilters)
@@ -26,6 +27,10 @@ class Resources extends Collection {
 
   setFilterParams(filterParams) {
     this._setOption('filterParams', _.castArray(filterParams))
+  }
+
+  setPrimaryKey(primaryKey) {
+    this._setOption('primaryKey', primaryKey)
   }
 
   setSearchParams(searchParams) {
@@ -79,8 +84,10 @@ class Resources extends Collection {
 
   async _fetchResource(req, trx, options) {
 
+    const primary_key = options.primaryKey || 'id'
+
     req.resource = await options.model.where({
-      id: req.params.id
+      [primary_key]: req.params.id
     }).fetch({
       transacting: trx,
       withRelated: options.withRelated ? _.castArray(options.withRelated): []

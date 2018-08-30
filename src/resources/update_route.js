@@ -12,6 +12,7 @@ class UpdateRoute extends Route {
     this.setProcessor(this._processor)
     if(config.allowedParams) this.setAllowedParams(config.allowedParams)
     if(config.model) this.setModel(config.model)
+    if(config.primaryKey) this.setPrimaryKey(config.primaryKey)
     if(config.virtualParams) this.setVirtualParams(config.virtualParams)
   }
 
@@ -21,6 +22,10 @@ class UpdateRoute extends Route {
 
   setModel(model) {
     this._setOption('model', model)
+  }
+
+  setPrimaryKey(primaryKey) {
+    this._setOption('primaryKey', primaryKey)
   }
 
   setVirtualParams(virtualParams) {

@@ -15,7 +15,7 @@ class ListRoute extends Route {
     if(config.withRelated) this.setWithRelated(config.withRelated)
     this.setAction('list')
     this.setMethod('get')
-    this.setPath('')
+    this.setPath(this.path || '')
     this.setProcessor(this._processor)
   }
 

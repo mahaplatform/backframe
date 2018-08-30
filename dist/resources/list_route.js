@@ -62,7 +62,7 @@ var ListRoute = function (_Route) {
     if (config.withRelated) _this.setWithRelated(config.withRelated);
     _this.setAction('list');
     _this.setMethod('get');
-    _this.setPath('');
+    _this.setPath(_this.path || '');
     _this.setProcessor(_this._processor);
     return _this;
   }

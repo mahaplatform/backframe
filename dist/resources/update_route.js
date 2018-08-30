@@ -57,6 +57,7 @@ var UpdateRoute = function (_Route) {
     _this.setProcessor(_this._processor);
     if (config.allowedParams) _this.setAllowedParams(config.allowedParams);
     if (config.model) _this.setModel(config.model);
+    if (config.primaryKey) _this.setPrimaryKey(config.primaryKey);
     if (config.virtualParams) _this.setVirtualParams(config.virtualParams);
     return _this;
   }
@@ -70,6 +71,11 @@ var UpdateRoute = function (_Route) {
     key: 'setModel',
     value: function setModel(model) {
       this._setOption('model', model);
+    }
+  }, {
+    key: 'setPrimaryKey',
+    value: function setPrimaryKey(primaryKey) {
+      this._setOption('primaryKey', primaryKey);
     }
   }, {
     key: 'setVirtualParams',

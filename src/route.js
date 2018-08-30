@@ -118,7 +118,7 @@ class Route extends Component {
 
     return {
       method: this.method,
-      path: `${path.replace(':id',':id(\\d+)')}.:format?`,
+      path: `${path}.:format?`,
       options,
       hooks,
       handler

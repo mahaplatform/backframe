@@ -12,10 +12,15 @@ class DestroyRoute extends Route {
     this.setPath('/:id')
     this.setProcessor(this._processor)
     if(config.model) this.setModel(config.model)
+    if(config.primaryKey) this.setPrimaryKey(config.primaryKey)
   }
 
   setModel(model) {
     this._setOption('model', model)
+  }
+
+  setPrimaryKey(primaryKey) {
+    this._setOption('primaryKey', primaryKey)
   }
 
   async _processor(req, trx, options) {

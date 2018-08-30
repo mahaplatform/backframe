@@ -89,6 +89,7 @@ var Resources = function (_Collection) {
     if (config.collectionActions) _this.setCollectionActions(config.collectionActions);
     if (config.filterParams) _this.setFilterParams(config.filterParams);
     if (config.memberActions) _this.setMemberActions(config.memberActions);
+    if (config.primaryKey) _this.setPrimaryKey(config.primaryKey);
     if (config.searchParams) _this.setSearchParams(config.searchParams);
     if (config.sortParams) _this.setSortParams(config.sortParams);
     if (config.virtualFilters) _this.setVirtualFilters(config.virtualFilters);
@@ -99,6 +100,11 @@ var Resources = function (_Collection) {
     key: 'setFilterParams',
     value: function setFilterParams(filterParams) {
       this._setOption('filterParams', _lodash2.default.castArray(filterParams));
+    }
+  }, {
+    key: 'setPrimaryKey',
+    value: function setPrimaryKey(primaryKey) {
+      this._setOption('primaryKey', primaryKey);
     }
   }, {
     key: 'setSearchParams',
@@ -160,35 +166,35 @@ var Resources = function (_Collection) {
     key: '_fetchResource',
     value: function () {
       var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
+        var primary_key;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return options.model.where({
-                  id: req.params.id
-                }).fetch({
+                primary_key = options.primaryKey || 'id';
+                _context.next = 3;
+                return options.model.where((0, _defineProperty3.default)({}, primary_key, req.params.id)).fetch({
                   transacting: trx,
                   withRelated: options.withRelated ? _lodash2.default.castArray(options.withRelated) : []
                 });
 
-              case 2:
+              case 3:
                 req.resource = _context.sent;
 
                 if (!req.resource) {
-                  _context.next = 5;
+                  _context.next = 6;
                   break;
                 }
 
                 return _context.abrupt('return', req);
 
-              case 5:
+              case 6:
                 throw new _error2.default({
                   code: 404,
                   message: 'Unable to load record'
                 });
 
-              case 6:
+              case 7:
               case 'end':
                 return _context.stop();
             }

@@ -256,7 +256,7 @@ var Route = function (_Component) {
 
       return {
         method: this.method,
-        path: path.replace(':id', ':id(\\d+)') + '.:format?',
+        path: path + '.:format?',
         options: options,
         hooks: hooks,
         handler: handler

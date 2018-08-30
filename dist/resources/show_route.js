@@ -48,6 +48,7 @@ var ShowRoute = function (_Route) {
     _this.setPath('/:id');
     _this.setProcessor(_this._processor);
     if (config.model) _this.setModel(config.model);
+    if (config.primaryKey) _this.setPrimaryKey(config.primaryKey);
     return _this;
   }
 
@@ -55,6 +56,11 @@ var ShowRoute = function (_Route) {
     key: 'setModel',
     value: function setModel(model) {
       this._setOption('model', model);
+    }
+  }, {
+    key: 'setPrimaryKey',
+    value: function setPrimaryKey(primaryKey) {
+      this._setOption('primaryKey', primaryKey);
     }
   }, {
     key: '_processor',

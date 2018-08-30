@@ -66,6 +66,7 @@ var DestroyRoute = function (_Route) {
     _this.setPath('/:id');
     _this.setProcessor(_this._processor);
     if (config.model) _this.setModel(config.model);
+    if (config.primaryKey) _this.setPrimaryKey(config.primaryKey);
     return _this;
   }
 
@@ -73,6 +74,11 @@ var DestroyRoute = function (_Route) {
     key: 'setModel',
     value: function setModel(model) {
       this._setOption('model', model);
+    }
+  }, {
+    key: 'setPrimaryKey',
+    value: function setPrimaryKey(primaryKey) {
+      this._setOption('primaryKey', primaryKey);
     }
   }, {
     key: '_processor',
@@ -165,10 +171,7 @@ var DestroyRoute = function (_Route) {
                             return _context3.abrupt('return');
 
                           case 5:
-
-                            console.log(dependent.relationship, results.length);
-
-                            _context3.next = 8;
+                            _context3.next = 7;
                             return (0, _bluebird.map)(results.toArray(), function () {
                               var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(record) {
                                 return _regenerator2.default.wrap(function _callee2$(_context2) {
@@ -203,7 +206,7 @@ var DestroyRoute = function (_Route) {
                               };
                             }());
 
-                          case 8:
+                          case 7:
                           case 'end':
                             return _context3.stop();
                         }
