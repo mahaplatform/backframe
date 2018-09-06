@@ -37,6 +37,7 @@ var FilterSort = function () {
     this.filterParams = null;
     this.searchParams = null;
     this.sortParams = [];
+    this.virtualFilters = [];
 
     this.defaultQuery = options.defaultQuery;
     this.defaultSort = options.defaultSort;
@@ -45,6 +46,7 @@ var FilterSort = function () {
     this.filterParams = options.filterParams;
     this.searchParams = options.searchParams;
     this.sortParams = options.sortParams;
+    this.virtualFilters = options.virtualFilters;
   }
 
   (0, _createClass3.default)(FilterSort, [{
@@ -67,7 +69,7 @@ var FilterSort = function () {
 
       var sort = this._getAllowedSort(req.query.$sort, this.sortParams, this.defaultSort);
 
-      if (virtualFilters) this._filterVirtual(qb, virtualFilters);
+      if (virtualFilters) this._filterVirtual(qb, this.virtualFilters, virtualFilters);
 
       if (filters.q && this.searchParams) this._filterSearch(qb, tableName, this.searchParams, filters.q);
 
@@ -93,11 +95,11 @@ var FilterSort = function () {
     }
   }, {
     key: '_getAllowedVirtualFilters',
-    value: function _getAllowedVirtualFilters(filters, virtualFiters) {
+    value: function _getAllowedVirtualFilters(filters, virtualFilters) {
 
-      if (!filters || !virtualFiters) return null;
+      if (!filters || !virtualFilters) return null;
 
-      return _lodash2.default.pick(filters, Object.keys(virtualFiters));
+      return _lodash2.default.pick(filters, Object.keys(virtualFilters));
     }
   }, {
     key: '_getAllowedSort',
@@ -112,13 +114,13 @@ var FilterSort = function () {
     }
   }, {
     key: '_filterVirtual',
-    value: function _filterVirtual(qb, virtualFilters) {
+    value: function _filterVirtual(qb, virtualFilters, filters) {
 
       Object.keys(virtualFilters).map(function (key) {
 
-        if (!virtualFilters[key]) return;
+        if (!filters[key]) return;
 
-        virtualFilters[key](qb, virtualFilters[key]);
+        virtualFilters[key](qb, filters[key]);
       });
     }
   }, {

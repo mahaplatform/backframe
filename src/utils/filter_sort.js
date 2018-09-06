@@ -19,6 +19,8 @@ class FilterSort {
 
   sortParams = []
 
+  virtualFilters = []
+
   constructor(options) {
     this.defaultQuery = options.defaultQuery
     this.defaultSort = options.defaultSort
@@ -27,6 +29,7 @@ class FilterSort {
     this.filterParams = options.filterParams
     this.searchParams = options.searchParams
     this.sortParams = options.sortParams
+    this.virtualFilters = options.virtualFilters
   }
 
   applyShared(req, trx, qb, options) {
@@ -47,7 +50,7 @@ class FilterSort {
 
     const sort = this._getAllowedSort(req.query.$sort, this.sortParams, this.defaultSort)
 
-    if(virtualFilters) this._filterVirtual(qb, virtualFilters)
+    if(virtualFilters) this._filterVirtual(qb, this.virtualFilters, virtualFilters)
 
     if(filters.q && this.searchParams) this._filterSearch(qb, tableName, this.searchParams, filters.q)
 
@@ -71,11 +74,11 @@ class FilterSort {
 
   }
 
-  _getAllowedVirtualFilters(filters, virtualFiters) {
+  _getAllowedVirtualFilters(filters, virtualFilters) {
 
-    if(!filters || !virtualFiters) return null
+    if(!filters || !virtualFilters) return null
 
-    return _.pick(filters, Object.keys(virtualFiters))
+    return _.pick(filters, Object.keys(virtualFilters))
 
   }
 
@@ -91,13 +94,13 @@ class FilterSort {
 
   }
 
-  _filterVirtual(qb, virtualFilters) {
+  _filterVirtual(qb, virtualFilters, filters) {
 
     Object.keys(virtualFilters).map(key => {
 
-      if(!virtualFilters[key]) return
+      if(!filters[key]) return
 
-      virtualFilters[key](qb, virtualFilters[key])
+      virtualFilters[key](qb, filters[key])
 
     })
 

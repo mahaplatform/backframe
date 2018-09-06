@@ -119,7 +119,7 @@ var Resources = function (_Collection) {
   }, {
     key: 'setVirtualFilters',
     value: function setVirtualFilters(virtualFilters) {
-      this._setOption('virtualFilters', _lodash2.default.castArray(virtualFilters));
+      this._setOption('virtualFilters', virtualFilters);
     }
   }, {
     key: 'setCollectionActions',

@@ -12,6 +12,7 @@ class ListRoute extends Route {
     if(config.model) this.setModel(config.model)
     if(config.searchParams) this.setSearchParams(config.searchParams)
     if(config.sortParams) this.setSortParams(config.sortParams)
+    if(config.virtualFilters) this.setVirtualFilters(config.virtualFilters)
     if(config.withRelated) this.setWithRelated(config.withRelated)
     this.setAction('list')
     this.setMethod('get')
@@ -41,6 +42,10 @@ class ListRoute extends Route {
 
   setSortParams(sortParams) {
     this._setOption('sortParams', _.castArray(sortParams))
+  }
+
+  setVirtualFilters(virtualFilters) {
+    this._setOption('virtualFilters', virtualFilters)
   }
 
   setWithRelated(withRelated) {

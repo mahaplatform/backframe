@@ -59,6 +59,7 @@ var ListRoute = function (_Route) {
     if (config.model) _this.setModel(config.model);
     if (config.searchParams) _this.setSearchParams(config.searchParams);
     if (config.sortParams) _this.setSortParams(config.sortParams);
+    if (config.virtualFilters) _this.setVirtualFilters(config.virtualFilters);
     if (config.withRelated) _this.setWithRelated(config.withRelated);
     _this.setAction('list');
     _this.setMethod('get');
@@ -96,6 +97,11 @@ var ListRoute = function (_Route) {
     key: 'setSortParams',
     value: function setSortParams(sortParams) {
       this._setOption('sortParams', _lodash2.default.castArray(sortParams));
+    }
+  }, {
+    key: 'setVirtualFilters',
+    value: function setVirtualFilters(virtualFilters) {
+      this._setOption('virtualFilters', virtualFilters);
     }
   }, {
     key: 'setWithRelated',

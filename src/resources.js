@@ -42,7 +42,7 @@ class Resources extends Collection {
   }
 
   setVirtualFilters(virtualFilters) {
-    this._setOption('virtualFilters', _.castArray(virtualFilters))
+    this._setOption('virtualFilters', virtualFilters)
   }
 
   setCollectionActions(collectionActions) {
