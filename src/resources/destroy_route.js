@@ -25,14 +25,20 @@ class DestroyRoute extends Route {
 
   async _processor(req, trx, options) {
 
+    const primary_key = options.primaryKey || 'id'
+
     try {
 
+      console.log('foo')
+
       const frozen = await options.model.where({
-        id: req.params.id
+        [primary_key]: req.params.id
       }).fetch({
         transacting: trx,
         withRelated: options.withRelated ? _.castArray(options.withRelated): []
       })
+
+      console.log('bar', frozen)
 
       if(options.dependents) await this._destroyRelated(req, trx, options)
 

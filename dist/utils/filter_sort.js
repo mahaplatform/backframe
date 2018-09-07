@@ -69,6 +69,8 @@ var FilterSort = function () {
 
       var sort = this._getAllowedSort(req.query.$sort, this.sortParams, this.defaultSort);
 
+      this._filterShared(req, trx, qb, options);
+
       if (virtualFilters) this._filterVirtual(qb, this.virtualFilters, virtualFilters);
 
       if (filters.q && this.searchParams) this._filterSearch(qb, tableName, this.searchParams, filters.q);
@@ -76,8 +78,6 @@ var FilterSort = function () {
       if (req.query.$exclude_ids) this._filterExcludeIds(qb, tableName, req.query.$exclude_ids);
 
       if (req.query.$ids) this._filterIncludeIds(qb, tableName, req.query.$ids);
-
-      this._filterShared(req, trx, qb, options);
 
       if (filters) this._filterRecords(qb, filters, tableName);
 

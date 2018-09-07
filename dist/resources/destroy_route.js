@@ -4,15 +4,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
 var _bluebird = require('bluebird');
 
 var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
@@ -84,53 +84,59 @@ var DestroyRoute = function (_Route) {
     key: '_processor',
     value: function () {
       var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
-        var frozen;
+        var primary_key, frozen;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return options.model.where({
-                  id: req.params.id
-                }).fetch({
+                primary_key = options.primaryKey || 'id';
+                _context.prev = 1;
+
+
+                console.log('foo');
+
+                _context.next = 5;
+                return options.model.where((0, _defineProperty3.default)({}, primary_key, req.params.id)).fetch({
                   transacting: trx,
                   withRelated: options.withRelated ? _lodash2.default.castArray(options.withRelated) : []
                 });
 
-              case 3:
+              case 5:
                 frozen = _context.sent;
 
+
+                console.log('bar', frozen);
+
                 if (!options.dependents) {
-                  _context.next = 7;
+                  _context.next = 10;
                   break;
                 }
 
-                _context.next = 7;
+                _context.next = 10;
                 return this._destroyRelated(req, trx, options);
 
-              case 7:
-                _context.next = 9;
+              case 10:
+                _context.next = 12;
                 return this._destroyResource(options, req.resource, trx);
 
-              case 9:
+              case 12:
                 return _context.abrupt('return', frozen);
 
-              case 12:
-                _context.prev = 12;
-                _context.t0 = _context['catch'](0);
+              case 15:
+                _context.prev = 15;
+                _context.t0 = _context['catch'](1);
                 throw new _error2.default({
                   code: 422,
                   message: 'Unable to destroy record',
                   errors: _context.t0.errors ? _context.t0.toJSON() : _context.t0.message
                 });
 
-              case 15:
+              case 18:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 12]]);
+        }, _callee, this, [[1, 15]]);
       }));
 
       function _processor(_x2, _x3, _x4) {
