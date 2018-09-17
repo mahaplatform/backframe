@@ -91,39 +91,32 @@ var DestroyRoute = function (_Route) {
               case 0:
                 primary_key = options.primaryKey || 'id';
                 _context.prev = 1;
-
-
-                console.log('foo');
-
-                _context.next = 5;
+                _context.next = 4;
                 return options.model.where((0, _defineProperty3.default)({}, primary_key, req.params.id)).fetch({
                   transacting: trx,
                   withRelated: options.withRelated ? _lodash2.default.castArray(options.withRelated) : []
                 });
 
-              case 5:
+              case 4:
                 frozen = _context.sent;
 
-
-                console.log('bar', frozen);
-
                 if (!options.dependents) {
-                  _context.next = 10;
+                  _context.next = 8;
                   break;
                 }
 
-                _context.next = 10;
+                _context.next = 8;
                 return this._destroyRelated(req, trx, options);
 
-              case 10:
-                _context.next = 12;
+              case 8:
+                _context.next = 10;
                 return this._destroyResource(options, req.resource, trx);
 
-              case 12:
+              case 10:
                 return _context.abrupt('return', frozen);
 
-              case 15:
-                _context.prev = 15;
+              case 13:
+                _context.prev = 13;
                 _context.t0 = _context['catch'](1);
                 throw new _error2.default({
                   code: 422,
@@ -131,12 +124,12 @@ var DestroyRoute = function (_Route) {
                   errors: _context.t0.errors ? _context.t0.toJSON() : _context.t0.message
                 });
 
-              case 18:
+              case 16:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 15]]);
+        }, _callee, this, [[1, 13]]);
       }));
 
       function _processor(_x2, _x3, _x4) {
@@ -241,17 +234,49 @@ var DestroyRoute = function (_Route) {
     }()
   }, {
     key: '_destroyResource',
-    value: function _destroyResource(options, resource, trx) {
+    value: function () {
+      var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5(options, resource, trx) {
+        return _regenerator2.default.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                if (options.softDelete) {
+                  _context5.next = 4;
+                  break;
+                }
 
-      if (!options.softDelete) return resource.destroy({ transacting: trx });
+                _context5.next = 3;
+                return resource.destroy({ transacting: trx });
 
-      return resource.save({
-        deleted_at: (0, _moment2.default)()
-      }, {
-        patch: true,
-        transacting: trx
-      });
-    }
+              case 3:
+                return _context5.abrupt('return', _context5.sent);
+
+              case 4:
+                _context5.next = 6;
+                return resource.save({
+                  deleted_at: (0, _moment2.default)()
+                }, {
+                  patch: true,
+                  transacting: trx
+                });
+
+              case 6:
+                return _context5.abrupt('return', _context5.sent);
+
+              case 7:
+              case 'end':
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function _destroyResource(_x10, _x11, _x12) {
+        return _ref5.apply(this, arguments);
+      }
+
+      return _destroyResource;
+    }()
   }]);
   return DestroyRoute;
 }(_route2.default);

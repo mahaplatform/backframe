@@ -29,16 +29,12 @@ class DestroyRoute extends Route {
 
     try {
 
-      console.log('foo')
-
       const frozen = await options.model.where({
         [primary_key]: req.params.id
       }).fetch({
         transacting: trx,
         withRelated: options.withRelated ? _.castArray(options.withRelated): []
       })
-
-      console.log('bar', frozen)
 
       if(options.dependents) await this._destroyRelated(req, trx, options)
 
@@ -79,11 +75,11 @@ class DestroyRoute extends Route {
 
   }
 
-  _destroyResource(options, resource, trx) {
+  async _destroyResource(options, resource, trx) {
 
-    if(!options.softDelete) return resource.destroy({ transacting: trx })
+    if(!options.softDelete) return await resource.destroy({ transacting: trx })
 
-    return resource.save({
+    return await resource.save({
       deleted_at: moment()
     }, {
       patch: true,
