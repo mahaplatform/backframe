@@ -217,7 +217,7 @@ var Route = function (_Component) {
 
                     logger.print();
 
-                    _context.next = 42;
+                    _context.next = 44;
                     break;
 
                   case 34:
@@ -227,15 +227,21 @@ var Route = function (_Component) {
                     return _this2._runHooks(req, trx, null, options, hooks.beforeRollback, false);
 
                   case 38:
+                    _context.next = 40;
+                    return trx.rollback(_context.t1);
+
+                  case 40:
+
+                    logger.print();
+
+                    if (process.env.NODE_ENV !== 'production') console.log(_context.t1);
+
                     error_responder = new _error_responder2.default({ res: res, error: _context.t1 });
 
 
                     error_responder.render();
 
-                    _context.next = 42;
-                    return trx.rollback(_context.t1);
-
-                  case 42:
+                  case 44:
                   case 'end':
                     return _context.stop();
                 }
@@ -246,12 +252,7 @@ var Route = function (_Component) {
           return function (_x5) {
             return _ref.apply(this, arguments);
           };
-        }()).catch(function (error) {
-
-          logger.print();
-
-          if (process.env.NODE_ENV !== 'production') console.log(error);
-        });
+        }());
       };
 
       return {

@@ -98,19 +98,17 @@ class Route extends Component {
 
           await this._runHooks(req, trx, null, options, hooks.beforeRollback, false)
 
+          await trx.rollback(error)
+
+          logger.print()
+
+          if(process.env.NODE_ENV !== 'production') console.log(error)
+
           const error_responder = new ErrorResponder({ res, error })
 
           error_responder.render()
 
-          await trx.rollback(error)
-
         }
-
-      }).catch((error) => {
-
-        logger.print()
-
-        if(process.env.NODE_ENV !== 'production') console.log(error)
 
       })
 
