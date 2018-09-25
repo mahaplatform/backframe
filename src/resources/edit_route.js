@@ -10,7 +10,12 @@ class EditRoute extends Route {
     this.setPath('/:id/edit')
     this.setProcessor(this._processor)
     this.setSerializer(this._processor)
+    if(config.defaultQuery) this.setDefaultQuery(config.defaultQuery)
     if(config.model) this.setModel(config.model)
+  }
+
+  setDefaultQuery(defaultQuery) {
+    this._setOption('defaultQuery', _.castArray(defaultQuery))
   }
 
   setModel(model) {

@@ -166,35 +166,47 @@ var Resources = function (_Collection) {
     key: '_fetchResource',
     value: function () {
       var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, trx, options) {
-        var primary_key;
+        var tableName, primary_key;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                tableName = options.model.extend().__super__.tableName;
                 primary_key = options.primaryKey || 'id';
-                _context.next = 3;
-                return options.model.where((0, _defineProperty3.default)({}, primary_key, req.params.id)).fetch({
+                _context.next = 4;
+                return options.model.query(function (qb) {
+
+                  if (options.defaultQuery) {
+
+                    _lodash2.default.castArray(options.defaultQuery).map(function (query) {
+
+                      query(req, trx, qb, options);
+                    });
+                  }
+
+                  qb.where(tableName + '.' + primary_key, req.params.id);
+                }).fetch({
                   transacting: trx,
                   withRelated: options.withRelated ? _lodash2.default.castArray(options.withRelated) : []
                 });
 
-              case 3:
+              case 4:
                 req.resource = _context.sent;
 
                 if (!req.resource) {
-                  _context.next = 6;
+                  _context.next = 7;
                   break;
                 }
 
                 return _context.abrupt('return', req);
 
-              case 6:
+              case 7:
                 throw new _error2.default({
                   code: 404,
                   message: 'Unable to load record'
                 });
 
-              case 7:
+              case 8:
               case 'end':
                 return _context.stop();
             }

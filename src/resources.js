@@ -84,10 +84,24 @@ class Resources extends Collection {
 
   async _fetchResource(req, trx, options) {
 
+    const tableName = options.model.extend().__super__.tableName
+
     const primary_key = options.primaryKey || 'id'
 
-    req.resource = await options.model.where({
-      [primary_key]: req.params.id
+    req.resource = await options.model.query(qb => {
+
+      if(options.defaultQuery) {
+
+        _.castArray(options.defaultQuery).map(query => {
+
+          query(req, trx, qb, options)
+
+        })
+
+      }
+
+      qb.where(`${tableName}.${primary_key}`, req.params.id)
+
     }).fetch({
       transacting: trx,
       withRelated: options.withRelated ? _.castArray(options.withRelated): []

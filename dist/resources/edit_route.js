@@ -52,11 +52,17 @@ var EditRoute = function (_Route) {
     _this.setPath('/:id/edit');
     _this.setProcessor(_this._processor);
     _this.setSerializer(_this._processor);
+    if (config.defaultQuery) _this.setDefaultQuery(config.defaultQuery);
     if (config.model) _this.setModel(config.model);
     return _this;
   }
 
   (0, _createClass3.default)(EditRoute, [{
+    key: 'setDefaultQuery',
+    value: function setDefaultQuery(defaultQuery) {
+      this._setOption('defaultQuery', _lodash2.default.castArray(defaultQuery));
+    }
+  }, {
     key: 'setModel',
     value: function setModel(model) {
       this._setOption('model', model);

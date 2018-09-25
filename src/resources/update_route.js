@@ -11,9 +11,14 @@ class UpdateRoute extends Route {
     this.setPath('/:id')
     this.setProcessor(this._processor)
     if(config.allowedParams) this.setAllowedParams(config.allowedParams)
+    if(config.defaultQuery) this.setDefaultQuery(config.defaultQuery)
     if(config.model) this.setModel(config.model)
     if(config.primaryKey) this.setPrimaryKey(config.primaryKey)
     if(config.virtualParams) this.setVirtualParams(config.virtualParams)
+  }
+
+  setDefaultQuery(defaultQuery) {
+    this._setOption('defaultQuery', _.castArray(defaultQuery))
   }
 
   setAllowedParams(allowedParams) {

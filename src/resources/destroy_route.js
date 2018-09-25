@@ -11,8 +11,13 @@ class DestroyRoute extends Route {
     this.setMethod('delete')
     this.setPath('/:id')
     this.setProcessor(this._processor)
+    if(config.defaultQuery) this.setDefaultQuery(config.defaultQuery)
     if(config.model) this.setModel(config.model)
     if(config.primaryKey) this.setPrimaryKey(config.primaryKey)
+  }
+
+  setDefaultQuery(defaultQuery) {
+    this._setOption('defaultQuery', _.castArray(defaultQuery))
   }
 
   setModel(model) {

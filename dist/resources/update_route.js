@@ -56,6 +56,7 @@ var UpdateRoute = function (_Route) {
     _this.setPath('/:id');
     _this.setProcessor(_this._processor);
     if (config.allowedParams) _this.setAllowedParams(config.allowedParams);
+    if (config.defaultQuery) _this.setDefaultQuery(config.defaultQuery);
     if (config.model) _this.setModel(config.model);
     if (config.primaryKey) _this.setPrimaryKey(config.primaryKey);
     if (config.virtualParams) _this.setVirtualParams(config.virtualParams);
@@ -63,6 +64,11 @@ var UpdateRoute = function (_Route) {
   }
 
   (0, _createClass3.default)(UpdateRoute, [{
+    key: 'setDefaultQuery',
+    value: function setDefaultQuery(defaultQuery) {
+      this._setOption('defaultQuery', _lodash2.default.castArray(defaultQuery));
+    }
+  }, {
     key: 'setAllowedParams',
     value: function setAllowedParams(allowedParams) {
       this._setOption('allowedParams', allowedParams);

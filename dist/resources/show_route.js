@@ -47,12 +47,18 @@ var ShowRoute = function (_Route) {
     _this.setMethod('get');
     _this.setPath('/:id');
     _this.setProcessor(_this._processor);
+    if (config.defaultQuery) _this.setDefaultQuery(config.defaultQuery);
     if (config.model) _this.setModel(config.model);
     if (config.primaryKey) _this.setPrimaryKey(config.primaryKey);
     return _this;
   }
 
   (0, _createClass3.default)(ShowRoute, [{
+    key: 'setDefaultQuery',
+    value: function setDefaultQuery(defaultQuery) {
+      this._setOption('defaultQuery', _.castArray(defaultQuery));
+    }
+  }, {
     key: 'setModel',
     value: function setModel(model) {
       this._setOption('model', model);
