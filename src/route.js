@@ -3,9 +3,7 @@ import JsonResponder from './responders/json_responder'
 import XlsxResponder from './responders/xlsx_responder'
 import CsvResponder from './responders/csv_responder'
 import XmlResponder from './responders/xml_responder'
-import Reporter from './reporters/reporter'
 import Component from './component'
-import Logger from './utils/logger'
 import Renderer from './renderer'
 import _ from 'lodash'
 
@@ -54,17 +52,9 @@ class Route extends Component {
 
     const hooks = this._mergeHooks(routeHooks, this.hooks)
 
-    const reporter = new Reporter()
-
-    const logger = options.logger ? new options.logger() : new Logger()
-
-    logger.setReporter(reporter)
-
     const handler = (req, res, next) => {
 
       return options.knex.transaction(async trx => {
-
-        logger.init(req, res, trx)
 
         try {
 
@@ -92,15 +82,11 @@ class Route extends Component {
 
           await this._runHooks(req, trx, result, options, hooks.afterCommit, true)
 
-          logger.print()
-
         } catch(error) {
 
           await this._runHooks(req, trx, null, options, hooks.beforeRollback, false)
 
           await trx.rollback(error)
-
-          logger.print()
 
           if(process.env.NODE_ENV !== 'production') console.log(error)
 

@@ -54,17 +54,9 @@ var _xml_responder = require('./responders/xml_responder');
 
 var _xml_responder2 = _interopRequireDefault(_xml_responder);
 
-var _reporter = require('./reporters/reporter');
-
-var _reporter2 = _interopRequireDefault(_reporter);
-
 var _component = require('./component');
 
 var _component2 = _interopRequireDefault(_component);
-
-var _logger = require('./utils/logger');
-
-var _logger2 = _interopRequireDefault(_logger);
 
 var _renderer = require('./renderer');
 
@@ -139,12 +131,6 @@ var Route = function (_Component) {
 
       var hooks = this._mergeHooks(routeHooks, this.hooks);
 
-      var reporter = new _reporter2.default();
-
-      var logger = options.logger ? new options.logger() : new _logger2.default();
-
-      logger.setReporter(reporter);
-
       var handler = function handler(req, res, next) {
 
         return options.knex.transaction(function () {
@@ -154,85 +140,77 @@ var Route = function (_Component) {
               while (1) {
                 switch (_context.prev = _context.next) {
                   case 0:
-
-                    logger.init(req, res, trx);
-
-                    _context.prev = 1;
-                    _context.next = 4;
+                    _context.prev = 0;
+                    _context.next = 3;
                     return _this2._alterRequest(req, trx, options, hooks.alterRequest);
 
-                  case 4:
+                  case 3:
                     req = _context.sent;
-                    _context.next = 7;
+                    _context.next = 6;
                     return _this2._runHooks(req, trx, null, options, hooks.beforeProcessor, false);
 
-                  case 7:
-                    _context.next = 9;
+                  case 6:
+                    _context.next = 8;
                     return _this2.processor(req, trx, options);
 
-                  case 9:
+                  case 8:
                     _context.t0 = _context.sent;
 
                     if (_context.t0) {
-                      _context.next = 12;
+                      _context.next = 11;
                       break;
                     }
 
                     _context.t0 = null;
 
-                  case 12:
+                  case 11:
                     result = _context.t0;
-                    _context.next = 15;
+                    _context.next = 14;
                     return _this2._runHooks(req, trx, result, options, hooks.afterProcessor, true);
 
-                  case 15:
+                  case 14:
                     renderer = new _renderer2.default({ req: req, trx: trx, result: result, options: options });
-                    _context.next = 18;
+                    _context.next = 17;
                     return renderer.render();
 
-                  case 18:
+                  case 17:
                     rendered = _context.sent;
-                    _context.next = 21;
+                    _context.next = 20;
                     return _this2._alterRecord(req, trx, rendered, options, hooks.alterRecord);
 
-                  case 21:
+                  case 20:
                     altered = _context.sent;
                     responder = _this2._getResponder(req, res, altered, options);
-                    _context.next = 25;
+                    _context.next = 24;
                     return responder.render();
 
-                  case 25:
-                    _context.next = 27;
+                  case 24:
+                    _context.next = 26;
                     return _this2._runHooks(req, trx, result, options, hooks.beforeCommit, true);
 
-                  case 27:
-                    _context.next = 29;
+                  case 26:
+                    _context.next = 28;
                     return trx.commit(result);
 
-                  case 29:
-                    _context.next = 31;
+                  case 28:
+                    _context.next = 30;
                     return _this2._runHooks(req, trx, result, options, hooks.afterCommit, true);
 
-                  case 31:
-
-                    logger.print();
-
-                    _context.next = 44;
+                  case 30:
+                    _context.next = 41;
                     break;
 
-                  case 34:
-                    _context.prev = 34;
-                    _context.t1 = _context['catch'](1);
-                    _context.next = 38;
+                  case 32:
+                    _context.prev = 32;
+                    _context.t1 = _context['catch'](0);
+                    _context.next = 36;
                     return _this2._runHooks(req, trx, null, options, hooks.beforeRollback, false);
 
-                  case 38:
-                    _context.next = 40;
+                  case 36:
+                    _context.next = 38;
                     return trx.rollback(_context.t1);
 
-                  case 40:
-
-                    logger.print();
+                  case 38:
 
                     if (process.env.NODE_ENV !== 'production') console.log(_context.t1);
 
@@ -241,12 +219,12 @@ var Route = function (_Component) {
 
                     error_responder.render();
 
-                  case 44:
+                  case 41:
                   case 'end':
                     return _context.stop();
                 }
               }
-            }, _callee, _this2, [[1, 34]]);
+            }, _callee, _this2, [[0, 32]]);
           }));
 
           return function (_x5) {
